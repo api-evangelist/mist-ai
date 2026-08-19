@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs Linked Applications API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs Linked Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getOrgOauthAppAuthorizationUrl",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/:app_name/link_accounts",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "app_name",
+                "value": "",
+                "type": "path",
+                "description": "OAuth application name"
+              },
+              {
+                "name": "forward",
+                "value": "",
+                "type": "query",
+                "description": "Mist portal url to which backend needs to redirect after successful OAuth authorization. **Required** to get the `authorization_url`"
+              }
+            ]
+          },
+          "docs": "Get Org Level OAuth Application Linked Status"
+        },
+        {
+          "info": {
+            "name": "addOrgOauthAppAccounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/:app_name/link_accounts",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "app_name",
+                "value": "",
+                "type": "path",
+                "description": "OAuth application name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add Jamf, VMware Authorization With Mist Portal"
+        },
+        {
+          "info": {
+            "name": "updateOrgOauthAppAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/:app_name/link_accounts/:account_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "app_name",
+                "value": "",
+                "type": "path",
+                "description": "OAuth application name"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Zoom, Teams, Intune Authorization.\n\nRequest Payload, These Field And Values Will Be Specific To Each Of The Third Party Apps Accounts."
+        },
+        {
+          "info": {
+            "name": "deleteOrgOauthAppAuthorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/:app_name/link_accounts/:account_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "app_name",
+                "value": "",
+                "type": "path",
+                "description": "OAuth application name"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Org Level OAuth Application Authorization With Mist Portal"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

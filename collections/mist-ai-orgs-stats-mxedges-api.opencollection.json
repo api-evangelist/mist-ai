@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs Stats - MxEdges API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs Stats - MxEdges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listOrgMxEdgesStats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/stats/mxedges",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "for_site",
+                "value": "",
+                "type": "query",
+                "description": "Filter for site level mist edges"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get List of Org MxEdge Stats"
+        },
+        {
+          "info": {
+            "name": "getOrgMxEdgeStats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/stats/mxedges/:mxedge_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "for_site",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get Org MxEdge Details Stats"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

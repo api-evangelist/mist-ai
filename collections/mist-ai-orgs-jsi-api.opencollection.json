@@ -1,0 +1,575 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs JSI API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs JSI",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listOrgJsiDevices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/jsi/devices",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Device model"
+              },
+              {
+                "name": "serial",
+                "value": "",
+                "type": "query",
+                "description": "Device serial"
+              },
+              {
+                "name": "mac",
+                "value": "",
+                "type": "query",
+                "description": "Device MAC Address"
+              }
+            ]
+          },
+          "docs": "Get List of Org devices that connected to JSI"
+        },
+        {
+          "info": {
+            "name": "adoptOrgJsiDevice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/jsi/devices/outbound_ssh_cmd",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Adopt JSI devices"
+        },
+        {
+          "info": {
+            "name": "createOrgJsiDeviceShellSession",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/jsi/devices/:device_mac/shell",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "device_mac",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create Shell Session"
+        },
+        {
+          "info": {
+            "name": "listOrgJsiPastPurchases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/jsi/inventory",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "serial",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This gets all devices purchased from the accounts associated with the Org \n  * Fetch Install base devices for all linked accounts and associated account of the linked accounts. \n  * The primary and the associated account ids will be queries from SFDC by passing the linked account \n  * Returns only the device centric details of the Install base device. No customer specific information will be returned."
+        },
+        {
+          "info": {
+            "name": "countOrgJsiAssetsAndContracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/jsi/inventory/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "",
+                "type": "query",
+                "description": "Distinct attributes to count"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count devices purchased from the accounts associated with the Org"
+        },
+        {
+          "info": {
+            "name": "searchOrgJsiAssetsAndContracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/jsi/inventory/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "claimed",
+                "value": "",
+                "type": "query",
+                "description": "Device claim status, `true` for claimed devices, `false` for all devices"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Device model"
+              },
+              {
+                "name": "serial",
+                "value": "",
+                "type": "query",
+                "description": "Device serial"
+              },
+              {
+                "name": "sku",
+                "value": "",
+                "type": "query",
+                "description": "SKU name of the device"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Device status"
+              },
+              {
+                "name": "warranty_type",
+                "value": "",
+                "type": "query",
+                "description": "Device warranty type"
+              },
+              {
+                "name": "eol_after",
+                "value": "",
+                "type": "query",
+                "description": "Filter devices with End Of Life date after this date"
+              },
+              {
+                "name": "eol_before",
+                "value": "",
+                "type": "query",
+                "description": "Filter devices with End Of Life date before this date"
+              },
+              {
+                "name": "eos_after",
+                "value": "",
+                "type": "query",
+                "description": "Filter devices with End Of Support date after this date"
+              },
+              {
+                "name": "eos_before",
+                "value": "",
+                "type": "query",
+                "description": "Filter devices with End Of Support date before this date"
+              },
+              {
+                "name": "version_eos_after",
+                "value": "",
+                "type": "query",
+                "description": "Filter devices with OS Version End Of Support date after this date"
+              },
+              {
+                "name": "version_eos_before",
+                "value": "",
+                "type": "query",
+                "description": "Filter devices with OS Version End Of Support date before this date"
+              },
+              {
+                "name": "has_support",
+                "value": "",
+                "type": "query",
+                "description": "Indicates if the device is covered under active support contract"
+              },
+              {
+                "name": "sirt_id",
+                "value": "",
+                "type": "query",
+                "description": "To get the onboarded devices that are affected by the SIRT ID"
+              },
+              {
+                "name": "pbn_id",
+                "value": "",
+                "type": "query",
+                "description": "To get the onboarded devices that are affected by the PBN ID"
+              },
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Wildcards for `serial`, `model`, `account_id`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order"
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              }
+            ]
+          },
+          "docs": "This gets all devices purchased from the accounts associated with the Org \n  * Fetch Install base devices for all linked accounts and associated account of the linked accounts. \n  * The primary and the associated account ids will be queries from SFDC by passing the linked account \n  * Returns only the device centric details of the Install base device. No customer specific information will be returned."
+        },
+        {
+          "info": {
+            "name": "countOrgJsiPbn",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/jsi/pbn/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "",
+                "type": "query",
+                "description": "Field to group by enum: `versions`, `models`, `customer_risk`, `bug_type`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              }
+            ]
+          },
+          "docs": "Get count of PBN advisories grouped by specified field"
+        },
+        {
+          "info": {
+            "name": "searchOrgJsiPbn",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/jsi/pbn/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "versions",
+                "value": "",
+                "type": "query",
+                "description": "OS versions to search for"
+              },
+              {
+                "name": "models",
+                "value": "",
+                "type": "query",
+                "description": "Device models to search for"
+              },
+              {
+                "name": "customer_risk",
+                "value": "",
+                "type": "query",
+                "description": "Customer risk level to filter by"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "PBN ID to search for"
+              },
+              {
+                "name": "bug_type",
+                "value": "",
+                "type": "query",
+                "description": "Bug type to filter by"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              }
+            ]
+          },
+          "docs": "Text search for PBN (Problem Bug Notification) advisories. Search can be done on versions, models, customer_risk, id, and bug_type fields."
+        },
+        {
+          "info": {
+            "name": "countOrgJsiSirt",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/jsi/sirt/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "",
+                "type": "query",
+                "description": "Field to group by. enum: `jsa_updated_date`, `models`, `severity`, `versions`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              }
+            ]
+          },
+          "docs": "Get count of SIRT advisories grouped by specified field"
+        },
+        {
+          "info": {
+            "name": "searchOrgJsiSirt",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/jsi/sirt/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "severity",
+                "value": "",
+                "type": "query",
+                "description": "Severity of the SIRT (Critical, High, Medium, Low)"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "JSA number"
+              },
+              {
+                "name": "updated_after",
+                "value": "",
+                "type": "query",
+                "description": "JSA Updated date to be filtered after this date"
+              },
+              {
+                "name": "updated_before",
+                "value": "",
+                "type": "query",
+                "description": "JSA Updated date to be filtered before this date"
+              },
+              {
+                "name": "published_after",
+                "value": "",
+                "type": "query",
+                "description": "JSA Published date to be filtered after this date"
+              },
+              {
+                "name": "published_before",
+                "value": "",
+                "type": "query",
+                "description": "JSA Published date to be filtered before this date"
+              },
+              {
+                "name": "models",
+                "value": "",
+                "type": "query",
+                "description": "Models affected by the SIRT"
+              },
+              {
+                "name": "versions",
+                "value": "",
+                "type": "query",
+                "description": "Software version affected by the SIRT"
+              },
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Wildcards search on os_version_affected, affected_models, severity, jsa_id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order"
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              }
+            ]
+          },
+          "docs": "Search and get all the SIRT for the onboarded devices. Search can be done on severity, id, updated_after, updated_before, published_after, published_before, models, versions, and text fields."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

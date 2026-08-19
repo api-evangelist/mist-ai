@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Admins Login - OAuth2 API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Admins Login - OAuth2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getOauth2AuthorizationUrlForLogin",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/login/oauth/:provider",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "forward",
+                "value": "",
+                "type": "query",
+                "description": "Callback URL"
+              }
+            ]
+          },
+          "docs": "Obtain Authorization URL for Login"
+        },
+        {
+          "info": {
+            "name": "loginOauth2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/login/oauth/:provider",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Login via OAuth2"
+        },
+        {
+          "info": {
+            "name": "unlinkOauth2Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/login/oauth/:provider",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Unlink OAuth2 Provider"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,150 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs Setting API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs Setting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getOrgSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Org Settings"
+        },
+        {
+          "info": {
+            "name": "updateOrgSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Org Settings"
+        },
+        {
+          "info": {
+            "name": "createOrgWirelessClientsBlocklist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/blacklist",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Org Blacklist Client List. \n\nIf there is already a blacklist, this API will replace it with the new one. \n\nMax number of blacklist clients is 1000. \n\nRetrieve the current blacklisted clients from `blacklist_url` under Org:Setting\n"
+        },
+        {
+          "info": {
+            "name": "deleteOrgWirelessClientsBlocklist",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/blacklist",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Org Blacklist Station Clients"
+        },
+        {
+          "info": {
+            "name": "setOrgCustomBucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/pcap_bucket/setup",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provide Customer Bucket Name\n\nSetting up Custom PCAP Bucket Involves the following:\n* provide the bucket name\n* we’ll attempt to write a file MIST_TOKEN\n* you have to verify the ownership of the bucket by providing the content of the MIST_TOKEN"
+        },
+        {
+          "info": {
+            "name": "verifyOrgCustomBucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/pcap_bucket/verify",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify Customer PCAP Bucket\n\n**Note**: If successful, a \"VERIFIED\" file will be created in the bucket"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

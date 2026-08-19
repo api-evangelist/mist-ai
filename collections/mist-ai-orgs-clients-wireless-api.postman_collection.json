@@ -1,0 +1,5203 @@
+{
+  "item": [
+    {
+      "id": "90f8f3af-d942-4744-951b-dfed919a371f",
+      "name": "Orgs Clients - Wireless",
+      "description": {
+        "content": "Wireless Clients are Wi-Fi devices connected to a Juniper Mist Access Point.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "219b9073-a1df-421e-b0c4-d347eb2fcc6f",
+          "name": "countOrgWirelessClients",
+          "request": {
+            "name": "countOrgWirelessClients",
+            "description": {
+              "content": "Count by Distinct Attributes of Org Wireless Clients",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "clients",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "distinct",
+                  "value": "device"
+                },
+                {
+                  "disabled": false,
+                  "key": "mac",
+                  "value": "<string>",
+                  "description": "Partial / full Client MAC Address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported"
+                },
+                {
+                  "disabled": false,
+                  "key": "hostname",
+                  "value": "<string>",
+                  "description": "Partial / full Client hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `everest*` and `*rest*` match `my-everest-client`). Suffix-only wildcards (e.g. `*everest`) are not supported"
+                },
+                {
+                  "disabled": false,
+                  "key": "device",
+                  "value": "<string>",
+                  "description": "Device type, e.g. Mac, Nvidia, iPhone"
+                },
+                {
+                  "disabled": false,
+                  "key": "os",
+                  "value": "<string>",
+                  "description": "OS, e.g. Sierra, Yosemite, Windows 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>",
+                  "description": "Model, e.g. \"MBP 15 late 2013\", 6, 6s, \"8+ GSM\""
+                },
+                {
+                  "disabled": false,
+                  "key": "ap",
+                  "value": "<string>",
+                  "description": "AP mac where the client has connected to"
+                },
+                {
+                  "disabled": false,
+                  "key": "vlan",
+                  "value": "<string>",
+                  "description": "VLAN"
+                },
+                {
+                  "disabled": false,
+                  "key": "ssid",
+                  "value": "<string>",
+                  "description": "SSID"
+                },
+                {
+                  "disabled": false,
+                  "key": "ip",
+                  "value": "<ipv4>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "duration",
+                  "value": "1d",
+                  "description": "Duration like 7d, 2w"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "732102dd-221b-457e-9b0d-054a85c57b02",
+              "name": "Result of Count",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "192.168.1.1"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"distinct\": \"string\",\n  \"end\": 0,\n  \"limit\": 0,\n  \"results\": [\n    {\n      \"count\": 0,\n      \"property\": \"string\"\n    }\n  ],\n  \"start\": 0,\n  \"total\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12a721e4-6b0a-475b-89b3-a35cc87b5f8b",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "192.168.1.1"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6d6cf54-4358-4913-af59-e62d983318f3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "192.168.1.1"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca7f9e5f-a68e-4af5-ac4a-03f1b4eae6d0",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "192.168.1.1"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a04ca3dd-6876-4da9-867e-bbd040e767d1",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "192.168.1.1"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5706d0e2-1b8d-4950-8534-1819840dfb33",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "192.168.1.1"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b325bbb-4256-4f28-aa4b-2bbe1df7425d",
+          "name": "countOrgWirelessClientEvents",
+          "request": {
+            "name": "countOrgWirelessClientEvents",
+            "description": {
+              "content": "Count by Distinct Attributes of Client-Events",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "clients",
+                "events",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "distinct",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)"
+                },
+                {
+                  "disabled": false,
+                  "key": "reason_code",
+                  "value": "<integer>",
+                  "description": "For assoc/disassoc events"
+                },
+                {
+                  "disabled": false,
+                  "key": "ssid",
+                  "value": "<string>",
+                  "description": "SSID Name"
+                },
+                {
+                  "disabled": false,
+                  "key": "ap",
+                  "value": "<string>",
+                  "description": "AP MAC"
+                },
+                {
+                  "disabled": false,
+                  "key": "proto",
+                  "value": "<string>",
+                  "description": "a / b / g / n / ac / ax"
+                },
+                {
+                  "disabled": false,
+                  "key": "band",
+                  "value": "<string>",
+                  "description": "802.11 Band"
+                },
+                {
+                  "disabled": false,
+                  "key": "wlan_id",
+                  "value": "<string>",
+                  "description": "WLAN ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "site_id",
+                  "value": "<uuid>",
+                  "description": "Site ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "duration",
+                  "value": "1d",
+                  "description": "Duration like 7d, 2w"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9cafb88e-6709-42f5-be2d-f2cabcdf6db1",
+              "name": "Result of Count",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "72771e6a-6f5e-4de4-a5b9-1266c4197811"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"distinct\": \"string\",\n  \"end\": 0,\n  \"limit\": 0,\n  \"results\": [\n    {\n      \"count\": 0,\n      \"property\": \"string\"\n    }\n  ],\n  \"start\": 0,\n  \"total\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5bf66a1-e5fe-448f-a523-9e03678a96b2",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "72771e6a-6f5e-4de4-a5b9-1266c4197811"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "274c32a0-0e3b-4a55-9e8b-8168f5f92eb1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "72771e6a-6f5e-4de4-a5b9-1266c4197811"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f81a396-ae4f-44d5-a8fa-d3530a349a21",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "72771e6a-6f5e-4de4-a5b9-1266c4197811"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e00d115a-2ad4-43e0-910f-8a37a8b09cfe",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "72771e6a-6f5e-4de4-a5b9-1266c4197811"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a6120f7-d002-469c-8e0d-9bc8f8571d01",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "72771e6a-6f5e-4de4-a5b9-1266c4197811"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f657a47-5d31-4ac2-80a8-10c6a47e68b8",
+          "name": "searchOrgWirelessClientEvents",
+          "request": {
+            "name": "searchOrgWirelessClientEvents",
+            "description": {
+              "content": "Get Org Clients Events",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "clients",
+                "events",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)"
+                },
+                {
+                  "disabled": false,
+                  "key": "reason_code",
+                  "value": "<integer>",
+                  "description": "For assoc/disassoc events"
+                },
+                {
+                  "disabled": false,
+                  "key": "ssid",
+                  "value": "<string>",
+                  "description": "SSID Name"
+                },
+                {
+                  "disabled": false,
+                  "key": "ap",
+                  "value": "<string>",
+                  "description": "AP MAC"
+                },
+                {
+                  "disabled": false,
+                  "key": "key_mgmt",
+                  "value": "<string>",
+                  "description": "Key Management Protocol, e.g. WPA2-PSK, WPA3-SAE, WPA2-Enterprise"
+                },
+                {
+                  "disabled": false,
+                  "key": "proto",
+                  "value": "<string>",
+                  "description": "a / b / g / n / ac / ax"
+                },
+                {
+                  "disabled": false,
+                  "key": "band",
+                  "value": "<string>",
+                  "description": "802.11 Band"
+                },
+                {
+                  "disabled": false,
+                  "key": "wlan_id",
+                  "value": "<uuid>",
+                  "description": "WLAN_id"
+                },
+                {
+                  "disabled": false,
+                  "key": "nacrule_id",
+                  "value": "<uuid>",
+                  "description": "Nacrule_id"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "duration",
+                  "value": "1d",
+                  "description": "Duration like 7d, 2w"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "timestamp",
+                  "description": "On which field the list should be sorted, -prefix represents DESC order"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "search_after",
+                  "value": "<string>",
+                  "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c0dab0a-3307-4c79-8729-3ca04630b38c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "7"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "key_mgmt",
+                      "value": "WPA2-PSK"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"end\": 0,\n  \"limit\": 0,\n  \"results\": [\n    {\n      \"ap\": \"string\",\n      \"band\": \"24\",\n      \"bssid\": \"string\",\n      \"channel\": 0,\n      \"proto\": \"a\",\n      \"ssid\": \"string\",\n      \"text\": \"string\",\n      \"timestamp\": 0,\n      \"type\": \"string\",\n      \"type_code\": 0,\n      \"wlan_id\": \"b069b358-4c97-5319-1f8c-7c5ca64d6ab1\"\n    }\n  ],\n  \"start\": 0,\n  \"total\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb2abd90-5a06-46b5-9e27-bfdafca41788",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "7"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "key_mgmt",
+                      "value": "WPA2-PSK"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "531f811a-c258-4965-bd2a-56bd80589ab3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "7"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "key_mgmt",
+                      "value": "WPA2-PSK"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "097996db-d59f-4ff0-86f4-43c15b4ffabc",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "7"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "key_mgmt",
+                      "value": "WPA2-PSK"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c75ca3b0-3ba0-4ad0-af92-8740333cfc70",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "7"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "key_mgmt",
+                      "value": "WPA2-PSK"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80e504b3-030f-45c7-97c5-2a169b8ce067",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reason_code",
+                      "value": "7"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "key_mgmt",
+                      "value": "WPA2-PSK"
+                    },
+                    {
+                      "key": "proto",
+                      "value": "be"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7017cf5d-b580-4441-bf57-90257dfe3165",
+          "name": "searchOrgWirelessClients",
+          "request": {
+            "name": "searchOrgWirelessClients",
+            "description": {
+              "content": "Search Org Wireless Clients",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "clients",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "site_id",
+                  "value": "<uuid>",
+                  "description": "Site ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "ap",
+                  "value": "<string>",
+                  "description": "AP MAC address where the client has connected to"
+                },
+                {
+                  "disabled": false,
+                  "key": "band",
+                  "value": "<string>",
+                  "description": "Comma separated list of Radio band (e.g. `24,5`). enum: `24`, `5`, `6`"
+                },
+                {
+                  "disabled": false,
+                  "key": "device",
+                  "value": "<string>",
+                  "description": "Comma separated list of Device type (e.g. `Mac,iPhone`). Case sensitive"
+                },
+                {
+                  "disabled": false,
+                  "key": "hostname",
+                  "value": "<string>",
+                  "description": "Partial / full Client hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `everest*` and `*rest*` match `my-everest-client`). Suffix-only wildcards (e.g. `*everest`) are not supported"
+                },
+                {
+                  "disabled": false,
+                  "key": "ip",
+                  "value": "<string>",
+                  "description": "Partial / full Client IP Address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `10.100.10.*` and `*100.10.*` match `10.100.10.54`). Suffix-only wildcards (e.g. `*.54`) are not supported"
+                },
+                {
+                  "disabled": false,
+                  "key": "mac",
+                  "value": "<string>",
+                  "description": "Partial / full Client MAC Address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported"
+                },
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>",
+                  "description": "Only available for clients running the Marvis Client app, model, e.g. \"MBP 15 late 2013\", 6, 6s, \"8+ GSM\""
+                },
+                {
+                  "disabled": false,
+                  "key": "os",
+                  "value": "<string>",
+                  "description": "Only available for clients running the Marvis Client app, os, e.g. Sierra, Yosemite, Windows 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "psk_id",
+                  "value": "<string>",
+                  "description": "PSK ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "psk_name",
+                  "value": "<string>",
+                  "description": "Only available for clients using PPSK authentication, the Name of the PSK"
+                },
+                {
+                  "disabled": false,
+                  "key": "ssid",
+                  "value": "<string>",
+                  "description": "SSID"
+                },
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "Partial / full MAC address, hostname, username, psk_name or ip. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `everest*` and `*rest*` match `my-everest-client`). Suffix-only wildcards (e.g. `*everest`) are not supported"
+                },
+                {
+                  "disabled": false,
+                  "key": "username",
+                  "value": "<string>",
+                  "description": "Partial / full username. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `johndoe*` and `*mycorp*` match `johndoe@mycorp.com`). Suffix-only wildcards (e.g. `*mycorp.com`) are not supported"
+                },
+                {
+                  "disabled": false,
+                  "key": "vlan",
+                  "value": "<string>",
+                  "description": "VLAN"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "duration",
+                  "value": "1d",
+                  "description": "Duration like 7d, 2w"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "timestamp",
+                  "description": "On which field the list should be sorted, -prefix represents DESC order"
+                },
+                {
+                  "disabled": false,
+                  "key": "search_after",
+                  "value": "<string>",
+                  "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "baef864a-b7e3-4d42-95e4-731cbf145ab7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "10.100.10.54"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "text",
+                      "value": "5c5b530"
+                    },
+                    {
+                      "key": "username",
+                      "value": "johndoe"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"end\": 17141231418.812,\n  \"limit\": 118,\n  \"next\": \"next8\",\n  \"results\": [\n    {\n      \"ap\": [\n        \"a83a79a947ee\",\n        \"003e73170b4c\"\n      ],\n      \"app_version\": [\n        \"0.100.3\"\n      ],\n      \"band\": \"5\",\n      \"device\": [\n        \"Mac\"\n      ],\n      \"ftc\": false,\n      \"hardware\": \"Apple Wi-Fi adapter\",\n      \"hostname\": [\n        \"hostname-a\",\n        \"hostname-b\"\n      ],\n      \"ip\": [\n        \"10.5.23.43\",\n        \"192.168.0.2\"\n      ],\n      \"last_ap\": \"a83a79a947ee\",\n      \"last_device\": \"Mac\",\n      \"last_firmware\": \"wl0: Jan 20 2024 04:08:41 version 20.103.12.0.8.7.171 FWID 01-e09d2675\",\n      \"last_hostname\": \"hostname-a\",\n      \"last_ip\": \"10.5.23.43\",\n      \"last_model\": \"MBP 16\\\\\\\" M1 2021\",\n      \"last_os\": \"Sonoma\",\n      \"last_os_version\": \"14.4.1 (Build 23E224)\",\n      \"last_psk_id\": \"abf7dc5c-bb51-4bb7-93b6-5547400ffe11\",\n      \"last_psk_name\": \"iot\",\n      \"last_ssid\": \"IoT SSID\",\n      \"last_username\": \"user@corp.com\",\n      \"last_vlan\": 10,\n      \"last_wlan_id\": \"e5d67b07-aae8-494b-8584-cbc20c8110aa\",\n      \"mac\": \"bcd074000000\",\n      \"mfg\": \"Apple\",\n      \"model\": \"MBP 16\\\\\\\" M1 2021\",\n      \"org_id\": \"1abff1aa-4571-4c1f-a409-153a1e7a7a24\",\n      \"os\": [\n        \"Sonoma\"\n      ],\n      \"os_version\": [\n        \"14.4.1 (Build 23E224)\"\n      ],\n      \"protocol\": \"ax\",\n      \"psk_id\": [\n        \"abf7dc5c-bb51-4bb7-93b6-5547400ffe11\"\n      ],\n      \"psk_name\": [\n        \"iot\"\n      ],\n      \"sdk_version\": [\n        \"0.100.3\"\n      ],\n      \"site_id\": \"25ff5219-9be7-4db9-907d-0c9b60445147\",\n      \"site_ids\": [\n        \"25ff5219-9be7-4db9-907d-0c9b60445147\"\n      ],\n      \"ssid\": [\n        \"IoT SSID\"\n      ],\n      \"timestamp\": 1714124722.113,\n      \"username\": [\n        \"user@corp.com\"\n      ],\n      \"vlan\": [\n        10\n      ]\n    }\n  ],\n  \"start\": 10,\n  \"total\": 44\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb920461-f013-4dc6-99e9-546577293fd4",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "10.100.10.54"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "text",
+                      "value": "5c5b530"
+                    },
+                    {
+                      "key": "username",
+                      "value": "johndoe"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22d74ab1-490d-47c5-b8df-69b4fb60310f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "10.100.10.54"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "text",
+                      "value": "5c5b530"
+                    },
+                    {
+                      "key": "username",
+                      "value": "johndoe"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f9a82ba-f14e-43a4-a9d9-d551076b5d4e",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "10.100.10.54"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "text",
+                      "value": "5c5b530"
+                    },
+                    {
+                      "key": "username",
+                      "value": "johndoe"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0eddf3e-170a-4375-84f5-a600a986ecd3",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "10.100.10.54"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "text",
+                      "value": "5c5b530"
+                    },
+                    {
+                      "key": "username",
+                      "value": "johndoe"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "548a7280-b7d7-4238-b968-98fad0d5da36",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "site_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5"
+                    },
+                    {
+                      "key": "device",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "ip",
+                      "value": "10.100.10.54"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "text",
+                      "value": "5c5b530"
+                    },
+                    {
+                      "key": "username",
+                      "value": "johndoe"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "10"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6cde66f-d35c-4e31-b38d-bf10da017e28",
+          "name": "countOrgWirelessClientsSessions",
+          "request": {
+            "name": "countOrgWirelessClientsSessions",
+            "description": {
+              "content": "Count by Distinct Attributes of Org Wireless Clients Sessions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "clients",
+                "sessions",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "distinct",
+                  "value": "device"
+                },
+                {
+                  "disabled": false,
+                  "key": "ap",
+                  "value": "<string>",
+                  "description": "AP MAC"
+                },
+                {
+                  "disabled": false,
+                  "key": "band",
+                  "value": "<string>",
+                  "description": "802.11 Band"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_family",
+                  "value": "<string>",
+                  "description": "E.g. \"Mac\", \"iPhone\", \"Apple watch\""
+                },
+                {
+                  "disabled": false,
+                  "key": "client_manufacture",
+                  "value": "<string>",
+                  "description": "E.g. \"Apple\""
+                },
+                {
+                  "disabled": false,
+                  "key": "client_model",
+                  "value": "<string>",
+                  "description": "E.g. \"8+\", \"XS\""
+                },
+                {
+                  "disabled": false,
+                  "key": "client_os",
+                  "value": "<string>",
+                  "description": "E.g. \"Mojave\", \"Windows 10\", \"Linux\""
+                },
+                {
+                  "disabled": false,
+                  "key": "ssid",
+                  "value": "<string>",
+                  "description": "SSID"
+                },
+                {
+                  "disabled": false,
+                  "key": "wlan_id",
+                  "value": "<uuid>",
+                  "description": "WLAN_id"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "duration",
+                  "value": "1d",
+                  "description": "Duration like 7d, 2w"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a7474658-597c-43c5-8529-040831969f4c",
+              "name": "Result of Count",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"distinct\": \"string\",\n  \"end\": 0,\n  \"limit\": 0,\n  \"results\": [\n    {\n      \"count\": 0,\n      \"property\": \"string\"\n    }\n  ],\n  \"start\": 0,\n  \"total\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afa83d08-9f50-49ba-84ed-c5df5edd0175",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "547ef414-2bf3-4c3e-a37d-970e2cc834c6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d6ed02f-b2d8-4dd2-b874-2b754364acd1",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11e10bc5-ef14-4cc0-b3e3-cd555a182072",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3651c7d-4c44-4fdd-8f44-f20843faf3be",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "device"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2cdd9105-8184-4550-8899-0f4db91a4f64",
+          "name": "searchOrgWirelessClientSessions",
+          "request": {
+            "name": "searchOrgWirelessClientSessions",
+            "description": {
+              "content": "Search Org Wireless Clients Sessions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "clients",
+                "sessions",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ap",
+                  "value": "<string>",
+                  "description": "AP MAC"
+                },
+                {
+                  "disabled": false,
+                  "key": "band",
+                  "value": "<string>",
+                  "description": "802.11 Band"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_family",
+                  "value": "<string>",
+                  "description": "E.g. \"Mac\", \"iPhone\", \"Apple watch\""
+                },
+                {
+                  "disabled": false,
+                  "key": "client_manufacture",
+                  "value": "<string>",
+                  "description": "E.g. \"Apple\""
+                },
+                {
+                  "disabled": false,
+                  "key": "client_model",
+                  "value": "<string>",
+                  "description": "E.g. \"8+\", \"XS\""
+                },
+                {
+                  "disabled": false,
+                  "key": "client_username",
+                  "value": "<string>",
+                  "description": "Username"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_os",
+                  "value": "<string>",
+                  "description": "E.g. \"Mojave\", \"Windows 10\", \"Linux\""
+                },
+                {
+                  "disabled": false,
+                  "key": "ssid",
+                  "value": "<string>",
+                  "description": "SSID"
+                },
+                {
+                  "disabled": false,
+                  "key": "wlan_id",
+                  "value": "<uuid>",
+                  "description": "WLAN_id"
+                },
+                {
+                  "disabled": false,
+                  "key": "psk_id",
+                  "value": "<string>",
+                  "description": "PSK ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "psk_name",
+                  "value": "<string>",
+                  "description": "PSK Name"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "duration",
+                  "value": "1d",
+                  "description": "Duration like 7d, 2w"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "timestamp",
+                  "description": "On which field the list should be sorted, -prefix represents DESC order"
+                },
+                {
+                  "disabled": false,
+                  "key": "search_after",
+                  "value": "<string>",
+                  "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c656913-a2f8-4cae-a734-d70741b24b4c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_username",
+                      "value": "john.doe"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"end\": 1513177200,\n  \"limit\": 10,\n  \"results\": [\n    {\n      \"ap\": \"5c5b350e0262\",\n      \"band\": \"5\",\n      \"client_manufacture\": \"Apple\",\n      \"connect\": 1565208388,\n      \"disconnect\": 1565208448,\n      \"duration\": 60.09423865,\n      \"mac\": \"b019c66c8348\",\n      \"org_id\": \"3139f2c2-fac6-11e5-8156-0242ac110006\",\n      \"site_id\": \"70e0f468-fc13-11e5-85ad-0242ac110008\",\n      \"ssid\": \"Dummy WLAN 2\",\n      \"tags\": [\n        \"disassociate\"\n      ],\n      \"timestamp\": 1565208448.662,\n      \"wlan_id\": \"99bb4c74-f954-4f36-b844-6b030faffabc\"\n    }\n  ],\n  \"start\": 1511967600,\n  \"total\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b196c8a-a8f1-49bf-ab97-54e58455ad77",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_username",
+                      "value": "john.doe"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3958997d-dee1-49e1-b1c0-16f55a47a8f9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_username",
+                      "value": "john.doe"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2c76c9b-7671-4937-993a-68b6699eb8d8",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_username",
+                      "value": "john.doe"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f6274a9-1727-49d0-a617-25f472eb0512",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_username",
+                      "value": "john.doe"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86fa6bcb-7c7a-4473-9daf-45b10f48847c",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clients",
+                    "sessions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "5c5b53010101"
+                    },
+                    {
+                      "key": "band",
+                      "value": "5-dedicated"
+                    },
+                    {
+                      "key": "client_family",
+                      "value": "iPhone"
+                    },
+                    {
+                      "key": "client_manufacture",
+                      "value": "Apple"
+                    },
+                    {
+                      "key": "client_model",
+                      "value": "iPhone 8"
+                    },
+                    {
+                      "key": "client_username",
+                      "value": "john.doe"
+                    },
+                    {
+                      "key": "client_os",
+                      "value": "Windows 10"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "MySSID"
+                    },
+                    {
+                      "key": "wlan_id",
+                      "value": "7dae216d-7c98-a51b-e068-dd7d477b7216"
+                    },
+                    {
+                      "key": "psk_id",
+                      "value": "000000ab-00ab-00ab-00ab-0000000000ab"
+                    },
+                    {
+                      "key": "psk_name",
+                      "value": "MyPPSK"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mist.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "584545d7-ec5c-49ee-8590-6b4bbe3a413b",
+    "name": "Mist Admins Orgs Clients - Wireless API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "> Version: **2604.1.1**\n>\n> Date: **May 13, 2026**\n<div class=\"notification\"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href=\"https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes\">announcements</a> </div>\n\n---\n## Additional Documentation\n* [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)\n* [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)\n* [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)\n\n## Helpful Resources\n* [API Sandbox and Exercises](https://api-class.mist.com/)\n* [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)\n* [Python Script Examples](https://github.com/tmunzer/mist_library)\n* [API Demo Apps](https://apps.mist-lab.fr/)\n* [Juniper Blog](https://blogs.juniper.net/)\n\n## Mist Web Browser Extension:\n* Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)\n* Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)\n\n---\n\nContact Support:\n Name: Thomas Munzer\n Email: tmunzer@juniper.net",
+      "type": "text/plain"
+    }
+  }
+}

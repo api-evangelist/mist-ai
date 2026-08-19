@@ -1,0 +1,338 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs Devices - Others API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs Devices - Others",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listOrgOtherDevices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/otherdevices",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "mac",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "serial",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get List of Org other devices (3rd party devices)"
+        },
+        {
+          "info": {
+            "name": "updateOrgOtherDevices",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/otherdevices",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign or unassign OtherDevices to and from a site."
+        },
+        {
+          "info": {
+            "name": "countOrgOtherDeviceEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/otherdevices/events/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "See [List Device Events Definitions](/#operations/listOtherDeviceEventsDefinitions)"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count by Distinct Attributes of Org OtherDevices Events"
+        },
+        {
+          "info": {
+            "name": "searchOrgOtherDeviceEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/otherdevices/events/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Site id"
+              },
+              {
+                "name": "mac",
+                "value": "",
+                "type": "query",
+                "description": "MAC"
+              },
+              {
+                "name": "device_mac",
+                "value": "",
+                "type": "query",
+                "description": "MAC of attached device"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Device model"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query",
+                "description": "Vendor name"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "See [List Device Events Definitions](/#operations/listOtherDeviceEventsDefinitions)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order"
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              }
+            ]
+          },
+          "docs": "Search Org OtherDevices Events"
+        },
+        {
+          "info": {
+            "name": "getOrgOtherDevice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/otherdevices/:device_mac",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "device_mac",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Org other device (3rd party device)"
+        },
+        {
+          "info": {
+            "name": "updateOrgOtherDevice",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/otherdevices/:device_mac",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "device_mac",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If the Site / Device cannot be identified, a manual association can be made"
+        },
+        {
+          "info": {
+            "name": "deleteOrgOtherDevice",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/otherdevices/:device_mac",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "device_mac",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete OtherDevice"
+        },
+        {
+          "info": {
+            "name": "rebootOrgOtherDevice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/otherdevices/:device_mac/reboot",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "device_mac",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reboot OtherDevice"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

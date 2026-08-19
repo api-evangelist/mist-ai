@@ -1,0 +1,840 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs MxEdges API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs MxEdges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listOrgMxEdges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "for_site",
+                "value": "",
+                "type": "query",
+                "description": "Filter for org/site level mist edges"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get List of Org MxEdges"
+        },
+        {
+          "info": {
+            "name": "createOrgMxEdge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create MxEdge"
+        },
+        {
+          "info": {
+            "name": "assignOrgMxEdgeToSite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/assign",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign Org MxEdge to Site"
+        },
+        {
+          "info": {
+            "name": "claimOrgMxEdge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/claim",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "For a Mist Edge in default state, it will show a random claim code like `135-546-673` which you can \"claim\" it into your Org"
+        },
+        {
+          "info": {
+            "name": "countOrgMxEdges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "query",
+                "description": "Mist edge id"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Mist edge site id"
+              },
+              {
+                "name": "mxcluster_id",
+                "value": "",
+                "type": "query",
+                "description": "Mist edge cluster id"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Model name"
+              },
+              {
+                "name": "distro",
+                "value": "",
+                "type": "query",
+                "description": "Debian code name (buster, bullseye)"
+              },
+              {
+                "name": "tunterm_version",
+                "value": "",
+                "type": "query",
+                "description": "tunterm version"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort options, -prefix represents DESC order, default is -last_seen"
+              },
+              {
+                "name": "stats",
+                "value": "",
+                "type": "query",
+                "description": "Whether to return device stats, default is false"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count by Distinct Attributes of Org Mist Edges"
+        },
+        {
+          "info": {
+            "name": "countOrgSiteMxEdgeEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/events/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "query",
+                "description": "Mist edge id"
+              },
+              {
+                "name": "mxcluster_id",
+                "value": "",
+                "type": "query",
+                "description": "Mist edge cluster id"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "Service running on mist edge(mxagent, tunterm etc)"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count by Distinct Attributes of Org Mist Edge Events"
+        },
+        {
+          "info": {
+            "name": "searchOrgMistEdgeEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/events/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "query",
+                "description": "Mist edge id"
+              },
+              {
+                "name": "mxcluster_id",
+                "value": "",
+                "type": "query",
+                "description": "Mist edge cluster id"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "Service running on mist edge(mxagent, tunterm etc)"
+              },
+              {
+                "name": "component",
+                "value": "",
+                "type": "query",
+                "description": "Component like PS1, PS2"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order"
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              }
+            ]
+          },
+          "docs": "Search Org Mist Edge Events"
+        },
+        {
+          "info": {
+            "name": "searchOrgMxEdges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Device hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `my-london*` and `*london*` match `my-london-1`). Suffix-only wildcards (e.g. `*london-1`) are not supported"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "query",
+                "description": "Mist edge id"
+              },
+              {
+                "name": "mxcluster_id",
+                "value": "",
+                "type": "query",
+                "description": "Mist edge cluster id"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Device model. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `AP4*` and `*P4*` match `AP43`). Suffix-only wildcards (e.g. `*43`) are not supported"
+              },
+              {
+                "name": "distro",
+                "value": "",
+                "type": "query",
+                "description": "Debian code name (buster, bullseye)"
+              },
+              {
+                "name": "tunterm_version",
+                "value": "",
+                "type": "query",
+                "description": "tunterm version"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Mist edge site id"
+              },
+              {
+                "name": "stats",
+                "value": "",
+                "type": "query",
+                "description": "Whether to return device stats, default is false"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order"
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              }
+            ]
+          },
+          "docs": "Search Org Mist Edges"
+        },
+        {
+          "info": {
+            "name": "unassignOrgMxEdgeFromSite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/unassign",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unassign Org MxEdge from Site"
+        },
+        {
+          "info": {
+            "name": "getOrgMxEdgeUpgradeInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/versions",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "query",
+                "description": "Upgrade channel to follow, stable (default) / beta / alpha"
+              },
+              {
+                "name": "distro",
+                "value": "",
+                "type": "query",
+                "description": "Distro code name (e.g. `buster`, `bullseye`, ...)"
+              }
+            ]
+          },
+          "docs": "Get Mist Edge Upgrade Information"
+        },
+        {
+          "info": {
+            "name": "getOrgMxEdge",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Org MxEdge details"
+        },
+        {
+          "info": {
+            "name": "updateOrgMxEdge",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Org MxEdge"
+        },
+        {
+          "info": {
+            "name": "deleteOrgMxEdge",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Org MxEdge"
+        },
+        {
+          "info": {
+            "name": "addOrgMxEdgeImage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id/image/:image_number",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "image_number",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Attach up to 3 images to a mxedge"
+        },
+        {
+          "info": {
+            "name": "deleteOrgMxEdgeImage",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id/image/:image_number",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "image_number",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove MxEdge Image"
+        },
+        {
+          "info": {
+            "name": "restartOrgMxEdge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id/restart",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "In the case where a Mist Edge is replaced, you would need to unregister it. Which disconnects the currently the connected Mist Edge and allow another to register."
+        },
+        {
+          "info": {
+            "name": "bounceOrgMxEdgeDataPorts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id/services/tunterm/bounce_port",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bounce TunTerm Data Ports"
+        },
+        {
+          "info": {
+            "name": "disconnectOrgMxEdgeTuntermAps",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id/services/tunterm/disconnect_aps",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disconnect AP’s from TunTerm"
+        },
+        {
+          "info": {
+            "name": "controlOrgMxEdgeServices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id/services/:name/:action",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "enum: `mxagent`, `mxdas`, `mxnacedge`, `mxocproxy`, `radsecproxy`, `tunterm`"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "path",
+                "description": "Restart or start or stop"
+              }
+            ]
+          },
+          "docs": "Control Services on a Mist Edge"
+        },
+        {
+          "info": {
+            "name": "uploadOrgMxEdgeSupportFiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id/support",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Support / Upload Mist Edge support files"
+        },
+        {
+          "info": {
+            "name": "unregisterOrgMxEdge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id/unregister",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "In the case where a Mist Edge is replaced, you would need to unregister it. Which disconnects the currently the connected Mist Edge and allow another to register."
+        },
+        {
+          "info": {
+            "name": "getOrgMxEdgeVmParams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/mxedges/:mxedge_id/vm_params",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mxedge_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Mist Edge VM parameters"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

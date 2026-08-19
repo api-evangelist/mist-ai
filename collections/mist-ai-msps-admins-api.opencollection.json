@@ -1,0 +1,189 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins MSPs Admins API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MSPs Admins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listMspAdmins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/admins",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get List of MSP Admins"
+        },
+        {
+          "info": {
+            "name": "getMspAdmin",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/admins/:admin_id",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "admin_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get MSP Admins"
+        },
+        {
+          "info": {
+            "name": "updateMspAdmin",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/admins/:admin_id",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "admin_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update MSP Admin"
+        },
+        {
+          "info": {
+            "name": "revokeMspAdmin",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/admins/:admin_id",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "admin_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This removes all privileges this admin has against the MSP. This goes deep all the way to the sites"
+        },
+        {
+          "info": {
+            "name": "inviteMspAdmin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/invites",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite MSP Admin\n\n**Note**: An email will also be sent to the user with a link to https://manage.mist.com/verify/invite?token=:token"
+        },
+        {
+          "info": {
+            "name": "updateMspAdminInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/invites/:invite_id",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "invite_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update MSP admin invite"
+        },
+        {
+          "info": {
+            "name": "uninviteMspAdmin",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/invites/:invite_id",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "invite_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete admin invite"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

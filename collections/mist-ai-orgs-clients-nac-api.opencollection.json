@@ -1,0 +1,684 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs Clients - NAC API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs Clients - NAC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "countOrgNacClients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/nac_clients/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "",
+                "type": "query",
+                "description": "NAC Policy Rule ID, if matched"
+              },
+              {
+                "name": "last_nacrule_id",
+                "value": "",
+                "type": "query",
+                "description": "NAC Policy Rule ID, if matched"
+              },
+              {
+                "name": "nacrule_matched",
+                "value": "",
+                "type": "query",
+                "description": "NAC Policy Rule Matched"
+              },
+              {
+                "name": "auth_type",
+                "value": "",
+                "type": "query",
+                "description": "Authentication type, e.g. \"eap-tls\", \"eap-peap\", \"eap-ttls\", \"eap-teap\", \"mab\", \"psk\", \"device-auth\""
+              },
+              {
+                "name": "last_vlan_id",
+                "value": "",
+                "type": "query",
+                "description": "Vlan ID"
+              },
+              {
+                "name": "last_nas_vendor",
+                "value": "",
+                "type": "query",
+                "description": "Vendor of NAS device"
+              },
+              {
+                "name": "idp_id",
+                "value": "",
+                "type": "query",
+                "description": "SSO ID, if present and used"
+              },
+              {
+                "name": "last_ssid",
+                "value": "",
+                "type": "query",
+                "description": "SSID"
+              },
+              {
+                "name": "last_username",
+                "value": "",
+                "type": "query",
+                "description": "Username presented by the client"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Start time, in epoch"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Site id if assigned, null if not assigned"
+              },
+              {
+                "name": "last_ap",
+                "value": "",
+                "type": "query",
+                "description": "AP MAC connected to by client"
+              },
+              {
+                "name": "mac",
+                "value": "",
+                "type": "query",
+                "description": "MAC address"
+              },
+              {
+                "name": "last_status",
+                "value": "",
+                "type": "query",
+                "description": "Connection status of client i.e \"permitted\", \"denied, \"session_ended\""
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Client type i.e. \"wireless\", \"wired\" etc."
+              },
+              {
+                "name": "mdm_compliance_status",
+                "value": "",
+                "type": "query",
+                "description": "MDM compliance of client i.e \"compliant\", \"not compliant\""
+              },
+              {
+                "name": "mdm_provider",
+                "value": "",
+                "type": "query",
+                "description": "MDM provider of client’s organization eg \"intune\", \"jamf\""
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count by Distinct Attributes of NAC Clients"
+        },
+        {
+          "info": {
+            "name": "countOrgNacClientEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/nac_clients/events/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "See [List Device Events Definitions](/#operations/listNacEventsDefinitions)"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count by Distinct Attributes of NAC Client-Events"
+        },
+        {
+          "info": {
+            "name": "searchOrgNacClientEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/nac_clients/events/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "See [List Device Events Definitions](/#operations/listNacEventsDefinitions)"
+              },
+              {
+                "name": "nacrule_id",
+                "value": "",
+                "type": "query",
+                "description": "NAC Policy Rule ID, if matched"
+              },
+              {
+                "name": "nacrule_matched",
+                "value": "",
+                "type": "query",
+                "description": "NAC Policy Rule Matched"
+              },
+              {
+                "name": "dryrun_nacrule_id",
+                "value": "",
+                "type": "query",
+                "description": "NAC Policy Dry Run Rule ID, if present and matched"
+              },
+              {
+                "name": "dryrun_nacrule_matched",
+                "value": "",
+                "type": "query",
+                "description": "True - if dryrun rule present and matched with priority, False - if not matched or not present"
+              },
+              {
+                "name": "auth_type",
+                "value": "",
+                "type": "query",
+                "description": "Authentication type, e.g. \"eap-tls\", \"eap-peap\", \"eap-ttls\", \"eap-teap\", \"mab\", \"psk\", \"device-auth\""
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query",
+                "description": "Vlan name or ID assigned to the client"
+              },
+              {
+                "name": "nas_vendor",
+                "value": "",
+                "type": "query",
+                "description": "Vendor of NAS device"
+              },
+              {
+                "name": "bssid",
+                "value": "",
+                "type": "query",
+                "description": "BSSID"
+              },
+              {
+                "name": "idp_id",
+                "value": "",
+                "type": "query",
+                "description": "SSO ID, if present and used"
+              },
+              {
+                "name": "idp_role",
+                "value": "",
+                "type": "query",
+                "description": "IDP returned roles/groups for the user"
+              },
+              {
+                "name": "idp_username",
+                "value": "",
+                "type": "query",
+                "description": "Username presented to the Identity Provider"
+              },
+              {
+                "name": "resp_attrs",
+                "value": "",
+                "type": "query",
+                "description": "Radius attributes returned by NAC to NAS derive"
+              },
+              {
+                "name": "ssid",
+                "value": "",
+                "type": "query",
+                "description": "SSID"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Username presented by the client"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Site id"
+              },
+              {
+                "name": "ap",
+                "value": "",
+                "type": "query",
+                "description": "AP MAC"
+              },
+              {
+                "name": "random_mac",
+                "value": "",
+                "type": "query",
+                "description": "AP random macMAC"
+              },
+              {
+                "name": "mac",
+                "value": "",
+                "type": "query",
+                "description": "MAC address"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Start time, in epoch"
+              },
+              {
+                "name": "usermac_label",
+                "value": "",
+                "type": "query",
+                "description": "Labels derived from usermac entry"
+              },
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full MAC address, username, device_mac or ap"
+              },
+              {
+                "name": "nas_ip",
+                "value": "",
+                "type": "query",
+                "description": "IP address of NAS device"
+              },
+              {
+                "name": "ingress_vlan",
+                "value": "",
+                "type": "query",
+                "description": "Vendor specific Vlan ID in radius requests"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order."
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              }
+            ]
+          },
+          "docs": "Search NAC Client Events"
+        },
+        {
+          "info": {
+            "name": "searchOrgNacClients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/nac_clients/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "ap",
+                "value": "",
+                "type": "query",
+                "description": "MAC Address of the AP the client is/was connected to"
+              },
+              {
+                "name": "auth_type",
+                "value": "",
+                "type": "query",
+                "description": "Authentication type, e.g. \"eap-tls\", \"eap-peap\", \"eap-ttls\", \"eap-teap\", \"mab\", \"psk\", \"device-auth\""
+              },
+              {
+                "name": "cert_expiry_duration",
+                "value": "",
+                "type": "query",
+                "description": "Filter by certificate expiry within a specific duration from now (e.g., \"7d\" for 7 days, \"1m\" for 1 month)"
+              },
+              {
+                "name": "edr_managed",
+                "value": "",
+                "type": "query",
+                "description": "Filters NAC clients that are integrated with EDR providers"
+              },
+              {
+                "name": "edr_provider",
+                "value": "",
+                "type": "query",
+                "description": "EDR provider of client's organization"
+              },
+              {
+                "name": "edr_status",
+                "value": "",
+                "type": "query",
+                "description": "EDR Status of the NAC client"
+              },
+              {
+                "name": "family",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Client family (e.g. \"Phone/Tablet/Wearable\", \"Access Point\"). Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `Surveillance*` and `*urveillance*` match `Surveillance Camera`). Suffix-only wildcards (e.g. `*Camera`) are not supported"
+              },
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Client hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `everest*` and `*rest*` match `my-everest-client`). Suffix-only wildcards (e.g. `*everest`) are not supported"
+              },
+              {
+                "name": "idp_id",
+                "value": "",
+                "type": "query",
+                "description": "SSO ID, if present and used"
+              },
+              {
+                "name": "mac",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Client MAC Address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported"
+              },
+              {
+                "name": "mdm_compliance",
+                "value": "",
+                "type": "query",
+                "description": "MDM compliance of client i.e \"compliant\", \"not compliant\""
+              },
+              {
+                "name": "mdm_provider",
+                "value": "",
+                "type": "query",
+                "description": "MDM provider of client’s organization eg \"intune\", \"jamf\""
+              },
+              {
+                "name": "mdm_managed",
+                "value": "",
+                "type": "query",
+                "description": "Filters NAC clients that are managed by MDM providers"
+              },
+              {
+                "name": "mfg",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Client manufacturer (e.g. \"apple\", \"cisco\", \"juniper\"). Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `Raspberry Pi*` and `*Pi*` match `Raspberry Pi Trading Ltd`). Suffix-only wildcards (e.g. `*Ltd`) are not supported"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Client model, e.g. \"iPhone 12\", \"MX100\""
+              },
+              {
+                "name": "nacrule_name",
+                "value": "",
+                "type": "query",
+                "description": "NAC Policy Rule Name matched"
+              },
+              {
+                "name": "nacrule_id",
+                "value": "",
+                "type": "query",
+                "description": "NAC Policy Rule ID, if matched"
+              },
+              {
+                "name": "nacrule_matched",
+                "value": "",
+                "type": "query",
+                "description": "NAC Policy Rule Matched"
+              },
+              {
+                "name": "nas_vendor",
+                "value": "",
+                "type": "query",
+                "description": "Vendor of NAS device"
+              },
+              {
+                "name": "nas_ip",
+                "value": "",
+                "type": "query",
+                "description": "IP address of NAS device"
+              },
+              {
+                "name": "ingress_vlan",
+                "value": "",
+                "type": "query",
+                "description": "Vendor specific Vlan ID in radius requests"
+              },
+              {
+                "name": "os",
+                "value": "",
+                "type": "query",
+                "description": "Client OS, e.g. \"iOS 18.1\", \"Android\", \"Windows\", \"Linux\""
+              },
+              {
+                "name": "ssid",
+                "value": "",
+                "type": "query",
+                "description": "SSID"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Connection status of client i.e \"permitted\", \"denied, \"session_started\", \"session_stopped\""
+              },
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "partial / full MAC address, last_username, device_mac, nas_ip or last_ap"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Start time, in epoch"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Client type i.e. \"wireless\", \"wired\" etc."
+              },
+              {
+                "name": "usermac_label",
+                "value": "",
+                "type": "query",
+                "description": "Labels derived from usermac entry"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Username presented by the client"
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query",
+                "description": "Vlan name or ID assigned to the client"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Site id if assigned, null if not assigned"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order."
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              }
+            ]
+          },
+          "docs": "Search Org NAC Clients"
+        },
+        {
+          "info": {
+            "name": "sendOrgNacClientCoA",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/nac_clients/:client_mac/coa",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "client_mac",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends CoA (Change of Authorization) command to a NAC client."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

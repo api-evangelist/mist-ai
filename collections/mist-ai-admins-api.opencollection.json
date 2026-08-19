@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Admins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "verifyAdminInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/invite/verify/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "**Note**: another call to ```GET /api/v1/self``` is required to see the new set of privileges"
+        },
+        {
+          "info": {
+            "name": "registerNewAdmin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/register",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a new admin and his/her org\nAn email will also be sent to the user with a link to `/verify/register?token={token}`\n\n### reCAPTCHA\nGoogle reCAPTCHA is the choice to prevent bot registration\n\nIt needs this \n\n&lt;script src='https://www.google.com/recaptcha/api.js' &gt;&lt;/script&gt;\n\nand this &lt;div&gt; in the desired place\n```html\n<div class=\"g-recaptcha\" data_sitekey=\"6LdAewsTAAAAAE25XKQhPEQ2FiMTft-WrZXQ5NUd\"></div>\n```\n\nUse GET /api/v1/register/recaptcha to read the current setting.\n"
+        },
+        {
+          "info": {
+            "name": "getAdminRegistrationInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/register/recaptcha",
+            "params": [
+              {
+                "name": "recaptcha_flavor",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get Registration Information"
+        },
+        {
+          "info": {
+            "name": "verifyRegistration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/register/verify/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Verify registration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

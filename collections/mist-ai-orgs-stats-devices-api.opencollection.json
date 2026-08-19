@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs Stats - Devices API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs Stats - Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listOrgDevicesStats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/stats/devices",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "mac",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "evpntopo_id",
+                "value": "",
+                "type": "query",
+                "description": "EVPN Topology ID"
+              },
+              {
+                "name": "evpn_unused",
+                "value": "",
+                "type": "query",
+                "description": "If `evpn_unused`==`true`, find EVPN eligible switches which don’t belong to any EVPN Topology yet"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "List of additional fields requests, comma separated, or `fields=*` for all of them"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get List of Org Devices stats\nThis API renders some high-level device stats, pagination is assumed and returned in response header (as the response is an array)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

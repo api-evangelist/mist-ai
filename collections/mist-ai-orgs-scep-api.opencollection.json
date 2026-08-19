@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs SCEP API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs SCEP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getOrgMistScep",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/mist_scep",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Mist SCEP Org setting"
+        },
+        {
+          "info": {
+            "name": "updateOrgMistScep",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/mist_scep",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Mist SCEP Org setting"
+        },
+        {
+          "info": {
+            "name": "disableOrgMistScep",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/mist_scep",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Disable Mist SCEP Org setting"
+        },
+        {
+          "info": {
+            "name": "listOrgIssuedClientCertificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/mist_scep/client_certs",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sso_name_id",
+                "value": "",
+                "type": "query",
+                "description": "sso_name_id obtained from NAC Portal"
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "query",
+                "description": "Serial Number of the certificate"
+              },
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "query",
+                "description": "Device ID"
+              }
+            ]
+          },
+          "docs": "Get Issued Client Certificates"
+        },
+        {
+          "info": {
+            "name": "revokeOrgIssuedClientCertificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/mist_scep/client_certs/revoke",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Revoke Issued Client Certificates"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

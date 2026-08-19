@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs Integration JSE API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs Integration JSE",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getOrgJseInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/jse/info",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of JSE orgs associated with the account."
+        },
+        {
+          "info": {
+            "name": "getOrgJseIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/jse/setup",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Org JSE Integration"
+        },
+        {
+          "info": {
+            "name": "setupOrgJseIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/jse/setup",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "In JSE UI: \n1. Create custom role with Read access to service_location and RW access to site and IPSec profile APIs. \n2. Create a user with the above custom role. - email: john@abc.com \n3. Activate the user in the JSE account. \n4. Create the service locations on the JSE account."
+        },
+        {
+          "info": {
+            "name": "deleteOrgJseIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/jse/setup",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete JSE Integration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

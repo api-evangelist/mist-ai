@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins MSPs Licenses API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MSPs Licenses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "claimMspLicense",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/claim",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Claim an Order by Activation Code"
+        },
+        {
+          "info": {
+            "name": "listMspLicenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/licenses",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get List of Msp Licenses"
+        },
+        {
+          "info": {
+            "name": "moveOrDeleteMspLicenseToAnotherOrg",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/licenses",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Move or Delete MSP Licenses"
+        },
+        {
+          "info": {
+            "name": "listMspOrgLicenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/stats/licenses",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get List of MSP Licenses"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

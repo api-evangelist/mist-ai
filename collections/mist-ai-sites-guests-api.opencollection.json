@@ -1,0 +1,267 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Sites Guests API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sites Guests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listSiteAllGuestAuthorizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/guests",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "wlan_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of single or multiple (Comma separated) WLAN under Site `site_id` (to filter by WLAN)"
+              }
+            ]
+          },
+          "docs": "Get List of Site Guest Authorizations"
+        },
+        {
+          "info": {
+            "name": "countSiteGuestAuthorizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/guests/count",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "auth_method",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count by Distinct Attributes of Authorized Guest"
+        },
+        {
+          "info": {
+            "name": "listSiteAllGuestAuthorizationsDerived",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/guests/derived",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "wlan_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of single or multiple (Comma separated) WLAN under Site `site_id` (to filter by WLAN)"
+              },
+              {
+                "name": "cross_site",
+                "value": "",
+                "type": "query",
+                "description": "Whether to get org level guests, default is false i.e get site level guests"
+              }
+            ]
+          },
+          "docs": "Get the list of derived Guest Authorizations for a site"
+        },
+        {
+          "info": {
+            "name": "searchSiteGuestAuthorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/guests/search",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "wlan_id",
+                "value": "00000000-0000-0000-0000-000000000000",
+                "type": "query"
+              },
+              {
+                "name": "auth_method",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ssid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order"
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              }
+            ]
+          },
+          "docs": "Search Authorized Guest"
+        },
+        {
+          "info": {
+            "name": "getSiteGuestAuthorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/guests/:guest_mac",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "guest_mac",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Guest Authorization"
+        },
+        {
+          "info": {
+            "name": "updateSiteGuestAuthorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/guests/:guest_mac",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "guest_mac",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Guest Authorization"
+        },
+        {
+          "info": {
+            "name": "deleteSiteGuestAuthorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/guests/:guest_mac",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "guest_mac",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Guest Authorization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

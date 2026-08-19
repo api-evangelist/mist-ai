@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Sites Stats - Devices API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sites Stats - Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listSiteDevicesStats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/stats/devices",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get List of Site Devices Stats"
+        },
+        {
+          "info": {
+            "name": "getSiteDeviceStats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/stats/devices/:device_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "List of additional fields requests, comma separated, or `fields=*` for all of them"
+              }
+            ]
+          },
+          "docs": "Get Site Device Stats Details"
+        },
+        {
+          "info": {
+            "name": "getSiteAllClientsStatsByDevice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/stats/devices/:device_id/clients",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "device_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get wireless client stat by Device"
+        },
+        {
+          "info": {
+            "name": "getSiteGatewayMetrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/stats/gateways/metrics",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Site Gateway Metrics"
+        },
+        {
+          "info": {
+            "name": "getSiteSwitchesMetrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/stats/switches/metrics",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "switch_mac",
+                "value": "",
+                "type": "query",
+                "description": "Switch mac, used only with metric `type`==`active_ports_summary`"
+              }
+            ]
+          },
+          "docs": "Get version compliance metrics for managed or monitored switches"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

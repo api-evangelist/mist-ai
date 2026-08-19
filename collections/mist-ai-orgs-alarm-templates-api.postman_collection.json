@@ -1,0 +1,3527 @@
+{
+  "item": [
+    {
+      "id": "0ce52ad3-5564-4e19-acd9-3aab96cbbd16",
+      "name": "Orgs Alarm Templates",
+      "description": {
+        "content": "An Alarm Template is a set of Alarm Rules that could be applied to\none or more sites (while each site can only pick one Alarm Template), or to the\nwhole org.\n\n\nOnce created, the Alarm template must be assigned with the `alarmtemplate_id` attribute to one of the following\n* the whole org with the [Update Org](/#operations/updateOrg) API Call\n* one or multiple sites with the [Update Site Info](/#operations/updateSiteInfo) API Call",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5b633ccb-9dd5-4a00-a7c8-9272a00ea65d",
+          "name": "listOrgAlarmTemplates",
+          "request": {
+            "name": "listOrgAlarmTemplates",
+            "description": {
+              "content": "Get List of Org Alarm Templates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "alarmtemplates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dbcc883b-1b20-4355-b675-398221eed469",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"delivery\": {\n      \"enabled\": true,\n      \"additional_emails\": [\n        \"john@mycorp.com\",\n        \"john@mycorp.com\"\n      ],\n      \"to_org_admins\": true,\n      \"to_site_admins\": false\n    },\n    \"rules\": {\n      \"ap_offline\": {\n        \"delivery\": {\n          \"additional_emails\": [\n            \"string\"\n          ],\n          \"enabled\": true,\n          \"to_org_admins\": true,\n          \"to_site_admins\": true\n        },\n        \"enabled\": true\n      },\n      \"bad_cable\": {\n        \"delivery\": {\n          \"additional_emails\": [\n            \"string\"\n          ],\n          \"enabled\": true,\n          \"to_org_admins\": true,\n          \"to_site_admins\": true\n        },\n        \"enabled\": true\n      }\n    },\n    \"created_time\": 1305.9470365280224,\n    \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n    \"modified_time\": 5306.815302398014,\n    \"name\": \"default\",\n    \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\"\n  },\n  {\n    \"delivery\": {\n      \"enabled\": true,\n      \"additional_emails\": [\n        \"john@mycorp.com\",\n        \"john@mycorp.com\"\n      ],\n      \"to_org_admins\": true,\n      \"to_site_admins\": false\n    },\n    \"rules\": {\n      \"ap_offline\": {\n        \"delivery\": {\n          \"additional_emails\": [\n            \"string\"\n          ],\n          \"enabled\": true,\n          \"to_org_admins\": true,\n          \"to_site_admins\": true\n        },\n        \"enabled\": true\n      },\n      \"bad_cable\": {\n        \"delivery\": {\n          \"additional_emails\": [\n            \"string\"\n          ],\n          \"enabled\": true,\n          \"to_org_admins\": true,\n          \"to_site_admins\": true\n        },\n        \"enabled\": true\n      }\n    },\n    \"created_time\": 8895.078324258891,\n    \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n    \"modified_time\": 8260.575894249243,\n    \"name\": \"default\",\n    \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6ec05d2-e836-40aa-b389-bf38b829e432",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "721df3d3-6d0f-41f6-aeb7-94e65c906108",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "678851ff-4064-49c5-88f6-19ffed62fae1",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45c73e4d-e955-4f88-91be-dff66f8d24c6",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02965ded-c4d8-4d7c-a55d-8dec2378f315",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33e10bb6-ffa1-4ec0-9e90-2e25ec09bfcb",
+          "name": "createOrgAlarmTemplate",
+          "request": {
+            "name": "createOrgAlarmTemplate",
+            "description": {
+              "content": "Available rules can be found in [List Alarm Definitions#](/#operations/listAlarmDefinitions)\n\nThe delivery dict is only required if different from the template delivery settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "alarmtemplates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"delivery\": {\n    \"enabled\": \"<boolean>\",\n    \"additional_emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"to_org_admins\": \"<boolean>\",\n    \"to_site_admins\": \"<boolean>\"\n  },\n  \"rules\": {\n    \"key_0\": {\n      \"delivery\": {\n        \"enabled\": \"<boolean>\",\n        \"additional_emails\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"to_org_admins\": \"<boolean>\",\n        \"to_site_admins\": \"<boolean>\"\n      },\n      \"enabled\": \"<boolean>\"\n    }\n  },\n  \"created_time\": \"<double>\",\n  \"id\": \"<uuid>\",\n  \"modified_time\": \"<double>\",\n  \"name\": \"<string>\",\n  \"org_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ff18367-e15e-47f5-ae03-e9e660e2a863",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"enabled\": true,\n    \"additional_emails\": [\n      \"john@mycorp.com\",\n      \"john@mycorp.com\"\n    ],\n    \"to_org_admins\": true,\n    \"to_site_admins\": false\n  },\n  \"rules\": {\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  },\n  \"created_time\": 2631.9595922537796,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"modified_time\": 3130.5182943812483,\n  \"name\": \"default\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"delivery\": {\n    \"enabled\": true,\n    \"additional_emails\": [\n      \"john@mycorp.com\",\n      \"john@mycorp.com\"\n    ],\n    \"to_org_admins\": true,\n    \"to_site_admins\": false\n  },\n  \"rules\": {\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  },\n  \"created_time\": 6411.328259081733,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"modified_time\": 237.17175436105185,\n  \"name\": \"default\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6325861a-1133-4abd-a651-9d953dccd35a",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"enabled\": true,\n    \"additional_emails\": [\n      \"john@mycorp.com\",\n      \"john@mycorp.com\"\n    ],\n    \"to_org_admins\": true,\n    \"to_site_admins\": false\n  },\n  \"rules\": {\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  },\n  \"created_time\": 2631.9595922537796,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"modified_time\": 3130.5182943812483,\n  \"name\": \"default\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dabffa29-25ea-447f-88a4-ec780184afba",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"enabled\": true,\n    \"additional_emails\": [\n      \"john@mycorp.com\",\n      \"john@mycorp.com\"\n    ],\n    \"to_org_admins\": true,\n    \"to_site_admins\": false\n  },\n  \"rules\": {\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  },\n  \"created_time\": 2631.9595922537796,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"modified_time\": 3130.5182943812483,\n  \"name\": \"default\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29174f50-705b-40dc-850e-daedf063d51e",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"enabled\": true,\n    \"additional_emails\": [\n      \"john@mycorp.com\",\n      \"john@mycorp.com\"\n    ],\n    \"to_org_admins\": true,\n    \"to_site_admins\": false\n  },\n  \"rules\": {\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  },\n  \"created_time\": 2631.9595922537796,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"modified_time\": 3130.5182943812483,\n  \"name\": \"default\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8479e5f2-a4b2-450d-9d3c-38c1c918819f",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"enabled\": true,\n    \"additional_emails\": [\n      \"john@mycorp.com\",\n      \"john@mycorp.com\"\n    ],\n    \"to_org_admins\": true,\n    \"to_site_admins\": false\n  },\n  \"rules\": {\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  },\n  \"created_time\": 2631.9595922537796,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"modified_time\": 3130.5182943812483,\n  \"name\": \"default\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c66ee45-b5c1-4de3-ad0a-b203b94114df",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"enabled\": true,\n    \"additional_emails\": [\n      \"john@mycorp.com\",\n      \"john@mycorp.com\"\n    ],\n    \"to_org_admins\": true,\n    \"to_site_admins\": false\n  },\n  \"rules\": {\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  },\n  \"created_time\": 2631.9595922537796,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"modified_time\": 3130.5182943812483,\n  \"name\": \"default\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a7ffceb-042f-48d6-ab2b-7c76faa72fa4",
+          "name": "unsuppressOrgSuppressedAlarms",
+          "request": {
+            "name": "unsuppressOrgSuppressedAlarms",
+            "description": {
+              "content": "Un-Suppress Suppressed Alarms",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "alarmtemplates",
+                "suppress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a7706c0-53ab-4f36-b961-90e39e3b6e68",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd5b0d0b-16d9-4911-b1db-099fa0267d59",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b0cef5b-6e64-403c-aff8-5eb3a5e203ca",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c39d2a14-9433-4412-bf06-a969da2fb4d0",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3874727-9563-434b-9a68-e0ed90f1a9c1",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83dd4d63-ad3b-400c-9b62-0b970f908324",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71dc679f-091f-457d-9dd8-290f5ec823c2",
+          "name": "listOrgSuppressedAlarms",
+          "request": {
+            "name": "listOrgSuppressedAlarms",
+            "description": {
+              "content": "Get List of Org Alarms Currently Suppressed",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "alarmtemplates",
+                "suppress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "site",
+                  "description": "Returns both scopes if not specified"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc4ffeef-279f-41a3-8572-b715d73b160a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "site"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"duration\": 48,\n      \"expire_time\": 1678233080,\n      \"scheduled_time\": 1678232900,\n      \"scope\": \"site\",\n      \"site_id\": \"581328b6-e382-f54e-c9dc-9c998d183a34\"\n    },\n    {\n      \"duration\": 48,\n      \"expire_time\": 1678233080,\n      \"scheduled_time\": 1678232900,\n      \"scope\": \"org\",\n      \"site_id\": \"581328b6-e382-f54e-c9dc-9c998d183a35\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46e6c3f1-7778-4822-8b6c-b2069fc3828d",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "site"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a83bd497-3eda-4722-89c0-a7f8ea1970b9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "site"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6476db8-f4a6-400c-bd09-34b2833f54e0",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "site"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dad2bf9c-b1d0-46d1-a133-c325ffaf33ae",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "site"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f83c0615-7eb8-4f19-a671-3ac6459be87f",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "site"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "917c13b6-eda6-473c-bdac-6ff1d14f092e",
+          "name": "suppressOrgAlarm",
+          "request": {
+            "name": "suppressOrgAlarm",
+            "description": {
+              "content": "In certain situations, for example, scheduled maintenance, you may want to suspend alarms to be triggered against Sites for a period of time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "alarmtemplates",
+                "suppress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"applies\": {\n    \"org_id\": \"<uuid>\",\n    \"site_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"sitegroup_ids\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ]\n  },\n  \"duration\": 3600,\n  \"scheduled_time\": \"<integer>\",\n  \"scope\": \"site\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b5f43b06-edc2-45ef-bd18-4f37f4130fd8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"duration\": 3600,\n  \"scheduled_time\": 1678232980,\n  \"scope\": \"org\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e045c9b-eae7-44d9-b7b6-89cbd40c02f4",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"duration\": 3600,\n  \"scheduled_time\": 1678232980,\n  \"scope\": \"org\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90abe09e-4d01-475f-a31c-69bae5889083",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"duration\": 3600,\n  \"scheduled_time\": 1678232980,\n  \"scope\": \"org\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "584552d7-fdc2-41ad-988c-849308e946b2",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"duration\": 3600,\n  \"scheduled_time\": 1678232980,\n  \"scope\": \"org\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18476379-4e5f-4c6a-bbf9-36f091d1acda",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"duration\": 3600,\n  \"scheduled_time\": 1678232980,\n  \"scope\": \"org\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e2892ac-44f6-4e37-b7c0-2e82419dde42",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    "suppress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"duration\": 3600,\n  \"scheduled_time\": 1678232980,\n  \"scope\": \"org\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7e49bf4-faa7-4cf0-822c-f4504fda1f25",
+          "name": "deleteOrgAlarmTemplate",
+          "request": {
+            "name": "deleteOrgAlarmTemplate",
+            "description": {
+              "content": "Delete Org Alarm Template",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "alarmtemplates",
+                ":alarmtemplate_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "alarmtemplate_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8fcf4e00-8b4f-4a2b-98be-bfa5bb27b82a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9bbd0000-1e4f-4a33-b066-663a7be6309a",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a04f766-9794-47b6-95d2-74b69f610c5b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3b2a089-272b-4f2d-b667-2d95b3c19b30",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "265cf815-5d99-4e35-91ab-1294fcf8b910",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "691e1b11-789c-4369-9e86-892a3e86deef",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f657ddd8-2302-4d22-8dbe-87548cfa7704",
+          "name": "getOrgAlarmTemplate",
+          "request": {
+            "name": "getOrgAlarmTemplate",
+            "description": {
+              "content": "Get Org Alarm Template Details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "alarmtemplates",
+                ":alarmtemplate_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "alarmtemplate_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aad23afd-a84e-4e24-8cb1-ff6ec48e9e2f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"delivery\": {\n    \"enabled\": true,\n    \"additional_emails\": [\n      \"john@mycorp.com\",\n      \"john@mycorp.com\"\n    ],\n    \"to_org_admins\": true,\n    \"to_site_admins\": false\n  },\n  \"rules\": {\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  },\n  \"created_time\": 6411.328259081733,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"modified_time\": 237.17175436105185,\n  \"name\": \"default\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f067e0a-c846-4ffc-87fc-c58ca33dfb28",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f72e45ea-9f2b-47ce-8b1d-bc175af851b7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "555b18c7-93b1-438f-aa23-d7f83c12b0f1",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef2ea6fc-193c-4364-9028-f300fb709e51",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3682e000-5a1f-4f6a-9c85-34466d8fb5e8",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d4e4139-a8b6-49be-8e0d-019b5ef1eeb8",
+          "name": "updateOrgAlarmTemplate",
+          "request": {
+            "name": "updateOrgAlarmTemplate",
+            "description": {
+              "content": "Update Org Alarm Template",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "alarmtemplates",
+                ":alarmtemplate_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "alarmtemplate_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"delivery\": {\n    \"enabled\": \"<boolean>\",\n    \"additional_emails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"to_org_admins\": \"<boolean>\",\n    \"to_site_admins\": \"<boolean>\"\n  },\n  \"rules\": {\n    \"key_0\": {\n      \"delivery\": {\n        \"enabled\": \"<boolean>\",\n        \"additional_emails\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"to_org_admins\": \"<boolean>\",\n        \"to_site_admins\": \"<boolean>\"\n      },\n      \"enabled\": \"<boolean>\"\n    }\n  },\n  \"created_time\": \"<double>\",\n  \"id\": \"<uuid>\",\n  \"modified_time\": \"<double>\",\n  \"name\": \"<string>\",\n  \"org_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "81d6a24f-0276-48e9-95ad-f001753bbf21",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"additional_emails\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"to_org_admins\": true,\n    \"to_site_admins\": true\n  },\n  \"name\": \"string\",\n  \"rules\": {\n    \"adhoc_network\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"air_magnet_scan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"beacon_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bssid_spoofing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_restarted\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dhcp_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"disassociation_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dot1x_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_dictionary_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_failure_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_handshake_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_spoofed_success\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eapol_logoff_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"essid_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_eapol_start\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gateway_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"honeypot_ssid\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"krack_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"missing_vlan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"monkey_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"non_compliant\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"out_of_sequence\": {\n      \"enabled\": true\n    },\n    \"psk_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"repeated_auth_failures\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_ap\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"secpolicy_violation\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ssid_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"switch_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"tkip_icv_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"vendor_ie_missing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"watched_station\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"zero_ssid_association\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"delivery\": {\n    \"enabled\": true,\n    \"additional_emails\": [\n      \"john@mycorp.com\",\n      \"john@mycorp.com\"\n    ],\n    \"to_org_admins\": true,\n    \"to_site_admins\": false\n  },\n  \"rules\": {\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  },\n  \"created_time\": 6411.328259081733,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"modified_time\": 237.17175436105185,\n  \"name\": \"default\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "951eb9f2-b418-4229-812f-3923c83c5092",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"additional_emails\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"to_org_admins\": true,\n    \"to_site_admins\": true\n  },\n  \"name\": \"string\",\n  \"rules\": {\n    \"adhoc_network\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"air_magnet_scan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"beacon_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bssid_spoofing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_restarted\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dhcp_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"disassociation_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dot1x_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_dictionary_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_failure_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_handshake_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_spoofed_success\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eapol_logoff_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"essid_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_eapol_start\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gateway_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"honeypot_ssid\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"krack_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"missing_vlan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"monkey_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"non_compliant\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"out_of_sequence\": {\n      \"enabled\": true\n    },\n    \"psk_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"repeated_auth_failures\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_ap\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"secpolicy_violation\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ssid_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"switch_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"tkip_icv_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"vendor_ie_missing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"watched_station\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"zero_ssid_association\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0df9cd8f-682a-47a2-be22-8af26247f838",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"additional_emails\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"to_org_admins\": true,\n    \"to_site_admins\": true\n  },\n  \"name\": \"string\",\n  \"rules\": {\n    \"adhoc_network\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"air_magnet_scan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"beacon_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bssid_spoofing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_restarted\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dhcp_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"disassociation_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dot1x_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_dictionary_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_failure_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_handshake_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_spoofed_success\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eapol_logoff_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"essid_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_eapol_start\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gateway_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"honeypot_ssid\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"krack_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"missing_vlan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"monkey_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"non_compliant\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"out_of_sequence\": {\n      \"enabled\": true\n    },\n    \"psk_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"repeated_auth_failures\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_ap\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"secpolicy_violation\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ssid_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"switch_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"tkip_icv_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"vendor_ie_missing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"watched_station\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"zero_ssid_association\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7949ae61-d935-4a58-94ff-986c8196e9fa",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"additional_emails\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"to_org_admins\": true,\n    \"to_site_admins\": true\n  },\n  \"name\": \"string\",\n  \"rules\": {\n    \"adhoc_network\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"air_magnet_scan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"beacon_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bssid_spoofing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_restarted\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dhcp_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"disassociation_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dot1x_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_dictionary_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_failure_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_handshake_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_spoofed_success\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eapol_logoff_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"essid_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_eapol_start\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gateway_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"honeypot_ssid\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"krack_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"missing_vlan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"monkey_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"non_compliant\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"out_of_sequence\": {\n      \"enabled\": true\n    },\n    \"psk_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"repeated_auth_failures\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_ap\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"secpolicy_violation\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ssid_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"switch_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"tkip_icv_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"vendor_ie_missing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"watched_station\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"zero_ssid_association\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87c2a1e1-4137-48cd-9de9-19eee7432d5a",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"additional_emails\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"to_org_admins\": true,\n    \"to_site_admins\": true\n  },\n  \"name\": \"string\",\n  \"rules\": {\n    \"adhoc_network\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"air_magnet_scan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"beacon_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bssid_spoofing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_restarted\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dhcp_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"disassociation_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dot1x_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_dictionary_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_failure_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_handshake_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_spoofed_success\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eapol_logoff_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"essid_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_eapol_start\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gateway_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"honeypot_ssid\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"krack_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"missing_vlan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"monkey_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"non_compliant\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"out_of_sequence\": {\n      \"enabled\": true\n    },\n    \"psk_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"repeated_auth_failures\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_ap\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"secpolicy_violation\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ssid_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"switch_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"tkip_icv_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"vendor_ie_missing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"watched_station\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"zero_ssid_association\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a22af9d-fa1f-4ba2-a4d4-a4c7847b919c",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "alarmtemplates",
+                    ":alarmtemplate_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "alarmtemplate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery\": {\n    \"additional_emails\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"to_org_admins\": true,\n    \"to_site_admins\": true\n  },\n  \"name\": \"string\",\n  \"rules\": {\n    \"adhoc_network\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"air_magnet_scan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ap_offline\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"beacon_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"bssid_spoofing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"device_restarted\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dhcp_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"disassociation_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"dot1x_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_dictionary_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_failure_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_handshake_flood\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eap_spoofed_success\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"eapol_logoff_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"essid_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"excessive_eapol_start\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gateway_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_bad_cable\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"gw_negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"honeypot_ssid\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"krack_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"missing_vlan\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"monkey_jack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"negotiation_mismatch\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"non_compliant\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"out_of_sequence\": {\n      \"enabled\": true\n    },\n    \"psk_failure\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"repeated_auth_failures\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_ap\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"rogue_client\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"secpolicy_violation\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"ssid_injection\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"switch_down\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"tkip_icv_attack\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"vendor_ie_missing\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"watched_station\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    },\n    \"zero_ssid_association\": {\n      \"delivery\": {\n        \"additional_emails\": [\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"to_org_admins\": true,\n        \"to_site_admins\": true\n      },\n      \"enabled\": true\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mist.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1e55ccbe-2e14-4ff0-aeb3-55237be9e87d",
+    "name": "Mist Admins Orgs Alarm Templates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "> Version: **2604.1.1**\n>\n> Date: **May 13, 2026**\n<div class=\"notification\"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href=\"https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes\">announcements</a> </div>\n\n---\n## Additional Documentation\n* [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)\n* [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)\n* [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)\n\n## Helpful Resources\n* [API Sandbox and Exercises](https://api-class.mist.com/)\n* [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)\n* [Python Script Examples](https://github.com/tmunzer/mist_library)\n* [API Demo Apps](https://apps.mist-lab.fr/)\n* [Juniper Blog](https://blogs.juniper.net/)\n\n## Mist Web Browser Extension:\n* Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)\n* Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)\n\n---\n\nContact Support:\n Name: Thomas Munzer\n Email: tmunzer@juniper.net",
+      "type": "text/plain"
+    }
+  }
+}

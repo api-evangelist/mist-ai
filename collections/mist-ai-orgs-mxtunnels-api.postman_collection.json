@@ -1,0 +1,2285 @@
+{
+  "item": [
+    {
+      "id": "6d098b4c-f1ab-4fe8-934d-cfe82f9df0e9",
+      "name": "Orgs MxTunnels",
+      "description": {
+        "content": "A Mist Tunnel (MxTunnel) is a configuration object that allows for the tunneling of user VLANs from the Access Points (APs) to a central point on the network.\n\nIt specifies the VLAN IDs that need to be tunneled and assigns the tunnel to a primary or secondary mist edge cluster. The mist tunnel also includes settings for tunnel fail over, auto-preemption, and other parameters related to tunnel termination services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ae60d3d3-4f01-4705-936f-d9870e328854",
+          "name": "listOrgMxTunnels",
+          "request": {
+            "name": "listOrgMxTunnels",
+            "description": {
+              "content": "Get List of Org MxTunnels",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "mxtunnels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5000343c-3c17-4758-89c2-4e20b93886f1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"hello_interval\": 60,\n    \"hello_retries\": 3,\n    \"ipsec\": {\n      \"dns_servers\": [\n        \"172.16.0.8\"\n      ],\n      \"enabled\": true,\n      \"extra_routes\": [\n        {\n          \"dest\": \"172.16.0.0/12\",\n          \"next_hop\": \"172.16.0.1\"\n        }\n      ],\n      \"split_tunnel\": true\n    },\n    \"mxcluster_ids\": [\n      \"572586b7-f97b-a22b-526c-8b97a3f609c4\"\n    ],\n    \"name\": \"HQ\",\n    \"protocol\": \"udp\",\n    \"vlan_ids\": [\n      3,\n      4,\n      5\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43bbc0b9-3214-4dde-a3cf-ac11c4f80cb5",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5b8d33c-fc13-4239-b643-73e9c1432ee4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5fec15b-1dec-40c5-aa0a-641e3b724f67",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4216dbec-e278-4937-9d1a-80c6e844dc97",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "392ed4db-2275-439b-8acb-d7478781d287",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ca087f1-d321-401f-b2da-baedf67e34d0",
+          "name": "createOrgMxTunnel",
+          "request": {
+            "name": "createOrgMxTunnel",
+            "description": {
+              "content": "Create MxTunnel",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "mxtunnels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"anchor_mxtunnel_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"auto_preemption\": {\n    \"day_of_week\": \"<string>\",\n    \"enabled\": false,\n    \"time_of_day\": \"any\"\n  },\n  \"created_time\": \"<double>\",\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"id\": \"<uuid>\",\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dns_suffix\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"enabled\": \"<boolean>\",\n    \"extra_routes\": [\n      {\n        \"dest\": \"<string>\",\n        \"next_hop\": \"<ipv4>\"\n      },\n      {\n        \"dest\": \"<string>\",\n        \"next_hop\": \"<ipv4>\"\n      }\n    ],\n    \"split_tunnel\": \"<boolean>\",\n    \"use_mxedge\": \"<boolean>\"\n  },\n  \"modified_time\": \"<double>\",\n  \"mtu\": 0,\n  \"mxcluster_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"org_id\": \"<uuid>\",\n  \"protocol\": \"udp\",\n  \"site_id\": \"<uuid>\",\n  \"vlan_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "67d07597-6ce4-4bec-9264-0fe83e7c8a55",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_ids\": [\n    \"string\"\n  ],\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"192.168.0.1\"\n      }\n    ],\n    \"split_tunnel\": true,\n    \"use_mxedge\": true\n  },\n  \"vlan_ids\": [\n    0\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cluster_ids\": [\n    \"string\"\n  ],\n  \"created_time\": 0,\n  \"for_site\": true,\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"id\": \"b069b358-4c97-5319-1f8c-7c5ca64d6ab1\",\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"192.168.0.1\"\n      }\n    ],\n    \"split_tunnel\": true,\n    \"use_mxedge\": true\n  },\n  \"modified_time\": 0,\n  \"org_id\": \"b069b358-4c97-5319-1f8c-7c5ca64d6ab1\",\n  \"site_id\": \"b069b358-4c97-5319-1f8c-7c5ca64d6ab1\",\n  \"vlan_ids\": [\n    0\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fae2e720-dd78-4b2d-997d-a61650f6b276",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_ids\": [\n    \"string\"\n  ],\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"192.168.0.1\"\n      }\n    ],\n    \"split_tunnel\": true,\n    \"use_mxedge\": true\n  },\n  \"vlan_ids\": [\n    0\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "047c209a-3a5c-4539-9ee0-690909c68f28",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_ids\": [\n    \"string\"\n  ],\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"192.168.0.1\"\n      }\n    ],\n    \"split_tunnel\": true,\n    \"use_mxedge\": true\n  },\n  \"vlan_ids\": [\n    0\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf3fed6a-d6b1-4f81-8c3a-e4472c6ca61c",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_ids\": [\n    \"string\"\n  ],\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"192.168.0.1\"\n      }\n    ],\n    \"split_tunnel\": true,\n    \"use_mxedge\": true\n  },\n  \"vlan_ids\": [\n    0\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41f44be6-4f09-414f-98fd-c94ef3af25ad",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_ids\": [\n    \"string\"\n  ],\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"192.168.0.1\"\n      }\n    ],\n    \"split_tunnel\": true,\n    \"use_mxedge\": true\n  },\n  \"vlan_ids\": [\n    0\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5d98fb2-b0e0-415f-b7e3-163ff1b74b9e",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cluster_ids\": [\n    \"string\"\n  ],\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"192.168.0.1\"\n      }\n    ],\n    \"split_tunnel\": true,\n    \"use_mxedge\": true\n  },\n  \"vlan_ids\": [\n    0\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04a3c399-bf13-4aef-adc5-7990528a2f74",
+          "name": "deleteOrgMxTunnel",
+          "request": {
+            "name": "deleteOrgMxTunnel",
+            "description": {
+              "content": "Delete Org MxTunnel",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "mxtunnels",
+                ":mxtunnel_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "mxtunnel_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2abbf486-8043-4404-a0bc-b1ec6f535bea",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "80b77e1b-de6f-4ba0-9a70-3e62d790a722",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "259751e4-249f-4537-af99-0e12ede8f1ba",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f522a0cb-7d61-4fff-a2f2-a7801d090e8e",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8ae87ea-2e1f-4ef6-a506-37918d9c0110",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f711cbb-b2b2-4404-8a42-eb302a9385a7",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d278e600-9efc-455d-bf9d-b09d823c14a5",
+          "name": "getOrgMxTunnel",
+          "request": {
+            "name": "getOrgMxTunnel",
+            "description": {
+              "content": "Get Org MxTunnel Details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "mxtunnels",
+                ":mxtunnel_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "mxtunnel_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4485712f-4e9c-415c-adec-2b84a621bd78",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cluster_ids\": [\n    \"string\"\n  ],\n  \"created_time\": 0,\n  \"for_site\": true,\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"id\": \"b069b358-4c97-5319-1f8c-7c5ca64d6ab1\",\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"192.168.0.1\"\n      }\n    ],\n    \"split_tunnel\": true,\n    \"use_mxedge\": true\n  },\n  \"modified_time\": 0,\n  \"org_id\": \"b069b358-4c97-5319-1f8c-7c5ca64d6ab1\",\n  \"site_id\": \"b069b358-4c97-5319-1f8c-7c5ca64d6ab1\",\n  \"vlan_ids\": [\n    0\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec7a0e4c-17ea-4824-b2f8-29f9eef1acb9",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b879de1c-e05b-468f-8427-9e045e441998",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "beee343b-7f83-401a-9edd-864ecf2d19e2",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d53a791f-ac08-46ff-aaa0-e62fb7e8baa2",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29b79727-12a5-4f5f-a719-47028bfed3b5",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aafe6cb5-8e02-486e-a209-cb7c217e6c83",
+          "name": "updateOrgMxTunnel",
+          "request": {
+            "name": "updateOrgMxTunnel",
+            "description": {
+              "content": "Update Org MxTunnel",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "mxtunnels",
+                ":mxtunnel_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "mxtunnel_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"anchor_mxtunnel_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"auto_preemption\": {\n    \"day_of_week\": \"<string>\",\n    \"enabled\": false,\n    \"time_of_day\": \"any\"\n  },\n  \"created_time\": \"<double>\",\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"id\": \"<uuid>\",\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"dns_suffix\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"enabled\": \"<boolean>\",\n    \"extra_routes\": [\n      {\n        \"dest\": \"<string>\",\n        \"next_hop\": \"<ipv4>\"\n      },\n      {\n        \"dest\": \"<string>\",\n        \"next_hop\": \"<ipv4>\"\n      }\n    ],\n    \"split_tunnel\": \"<boolean>\",\n    \"use_mxedge\": \"<boolean>\"\n  },\n  \"modified_time\": \"<double>\",\n  \"mtu\": 0,\n  \"mxcluster_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"org_id\": \"<uuid>\",\n  \"protocol\": \"udp\",\n  \"site_id\": \"<uuid>\",\n  \"vlan_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "711ce1b0-3ce7-48c0-b690-84dfddace6b0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"anchor_mxtunnel_ids\": [\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\",\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\"\n  ],\n  \"auto_preemption\": {\n    \"day_of_week\": \"tue\",\n    \"enabled\": false,\n    \"time_of_day\": \"12:00\"\n  },\n  \"created_time\": 7464.622133776164,\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dns_suffix\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"107.38.98.178\"\n      },\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"198.116.127.170\"\n      }\n    ],\n    \"split_tunnel\": false,\n    \"use_mxedge\": false\n  },\n  \"modified_time\": 9396.323463734176,\n  \"mtu\": 0,\n  \"mxcluster_ids\": [\n    \"32a874bf-70d9-c318-6ee2-1da5f86854e7\",\n    \"d6c3d443-d8ac-0266-5bfe-5f8fa52b12f0\"\n  ],\n  \"name\": \"<string,null>\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\",\n  \"protocol\": \"udp\",\n  \"site_id\": \"441a1214-6928-442a-8e92-e1d34b8ec6a6\",\n  \"vlan_ids\": [\n    1435,\n    8451\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cluster_ids\": [\n    \"string\"\n  ],\n  \"created_time\": 0,\n  \"for_site\": true,\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"id\": \"b069b358-4c97-5319-1f8c-7c5ca64d6ab1\",\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"192.168.0.1\"\n      }\n    ],\n    \"split_tunnel\": true,\n    \"use_mxedge\": true\n  },\n  \"modified_time\": 0,\n  \"org_id\": \"b069b358-4c97-5319-1f8c-7c5ca64d6ab1\",\n  \"site_id\": \"b069b358-4c97-5319-1f8c-7c5ca64d6ab1\",\n  \"vlan_ids\": [\n    0\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b334ab94-ee9e-4671-ac63-60653bee96f1",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"anchor_mxtunnel_ids\": [\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\",\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\"\n  ],\n  \"auto_preemption\": {\n    \"day_of_week\": \"tue\",\n    \"enabled\": false,\n    \"time_of_day\": \"12:00\"\n  },\n  \"created_time\": 7464.622133776164,\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dns_suffix\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"107.38.98.178\"\n      },\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"198.116.127.170\"\n      }\n    ],\n    \"split_tunnel\": false,\n    \"use_mxedge\": false\n  },\n  \"modified_time\": 9396.323463734176,\n  \"mtu\": 0,\n  \"mxcluster_ids\": [\n    \"32a874bf-70d9-c318-6ee2-1da5f86854e7\",\n    \"d6c3d443-d8ac-0266-5bfe-5f8fa52b12f0\"\n  ],\n  \"name\": \"<string,null>\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\",\n  \"protocol\": \"udp\",\n  \"site_id\": \"441a1214-6928-442a-8e92-e1d34b8ec6a6\",\n  \"vlan_ids\": [\n    1435,\n    8451\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13b9fa47-0570-466c-941b-2ac303506d29",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"anchor_mxtunnel_ids\": [\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\",\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\"\n  ],\n  \"auto_preemption\": {\n    \"day_of_week\": \"tue\",\n    \"enabled\": false,\n    \"time_of_day\": \"12:00\"\n  },\n  \"created_time\": 7464.622133776164,\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dns_suffix\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"107.38.98.178\"\n      },\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"198.116.127.170\"\n      }\n    ],\n    \"split_tunnel\": false,\n    \"use_mxedge\": false\n  },\n  \"modified_time\": 9396.323463734176,\n  \"mtu\": 0,\n  \"mxcluster_ids\": [\n    \"32a874bf-70d9-c318-6ee2-1da5f86854e7\",\n    \"d6c3d443-d8ac-0266-5bfe-5f8fa52b12f0\"\n  ],\n  \"name\": \"<string,null>\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\",\n  \"protocol\": \"udp\",\n  \"site_id\": \"441a1214-6928-442a-8e92-e1d34b8ec6a6\",\n  \"vlan_ids\": [\n    1435,\n    8451\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7143e28-bc24-416c-9907-483d93b159cf",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"anchor_mxtunnel_ids\": [\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\",\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\"\n  ],\n  \"auto_preemption\": {\n    \"day_of_week\": \"tue\",\n    \"enabled\": false,\n    \"time_of_day\": \"12:00\"\n  },\n  \"created_time\": 7464.622133776164,\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dns_suffix\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"107.38.98.178\"\n      },\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"198.116.127.170\"\n      }\n    ],\n    \"split_tunnel\": false,\n    \"use_mxedge\": false\n  },\n  \"modified_time\": 9396.323463734176,\n  \"mtu\": 0,\n  \"mxcluster_ids\": [\n    \"32a874bf-70d9-c318-6ee2-1da5f86854e7\",\n    \"d6c3d443-d8ac-0266-5bfe-5f8fa52b12f0\"\n  ],\n  \"name\": \"<string,null>\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\",\n  \"protocol\": \"udp\",\n  \"site_id\": \"441a1214-6928-442a-8e92-e1d34b8ec6a6\",\n  \"vlan_ids\": [\n    1435,\n    8451\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19ec5ddf-5d8b-49ea-a2c7-5ae307d46bf0",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"anchor_mxtunnel_ids\": [\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\",\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\"\n  ],\n  \"auto_preemption\": {\n    \"day_of_week\": \"tue\",\n    \"enabled\": false,\n    \"time_of_day\": \"12:00\"\n  },\n  \"created_time\": 7464.622133776164,\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dns_suffix\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"107.38.98.178\"\n      },\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"198.116.127.170\"\n      }\n    ],\n    \"split_tunnel\": false,\n    \"use_mxedge\": false\n  },\n  \"modified_time\": 9396.323463734176,\n  \"mtu\": 0,\n  \"mxcluster_ids\": [\n    \"32a874bf-70d9-c318-6ee2-1da5f86854e7\",\n    \"d6c3d443-d8ac-0266-5bfe-5f8fa52b12f0\"\n  ],\n  \"name\": \"<string,null>\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\",\n  \"protocol\": \"udp\",\n  \"site_id\": \"441a1214-6928-442a-8e92-e1d34b8ec6a6\",\n  \"vlan_ids\": [\n    1435,\n    8451\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06ad755f-2071-4676-bbed-2eff875a7104",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "mxtunnels",
+                    ":mxtunnel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "mxtunnel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"anchor_mxtunnel_ids\": [\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\",\n    \"1e970fec-0a7a-4d73-a472-3ef3b6a456aa\"\n  ],\n  \"auto_preemption\": {\n    \"day_of_week\": \"tue\",\n    \"enabled\": false,\n    \"time_of_day\": \"12:00\"\n  },\n  \"created_time\": 7464.622133776164,\n  \"hello_interval\": 60,\n  \"hello_retries\": 7,\n  \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n  \"ipsec\": {\n    \"dns_servers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dns_suffix\": [\n      \"string\"\n    ],\n    \"enabled\": true,\n    \"extra_routes\": [\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"107.38.98.178\"\n      },\n      {\n        \"dest\": \"string\",\n        \"next_hop\": \"198.116.127.170\"\n      }\n    ],\n    \"split_tunnel\": false,\n    \"use_mxedge\": false\n  },\n  \"modified_time\": 9396.323463734176,\n  \"mtu\": 0,\n  \"mxcluster_ids\": [\n    \"32a874bf-70d9-c318-6ee2-1da5f86854e7\",\n    \"d6c3d443-d8ac-0266-5bfe-5f8fa52b12f0\"\n  ],\n  \"name\": \"<string,null>\",\n  \"org_id\": \"a97c1b22-a4e9-411e-9bfd-d8695a0f9e61\",\n  \"protocol\": \"udp\",\n  \"site_id\": \"441a1214-6928-442a-8e92-e1d34b8ec6a6\",\n  \"vlan_ids\": [\n    1435,\n    8451\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mist.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2f43bfb2-118a-42e7-8870-fd829559ad65",
+    "name": "Mist Admins Orgs MxTunnels API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "> Version: **2604.1.1**\n>\n> Date: **May 13, 2026**\n<div class=\"notification\"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href=\"https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes\">announcements</a> </div>\n\n---\n## Additional Documentation\n* [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)\n* [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)\n* [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)\n\n## Helpful Resources\n* [API Sandbox and Exercises](https://api-class.mist.com/)\n* [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)\n* [Python Script Examples](https://github.com/tmunzer/mist_library)\n* [API Demo Apps](https://apps.mist-lab.fr/)\n* [Juniper Blog](https://blogs.juniper.net/)\n\n## Mist Web Browser Extension:\n* Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)\n* Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)\n\n---\n\nContact Support:\n Name: Thomas Munzer\n Email: tmunzer@juniper.net",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs Integration SkyATP API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs Integration SkyATP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "udpateOrgAtpAllowedList",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/skyatp/secintel_allowlist",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Sky ATP Allowed List"
+        },
+        {
+          "info": {
+            "name": "udpateOrgAtpBlockedList",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/skyatp/secintel_blocklist",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Sky ATP Blocked List"
+        },
+        {
+          "info": {
+            "name": "getOrgSkyAtpIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/skyatp/setup",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Org SkyATP Integration"
+        },
+        {
+          "info": {
+            "name": "setupOrgAtpIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/skyatp/setup",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "1. Login to the Sky ATP realm through the Mist UI by providing the realm, username and password.\n2. Sky ATP API is invoked which creates the realm using above details.\n3. Sky ATP by default will provide functionality for Security-Intelligence and Advanced Anti Malware.\n4. Security Intelligence will provide configuration for CC, DNS Feeds, Infected Host, Blocklists and Allowlists."
+        },
+        {
+          "info": {
+            "name": "udpateOrgAtpIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/skyatp/setup",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Sky ATP config"
+        },
+        {
+          "info": {
+            "name": "deleteOrgSkyAtpIntegration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/setting/skyatp/setup",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete SkyATP Integration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

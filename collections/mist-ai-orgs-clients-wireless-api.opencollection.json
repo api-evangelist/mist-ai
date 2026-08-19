@@ -1,0 +1,682 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs Clients - Wireless API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs Clients - Wireless",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "countOrgWirelessClients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/clients/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "mac",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Client MAC Address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported"
+              },
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Client hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `everest*` and `*rest*` match `my-everest-client`). Suffix-only wildcards (e.g. `*everest`) are not supported"
+              },
+              {
+                "name": "device",
+                "value": "",
+                "type": "query",
+                "description": "Device type, e.g. Mac, Nvidia, iPhone"
+              },
+              {
+                "name": "os",
+                "value": "",
+                "type": "query",
+                "description": "OS, e.g. Sierra, Yosemite, Windows 10"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Model, e.g. \"MBP 15 late 2013\", 6, 6s, \"8+ GSM\""
+              },
+              {
+                "name": "ap",
+                "value": "",
+                "type": "query",
+                "description": "AP mac where the client has connected to"
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query",
+                "description": "VLAN"
+              },
+              {
+                "name": "ssid",
+                "value": "",
+                "type": "query",
+                "description": "SSID"
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count by Distinct Attributes of Org Wireless Clients"
+        },
+        {
+          "info": {
+            "name": "countOrgWirelessClientEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/clients/events/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "type",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)"
+              },
+              {
+                "name": "reason_code",
+                "value": "",
+                "type": "query",
+                "description": "For assoc/disassoc events"
+              },
+              {
+                "name": "ssid",
+                "value": "",
+                "type": "query",
+                "description": "SSID Name"
+              },
+              {
+                "name": "ap",
+                "value": "",
+                "type": "query",
+                "description": "AP MAC"
+              },
+              {
+                "name": "proto",
+                "value": "",
+                "type": "query",
+                "description": "a / b / g / n / ac / ax"
+              },
+              {
+                "name": "band",
+                "value": "",
+                "type": "query",
+                "description": "802.11 Band"
+              },
+              {
+                "name": "wlan_id",
+                "value": "",
+                "type": "query",
+                "description": "WLAN ID"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Site ID"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count by Distinct Attributes of Client-Events"
+        },
+        {
+          "info": {
+            "name": "searchOrgWirelessClientEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/clients/events/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)"
+              },
+              {
+                "name": "reason_code",
+                "value": "",
+                "type": "query",
+                "description": "For assoc/disassoc events"
+              },
+              {
+                "name": "ssid",
+                "value": "",
+                "type": "query",
+                "description": "SSID Name"
+              },
+              {
+                "name": "ap",
+                "value": "",
+                "type": "query",
+                "description": "AP MAC"
+              },
+              {
+                "name": "key_mgmt",
+                "value": "",
+                "type": "query",
+                "description": "Key Management Protocol, e.g. WPA2-PSK, WPA3-SAE, WPA2-Enterprise"
+              },
+              {
+                "name": "proto",
+                "value": "",
+                "type": "query",
+                "description": "a / b / g / n / ac / ax"
+              },
+              {
+                "name": "band",
+                "value": "",
+                "type": "query",
+                "description": "802.11 Band"
+              },
+              {
+                "name": "wlan_id",
+                "value": "",
+                "type": "query",
+                "description": "WLAN_id"
+              },
+              {
+                "name": "nacrule_id",
+                "value": "",
+                "type": "query",
+                "description": "Nacrule_id"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              }
+            ]
+          },
+          "docs": "Get Org Clients Events"
+        },
+        {
+          "info": {
+            "name": "searchOrgWirelessClients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/clients/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Site ID"
+              },
+              {
+                "name": "ap",
+                "value": "",
+                "type": "query",
+                "description": "AP MAC address where the client has connected to"
+              },
+              {
+                "name": "band",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of Radio band (e.g. `24,5`). enum: `24`, `5`, `6`"
+              },
+              {
+                "name": "device",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of Device type (e.g. `Mac,iPhone`). Case sensitive"
+              },
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Client hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `everest*` and `*rest*` match `my-everest-client`). Suffix-only wildcards (e.g. `*everest`) are not supported"
+              },
+              {
+                "name": "ip",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Client IP Address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `10.100.10.*` and `*100.10.*` match `10.100.10.54`). Suffix-only wildcards (e.g. `*.54`) are not supported"
+              },
+              {
+                "name": "mac",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Client MAC Address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Only available for clients running the Marvis Client app, model, e.g. \"MBP 15 late 2013\", 6, 6s, \"8+ GSM\""
+              },
+              {
+                "name": "os",
+                "value": "",
+                "type": "query",
+                "description": "Only available for clients running the Marvis Client app, os, e.g. Sierra, Yosemite, Windows 10"
+              },
+              {
+                "name": "psk_id",
+                "value": "",
+                "type": "query",
+                "description": "PSK ID"
+              },
+              {
+                "name": "psk_name",
+                "value": "",
+                "type": "query",
+                "description": "Only available for clients using PPSK authentication, the Name of the PSK"
+              },
+              {
+                "name": "ssid",
+                "value": "",
+                "type": "query",
+                "description": "SSID"
+              },
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full MAC address, hostname, username, psk_name or ip. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `everest*` and `*rest*` match `my-everest-client`). Suffix-only wildcards (e.g. `*everest`) are not supported"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full username. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `johndoe*` and `*mycorp*` match `johndoe@mycorp.com`). Suffix-only wildcards (e.g. `*mycorp.com`) are not supported"
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query",
+                "description": "VLAN"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order"
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              }
+            ]
+          },
+          "docs": "Search Org Wireless Clients"
+        },
+        {
+          "info": {
+            "name": "countOrgWirelessClientsSessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/clients/sessions/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ap",
+                "value": "",
+                "type": "query",
+                "description": "AP MAC"
+              },
+              {
+                "name": "band",
+                "value": "",
+                "type": "query",
+                "description": "802.11 Band"
+              },
+              {
+                "name": "client_family",
+                "value": "",
+                "type": "query",
+                "description": "E.g. \"Mac\", \"iPhone\", \"Apple watch\""
+              },
+              {
+                "name": "client_manufacture",
+                "value": "",
+                "type": "query",
+                "description": "E.g. \"Apple\""
+              },
+              {
+                "name": "client_model",
+                "value": "",
+                "type": "query",
+                "description": "E.g. \"8+\", \"XS\""
+              },
+              {
+                "name": "client_os",
+                "value": "",
+                "type": "query",
+                "description": "E.g. \"Mojave\", \"Windows 10\", \"Linux\""
+              },
+              {
+                "name": "ssid",
+                "value": "",
+                "type": "query",
+                "description": "SSID"
+              },
+              {
+                "name": "wlan_id",
+                "value": "",
+                "type": "query",
+                "description": "WLAN_id"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count by Distinct Attributes of Org Wireless Clients Sessions"
+        },
+        {
+          "info": {
+            "name": "searchOrgWirelessClientSessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/clients/sessions/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "ap",
+                "value": "",
+                "type": "query",
+                "description": "AP MAC"
+              },
+              {
+                "name": "band",
+                "value": "",
+                "type": "query",
+                "description": "802.11 Band"
+              },
+              {
+                "name": "client_family",
+                "value": "",
+                "type": "query",
+                "description": "E.g. \"Mac\", \"iPhone\", \"Apple watch\""
+              },
+              {
+                "name": "client_manufacture",
+                "value": "",
+                "type": "query",
+                "description": "E.g. \"Apple\""
+              },
+              {
+                "name": "client_model",
+                "value": "",
+                "type": "query",
+                "description": "E.g. \"8+\", \"XS\""
+              },
+              {
+                "name": "client_username",
+                "value": "",
+                "type": "query",
+                "description": "Username"
+              },
+              {
+                "name": "client_os",
+                "value": "",
+                "type": "query",
+                "description": "E.g. \"Mojave\", \"Windows 10\", \"Linux\""
+              },
+              {
+                "name": "ssid",
+                "value": "",
+                "type": "query",
+                "description": "SSID"
+              },
+              {
+                "name": "wlan_id",
+                "value": "",
+                "type": "query",
+                "description": "WLAN_id"
+              },
+              {
+                "name": "psk_id",
+                "value": "",
+                "type": "query",
+                "description": "PSK ID"
+              },
+              {
+                "name": "psk_name",
+                "value": "",
+                "type": "query",
+                "description": "PSK Name"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order"
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              }
+            ]
+          },
+          "docs": "Search Org Wireless Clients Sessions"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

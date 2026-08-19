@@ -1,0 +1,2357 @@
+{
+  "item": [
+    {
+      "id": "1d140790-693a-4aec-b6da-dc1c16cb83d3",
+      "name": "Sites Stats - Devices",
+      "description": {
+        "content": "API Calls to retrieve statistics about the Mist Managed and Monitored Devices at the Site level",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1600a5b8-450e-46f3-9629-fa233222227b",
+          "name": "listSiteDevicesStats",
+          "request": {
+            "name": "listSiteDevicesStats",
+            "description": {
+              "content": "Get List of Site Devices Stats",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "sites",
+                ":site_id",
+                "stats",
+                "devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "ap"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "all"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "site_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af1ec3ab-c840-4874-bd9c-5c34d03bc5dc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "ap"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"auto_upgrade_stat\": {\n      \"lastcheck\": 1720594762\n    },\n    \"ble_stat\": {\n      \"beacon_enabled\": true,\n      \"beacon_rate\": 4,\n      \"eddystone_uid_enabled\": false,\n      \"eddystone_uid_freq_msec\": 1000,\n      \"eddystone_uid_instance\": \"5c5b35d0077b\",\n      \"eddystone_uid_namespace\": \"9777c1a06ef611e68bbf\",\n      \"eddystone_url_enabled\": false,\n      \"eddystone_url_freq_msec\": 1000,\n      \"eddystone_url_url\": \"\",\n      \"ibeacon_enabled\": false,\n      \"ibeacon_freq_msec\": 1000,\n      \"ibeacon_major\": 894,\n      \"ibeacon_minor\": 9328,\n      \"ibeacon_uuid\": \"af010e2b-f829-4975-b49e-2e896ed1d627\",\n      \"major\": 894,\n      \"minors\": [\n        9328,\n        9329,\n        9330,\n        9331,\n        9332,\n        9333,\n        9334,\n        9335,\n        -1\n      ],\n      \"power\": 8,\n      \"rx_bytes\": 158500843,\n      \"rx_pkts\": 3549163,\n      \"tx_bytes\": 509640,\n      \"tx_pkts\": 85411,\n      \"tx_resets\": 0,\n      \"uuid\": \"af010e2b-f829-4975-b49e-2e896ed1d627\"\n    },\n    \"config_reverted\": false,\n    \"cpu_system\": 21921854,\n    \"cpu_user\": 7496631,\n    \"cpu_util\": 5,\n    \"created_time\": 1718228350,\n    \"env_stat\": {\n      \"accel_x\": -0.092,\n      \"accel_y\": 0.004,\n      \"accel_z\": -1.02,\n      \"ambient_temp\": 43,\n      \"attitude\": 0,\n      \"cpu_temp\": 53,\n      \"humidity\": 9,\n      \"magne_x\": 0,\n      \"magne_y\": 0,\n      \"magne_z\": 0,\n      \"pressure\": 968,\n      \"vcore_voltage\": 0\n    },\n    \"ext_ip\": \"66.129.234.28\",\n    \"hw_rev\": \"C02\",\n    \"id\": \"00000000-0000-0000-1000-5c5b35d0077b\",\n    \"inactive_wired_vlans\": [],\n    \"ip\": \"192.168.95.3\",\n    \"ip_stat\": {\n      \"dhcp_server\": \"192.168.95.1\",\n      \"dns\": [\n        \"8.8.8.8\"\n      ],\n      \"gateway\": \"192.168.95.1\",\n      \"ip\": \"192.168.95.3\",\n      \"ip6\": \"fe80:0:0:0:5e5b:35ff:fed0:77b\",\n      \"ips\": {\n        \"vlan1\": \"192.168.95.3/24,fe80:0:0:0:5e5b:35ff:fed0:77b/64\"\n      },\n      \"netmask\": \"255.255.255.0\",\n      \"netmask6\": \"/64\"\n    },\n    \"last_seen\": 1720595866,\n    \"last_trouble\": {\n      \"code\": \"07\",\n      \"timestamp\": 1720039666\n    },\n    \"lldp_stat\": {\n      \"chassis_id\": \"d0:07:ca:f5:21:00\",\n      \"lldp_med_supported\": false,\n      \"mgmt_addr\": \"100.123.105.1\",\n      \"mgmt_addrs\": [\n        \"100.123.105.1\"\n      ],\n      \"port_desc\": \"ge-0/0/4\",\n      \"port_id\": \"ge-0/0/4\",\n      \"power_allocated\": 0,\n      \"power_draw\": 0,\n      \"power_request_count\": 0,\n      \"power_requested\": 0,\n      \"system_desc\": \"Juniper Networks, Inc. ex4300-48t internet router, kernel JUNOS 20.4R3-S7.2, Build date: 2023-04-21 19:47:18 UTC Copyright (c) 1996-2023 Juniper Networks, Inc.\",\n      \"system_name\": \"Phoenix-Switch\"\n    },\n    \"mac\": \"5c5b35d0077b\",\n    \"mem_total_kb\": 505468,\n    \"mem_used_kb\": 202096,\n    \"model\": \"AP43\",\n    \"modified_time\": 1718530662,\n    \"mount\": \"faceup\",\n    \"name\": \"Phoenix\",\n    \"notes\": \"\",\n    \"num_clients\": 1,\n    \"org_id\": \"af010e2b-f829-4975-b49e-2e896ed1d627\",\n    \"port_stat\": {\n      \"eth0\": {\n        \"full_duplex\": true,\n        \"rx_bytes\": 1284143195,\n        \"rx_errors\": 0,\n        \"rx_peak_bps\": 17585,\n        \"rx_pkts\": 5199816,\n        \"speed\": 1000,\n        \"tx_bytes\": 1283744961,\n        \"tx_peak_bps\": 26484,\n        \"tx_pkts\": 3990463,\n        \"up\": true\n      },\n      \"eth1\": {\n        \"full_duplex\": false,\n        \"rx_bytes\": 0,\n        \"rx_errors\": 0,\n        \"rx_peak_bps\": 0,\n        \"rx_pkts\": 0,\n        \"speed\": 0,\n        \"tx_bytes\": 0,\n        \"tx_peak_bps\": 0,\n        \"tx_pkts\": 0,\n        \"up\": false\n      }\n    },\n    \"power_budget\": 8400,\n    \"power_constrained\": false,\n    \"power_src\": \"DC Input\",\n    \"radio_config\": {},\n    \"radio_stat\": {\n      \"band_24\": {\n        \"bandwidth\": 20,\n        \"channel\": 11,\n        \"mac\": \"5c5b35dea810\",\n        \"noise_floor\": -80,\n        \"num_clients\": 0,\n        \"power\": 17,\n        \"rx_bytes\": 12948211,\n        \"rx_pkts\": 65292,\n        \"tx_bytes\": 19071943,\n        \"tx_pkts\": 76926,\n        \"usage\": \"24\",\n        \"util_all\": 24,\n        \"util_non_wifi\": 2,\n        \"util_rx_in_bss\": 0,\n        \"util_rx_other_bss\": 17,\n        \"util_tx\": 4,\n        \"util_undecodable_wifi\": 0,\n        \"util_unknown_wifi\": 1\n      },\n      \"band_5\": {\n        \"bandwidth\": 40,\n        \"channel\": 36,\n        \"mac\": \"5c5b35dea7f0\",\n        \"noise_floor\": -90,\n        \"num_clients\": 1,\n        \"power\": 17,\n        \"rx_bytes\": 578362619,\n        \"rx_pkts\": 2687577,\n        \"tx_bytes\": 1199571353,\n        \"tx_pkts\": 2479302,\n        \"usage\": \"5\",\n        \"util_all\": 13,\n        \"util_non_wifi\": 0,\n        \"util_rx_in_bss\": 0,\n        \"util_rx_other_bss\": 10,\n        \"util_tx\": 1,\n        \"util_undecodable_wifi\": 0,\n        \"util_unknown_wifi\": 1\n      }\n    },\n    \"rx_bps\": 9276,\n    \"rx_bytes\": 591310830,\n    \"rx_pkts\": 2752869,\n    \"serial\": \"A0703200709E6\",\n    \"site_id\": \"46fc665e-9706-4296-8fe2-78f42f2e67e4\",\n    \"status\": \"connected\",\n    \"switch_redundancy\": {\n      \"num_redundant_aps\": 1\n    },\n    \"tx_bps\": 8067,\n    \"tx_bytes\": 1218643296,\n    \"tx_pkts\": 2556228,\n    \"type\": \"ap\",\n    \"uptime\": 1593120,\n    \"version\": \"0.14.29313\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b1f9aca-da07-4ebc-a018-f0a42f67aed9",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "ap"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05e644da-9b1d-4b55-8163-e4cc64b86a94",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "ap"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61a88796-f266-48d2-9c1b-76d998b99e90",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "ap"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fef025b-077f-4d3e-97c3-1a730c490ff4",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "ap"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab10a242-f00b-4197-a108-89a29a0ba821",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "ap"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "745dc59f-8d11-4d78-aa1c-6bf3bf1f416f",
+          "name": "getSiteDeviceStats",
+          "request": {
+            "name": "getSiteDeviceStats",
+            "description": {
+              "content": "Get Site Device Stats Details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "sites",
+                ":site_id",
+                "stats",
+                "devices",
+                ":device_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "List of additional fields requests, comma separated, or `fields=*` for all of them"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "site_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "device_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9175c29c-53c2-46a3-b98e-67f3ce9c2dc1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "field1,field2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"auto_upgrade_stat\": {\n    \"lastcheck\": 1720594762\n  },\n  \"ble_stat\": {\n    \"beacon_enabled\": true,\n    \"beacon_rate\": 4,\n    \"eddystone_uid_enabled\": false,\n    \"eddystone_uid_freq_msec\": 1000,\n    \"eddystone_uid_instance\": \"5c5b35d0077b\",\n    \"eddystone_uid_namespace\": \"9777c1a06ef611e68bbf\",\n    \"eddystone_url_enabled\": false,\n    \"eddystone_url_freq_msec\": 1000,\n    \"eddystone_url_url\": \"\",\n    \"ibeacon_enabled\": false,\n    \"ibeacon_freq_msec\": 1000,\n    \"ibeacon_major\": 894,\n    \"ibeacon_minor\": 9328,\n    \"ibeacon_uuid\": \"af010e2b-f829-4975-b49e-2e896ed1d627\",\n    \"major\": 894,\n    \"minors\": [\n      9328,\n      9329,\n      9330,\n      9331,\n      9332,\n      9333,\n      9334,\n      9335,\n      -1\n    ],\n    \"power\": 8,\n    \"rx_bytes\": 158500843,\n    \"rx_pkts\": 3549163,\n    \"tx_bytes\": 509640,\n    \"tx_pkts\": 85411,\n    \"tx_resets\": 0,\n    \"uuid\": \"af010e2b-f829-4975-b49e-2e896ed1d627\"\n  },\n  \"config_reverted\": false,\n  \"cpu_system\": 21921854,\n  \"cpu_user\": 7496631,\n  \"cpu_util\": 5,\n  \"created_time\": 1718228350,\n  \"env_stat\": {\n    \"accel_x\": -0.092,\n    \"accel_y\": 0.004,\n    \"accel_z\": -1.02,\n    \"ambient_temp\": 43,\n    \"attitude\": 0,\n    \"cpu_temp\": 53,\n    \"humidity\": 9,\n    \"magne_x\": 0,\n    \"magne_y\": 0,\n    \"magne_z\": 0,\n    \"pressure\": 968,\n    \"vcore_voltage\": 0\n  },\n  \"ext_ip\": \"66.129.234.28\",\n  \"hw_rev\": \"C02\",\n  \"id\": \"00000000-0000-0000-1000-5c5b35d0077b\",\n  \"inactive_wired_vlans\": [],\n  \"ip\": \"192.168.95.3\",\n  \"ip_stat\": {\n    \"dhcp_server\": \"192.168.95.1\",\n    \"dns\": [\n      \"8.8.8.8\"\n    ],\n    \"gateway\": \"192.168.95.1\",\n    \"ip\": \"192.168.95.3\",\n    \"ip6\": \"fe80:0:0:0:5e5b:35ff:fed0:77b\",\n    \"ips\": {\n      \"vlan1\": \"192.168.95.3/24,fe80:0:0:0:5e5b:35ff:fed0:77b/64\"\n    },\n    \"netmask\": \"255.255.255.0\",\n    \"netmask6\": \"/64\"\n  },\n  \"last_seen\": 1720595866,\n  \"last_trouble\": {\n    \"code\": \"07\",\n    \"timestamp\": 1720039666\n  },\n  \"lldp_stat\": {\n    \"chassis_id\": \"d0:07:ca:f5:21:00\",\n    \"lldp_med_supported\": false,\n    \"mgmt_addr\": \"100.123.105.1\",\n    \"mgmt_addrs\": [\n      \"100.123.105.1\"\n    ],\n    \"port_desc\": \"ge-0/0/4\",\n    \"port_id\": \"ge-0/0/4\",\n    \"power_allocated\": 0,\n    \"power_draw\": 0,\n    \"power_request_count\": 0,\n    \"power_requested\": 0,\n    \"system_desc\": \"Juniper Networks, Inc. ex4300-48t internet router, kernel JUNOS 20.4R3-S7.2, Build date: 2023-04-21 19:47:18 UTC Copyright (c) 1996-2023 Juniper Networks, Inc.\",\n    \"system_name\": \"Phoenix-Switch\"\n  },\n  \"mac\": \"5c5b35d0077b\",\n  \"mem_total_kb\": 505468,\n  \"mem_used_kb\": 202096,\n  \"model\": \"AP43\",\n  \"modified_time\": 1718530662,\n  \"mount\": \"faceup\",\n  \"name\": \"Phoenix\",\n  \"notes\": \"\",\n  \"num_clients\": 1,\n  \"org_id\": \"af010e2b-f829-4975-b49e-2e896ed1d627\",\n  \"port_stat\": {\n    \"eth0\": {\n      \"full_duplex\": true,\n      \"rx_bytes\": 1284143195,\n      \"rx_errors\": 0,\n      \"rx_peak_bps\": 17585,\n      \"rx_pkts\": 5199816,\n      \"speed\": 1000,\n      \"tx_bytes\": 1283744961,\n      \"tx_peak_bps\": 26484,\n      \"tx_pkts\": 3990463,\n      \"up\": true\n    },\n    \"eth1\": {\n      \"full_duplex\": false,\n      \"rx_bytes\": 0,\n      \"rx_errors\": 0,\n      \"rx_peak_bps\": 0,\n      \"rx_pkts\": 0,\n      \"speed\": 0,\n      \"tx_bytes\": 0,\n      \"tx_peak_bps\": 0,\n      \"tx_pkts\": 0,\n      \"up\": false\n    }\n  },\n  \"power_budget\": 8400,\n  \"power_constrained\": false,\n  \"power_src\": \"DC Input\",\n  \"radio_config\": {},\n  \"radio_stat\": {\n    \"band_24\": {\n      \"bandwidth\": 20,\n      \"channel\": 11,\n      \"mac\": \"5c5b35dea810\",\n      \"noise_floor\": -80,\n      \"num_clients\": 0,\n      \"power\": 17,\n      \"rx_bytes\": 12948211,\n      \"rx_pkts\": 65292,\n      \"tx_bytes\": 19071943,\n      \"tx_pkts\": 76926,\n      \"usage\": \"24\",\n      \"util_all\": 24,\n      \"util_non_wifi\": 2,\n      \"util_rx_in_bss\": 0,\n      \"util_rx_other_bss\": 17,\n      \"util_tx\": 4,\n      \"util_undecodable_wifi\": 0,\n      \"util_unknown_wifi\": 1\n    },\n    \"band_5\": {\n      \"bandwidth\": 40,\n      \"channel\": 36,\n      \"mac\": \"5c5b35dea7f0\",\n      \"noise_floor\": -90,\n      \"num_clients\": 1,\n      \"power\": 17,\n      \"rx_bytes\": 578362619,\n      \"rx_pkts\": 2687577,\n      \"tx_bytes\": 1199571353,\n      \"tx_pkts\": 2479302,\n      \"usage\": \"5\",\n      \"util_all\": 13,\n      \"util_non_wifi\": 0,\n      \"util_rx_in_bss\": 0,\n      \"util_rx_other_bss\": 10,\n      \"util_tx\": 1,\n      \"util_undecodable_wifi\": 0,\n      \"util_unknown_wifi\": 1\n    }\n  },\n  \"rx_bps\": 9276,\n  \"rx_bytes\": 591310830,\n  \"rx_pkts\": 2752869,\n  \"serial\": \"A0703200709E6\",\n  \"site_id\": \"46fc665e-9706-4296-8fe2-78f42f2e67e4\",\n  \"status\": \"connected\",\n  \"switch_redundancy\": {\n    \"num_redundant_aps\": 1\n  },\n  \"tx_bps\": 8067,\n  \"tx_bytes\": 1218643296,\n  \"tx_pkts\": 2556228,\n  \"type\": \"ap\",\n  \"uptime\": 1593120,\n  \"version\": \"0.14.29313\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4dcea54-d496-4f78-b754-cdc0e4957fc3",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "field1,field2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef707978-4d11-4f31-905c-a828af07c7aa",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "field1,field2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0cad4973-6d67-4130-b88b-6045adf2e684",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "field1,field2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e93816c1-22a0-4182-af3f-d552182d0323",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "field1,field2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93d2f6a2-2c91-4d27-b4d4-63faa50ef3d1",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "field1,field2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4dfa38f-8218-4d21-80ce-e54f7b11119c",
+          "name": "getSiteAllClientsStatsByDevice",
+          "request": {
+            "name": "getSiteAllClientsStatsByDevice",
+            "description": {
+              "content": "Get wireless client stat by Device",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "sites",
+                ":site_id",
+                "stats",
+                "devices",
+                ":device_id",
+                "clients"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "site_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "device_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7cee14d8-b441-4ce4-8d38-82bc44a42e2f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ap_id\": \"57efaa70-0861-796d-bbb6-76d8268cfa2d\",\n    \"ap_mac\": \"string\",\n    \"band\": \"6-selectable\",\n    \"channel\": 5591,\n    \"is_guest\": false,\n    \"key_mgmt\": \"string\",\n    \"mac\": \"string\",\n    \"proto\": \"g\",\n    \"rssi\": 2281.6984071283287,\n    \"snr\": 6537.00171673702,\n    \"ssid\": \"string\",\n    \"wlan_id\": \"bff0f8b2-0559-32b9-fef3-c6d86978201b\",\n    \"accuracy\": 6621,\n    \"airespace_ifname\": \"string\",\n    \"airwatch\": {\n      \"authorized\": true\n    },\n    \"annotation\": \"string\",\n    \"assoc_time\": 7002,\n    \"bssid\": \"string\",\n    \"dual_band\": true,\n    \"family\": \"string\",\n    \"group\": \"string\",\n    \"guest\": {\n      \"access_code_email\": \"string\",\n      \"ap_mac\": \"string\",\n      \"auth_method\": \"string\",\n      \"authorized\": true,\n      \"authorized_expiring_time\": 1480704955,\n      \"authorized_time\": 1480704355,\n      \"company\": \"abc\",\n      \"email\": \"john@abc.com\",\n      \"field1\": \"string\",\n      \"field2\": \"string\",\n      \"field3\": \"string\",\n      \"field4\": \"string\",\n      \"mac\": \"string\",\n      \"minutes\": 1440,\n      \"name\": \"John Smith\",\n      \"random_mac\": true,\n      \"ssid\": \"Guest-SSID\",\n      \"wlan_id\": \"6748cfa6-4e12-11e6-9188-0242ac110007\"\n    },\n    \"hostname\": \"string\",\n    \"idle_time\": 4065.824692389468,\n    \"ip\": \"string\",\n    \"last_seen\": 1470417522,\n    \"manufacture\": \"string\",\n    \"map_id\": \"004cf058-56cb-880c-ad8b-6f45df882343\",\n    \"model\": \"string\",\n    \"num_locating_aps\": 1457,\n    \"os\": \"string\",\n    \"power_saving\": true,\n    \"psk_id\": \"c6be6977-b988-63e6-0e8e-c68ca157e4e6\",\n    \"rssizones\": [\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 2223.333384716448\n      },\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 7018.513859300635\n      }\n    ],\n    \"rx_bps\": 60003,\n    \"rx_bytes\": 8515104416,\n    \"rx_pkts\": 57770567,\n    \"rx_rate\": 7592.3332578308355,\n    \"rx_retries\": 955,\n    \"site_id\": \"441a1214-6928-442a-8e92-e1d34b8ec6a6\",\n    \"tx_bps\": 634301,\n    \"tx_bytes\": 211217389682,\n    \"tx_pkts\": 812204062,\n    \"tx_rate\": 6904.578656483954,\n    \"tx_retries\": 5979,\n    \"type\": \"string\",\n    \"uptime\": 8995.9081647842,\n    \"username\": \"string\",\n    \"vbeacons\": [\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 1026.1705888570782\n      },\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 4530.42429090035\n      }\n    ],\n    \"vlan_id\": \"string\",\n    \"wxrule_id\": \"8143d917-3b42-b5f7-32e3-80968ed76c5c\",\n    \"wxrule_usage\": [\n      {\n        \"tag_id\": \"9ed2416c-cf1f-3717-965f-343d69aac5d0\",\n        \"usage\": 2537\n      },\n      {\n        \"tag_id\": \"084c063d-51be-02df-6fa7-246fce3b98d7\",\n        \"usage\": 4806\n      }\n    ],\n    \"x\": 495.3819249849878,\n    \"x_m\": 8686.581882637453,\n    \"y\": 922.7864880197068,\n    \"y_m\": 8492.647796453328,\n    \"zones\": [\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 3240.9410385478855\n      },\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 4097.461385180843\n      }\n    ]\n  },\n  {\n    \"ap_id\": \"5d7f2ca6-48e2-1bc1-f3d9-ef66e165e2bf\",\n    \"ap_mac\": \"string\",\n    \"band\": \"5-dedicated\",\n    \"channel\": 8344,\n    \"is_guest\": false,\n    \"key_mgmt\": \"string\",\n    \"mac\": \"string\",\n    \"proto\": \"g\",\n    \"rssi\": 6480.903775357445,\n    \"snr\": 6969.015926957948,\n    \"ssid\": \"string\",\n    \"wlan_id\": \"4118b046-45dc-3bc8-3cc5-82b14bb5abe0\",\n    \"accuracy\": 7241,\n    \"airespace_ifname\": \"string\",\n    \"airwatch\": {\n      \"authorized\": false\n    },\n    \"annotation\": \"string\",\n    \"assoc_time\": 2707,\n    \"bssid\": \"string\",\n    \"dual_band\": true,\n    \"family\": \"string\",\n    \"group\": \"string\",\n    \"guest\": {\n      \"access_code_email\": \"string\",\n      \"ap_mac\": \"string\",\n      \"auth_method\": \"string\",\n      \"authorized\": true,\n      \"authorized_expiring_time\": 1480704955,\n      \"authorized_time\": 1480704355,\n      \"company\": \"abc\",\n      \"email\": \"john@abc.com\",\n      \"field1\": \"string\",\n      \"field2\": \"string\",\n      \"field3\": \"string\",\n      \"field4\": \"string\",\n      \"mac\": \"string\",\n      \"minutes\": 1440,\n      \"name\": \"John Smith\",\n      \"random_mac\": false,\n      \"ssid\": \"Guest-SSID\",\n      \"wlan_id\": \"6748cfa6-4e12-11e6-9188-0242ac110007\"\n    },\n    \"hostname\": \"string\",\n    \"idle_time\": 2589.5597241011424,\n    \"ip\": \"string\",\n    \"last_seen\": 1470417522,\n    \"manufacture\": \"string\",\n    \"map_id\": \"9021cc75-549b-e1d0-c5f4-1f3be450e2c3\",\n    \"model\": \"string\",\n    \"num_locating_aps\": 586,\n    \"os\": \"string\",\n    \"power_saving\": true,\n    \"psk_id\": \"140f6ee8-366e-3181-8ade-6c3c673ade04\",\n    \"rssizones\": [\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 2979.8758298919447\n      },\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 2599.8043910693136\n      }\n    ],\n    \"rx_bps\": 60003,\n    \"rx_bytes\": 8515104416,\n    \"rx_pkts\": 57770567,\n    \"rx_rate\": 5015.790979779674,\n    \"rx_retries\": 9258,\n    \"site_id\": \"441a1214-6928-442a-8e92-e1d34b8ec6a6\",\n    \"tx_bps\": 634301,\n    \"tx_bytes\": 211217389682,\n    \"tx_pkts\": 812204062,\n    \"tx_rate\": 9946.771226249984,\n    \"tx_retries\": 1284,\n    \"type\": \"string\",\n    \"uptime\": 7805.850806305603,\n    \"username\": \"string\",\n    \"vbeacons\": [\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 5756.894362084818\n      },\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 5950.0430102969085\n      }\n    ],\n    \"vlan_id\": \"string\",\n    \"wxrule_id\": \"32e66e9d-ca70-cbe5-e78a-96159fae49d2\",\n    \"wxrule_usage\": [\n      {\n        \"tag_id\": \"6c86d6f4-7f72-a748-7d08-182fdb0f13e6\",\n        \"usage\": 3763\n      },\n      {\n        \"tag_id\": \"009cc590-0463-a211-b92f-04e8c052e68c\",\n        \"usage\": 4934\n      }\n    ],\n    \"x\": 925.8016874515729,\n    \"x_m\": 3092.3946026054205,\n    \"y\": 8301.74580778759,\n    \"y_m\": 720.3172613960706,\n    \"zones\": [\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 4317.8770359430755\n      },\n      {\n        \"id\": \"53f10664-3ce8-4c27-b382-0ef66432349f\",\n        \"since\": 9085.847853250734\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "488b8665-bba1-4d32-afe8-28bb8a197358",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6edfa907-ce28-4323-8c76-912c02d93330",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "179770f7-1217-4c1a-960e-84da7b801f88",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "790a8e10-1cd3-4aa2-a50a-ce8b5a965fde",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "543b5a7f-c653-4389-90e4-3c5cf7ee9ada",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "devices",
+                    ":device_id",
+                    "clients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "device_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c79d513-9fff-4cec-bb89-451c459cb41d",
+          "name": "getSiteGatewayMetrics",
+          "request": {
+            "name": "getSiteGatewayMetrics",
+            "description": {
+              "content": "Get Site Gateway Metrics",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "sites",
+                ":site_id",
+                "stats",
+                "gateways",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "site_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f655e75-1d97-4fb1-868c-42d5e0b1780c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "gateways",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"config_success\": 99.9,\n  \"version_compliance\": {\n    \"major_version\": {\n      \"SRX320\": {\n        \"major_count\": 0,\n        \"major_version\": \"19.4R2-S1.2\"\n      }\n    },\n    \"score\": 99.9,\n    \"type\": \"gateway\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a2becb9-3e23-41ee-8887-024a6d9cdea7",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "gateways",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76010d57-6d98-4359-a432-321bc05dcb84",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "gateways",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2a9abc8-140b-4463-baf6-8456a8a7f3dc",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "gateways",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43149b17-4d6e-41e0-bac6-c819982d2c88",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "gateways",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1103f6aa-19e3-4cb0-b857-2954cf14cda9",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "gateways",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15ba0adf-f7b1-42c2-8095-2f3b458ad81b",
+          "name": "getSiteSwitchesMetrics",
+          "request": {
+            "name": "getSiteSwitchesMetrics",
+            "description": {
+              "content": "Get version compliance metrics for managed or monitored switches",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "sites",
+                ":site_id",
+                "stats",
+                "switches",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "switch_mac",
+                  "value": "<string>",
+                  "description": "Switch mac, used only with metric `type`==`active_ports_summary`"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "site_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f3aebd2a-71f2-4278-84ed-ef73ad8f5fcd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "switches",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "active_ports_summary"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "switch"
+                    },
+                    {
+                      "key": "switch_mac",
+                      "value": "5c5b350e0410"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"active_ports_summary\": {\n    \"details\": {\n      \"active_port_count\": 4,\n      \"total_port_count\": 4\n    },\n    \"score\": 100,\n    \"total_switch_count\": 2\n  },\n  \"config_success\": {\n    \"details\": {\n      \"config_success_count\": 2\n    },\n    \"score\": 100,\n    \"total_switch_count\": 2\n  },\n  \"version_compliance\": {\n    \"details\": {\n      \"major_versions\": [\n        {\n          \"major_count\": 1,\n          \"major_version\": \"21.4R3.5\",\n          \"model\": \"EX2300-C-12P\",\n          \"system_names\": []\n        },\n        {\n          \"major_count\": 1,\n          \"major_version\": \"6.0.4-11\",\n          \"model\": \"SSR120\",\n          \"system_names\": []\n        }\n      ]\n    },\n    \"score\": 100,\n    \"total_switch_count\": 2\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a82377d-c52b-48f2-bad2-49ebf3d30630",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "switches",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "active_ports_summary"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "switch"
+                    },
+                    {
+                      "key": "switch_mac",
+                      "value": "5c5b350e0410"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "173f2f8a-6d13-4c7a-a232-78babf3daa65",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "switches",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "active_ports_summary"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "switch"
+                    },
+                    {
+                      "key": "switch_mac",
+                      "value": "5c5b350e0410"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ceba2942-4e38-4f4b-b1a6-1e4c4547adde",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "switches",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "active_ports_summary"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "switch"
+                    },
+                    {
+                      "key": "switch_mac",
+                      "value": "5c5b350e0410"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71fe8c16-3191-4e9b-8da8-8fb233b0994e",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "switches",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "active_ports_summary"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "switch"
+                    },
+                    {
+                      "key": "switch_mac",
+                      "value": "5c5b350e0410"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3733a7b2-df5b-40e3-afc1-7c62e53e6b30",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "stats",
+                    "switches",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "active_ports_summary"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "switch"
+                    },
+                    {
+                      "key": "switch_mac",
+                      "value": "5c5b350e0410"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mist.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "16a2b0a2-f776-4f97-86b4-d3ca484fbb6b",
+    "name": "Mist Admins Sites Stats - Devices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "> Version: **2604.1.1**\n>\n> Date: **May 13, 2026**\n<div class=\"notification\"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href=\"https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes\">announcements</a> </div>\n\n---\n## Additional Documentation\n* [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)\n* [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)\n* [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)\n\n## Helpful Resources\n* [API Sandbox and Exercises](https://api-class.mist.com/)\n* [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)\n* [Python Script Examples](https://github.com/tmunzer/mist_library)\n* [API Demo Apps](https://apps.mist-lab.fr/)\n* [Juniper Blog](https://blogs.juniper.net/)\n\n## Mist Web Browser Extension:\n* Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)\n* Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)\n\n---\n\nContact Support:\n Name: Thomas Munzer\n Email: tmunzer@juniper.net",
+      "type": "text/plain"
+    }
+  }
+}

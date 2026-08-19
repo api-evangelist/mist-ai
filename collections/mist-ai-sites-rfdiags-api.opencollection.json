@@ -1,0 +1,213 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Sites Rfdiags API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sites Rfdiags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getSiteSiteRfdiagRecording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/rfdiags",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List RF Glass Recording"
+        },
+        {
+          "info": {
+            "name": "startSiteRecording",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/rfdiags",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start RF Glass Recording"
+        },
+        {
+          "info": {
+            "name": "getSiteRfdiagRecording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/rfdiags/:rfdiag_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rfdiag_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get RF Diag Recording Details"
+        },
+        {
+          "info": {
+            "name": "updateSiteRfdiagRecording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/rfdiags/:rfdiag_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rfdiag_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Recording"
+        },
+        {
+          "info": {
+            "name": "deleteSiteRfdiagRecording",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/rfdiags/:rfdiag_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rfdiag_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Recording"
+        },
+        {
+          "info": {
+            "name": "downloadSiteRfdiagRecording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/rfdiags/:rfdiag_id/download",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rfdiag_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download Recording\nDownload raw_events blob"
+        },
+        {
+          "info": {
+            "name": "stopSiteRfdiagRecording",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/sites/:site_id/rfdiags/:rfdiag_id/stop",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rfdiag_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "If the recording session is active for the given rfdiag_id, it will finish the recording. duration and end_time will be updated to reflect the correct values."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

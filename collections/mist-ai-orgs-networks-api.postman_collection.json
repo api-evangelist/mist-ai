@@ -1,0 +1,2285 @@
+{
+  "item": [
+    {
+      "id": "f69e9f67-7040-4169-857b-c098e3fd02e6",
+      "name": "Orgs Networks",
+      "description": {
+        "content": "A Network refers to a group or segment of users that are defined for use across the entire organization.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5cc103b3-f634-4c8c-a772-a44a6aa1946b",
+          "name": "listOrgNetworks",
+          "request": {
+            "name": "listOrgNetworks",
+            "description": {
+              "content": "Get List of Org Networks",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "networks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52625028-21ba-4f35-89b4-11ad12396940",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created_time\": 0,\n    \"disallow_mist_services\": false,\n    \"gateway\": \"192.168.70.1\",\n    \"hosts\": {\n      \"property1\": {\n        \"external_ips\": \"172.16.10.32-172.16.10.35\",\n        \"ips\": \"192.168.70.32-192.168.70.35\"\n      },\n      \"property2\": {\n        \"external_ips\": \"172.16.10.32-172.16.10.35\",\n        \"ips\": \"192.168.70.32-192.168.70.35\"\n      }\n    },\n    \"id\": \"497f6eca-6276-4993-bfeb-53cbbbba6f13\",\n    \"internal_access\": {\n      \"enabled\": true\n    },\n    \"internet_access\": {\n      \"create_simple_service_policy\": false,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"enabled\": true,\n      \"restricted\": false,\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"printer-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"printer-1\"\n        }\n      }\n    },\n    \"isolation\": true,\n    \"modified_time\": 0,\n    \"name\": \"string\",\n    \"org_id\": \"a40f5d1f-d889-42e9-94ea-b9b33585fc6b\",\n    \"subnet\": \"192.168.70.0/24\",\n    \"tenants\": {\n      \"property1\": {\n        \"addresses\": [\n          \"10.10.10.10\"\n        ]\n      },\n      \"property2\": {\n        \"addresses\": [\n          \"10.10.10.45\"\n        ]\n      }\n    },\n    \"vlan_id\": 10,\n    \"vpn_access\": {\n      \"property1\": {\n        \"allow_ping\": true,\n        \"destination_nat\": {\n          \"property1\": {\n            \"internal_ip\": \"192.168.70.5/30\",\n            \"name\": \"web server\",\n            \"port\": \"443\"\n          },\n          \"property2\": {\n            \"internal_ip\": \"192.168.70.5/30\",\n            \"name\": \"web server\",\n            \"port\": \"443\"\n          }\n        },\n        \"nat_pool\": \"172.16.0.0/26\",\n        \"routed\": true,\n        \"source_nat\": {\n          \"external_ip\": \"172.16.0.8/30\"\n        },\n        \"static_nat\": {\n          \"property1\": {\n            \"internal_ip\": \"192.168.70.3\",\n            \"name\": \"pos_station-1\"\n          },\n          \"property2\": {\n            \"internal_ip\": \"192.168.70.3\",\n            \"name\": \"pos_station-1\"\n          }\n        },\n        \"summarized_subnet\": \"172.16.0.0/16\"\n      },\n      \"property2\": {\n        \"allow_ping\": true,\n        \"destination_nat\": {\n          \"property1\": {\n            \"internal_ip\": \"192.168.70.5/30\",\n            \"name\": \"web server\",\n            \"port\": \"443\"\n          },\n          \"property2\": {\n            \"internal_ip\": \"192.168.70.5/30\",\n            \"name\": \"web server\",\n            \"port\": \"443\"\n          }\n        },\n        \"nat_pool\": \"172.16.0.0/26\",\n        \"routed\": true,\n        \"source_nat\": {\n          \"external_ip\": \"172.16.0.8/30\"\n        },\n        \"static_nat\": {\n          \"property1\": {\n            \"internal_ip\": \"192.168.70.3\",\n            \"name\": \"pos_station-1\"\n          },\n          \"property2\": {\n            \"internal_ip\": \"192.168.70.3\",\n            \"name\": \"pos_station-1\"\n          }\n        },\n        \"summarized_subnet\": \"172.16.0.0/16\"\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb60afd8-73b9-4542-b228-49f33b786a85",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9562dee0-3756-480b-b335-444b5e0c4acf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f285872c-754c-4ace-962a-efa0c8d0d5e9",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce354bd8-7d5f-4574-8c89-0ef241b98d16",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ca93c56-1075-440c-9ee1-a747a52e5bb9",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "167baeaf-fd9c-4b58-8352-ac0421a52967",
+          "name": "createOrgNetwork",
+          "request": {
+            "name": "createOrgNetwork",
+            "description": {
+              "content": "Create Organization Network",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "networks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"created_time\": \"<double>\",\n  \"disallow_mist_services\": false,\n  \"gateway\": \"<ipv4>\",\n  \"gateway6\": \"<ipv6>\",\n  \"id\": \"<uuid>\",\n  \"internal_access\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"key_0\": {\n        \"internal_ip\": \"<string>\",\n        \"name\": \"<string>\",\n        \"port\": \"<string>\",\n        \"wan_name\": \"<string>\"\n      }\n    },\n    \"enabled\": \"<boolean>\",\n    \"restricted\": false,\n    \"static_nat\": {\n      \"key_0\": {\n        \"internal_ip\": \"<string>\",\n        \"name\": \"<string>\",\n        \"wan_name\": \"<string>\"\n      }\n    }\n  },\n  \"isolation\": \"<boolean>\",\n  \"modified_time\": \"<double>\",\n  \"multicast\": {\n    \"disable_igmp\": false,\n    \"enabled\": false,\n    \"groups\": {\n      \"key_0\": {\n        \"rp_ip\": \"<string>\"\n      }\n    }\n  },\n  \"org_id\": \"<uuid>\",\n  \"routed_for_networks\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subnet\": \"<string>\",\n  \"subnet6\": \"<string>\",\n  \"tenants\": {\n    \"key_0\": {\n      \"addresses\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"key_1\": {\n      \"addresses\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"vlan_id\": \"<string>\",\n  \"vpn_access\": {\n    \"key_0\": {\n      \"advertised_subnet\": \"<string>\",\n      \"allow_ping\": \"<boolean>\",\n      \"destination_nat\": {\n        \"key_0\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\",\n          \"port\": \"<string>\"\n        },\n        \"key_1\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\",\n          \"port\": \"<string>\"\n        }\n      },\n      \"nat_pool\": \"<string>\",\n      \"no_readvertise_to_lan_bgp\": false,\n      \"no_readvertise_to_lan_ospf\": false,\n      \"no_readvertise_to_overlay\": \"<boolean>\",\n      \"other_vrfs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"routed\": \"<boolean>\",\n      \"source_nat\": {\n        \"external_ip\": \"<string>\"\n      },\n      \"static_nat\": {\n        \"key_0\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      },\n      \"summarized_subnet\": \"<string>\",\n      \"summarized_subnet_to_lan_bgp\": \"<string>\",\n      \"summarized_subnet_to_lan_ospf\": \"<string>\"\n    },\n    \"key_1\": {\n      \"advertised_subnet\": \"<string>\",\n      \"allow_ping\": \"<boolean>\",\n      \"destination_nat\": {\n        \"key_0\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\",\n          \"port\": \"<string>\"\n        },\n        \"key_1\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\",\n          \"port\": \"<string>\"\n        },\n        \"key_2\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\",\n          \"port\": \"<string>\"\n        }\n      },\n      \"nat_pool\": \"<string>\",\n      \"no_readvertise_to_lan_bgp\": false,\n      \"no_readvertise_to_lan_ospf\": false,\n      \"no_readvertise_to_overlay\": \"<boolean>\",\n      \"other_vrfs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"routed\": \"<boolean>\",\n      \"source_nat\": {\n        \"external_ip\": \"<string>\"\n      },\n      \"static_nat\": {\n        \"key_0\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      },\n      \"summarized_subnet\": \"<string>\",\n      \"summarized_subnet_to_lan_bgp\": \"<string>\",\n      \"summarized_subnet_to_lan_ospf\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9d79f693-baf1-430c-b507-78f070c4ad9a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10.\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_time\": 0,\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"id\": \"497f6eca-6276-4993-bfeb-53cbbbba6f12\",\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"modified_time\": 0,\n  \"name\": \"string\",\n  \"org_id\": \"a40f5d1f-d889-42e9-94ea-b9b33585fc6b\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d32b2997-8dd3-4c14-913d-a19c6ddd65d1",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10.\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2d15d1c-2794-4f48-b684-e01dd1a483b2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10.\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a1892f7-b8a5-48cc-a6ca-4afe749bc4a6",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10.\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6445c6b7-ebfb-40af-b99b-c7af5d420b98",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10.\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4549e9f3-2676-49d8-8ee1-2d13fec60ed4",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10.\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "325428ed-f0cd-488f-97b2-1e92ebb56516",
+          "name": "deleteOrgNetwork",
+          "request": {
+            "name": "deleteOrgNetwork",
+            "description": {
+              "content": "Delete Organization Network",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "networks",
+                ":network_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "network_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f7a4fa03-2699-40ce-bdcd-09fa12c71a81",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8ea863a7-7084-4307-b8ef-6174ba54ef5e",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "111af08a-4b35-42ff-8201-e3731f6c60de",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d6f53ed-9787-4110-b263-5d7c222c1616",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3c007c5-a784-444b-81e3-06fb6325f34b",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7fbb476-7a71-4b0c-b14f-081f4bb76462",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a6baf48d-3d33-4578-8985-e01a10984661",
+          "name": "getOrgNetwork",
+          "request": {
+            "name": "getOrgNetwork",
+            "description": {
+              "content": "Get Organization Network Details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "networks",
+                ":network_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "network_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d23db1f-a987-43fa-8036-3e5cd720e438",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_time\": 0,\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"id\": \"497f6eca-6276-4993-bfeb-53cbbbba6f12\",\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"modified_time\": 0,\n  \"name\": \"string\",\n  \"org_id\": \"a40f5d1f-d889-42e9-94ea-b9b33585fc6b\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5df56e79-6e6c-47dc-ad8e-db9eaa9a6323",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7105f27-bad8-46bd-b05b-ad92055efbf4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e344c01f-00ca-496f-949e-d73e0f25ad81",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbea45c2-25e6-43f4-b540-7a91099fa7a6",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac01c624-1717-44b6-9555-580bb06b065e",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8b87ab4-6ef6-4473-a6d6-26ff4a076559",
+          "name": "updateOrgNetwork",
+          "request": {
+            "name": "updateOrgNetwork",
+            "description": {
+              "content": "Update Organization Network",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "networks",
+                ":network_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "network_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"created_time\": \"<double>\",\n  \"disallow_mist_services\": false,\n  \"gateway\": \"<ipv4>\",\n  \"gateway6\": \"<ipv6>\",\n  \"id\": \"<uuid>\",\n  \"internal_access\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"key_0\": {\n        \"internal_ip\": \"<string>\",\n        \"name\": \"<string>\",\n        \"port\": \"<string>\",\n        \"wan_name\": \"<string>\"\n      }\n    },\n    \"enabled\": \"<boolean>\",\n    \"restricted\": false,\n    \"static_nat\": {\n      \"key_0\": {\n        \"internal_ip\": \"<string>\",\n        \"name\": \"<string>\",\n        \"wan_name\": \"<string>\"\n      }\n    }\n  },\n  \"isolation\": \"<boolean>\",\n  \"modified_time\": \"<double>\",\n  \"multicast\": {\n    \"disable_igmp\": false,\n    \"enabled\": false,\n    \"groups\": {\n      \"key_0\": {\n        \"rp_ip\": \"<string>\"\n      }\n    }\n  },\n  \"org_id\": \"<uuid>\",\n  \"routed_for_networks\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subnet\": \"<string>\",\n  \"subnet6\": \"<string>\",\n  \"tenants\": {\n    \"key_0\": {\n      \"addresses\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"key_1\": {\n      \"addresses\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"vlan_id\": \"<string>\",\n  \"vpn_access\": {\n    \"key_0\": {\n      \"advertised_subnet\": \"<string>\",\n      \"allow_ping\": \"<boolean>\",\n      \"destination_nat\": {\n        \"key_0\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\",\n          \"port\": \"<string>\"\n        },\n        \"key_1\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\",\n          \"port\": \"<string>\"\n        }\n      },\n      \"nat_pool\": \"<string>\",\n      \"no_readvertise_to_lan_bgp\": false,\n      \"no_readvertise_to_lan_ospf\": false,\n      \"no_readvertise_to_overlay\": \"<boolean>\",\n      \"other_vrfs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"routed\": \"<boolean>\",\n      \"source_nat\": {\n        \"external_ip\": \"<string>\"\n      },\n      \"static_nat\": {\n        \"key_0\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      },\n      \"summarized_subnet\": \"<string>\",\n      \"summarized_subnet_to_lan_bgp\": \"<string>\",\n      \"summarized_subnet_to_lan_ospf\": \"<string>\"\n    },\n    \"key_1\": {\n      \"advertised_subnet\": \"<string>\",\n      \"allow_ping\": \"<boolean>\",\n      \"destination_nat\": {\n        \"key_0\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\",\n          \"port\": \"<string>\"\n        },\n        \"key_1\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\",\n          \"port\": \"<string>\"\n        },\n        \"key_2\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\",\n          \"port\": \"<string>\"\n        }\n      },\n      \"nat_pool\": \"<string>\",\n      \"no_readvertise_to_lan_bgp\": false,\n      \"no_readvertise_to_lan_ospf\": false,\n      \"no_readvertise_to_overlay\": \"<boolean>\",\n      \"other_vrfs\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"routed\": \"<boolean>\",\n      \"source_nat\": {\n        \"external_ip\": \"<string>\"\n      },\n      \"static_nat\": {\n        \"key_0\": {\n          \"internal_ip\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      },\n      \"summarized_subnet\": \"<string>\",\n      \"summarized_subnet_to_lan_bgp\": \"<string>\",\n      \"summarized_subnet_to_lan_ospf\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "006ae950-d31a-4525-9b09-9109564a120f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_time\": 0,\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"id\": \"497f6eca-6276-4993-bfeb-53cbbbba6f12\",\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"modified_time\": 0,\n  \"name\": \"string\",\n  \"org_id\": \"a40f5d1f-d889-42e9-94ea-b9b33585fc6b\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "589a8235-9a86-4359-b3ea-d771a5aabba5",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f40c3b0-9f56-4cce-82ec-86cbe8b75625",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "169e0062-8085-4e39-8560-762e23492e6a",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbded2c2-cab1-41d7-a0e2-db31fa307807",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5493047f-8212-48ff-b72a-f7ca05598ec4",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "networks",
+                    ":network_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "network_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"disallow_mist_services\": false,\n  \"gateway\": \"192.168.70.1\",\n  \"hosts\": {\n    \"property1\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    },\n    \"property2\": {\n      \"external_ips\": \"172.16.10.32-172.16.10.35\",\n      \"ips\": \"192.168.70.32-192.168.70.35\"\n    }\n  },\n  \"internal_access\": {\n    \"enabled\": true\n  },\n  \"internet_access\": {\n    \"create_simple_service_policy\": false,\n    \"destination_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.30\",\n        \"name\": \"web server\",\n        \"port\": \"443\"\n      }\n    },\n    \"enabled\": true,\n    \"restricted\": false,\n    \"static_nat\": {\n      \"property1\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      },\n      \"property2\": {\n        \"internal_ip\": \"192.168.70.3\",\n        \"name\": \"printer-1\"\n      }\n    }\n  },\n  \"isolation\": true,\n  \"name\": \"string\",\n  \"subnet\": \"192.168.70.0/24\",\n  \"tenants\": {\n    \"property1\": {\n      \"addresses\": [\n        \"10.10.10.10\"\n      ]\n    },\n    \"property2\": {\n      \"addresses\": [\n        \"10.10.10.52\"\n      ]\n    }\n  },\n  \"vlan_id\": 10,\n  \"vpn_access\": {\n    \"property1\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    },\n    \"property2\": {\n      \"allow_ping\": true,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.5/30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"nat_pool\": \"172.16.0.0/26\",\n      \"routed\": true,\n      \"source_nat\": {\n        \"external_ip\": \"172.16.0.8/30\"\n      },\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"pos_station-1\"\n        }\n      },\n      \"summarized_subnet\": \"172.16.0.0/16\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mist.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e88d64a1-24e5-4a29-85d1-39c21ee1e4a9",
+    "name": "Mist Admins Orgs Networks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "> Version: **2604.1.1**\n>\n> Date: **May 13, 2026**\n<div class=\"notification\"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href=\"https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes\">announcements</a> </div>\n\n---\n## Additional Documentation\n* [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)\n* [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)\n* [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)\n\n## Helpful Resources\n* [API Sandbox and Exercises](https://api-class.mist.com/)\n* [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)\n* [Python Script Examples](https://github.com/tmunzer/mist_library)\n* [API Demo Apps](https://apps.mist-lab.fr/)\n* [Juniper Blog](https://blogs.juniper.net/)\n\n## Mist Web Browser Extension:\n* Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)\n* Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)\n\n---\n\nContact Support:\n Name: Thomas Munzer\n Email: tmunzer@juniper.net",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,470 @@
+{
+  "item": [
+    {
+      "id": "8867df04-3ed8-4e20-b78d-fa1cb568485c",
+      "name": "Sites Networks",
+      "description": {
+        "content": "The API Endpoints for the Networks at the site level can be used to get the site derived networks, meaning the org level configuration with the site variables resolved.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e21c07fd-6551-4db9-ad3f-bff7cdf27887",
+          "name": "listSiteNetworksDerived",
+          "request": {
+            "name": "listSiteNetworksDerived",
+            "description": {
+              "content": "Get the list of derived Networks for a Site",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "sites",
+                ":site_id",
+                "networks",
+                "derived"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resolve",
+                  "value": "false",
+                  "description": "Whether resolve the site variables"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "site_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "36b1f4df-fbab-476a-af01-8c2d726fd80b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "networks",
+                    "derived"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resolve",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created_time\": 0,\n    \"disallow_mist_services\": false,\n    \"gateway\": \"192.168.70.1\",\n    \"hosts\": {\n      \"property1\": {\n        \"external_ips\": \"172.16.10.32-172.16.10.35\",\n        \"ips\": \"192.168.70.32-192.168.70.35\"\n      },\n      \"property2\": {\n        \"external_ips\": \"172.16.10.32-172.16.10.35\",\n        \"ips\": \"192.168.70.32-192.168.70.35\"\n      }\n    },\n    \"id\": \"497f6eca-6276-4993-bfeb-53cbbbba6f13\",\n    \"internal_access\": {\n      \"enabled\": true\n    },\n    \"internet_access\": {\n      \"create_simple_service_policy\": false,\n      \"destination_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.30\",\n          \"name\": \"web server\",\n          \"port\": \"443\"\n        }\n      },\n      \"enabled\": true,\n      \"restricted\": false,\n      \"static_nat\": {\n        \"property1\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"printer-1\"\n        },\n        \"property2\": {\n          \"internal_ip\": \"192.168.70.3\",\n          \"name\": \"printer-1\"\n        }\n      }\n    },\n    \"isolation\": true,\n    \"modified_time\": 0,\n    \"name\": \"string\",\n    \"org_id\": \"a40f5d1f-d889-42e9-94ea-b9b33585fc6b\",\n    \"subnet\": \"192.168.70.0/24\",\n    \"tenants\": {\n      \"property1\": {\n        \"addresses\": [\n          \"10.10.10.10\"\n        ]\n      },\n      \"property2\": {\n        \"addresses\": [\n          \"10.10.10.45\"\n        ]\n      }\n    },\n    \"vlan_id\": 10,\n    \"vpn_access\": {\n      \"property1\": {\n        \"allow_ping\": true,\n        \"destination_nat\": {\n          \"property1\": {\n            \"internal_ip\": \"192.168.70.5/30\",\n            \"name\": \"web server\",\n            \"port\": \"443\"\n          },\n          \"property2\": {\n            \"internal_ip\": \"192.168.70.5/30\",\n            \"name\": \"web server\",\n            \"port\": \"443\"\n          }\n        },\n        \"nat_pool\": \"172.16.0.0/26\",\n        \"routed\": true,\n        \"source_nat\": {\n          \"external_ip\": \"172.16.0.8/30\"\n        },\n        \"static_nat\": {\n          \"property1\": {\n            \"internal_ip\": \"192.168.70.3\",\n            \"name\": \"pos_station-1\"\n          },\n          \"property2\": {\n            \"internal_ip\": \"192.168.70.3\",\n            \"name\": \"pos_station-1\"\n          }\n        },\n        \"summarized_subnet\": \"172.16.0.0/16\"\n      },\n      \"property2\": {\n        \"allow_ping\": true,\n        \"destination_nat\": {\n          \"property1\": {\n            \"internal_ip\": \"192.168.70.5/30\",\n            \"name\": \"web server\",\n            \"port\": \"443\"\n          },\n          \"property2\": {\n            \"internal_ip\": \"192.168.70.5/30\",\n            \"name\": \"web server\",\n            \"port\": \"443\"\n          }\n        },\n        \"nat_pool\": \"172.16.0.0/26\",\n        \"routed\": true,\n        \"source_nat\": {\n          \"external_ip\": \"172.16.0.8/30\"\n        },\n        \"static_nat\": {\n          \"property1\": {\n            \"internal_ip\": \"192.168.70.3\",\n            \"name\": \"pos_station-1\"\n          },\n          \"property2\": {\n            \"internal_ip\": \"192.168.70.3\",\n            \"name\": \"pos_station-1\"\n          }\n        },\n        \"summarized_subnet\": \"172.16.0.0/16\"\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d76ed1e-6fce-45e9-ba4f-d2fe8ad1c7fb",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "networks",
+                    "derived"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resolve",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a219edb2-08ca-495d-b81b-59c4824f1af6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "networks",
+                    "derived"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resolve",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bd5092c-ead3-45b8-b819-91696cddb466",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "networks",
+                    "derived"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resolve",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60e5101f-ca2e-45f8-aab0-cdd82222dce3",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "networks",
+                    "derived"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resolve",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9f41b85-9f81-41f1-8894-a47ff0ef89ef",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "sites",
+                    ":site_id",
+                    "networks",
+                    "derived"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resolve",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "site_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mist.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b0b748a4-0756-4cd1-bc8d-f86bc923740c",
+    "name": "Mist Admins Sites Networks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "> Version: **2604.1.1**\n>\n> Date: **May 13, 2026**\n<div class=\"notification\"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href=\"https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes\">announcements</a> </div>\n\n---\n## Additional Documentation\n* [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)\n* [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)\n* [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)\n\n## Helpful Resources\n* [API Sandbox and Exercises](https://api-class.mist.com/)\n* [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)\n* [Python Script Examples](https://github.com/tmunzer/mist_library)\n* [API Demo Apps](https://apps.mist-lab.fr/)\n* [Juniper Blog](https://blogs.juniper.net/)\n\n## Mist Web Browser Extension:\n* Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)\n* Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)\n\n---\n\nContact Support:\n Name: Thomas Munzer\n Email: tmunzer@juniper.net",
+      "type": "text/plain"
+    }
+  }
+}

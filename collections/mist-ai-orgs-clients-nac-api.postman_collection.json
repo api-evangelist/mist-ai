@@ -1,0 +1,5027 @@
+{
+  "item": [
+    {
+      "id": "1f5400f8-462d-42ac-b41e-53a8e1f54201",
+      "name": "Orgs Clients - NAC",
+      "description": {
+        "content": "NAC Clients are devices connected to the network and authenticated by Juniper Mist Access Assurance.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d80b9185-f18d-42f2-bb68-ffe649075a60",
+          "name": "countOrgNacClients",
+          "request": {
+            "name": "countOrgNacClients",
+            "description": {
+              "content": "Count by Distinct Attributes of NAC Clients",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "nac_clients",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "distinct",
+                  "value": "type",
+                  "description": "NAC Policy Rule ID, if matched"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_nacrule_id",
+                  "value": "<string>",
+                  "description": "NAC Policy Rule ID, if matched"
+                },
+                {
+                  "disabled": false,
+                  "key": "nacrule_matched",
+                  "value": "<boolean>",
+                  "description": "NAC Policy Rule Matched"
+                },
+                {
+                  "disabled": false,
+                  "key": "auth_type",
+                  "value": "<string>",
+                  "description": "Authentication type, e.g. \"eap-tls\", \"eap-peap\", \"eap-ttls\", \"eap-teap\", \"mab\", \"psk\", \"device-auth\""
+                },
+                {
+                  "disabled": false,
+                  "key": "last_vlan_id",
+                  "value": "<string>",
+                  "description": "Vlan ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_nas_vendor",
+                  "value": "<string>",
+                  "description": "Vendor of NAS device"
+                },
+                {
+                  "disabled": false,
+                  "key": "idp_id",
+                  "value": "<string>",
+                  "description": "SSO ID, if present and used"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_ssid",
+                  "value": "<string>",
+                  "description": "SSID"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_username",
+                  "value": "<string>",
+                  "description": "Username presented by the client"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<number>",
+                  "description": "Start time, in epoch"
+                },
+                {
+                  "disabled": false,
+                  "key": "site_id",
+                  "value": "<string>",
+                  "description": "Site id if assigned, null if not assigned"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_ap",
+                  "value": "<string>",
+                  "description": "AP MAC connected to by client"
+                },
+                {
+                  "disabled": false,
+                  "key": "mac",
+                  "value": "<string>",
+                  "description": "MAC address"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_status",
+                  "value": "<string>",
+                  "description": "Connection status of client i.e \"permitted\", \"denied, \"session_ended\""
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Client type i.e. \"wireless\", \"wired\" etc."
+                },
+                {
+                  "disabled": false,
+                  "key": "mdm_compliance_status",
+                  "value": "<string>",
+                  "description": "MDM compliance of client i.e \"compliant\", \"not compliant\""
+                },
+                {
+                  "disabled": false,
+                  "key": "mdm_provider",
+                  "value": "<string>",
+                  "description": "MDM provider of client’s organization eg \"intune\", \"jamf\""
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "duration",
+                  "value": "1d",
+                  "description": "Duration like 7d, 2w"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ba3a36d-75da-4af1-bf8b-a7776e28a9c9",
+              "name": "Result of Count",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "last_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_vlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_compliance_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"distinct\": \"string\",\n  \"end\": 0,\n  \"limit\": 0,\n  \"results\": [\n    {\n      \"count\": 0,\n      \"property\": \"string\"\n    }\n  ],\n  \"start\": 0,\n  \"total\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94e7ece9-0f0a-4d24-90dc-9573e8ff0f56",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "last_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_vlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_compliance_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9e334af-0db1-4f12-9378-2e8773eb1671",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "last_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_vlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_compliance_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f78e7bf4-421d-40a7-85eb-a7b15861133a",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "last_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_vlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_compliance_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76ac0f04-31cd-436a-b9f1-c14dc7e14e78",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "last_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_vlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_compliance_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49c59377-3853-421b-be52-ef461aba990a",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "type"
+                    },
+                    {
+                      "key": "last_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_vlan_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_compliance_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a0c5373-ac4b-42b7-b0c6-76860048a613",
+          "name": "countOrgNacClientEvents",
+          "request": {
+            "name": "countOrgNacClientEvents",
+            "description": {
+              "content": "Count by Distinct Attributes of NAC Client-Events",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "nac_clients",
+                "events",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "distinct",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "See [List Device Events Definitions](/#operations/listNacEventsDefinitions)"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "duration",
+                  "value": "1d",
+                  "description": "Duration like 7d, 2w"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eccabf84-9593-4bbd-9837-47076bd7fe61",
+              "name": "Result of Count",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "mac"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"distinct\": \"string\",\n  \"end\": 0,\n  \"limit\": 0,\n  \"results\": [\n    {\n      \"count\": 0,\n      \"property\": \"string\"\n    }\n  ],\n  \"start\": 0,\n  \"total\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a208f626-4c1d-4f6d-b88e-6b0e13a4811f",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "mac"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54cd96ef-5b01-43dc-9045-a167435f3828",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "mac"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2bcdf52-c10c-4a18-931b-e2467a6e37d5",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "mac"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8efd51af-1417-4ba0-adbb-1db2054cb08f",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "mac"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e64b560-49b8-4f9d-b6ae-fc4643fc2926",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "distinct",
+                      "value": "mac"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cb524ce-6bc2-47fb-87fb-870c9623e35d",
+          "name": "searchOrgNacClientEvents",
+          "request": {
+            "name": "searchOrgNacClientEvents",
+            "description": {
+              "content": "Search NAC Client Events",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "nac_clients",
+                "events",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "See [List Device Events Definitions](/#operations/listNacEventsDefinitions)"
+                },
+                {
+                  "disabled": false,
+                  "key": "nacrule_id",
+                  "value": "<uuid>",
+                  "description": "NAC Policy Rule ID, if matched"
+                },
+                {
+                  "disabled": false,
+                  "key": "nacrule_matched",
+                  "value": "<boolean>",
+                  "description": "NAC Policy Rule Matched"
+                },
+                {
+                  "disabled": false,
+                  "key": "dryrun_nacrule_id",
+                  "value": "<string>",
+                  "description": "NAC Policy Dry Run Rule ID, if present and matched"
+                },
+                {
+                  "disabled": false,
+                  "key": "dryrun_nacrule_matched",
+                  "value": "<boolean>",
+                  "description": "True - if dryrun rule present and matched with priority, False - if not matched or not present"
+                },
+                {
+                  "disabled": false,
+                  "key": "auth_type",
+                  "value": "<string>",
+                  "description": "Authentication type, e.g. \"eap-tls\", \"eap-peap\", \"eap-ttls\", \"eap-teap\", \"mab\", \"psk\", \"device-auth\""
+                },
+                {
+                  "disabled": false,
+                  "key": "vlan",
+                  "value": "<integer>",
+                  "description": "Vlan name or ID assigned to the client"
+                },
+                {
+                  "disabled": false,
+                  "key": "nas_vendor",
+                  "value": "<string>",
+                  "description": "Vendor of NAS device"
+                },
+                {
+                  "disabled": false,
+                  "key": "bssid",
+                  "value": "<string>",
+                  "description": "BSSID"
+                },
+                {
+                  "disabled": false,
+                  "key": "idp_id",
+                  "value": "<uuid>",
+                  "description": "SSO ID, if present and used"
+                },
+                {
+                  "disabled": false,
+                  "key": "idp_role",
+                  "value": "<string>",
+                  "description": "IDP returned roles/groups for the user"
+                },
+                {
+                  "disabled": false,
+                  "key": "idp_username",
+                  "value": "<string>",
+                  "description": "Username presented to the Identity Provider"
+                },
+                {
+                  "disabled": false,
+                  "key": "resp_attrs",
+                  "value": "<string>",
+                  "description": "Radius attributes returned by NAC to NAS derive"
+                },
+                {
+                  "disabled": false,
+                  "key": "resp_attrs",
+                  "value": "<string>",
+                  "description": "Radius attributes returned by NAC to NAS derive"
+                },
+                {
+                  "disabled": false,
+                  "key": "ssid",
+                  "value": "<string>",
+                  "description": "SSID"
+                },
+                {
+                  "disabled": false,
+                  "key": "username",
+                  "value": "<string>",
+                  "description": "Username presented by the client"
+                },
+                {
+                  "disabled": false,
+                  "key": "site_id",
+                  "value": "<string>",
+                  "description": "Site id"
+                },
+                {
+                  "disabled": false,
+                  "key": "ap",
+                  "value": "<string>",
+                  "description": "AP MAC"
+                },
+                {
+                  "disabled": false,
+                  "key": "random_mac",
+                  "value": "<boolean>",
+                  "description": "AP random macMAC"
+                },
+                {
+                  "disabled": false,
+                  "key": "mac",
+                  "value": "<string>",
+                  "description": "MAC address"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<number>",
+                  "description": "Start time, in epoch"
+                },
+                {
+                  "disabled": false,
+                  "key": "usermac_label",
+                  "value": "<string>",
+                  "description": "Labels derived from usermac entry"
+                },
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "Partial / full MAC address, username, device_mac or ap"
+                },
+                {
+                  "disabled": false,
+                  "key": "nas_ip",
+                  "value": "<string>",
+                  "description": "IP address of NAS device"
+                },
+                {
+                  "disabled": false,
+                  "key": "ingress_vlan",
+                  "value": "<string>",
+                  "description": "Vendor specific Vlan ID in radius requests"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "duration",
+                  "value": "1d",
+                  "description": "Duration like 7d, 2w"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "wxid",
+                  "description": "On which field the list should be sorted, -prefix represents DESC order."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_after",
+                  "value": "<string>",
+                  "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6574f41-cfbe-4dba-bd91-1b638171fe0a",
+              "name": "NAC Client Events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "idp_role",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Type=VLAN"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Medium-Type=IEEE-802"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Private-Group-Id=750"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "User-Name=anonymous"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "random_mac",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"end\": 1513176951,\n  \"limit\": 10,\n  \"results\": [\n    {\n      \"ap\": \"5c5b35513227\",\n      \"auth_type\": \"eap-ttls\",\n      \"bssid\": \"5c5b355fafcc\",\n      \"dryrun_nacrule_id\": \"32f27e7d-ff26-4a9b-b3d1-ff9bcb264012\",\n      \"dryrun_nacrule_matched\": true,\n      \"idp_id\": \"912ef72e-2239-4996-b81e-469e87a27cd6\",\n      \"idp_role\": [\n        \"itsuperusers\",\n        \"vip\"\n      ],\n      \"mac\": \"ac3eb179e535\",\n      \"nacrule_id\": \"32f27e7d-ff26-4a9b-b3d1-ff9bcb264c62\",\n      \"nacrule_matched\": true,\n      \"nas_vendor\": \"juniper-mist\",\n      \"org_id\": \"27547ac2-d114-4e04-beb1-f3f1e6e81ec6\",\n      \"random_mac\": \"false\",\n      \"resp_attrs\": [\n        \"Tunnel-Type=VLAN\",\n        \"Tunnel-Medium-Type=IEEE-802\",\n        \"Tunnel-Private-Group-Id=750\",\n        \"User-Name=anonymous\"\n      ],\n      \"site_id\": \"441a1214-6928-442a-8e92-e1d34b8ec6a6\",\n      \"ssid\": \"mist_nac\",\n      \"timestamp\": 1691512031.358188,\n      \"type\": \"NAC_CLIENT_PERMIT\",\n      \"username\": \"user@deaflyz.net\",\n      \"vlan\": \"750\"\n    }\n  ],\n  \"start\": 1512572151,\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a81be17a-138f-4cca-99a9-46653862e6a4",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "idp_role",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Type=VLAN"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Medium-Type=IEEE-802"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Private-Group-Id=750"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "User-Name=anonymous"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "random_mac",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8961d90-78e9-4171-8ffd-6a7b7f0c7c74",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "idp_role",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Type=VLAN"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Medium-Type=IEEE-802"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Private-Group-Id=750"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "User-Name=anonymous"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "random_mac",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f0cdeee-1d58-4e74-aedf-c1f5ee67cd7b",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "idp_role",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Type=VLAN"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Medium-Type=IEEE-802"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Private-Group-Id=750"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "User-Name=anonymous"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "random_mac",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4975fb54-58fe-401f-b059-15b113099199",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "idp_role",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Type=VLAN"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Medium-Type=IEEE-802"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Private-Group-Id=750"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "User-Name=anonymous"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "random_mac",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa3e59ca-dcc8-45c8-87ae-b3238157991b",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dryrun_nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "idp_role",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "idp_username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Type=VLAN"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Medium-Type=IEEE-802"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "Tunnel-Private-Group-Id=750"
+                    },
+                    {
+                      "key": "resp_attrs",
+                      "value": "User-Name=anonymous"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "random_mac",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef9fe74e-b602-4526-b714-58d1efc6d313",
+          "name": "searchOrgNacClients",
+          "request": {
+            "name": "searchOrgNacClients",
+            "description": {
+              "content": "Search Org NAC Clients",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "nac_clients",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ap",
+                  "value": "<string>",
+                  "description": "MAC Address of the AP the client is/was connected to"
+                },
+                {
+                  "disabled": false,
+                  "key": "auth_type",
+                  "value": "<string>",
+                  "description": "Authentication type, e.g. \"eap-tls\", \"eap-peap\", \"eap-ttls\", \"eap-teap\", \"mab\", \"psk\", \"device-auth\""
+                },
+                {
+                  "disabled": false,
+                  "key": "cert_expiry_duration",
+                  "value": "<string>",
+                  "description": "Filter by certificate expiry within a specific duration from now (e.g., \"7d\" for 7 days, \"1m\" for 1 month)"
+                },
+                {
+                  "disabled": false,
+                  "key": "edr_managed",
+                  "value": "<boolean>",
+                  "description": "Filters NAC clients that are integrated with EDR providers"
+                },
+                {
+                  "disabled": false,
+                  "key": "edr_provider",
+                  "value": "<string>",
+                  "description": "EDR provider of client's organization"
+                },
+                {
+                  "disabled": false,
+                  "key": "edr_status",
+                  "value": "<string>",
+                  "description": "EDR Status of the NAC client"
+                },
+                {
+                  "disabled": false,
+                  "key": "family",
+                  "value": "<string>",
+                  "description": "Partial / full Client family (e.g. \"Phone/Tablet/Wearable\", \"Access Point\"). Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `Surveillance*` and `*urveillance*` match `Surveillance Camera`). Suffix-only wildcards (e.g. `*Camera`) are not supported"
+                },
+                {
+                  "disabled": false,
+                  "key": "hostname",
+                  "value": "<string>",
+                  "description": "Partial / full Client hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `everest*` and `*rest*` match `my-everest-client`). Suffix-only wildcards (e.g. `*everest`) are not supported"
+                },
+                {
+                  "disabled": false,
+                  "key": "idp_id",
+                  "value": "<string>",
+                  "description": "SSO ID, if present and used"
+                },
+                {
+                  "disabled": false,
+                  "key": "mac",
+                  "value": "<string>",
+                  "description": "Partial / full Client MAC Address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported"
+                },
+                {
+                  "disabled": false,
+                  "key": "mdm_compliance",
+                  "value": "<string>",
+                  "description": "MDM compliance of client i.e \"compliant\", \"not compliant\""
+                },
+                {
+                  "disabled": false,
+                  "key": "mdm_provider",
+                  "value": "<string>",
+                  "description": "MDM provider of client’s organization eg \"intune\", \"jamf\""
+                },
+                {
+                  "disabled": false,
+                  "key": "mdm_managed",
+                  "value": "<boolean>",
+                  "description": "Filters NAC clients that are managed by MDM providers"
+                },
+                {
+                  "disabled": false,
+                  "key": "mfg",
+                  "value": "<string>",
+                  "description": "Partial / full Client manufacturer (e.g. \"apple\", \"cisco\", \"juniper\"). Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `Raspberry Pi*` and `*Pi*` match `Raspberry Pi Trading Ltd`). Suffix-only wildcards (e.g. `*Ltd`) are not supported"
+                },
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>",
+                  "description": "Client model, e.g. \"iPhone 12\", \"MX100\""
+                },
+                {
+                  "disabled": false,
+                  "key": "nacrule_name",
+                  "value": "<string>",
+                  "description": "NAC Policy Rule Name matched"
+                },
+                {
+                  "disabled": false,
+                  "key": "nacrule_id",
+                  "value": "<string>",
+                  "description": "NAC Policy Rule ID, if matched"
+                },
+                {
+                  "disabled": false,
+                  "key": "nacrule_matched",
+                  "value": "<boolean>",
+                  "description": "NAC Policy Rule Matched"
+                },
+                {
+                  "disabled": false,
+                  "key": "nas_vendor",
+                  "value": "<string>",
+                  "description": "Vendor of NAS device"
+                },
+                {
+                  "disabled": false,
+                  "key": "nas_ip",
+                  "value": "<string>",
+                  "description": "IP address of NAS device"
+                },
+                {
+                  "disabled": false,
+                  "key": "ingress_vlan",
+                  "value": "<string>",
+                  "description": "Vendor specific Vlan ID in radius requests"
+                },
+                {
+                  "disabled": false,
+                  "key": "os",
+                  "value": "<string>",
+                  "description": "Client OS, e.g. \"iOS 18.1\", \"Android\", \"Windows\", \"Linux\""
+                },
+                {
+                  "disabled": false,
+                  "key": "ssid",
+                  "value": "<string>",
+                  "description": "SSID"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Connection status of client i.e \"permitted\", \"denied, \"session_started\", \"session_stopped\""
+                },
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "partial / full MAC address, last_username, device_mac, nas_ip or last_ap"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<number>",
+                  "description": "Start time, in epoch"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Client type i.e. \"wireless\", \"wired\" etc."
+                },
+                {
+                  "disabled": false,
+                  "key": "usermac_label",
+                  "value": "<string>",
+                  "description": "Labels derived from usermac entry"
+                },
+                {
+                  "disabled": false,
+                  "key": "usermac_label",
+                  "value": "<string>",
+                  "description": "Labels derived from usermac entry"
+                },
+                {
+                  "disabled": false,
+                  "key": "username",
+                  "value": "<string>",
+                  "description": "Username presented by the client"
+                },
+                {
+                  "disabled": false,
+                  "key": "vlan",
+                  "value": "<string>",
+                  "description": "Vlan name or ID assigned to the client"
+                },
+                {
+                  "disabled": false,
+                  "key": "site_id",
+                  "value": "<string>",
+                  "description": "Site id if assigned, null if not assigned"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "duration",
+                  "value": "1d",
+                  "description": "Duration like 7d, 2w"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "wxid",
+                  "description": "On which field the list should be sorted, -prefix represents DESC order."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_after",
+                  "value": "<string>",
+                  "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fbdca8be-8c30-4ec2-baa2-85f5a9776064",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cert_expiry_duration",
+                      "value": "7d"
+                    },
+                    {
+                      "key": "edr_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "edr_provider",
+                      "value": "crowdstrike"
+                    },
+                    {
+                      "key": "edr_status",
+                      "value": "sentinelone_infected"
+                    },
+                    {
+                      "key": "family",
+                      "value": "Surveillance Camera"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "mdm_compliance",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mfg",
+                      "value": "Raspberry Pi Trading Ltd"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "permitted"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"end\": 1513362753,\n  \"limit\": 3,\n  \"results\": [\n    {\n      \"ap\": [\n        \"5c5b35bf16bb\",\n        \"d4dc090041b4\"\n      ],\n      \"auth_type\": \"eap-tls\",\n      \"cert_cn\": [\n        \"john@mycorp.net\"\n      ],\n      \"cert_issuer\": [\n        \"/C=US/ST=CA/CN=MyCorp\"\n      ],\n      \"client_ip\": [\n        \"10.7.51.74\"\n      ],\n      \"edr_managed\": true,\n      \"edr_provider\": \"sentinelone\",\n      \"edr_status\": \"sentinelone_healthy\",\n      \"idp_id\": \"string\",\n      \"idp_role\": [\n        \"string\"\n      ],\n      \"last_ap\": \"string\",\n      \"last_cert_cn\": \"john@mycorp.net\",\n      \"last_cert_expiry\": 1746711240,\n      \"last_cert_issuer\": \"/C=US/ST=CA/CN=MyCorp\",\n      \"last_cert_serial\": \"2c63510123456789\",\n      \"last_cert_subject\": \"/C=US/O=MyCorp/CN=john@mycorp.net/emailAddress=john@mycorp.net\",\n      \"last_client_ip\": \"10.7.51.74\",\n      \"last_nacrule_id\": \"603b62db-d839-4152-9f7f-f2578443de8d\",\n      \"last_nacrule_name\": \"Wireless Cert Auth\",\n      \"last_nas_vendor\": \"juniper-mist\",\n      \"last_ssid\": \"string\",\n      \"last_status\": \"permitted\",\n      \"mac\": \"string\",\n      \"nacrule_id\": [\n        \"603b62db-d839-4152-9f7f-f2578443de8d\"\n      ],\n      \"nacrule_matched\": true,\n      \"nacrule_name\": [\n        \"Wireless Cert Auth\"\n      ],\n      \"nas_vendor\": [\n        \"juniper-mist\"\n      ],\n      \"org_id\": \"31f27122-68a9-47a4-b526-8fb8a62a8acb\",\n      \"random_mac\": \"true\",\n      \"site_id\": \"832b1d74-9531-409b-ae37-4d7f3edbde92\",\n      \"ssid\": [\n        \"string\"\n      ],\n      \"timestamp\": 1694689718.612,\n      \"type\": \"wireless\",\n      \"usermac_label\": [\n        \"non-compliant\",\n        \"building26\",\n        \"floor52\"\n      ]\n    }\n  ],\n  \"start\": 1513276353,\n  \"total\": 2\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c115ef8a-eadb-4eed-a51e-9396a0361650",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cert_expiry_duration",
+                      "value": "7d"
+                    },
+                    {
+                      "key": "edr_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "edr_provider",
+                      "value": "crowdstrike"
+                    },
+                    {
+                      "key": "edr_status",
+                      "value": "sentinelone_infected"
+                    },
+                    {
+                      "key": "family",
+                      "value": "Surveillance Camera"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "mdm_compliance",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mfg",
+                      "value": "Raspberry Pi Trading Ltd"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "permitted"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "770dba6d-56ed-4b00-ae76-2536ee30d79e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cert_expiry_duration",
+                      "value": "7d"
+                    },
+                    {
+                      "key": "edr_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "edr_provider",
+                      "value": "crowdstrike"
+                    },
+                    {
+                      "key": "edr_status",
+                      "value": "sentinelone_infected"
+                    },
+                    {
+                      "key": "family",
+                      "value": "Surveillance Camera"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "mdm_compliance",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mfg",
+                      "value": "Raspberry Pi Trading Ltd"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "permitted"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ab6bf55-35e5-45dd-827f-e02ef016ae52",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cert_expiry_duration",
+                      "value": "7d"
+                    },
+                    {
+                      "key": "edr_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "edr_provider",
+                      "value": "crowdstrike"
+                    },
+                    {
+                      "key": "edr_status",
+                      "value": "sentinelone_infected"
+                    },
+                    {
+                      "key": "family",
+                      "value": "Surveillance Camera"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "mdm_compliance",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mfg",
+                      "value": "Raspberry Pi Trading Ltd"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "permitted"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3dfa7fe-4cbf-4955-85c6-f525b9cb4fba",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cert_expiry_duration",
+                      "value": "7d"
+                    },
+                    {
+                      "key": "edr_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "edr_provider",
+                      "value": "crowdstrike"
+                    },
+                    {
+                      "key": "edr_status",
+                      "value": "sentinelone_infected"
+                    },
+                    {
+                      "key": "family",
+                      "value": "Surveillance Camera"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "mdm_compliance",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mfg",
+                      "value": "Raspberry Pi Trading Ltd"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "permitted"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7736df25-445e-4022-8005-b8b757e176f5",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ap",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "auth_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cert_expiry_duration",
+                      "value": "7d"
+                    },
+                    {
+                      "key": "edr_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "edr_provider",
+                      "value": "crowdstrike"
+                    },
+                    {
+                      "key": "edr_status",
+                      "value": "sentinelone_infected"
+                    },
+                    {
+                      "key": "family",
+                      "value": "Surveillance Camera"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "my-everest-client"
+                    },
+                    {
+                      "key": "idp_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mac",
+                      "value": "aabbccddeeff"
+                    },
+                    {
+                      "key": "mdm_compliance",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mdm_managed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "mfg",
+                      "value": "Raspberry Pi Trading Ltd"
+                    },
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nacrule_matched",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "nas_vendor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nas_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ingress_vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "os",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ssid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "permitted"
+                    },
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "usermac_label",
+                      "value": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "vlan",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "duration",
+                      "value": "10m"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-site_id"
+                    },
+                    {
+                      "key": "search_after",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f859f9d-9a99-4026-9794-347bce4cdc12",
+          "name": "sendOrgNacClientCoA",
+          "request": {
+            "name": "sendOrgNacClientCoA",
+            "description": {
+              "content": "Sends CoA (Change of Authorization) command to a NAC client.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orgs",
+                ":org_id",
+                "nac_clients",
+                ":client_mac",
+                "coa"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "org_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "client_mac",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coa_type\": \"reauth\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3f9ea217-1381-4b1e-853b-246f9625ae43",
+              "name": "Example response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    ":client_mac",
+                    "coa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "client_mac",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coa_type\": \"reauth\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"device_mac\": \"string\",\n  \"device_type\": \"ap\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1abf67ce-e90d-441b-9f92-0bbea608ab41",
+              "name": "Bad Syntax",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    ":client_mac",
+                    "coa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "client_mac",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coa_type\": \"reauth\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"JSON parse error - Expecting value: line 5 column 8 (char 56)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57890128-d106-4d27-bc75-2bcfbfb766b1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    ":client_mac",
+                    "coa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "client_mac",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coa_type\": \"reauth\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Authentication credentials were not provided.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d728900-e5f8-43d6-8d88-84d5ead0ba60",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    ":client_mac",
+                    "coa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "client_mac",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coa_type\": \"reauth\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"You do not have permission to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a86ac626-8d59-4060-9a53-4c368fe51ec5",
+              "name": "Not found. The API endpoint doesn’t exist or resource doesn’ t exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    ":client_mac",
+                    "coa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "client_mac",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coa_type\": \"reauth\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ce09988-0ea7-466c-b525-bd849a8f2520",
+              "name": "Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "nac_clients",
+                    ":client_mac",
+                    "coa"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "org_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "client_mac",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coa_type\": \"reauth\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mist.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "389c1105-1a6e-48e3-ab99-181f876f60cd",
+    "name": "Mist Admins Orgs Clients - NAC API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "> Version: **2604.1.1**\n>\n> Date: **May 13, 2026**\n<div class=\"notification\"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href=\"https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes\">announcements</a> </div>\n\n---\n## Additional Documentation\n* [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)\n* [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)\n* [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)\n\n## Helpful Resources\n* [API Sandbox and Exercises](https://api-class.mist.com/)\n* [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)\n* [Python Script Examples](https://github.com/tmunzer/mist_library)\n* [API Demo Apps](https://apps.mist-lab.fr/)\n* [Juniper Blog](https://blogs.juniper.net/)\n\n## Mist Web Browser Extension:\n* Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)\n* Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)\n\n---\n\nContact Support:\n Name: Thomas Munzer\n Email: tmunzer@juniper.net",
+      "type": "text/plain"
+    }
+  }
+}

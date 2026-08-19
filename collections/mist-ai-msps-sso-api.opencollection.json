@@ -1,0 +1,235 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins MSPs SSO API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MSPs SSO",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listMspSsos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/ssos",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List MSP SSO Configs"
+        },
+        {
+          "info": {
+            "name": "createMspSso",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/ssos",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create MSP SSO profile"
+        },
+        {
+          "info": {
+            "name": "getMspSso",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/ssos/:sso_id",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sso_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get MSP SSO Config"
+        },
+        {
+          "info": {
+            "name": "updateMspSso",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/ssos/:sso_id",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sso_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update MSP SSO config"
+        },
+        {
+          "info": {
+            "name": "deleteMspSso",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/ssos/:sso_id",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sso_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete MSP SSO Config"
+        },
+        {
+          "info": {
+            "name": "deleteMspSsoAdmins",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/ssos/:sso_id/delete_admins",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sso_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete MSP SSO Admin users by email. This removes SSO-linked admin accounts from the organization."
+        },
+        {
+          "info": {
+            "name": "listMspSsoLatestFailures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/ssos/:sso_id/failures",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sso_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get List of MSP SSO Latest Failures"
+        },
+        {
+          "info": {
+            "name": "getMspSamlMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/ssos/:sso_id/metadata",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sso_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get MSP SAML Metadata"
+        },
+        {
+          "info": {
+            "name": "downloadMspSamlMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/msps/:msp_id/ssos/:sso_id/metadata.xml",
+            "params": [
+              {
+                "name": "msp_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sso_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download MSP SAML Metadata\n\nExample of metadata.xml:\n```xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?><md:EntityDescriptor xmlns:md=\"urn:oasis:names:tc:SAML:2.0:metadata\" entityID=\"https://api.mist.com/api/v1/saml/5hdF5g/login\" validUntil=\"2027-10-12T21:59:01Z\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\">\n  <md:SPSSODescriptor AuthnRequestsSigned=\"false\" WantAssertionsSigned=\"true\" protocolSupportEnumeration=\"urn:oasis:names:tc:SAML:2.0:protocol\">\n      <md:SingleLogoutService Binding=\"urn:oasis:n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

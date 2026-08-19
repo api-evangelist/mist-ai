@@ -1,0 +1,271 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mist Admins Orgs Sites API",
+    "version": "2604.1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orgs Sites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listOrgSites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/sites",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get List of Org Sites"
+        },
+        {
+          "info": {
+            "name": "createOrgSite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/sites",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Org Site"
+        },
+        {
+          "info": {
+            "name": "countOrgSites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/sites/count",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "distinct",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count by Distinct Attributes of Sites"
+        },
+        {
+          "info": {
+            "name": "searchOrgSites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mist.com/api/v1/orgs/:org_id/sites/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "analytic_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If Advanced Analytic feature is enabled"
+              },
+              {
+                "name": "app_waking",
+                "value": "",
+                "type": "query",
+                "description": "If App Waking feature is enabled"
+              },
+              {
+                "name": "asset_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If Asset Tracking is enabled"
+              },
+              {
+                "name": "auto_upgrade_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If Auto Upgrade feature is enabled"
+              },
+              {
+                "name": "auto_upgrade_version",
+                "value": "",
+                "type": "query",
+                "description": "If Auto Upgrade feature is enabled"
+              },
+              {
+                "name": "country_code",
+                "value": "",
+                "type": "query",
+                "description": "Site country code"
+              },
+              {
+                "name": "honeypot_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If Honeypot detection is enabled"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Site id"
+              },
+              {
+                "name": "locate_unconnected",
+                "value": "",
+                "type": "query",
+                "description": "If unconnected client are located"
+              },
+              {
+                "name": "mesh_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If Mesh feature is enabled"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Partial / full Site name. Case insensitive. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `my-site*` and `*site*` match `my-site-01`). Suffix-only wildcards (e.g. `*site-01`) are not supported"
+              },
+              {
+                "name": "rogue_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If Rogue detection is enabled"
+              },
+              {
+                "name": "remote_syslog_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If Remote Syslog is enabled"
+              },
+              {
+                "name": "rtsa_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If managed mobility feature is enabled"
+              },
+              {
+                "name": "vna_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If Virtual Network Assistant is enabled"
+              },
+              {
+                "name": "wifi_enabled",
+                "value": "",
+                "type": "query",
+                "description": "If Wi-Fi feature is enabled"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time (epoch timestamp in seconds, or relative string like \"-1d\", \"-1w\")"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time (epoch timestamp in seconds, or relative string like \"-1d\", \"-2h\", \"now\")"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration like 7d, 2w"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "On which field the list should be sorted, -prefix represents DESC order"
+              },
+              {
+                "name": "search_after",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed."
+              }
+            ]
+          },
+          "docs": "Search Sites"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
