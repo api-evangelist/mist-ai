@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   contact:
     email: tmunzer@juniper.net
@@ -47,7 +47,7 @@ info:
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
-  title: Mist Admins Sites SLEs API
+  title: Mist Sites SLEs API
   version: 2604.1.1
   x-logo:
     altText: Juniper-MistAI
@@ -976,118 +976,7 @@ paths:
       - Sites SLEs
 components:
   schemas:
-    sle_classifier:
-      additionalProperties: false
-      properties:
-        impact:
-          $ref: '#/components/schemas/sle_classifier_impact'
-        interval:
-          type: number
-        name:
-          minLength: 1
-          type: string
-        samples:
-          $ref: '#/components/schemas/sle_classifier_samples'
-        x_label:
-          minLength: 1
-          type: string
-        y_label:
-          minLength: 1
-          type: string
-      required:
-      - name
-      - x_label
-      - y_label
-      - interval
-      - impact
-      type: object
-    site_sle_impacted_switches_scope_parameters:
-      description: 'enum: `site`'
-      enum:
-      - site
-      type: string
-    sle_classifier_summary:
-      additionalProperties: false
-      deprecated: true
-      properties:
-        classifier:
-          $ref: '#/components/schemas/sle_classifier'
-        end:
-          type: number
-        failures:
-          $ref: '#/components/schemas/sle_classifier_summary_failures'
-        impact:
-          $ref: '#/components/schemas/sle_classifier_summary_impact'
-        metric:
-          minLength: 1
-          type: string
-        start:
-          type: number
-      required:
-      - start
-      - end
-      - metric
-      - classifier
-      - impact
-      - failures
-      type: object
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
-    sle_classifier_samples_degraded:
-      items:
-        $ref: '#/components/schemas/number_or_null'
-      type: array
-    sle_impact_summary_device_type_item:
-      additionalProperties: false
-      properties:
-        degraded:
-          type: number
-        device_type:
-          type: string
-        duration:
-          type: number
-        name:
-          minLength: 1
-          type: string
-        total:
-          type: number
-      required:
-      - device_type
-      - name
-      - duration
-      - degraded
-      - total
-      type: object
-    sle_summary_events:
-      items:
-        additionalProperties: true
-        type: object
-      type: array
-    sle_classifier_samples:
-      additionalProperties: false
-      properties:
-        degraded:
-          $ref: '#/components/schemas/sle_classifier_samples_degraded'
-        duration:
-          $ref: '#/components/schemas/sle_classifier_samples_duration'
-        total:
-          $ref: '#/components/schemas/sle_classifier_samples_total'
-      required:
-      - duration
-      - total
-      - degraded
-      type: object
-    site_sle_scope:
-      description: 'enum: `gateway`, `site`, `switch`'
-      enum:
-      - gateway
-      - site
-      - switch
-      type: string
-    sle_summary_scope:
+    site_sle_impact_summary_scope_parameters:
       description: 'enum: `ap`, `client`, `gateway`, `site`, `switch`'
       enum:
       - ap
@@ -1096,58 +985,152 @@ components:
       - site
       - switch
       type: string
-    sle_summary_trend_classifiers:
-      items:
-        $ref: '#/components/schemas/sle_trend_classifier'
-      type: array
-      uniqueItems: true
+    site_sle_metrics:
+      additionalProperties: false
+      properties:
+        enabled:
+          $ref: '#/components/schemas/strings'
+        supported:
+          $ref: '#/components/schemas/strings'
+      required:
+      - supported
+      - enabled
+      type: object
     sle_impacted_aps_aps:
       items:
         $ref: '#/components/schemas/sle_impacted_aps_ap'
       type: array
       uniqueItems: true
-    sle_classifier_summary_impact:
+    sle_histogram:
       additionalProperties: false
       properties:
-        num_aps:
+        data:
+          $ref: '#/components/schemas/sle_histogram_data'
+        end:
           type: number
-        num_users:
-          type: number
-        total_aps:
-          type: number
-        total_users:
-          type: number
-      required:
-      - num_users
-      - num_aps
-      - total_users
-      - total_aps
-      type: object
-    sle_impact_summary_device_os_item:
-      additionalProperties: false
-      properties:
-        degraded:
-          type: number
-        device_os:
-          type: string
-        duration:
-          type: number
-        name:
+        metric:
           minLength: 1
           type: string
-        total:
+        start:
           type: number
+        x_label:
+          minLength: 1
+          type: string
+        y_label:
+          minLength: 1
+          type: string
       required:
-      - device_os
-      - name
-      - duration
-      - degraded
-      - total
+      - metric
+      - start
+      - end
+      - data
+      - x_label
+      - y_label
       type: object
-    sle_impacted_clients_clients:
+    sle_impacted_gateways:
+      additionalProperties: false
+      properties:
+        classifier:
+          type: string
+        end:
+          type: integer
+        failure:
+          type: string
+        gateways:
+          $ref: '#/components/schemas/sle_impacted_gateways_gateways'
+        limit:
+          type: integer
+        metric:
+          type: string
+        page:
+          type: integer
+        start:
+          type: integer
+        total_count:
+          type: integer
+      type: object
+    strings:
       items:
-        $ref: '#/components/schemas/sle_impacted_clients_client'
+        type: string
       type: array
+      uniqueItems: true
+    sle_summary_events:
+      items:
+        additionalProperties: true
+        type: object
+      type: array
+    sle_impact_summary_ap:
+      items:
+        $ref: '#/components/schemas/sle_impact_summary_ap_item'
+      type: array
+      uniqueItems: true
+    sle_impacted_chassis_chassis:
+      items:
+        $ref: '#/components/schemas/sle_impacted_chassis_chassis_item'
+      type: array
+    sle_summary_sle_samples_degraded:
+      items:
+        $ref: '#/components/schemas/number_or_null'
+      type: array
+    sle_impacted_interfaces:
+      additionalProperties: false
+      properties:
+        classifier:
+          type: string
+        end:
+          type: integer
+        failure:
+          type: string
+        interfaces:
+          $ref: '#/components/schemas/sle_impacted_interfaces_interfaces'
+        limit:
+          type: integer
+        metric:
+          type: string
+        page:
+          type: integer
+        start:
+          type: integer
+        total_count:
+          type: integer
+      type: object
+    sle_summary_sle_samples_total:
+      items:
+        $ref: '#/components/schemas/number_or_null'
+      type: array
+    site_sle_impacted_interfaces_scope_parameters:
+      description: 'enum: `gateway`, `site`, `switch`'
+      enum:
+      - gateway
+      - site
+      - switch
+      type: string
+    site_sle_impacted_clients_scope_parameters:
+      description: 'enum: `gateway`, `site`, `switch`'
+      enum:
+      - gateway
+      - site
+      - switch
+      type: string
+    site_sle_impact_summary_fields_parameter:
+      description: 'enum: `ap`, `band`, `chassis`, `client`, `device_os`, `device_type`, `gateway`, `gateway_zones`, `interface`, `mxedge`, `peer_path`, `server`, `switch`, `vlan`, `wlan`'
+      enum:
+      - ap
+      - band
+      - chassis
+      - client
+      - device_os
+      - device_type
+      - gateway
+      - gateway_zones
+      - interface
+      - mxedge
+      - peer_path
+      - server
+      - switch
+      - vlan
+      - wlan
+      type: string
     sle_classifier_samples_total:
       items:
         $ref: '#/components/schemas/number_or_null'
@@ -1174,149 +1157,76 @@ components:
         total_count:
           type: integer
       type: object
-    sle_summary_sle:
+    sle_impacted_users_client:
       additionalProperties: false
       properties:
-        interval:
+        degraded:
           type: number
+        duration:
+          type: number
+        gateways:
+          $ref: '#/components/schemas/sle_impacted_client_gateways'
+        mac:
+          type: string
         name:
-          minLength: 1
           type: string
-        samples:
-          $ref: '#/components/schemas/sle_summary_sle_samples'
-        x_label:
-          minLength: 1
+        src_ip:
           type: string
-        y_label:
-          minLength: 1
-          type: string
-      required:
-      - name
-      - x_label
-      - y_label
-      - interval
-      - samples
+        total:
+          type: number
       type: object
-    sle_impacted_interfaces_interfaces:
-      items:
-        $ref: '#/components/schemas/sle_impacted_interfaces_interface'
-      type: array
-    site_sle_impact_summary_fields_parameter:
-      description: 'enum: `ap`, `band`, `chassis`, `client`, `device_os`, `device_type`, `gateway`, `gateway_zones`, `interface`, `mxedge`, `peer_path`, `server`, `switch`, `vlan`, `wlan`'
-      enum:
-      - ap
-      - band
-      - chassis
-      - client
-      - device_os
-      - device_type
-      - gateway
-      - gateway_zones
-      - interface
-      - mxedge
-      - peer_path
-      - server
-      - switch
-      - vlan
-      - wlan
-      type: string
-    site_sle_metric_summary_scope_parameters:
-      description: 'enum: `ap`, `client`, `gateway`, `site`, `switch`'
-      enum:
-      - ap
-      - client
-      - gateway
-      - site
-      - switch
-      type: string
-    sle_impacted_clients:
+    sle_summary:
       additionalProperties: false
+      deprecated: true
       properties:
-        classifier:
-          type: string
-        clients:
-          $ref: '#/components/schemas/sle_impacted_clients_clients'
+        classifiers:
+          $ref: '#/components/schemas/sle_summary_classifiers'
         end:
-          type: integer
-        failure:
-          type: string
-        limit:
-          type: integer
-        metric:
-          type: string
-        page:
-          type: integer
+          type: number
+        events:
+          $ref: '#/components/schemas/sle_summary_events'
+        impact:
+          $ref: '#/components/schemas/sle_summary_impact'
+        sle:
+          $ref: '#/components/schemas/sle_summary_sle'
         start:
-          type: integer
-        total_count:
-          type: integer
+          type: number
+      required:
+      - start
+      - end
+      - sle
+      - impact
+      - classifiers
+      - events
       type: object
-    sle_impacted_users_user:
-      additionalProperties: false
-      properties:
-        ap_mac:
-          type: string
-        ap_name:
-          type: string
-        degraded:
-          type: number
-        device_os:
-          type: string
-        device_type:
-          type: string
-        duration:
-          type: number
-        mac:
-          type: string
-        name:
-          type: string
-        ssid:
-          type: string
-        total:
-          type: number
-        wlan_id:
-          type: string
-      type: object
-    site_sle_histogram_scope_parameters:
-      description: 'enum: `ap`, `client`, `gateway`, `site`, `switch`'
-      enum:
-      - ap
-      - client
-      - gateway
-      - site
-      - switch
-      type: string
-    sle_impacted_clients_client:
+    sle_classifier_samples:
       additionalProperties: false
       properties:
         degraded:
-          type: integer
+          $ref: '#/components/schemas/sle_classifier_samples_degraded'
         duration:
-          type: integer
-        mac:
-          type: string
-        name:
-          type: string
-        switches:
-          $ref: '#/components/schemas/sle_impacted_clients_client_switches'
+          $ref: '#/components/schemas/sle_classifier_samples_duration'
         total:
-          type: integer
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
+          $ref: '#/components/schemas/sle_classifier_samples_total'
+      required:
+      - duration
+      - total
+      - degraded
       type: object
     number_or_null:
       oneOf:
       - type: number
       - type: 'null'
-    sle_impact_summary_wlan_item:
+    sle_classifier_samples_duration:
+      items:
+        type: number
+      type: array
+    sle_impacted_aps_ap:
       additionalProperties: false
       properties:
+        ap_mac:
+          minLength: 1
+          type: string
         degraded:
           type: number
         duration:
@@ -1326,44 +1236,43 @@ components:
           type: string
         total:
           type: number
-        wlan_id:
-          minLength: 1
-          type: string
       required:
-      - wlan_id
+      - ap_mac
       - name
       - duration
       - degraded
       - total
       type: object
-    sle_classifier_samples_duration:
-      items:
-        type: number
-      type: array
-    sle_impacted_users_users:
-      items:
-        $ref: '#/components/schemas/sle_impacted_users_user'
-      type: array
-      uniqueItems: true
-    sle_impacted_chassis_chassis:
-      items:
-        $ref: '#/components/schemas/sle_impacted_chassis_chassis_item'
-      type: array
-    sle_impact_summary_device_type:
-      items:
-        $ref: '#/components/schemas/sle_impact_summary_device_type_item'
-      type: array
-      uniqueItems: true
-    sle_summary_sle_samples_total:
-      items:
-        $ref: '#/components/schemas/number_or_null'
-      type: array
-    sle_histogram_data_item_range:
-      items:
-        type:
-        - number
-        - 'null'
-      type: array
+    sle_impact_summary_band_item:
+      additionalProperties: false
+      properties:
+        band:
+          minLength: 1
+          type: string
+        degraded:
+          type: number
+        duration:
+          type: number
+        name:
+          minLength: 1
+          type: string
+        total:
+          type: number
+      required:
+      - band
+      - name
+      - duration
+      - degraded
+      - total
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
     sle_impacted_aps:
       additionalProperties: false
       properties:
@@ -1396,6 +1305,224 @@ components:
       - page
       - limit
       - aps
+      type: object
+    sle_impacted_users_user:
+      additionalProperties: false
+      properties:
+        ap_mac:
+          type: string
+        ap_name:
+          type: string
+        degraded:
+          type: number
+        device_os:
+          type: string
+        device_type:
+          type: string
+        duration:
+          type: number
+        mac:
+          type: string
+        name:
+          type: string
+        ssid:
+          type: string
+        total:
+          type: number
+        wlan_id:
+          type: string
+      type: object
+    sle_impact_summary_device_type:
+      items:
+        $ref: '#/components/schemas/sle_impact_summary_device_type_item'
+      type: array
+      uniqueItems: true
+    sle_impacted_switches_switches:
+      items:
+        $ref: '#/components/schemas/sle_impacted_switches_switch'
+      type: array
+    sle_threshold:
+      properties:
+        default:
+          readOnly: true
+          type: number
+        direction:
+          minLength: 1
+          readOnly: true
+          type: string
+        maximum:
+          type: number
+        metric:
+          minLength: 1
+          readOnly: true
+          type: string
+        minimum:
+          type: number
+        threshold:
+          minLength: 1
+          readOnly: true
+          type: string
+        units:
+          minLength: 1
+          readOnly: true
+          type: string
+      type: object
+    sle_impact_summary_device_type_item:
+      additionalProperties: false
+      properties:
+        degraded:
+          type: number
+        device_type:
+          type: string
+        duration:
+          type: number
+        name:
+          minLength: 1
+          type: string
+        total:
+          type: number
+      required:
+      - device_type
+      - name
+      - duration
+      - degraded
+      - total
+      type: object
+    site_sle_impacted_gateways_scope_parameters:
+      description: 'enum: `site`'
+      enum:
+      - site
+      type: string
+    sle_summary_scope:
+      description: 'enum: `ap`, `client`, `gateway`, `site`, `switch`'
+      enum:
+      - ap
+      - client
+      - gateway
+      - site
+      - switch
+      type: string
+    sle_impacted_clients_clients:
+      items:
+        $ref: '#/components/schemas/sle_impacted_clients_client'
+      type: array
+    site_sle_metrics_scope_parameters:
+      description: 'enum: `ap`, `client`, `gateway`, `site`, `switch`'
+      enum:
+      - ap
+      - client
+      - gateway
+      - site
+      - switch
+      type: string
+    sle_impacted_clients_client_switch:
+      additionalProperties: false
+      properties:
+        interfaces:
+          $ref: '#/components/schemas/strings'
+        switch_mac:
+          type: string
+        switch_name:
+          type: string
+      type: object
+    sle_classifier_impact:
+      additionalProperties: false
+      properties:
+        num_aps:
+          type: number
+        num_users:
+          type: number
+        total_aps:
+          type: number
+        total_users:
+          type: number
+      required:
+      - num_users
+      - num_aps
+      - total_users
+      - total_aps
+      type: object
+    sle_impacted_applications:
+      additionalProperties: false
+      properties:
+        apps:
+          $ref: '#/components/schemas/sle_impacted_applications_apps'
+        classifier:
+          type: string
+        end:
+          type: integer
+        failure:
+          type: string
+        limit:
+          type: string
+        metric:
+          type: string
+        page:
+          type: integer
+        start:
+          type: integer
+        total_count:
+          type: integer
+      type: object
+    sle_impacted_users_users:
+      items:
+        $ref: '#/components/schemas/sle_impacted_users_user'
+      type: array
+      uniqueItems: true
+    sle_impacted_clients_client:
+      additionalProperties: false
+      properties:
+        degraded:
+          type: integer
+        duration:
+          type: integer
+        mac:
+          type: string
+        name:
+          type: string
+        switches:
+          $ref: '#/components/schemas/sle_impacted_clients_client_switches'
+        total:
+          type: integer
+      type: object
+    site_sle_impacted_users_scope_parameter:
+      description: 'enum: `ap`, `site`'
+      enum:
+      - ap
+      - site
+      type: string
+    sle_impacted_client_gateway:
+      additionalProperties: false
+      properties:
+        chassis_mac:
+          type: string
+        gateway_mac:
+          type: string
+        gateway_name:
+          type: string
+        interfaces:
+          $ref: '#/components/schemas/strings'
+      type: object
+    sle_impact_summary_device_os_item:
+      additionalProperties: false
+      properties:
+        degraded:
+          type: number
+        device_os:
+          type: string
+        duration:
+          type: number
+        name:
+          minLength: 1
+          type: string
+        total:
+          type: number
+      required:
+      - device_os
+      - name
+      - duration
+      - degraded
+      - total
       type: object
     sle_impact_summary:
       additionalProperties: false
@@ -1433,7 +1560,14 @@ components:
       - device_type
       - band
       type: object
-    sle_classifier_impact:
+    site_sle_impacted_chassis_scope_parameters:
+      description: 'enum: `gateway`, `site`, `switch`'
+      enum:
+      - gateway
+      - site
+      - switch
+      type: string
+    sle_summary_impact:
       additionalProperties: false
       properties:
         num_aps:
@@ -1449,6 +1583,145 @@ components:
       - num_aps
       - total_users
       - total_aps
+      type: object
+    sle_impacted_applications_apps:
+      items:
+        $ref: '#/components/schemas/sle_impacted_applications_app'
+      type: array
+    sle_impact_summary_band:
+      items:
+        $ref: '#/components/schemas/sle_impact_summary_band_item'
+      type: array
+      uniqueItems: true
+    sle_classifier_summary_trend:
+      additionalProperties: false
+      properties:
+        classifier:
+          $ref: '#/components/schemas/sle_trend_classifier'
+        end:
+          type: number
+        metric:
+          minLength: 1
+          type: string
+        start:
+          type: number
+      required:
+      - start
+      - end
+      - metric
+      - classifier
+      type: object
+    sle_summary_sle_samples_value:
+      items:
+        $ref: '#/components/schemas/number_or_null'
+      type: array
+    sle_summary_classifiers:
+      items:
+        $ref: '#/components/schemas/sle_classifier'
+      type: array
+      uniqueItems: true
+    sle_classifier_samples_degraded:
+      items:
+        $ref: '#/components/schemas/number_or_null'
+      type: array
+    sle_impacted_clients_client_switches:
+      items:
+        $ref: '#/components/schemas/sle_impacted_clients_client_switch'
+      type: array
+    sle_histogram_data_item:
+      additionalProperties: false
+      properties:
+        range:
+          $ref: '#/components/schemas/sle_histogram_data_item_range'
+        value:
+          type: number
+      required:
+      - value
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    sle_impacted_users_clients:
+      items:
+        $ref: '#/components/schemas/sle_impacted_users_client'
+      type: array
+      uniqueItems: true
+    sle_impact_summary_ap_item:
+      additionalProperties: false
+      properties:
+        ap_mac:
+          minLength: 1
+          type: string
+        degraded:
+          type: number
+        duration:
+          type: number
+        name:
+          minLength: 1
+          type: string
+        total:
+          type: number
+      required:
+      - ap_mac
+      - name
+      - duration
+      - degraded
+      - total
+      type: object
+    sle_histogram_data_item_range:
+      items:
+        type:
+        - number
+        - 'null'
+      type: array
+    sle_histogram_data:
+      items:
+        $ref: '#/components/schemas/sle_histogram_data_item'
+      type: array
+      uniqueItems: true
+    sle_classifier_summary_failures:
+      items:
+        additionalProperties: true
+        type: object
+      type: array
+    sle_impacted_client_gateways:
+      items:
+        $ref: '#/components/schemas/sle_impacted_client_gateway'
+      type: array
+    sle_impact_summary_wlan_item:
+      additionalProperties: false
+      properties:
+        degraded:
+          type: number
+        duration:
+          type: number
+        name:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        wlan_id:
+          minLength: 1
+          type: string
+      required:
+      - wlan_id
+      - name
+      - duration
+      - degraded
+      - total
       type: object
     sle_trend_classifier:
       additionalProperties: false
@@ -1472,117 +1745,31 @@ components:
       - y_label
       - interval
       type: object
-    sle_impacted_clients_client_switches:
-      items:
-        $ref: '#/components/schemas/sle_impacted_clients_client_switch'
-      type: array
-    sle_summary:
+    sle_classifier_summary:
       additionalProperties: false
       deprecated: true
       properties:
-        classifiers:
-          $ref: '#/components/schemas/sle_summary_classifiers'
+        classifier:
+          $ref: '#/components/schemas/sle_classifier'
         end:
           type: number
-        events:
-          $ref: '#/components/schemas/sle_summary_events'
+        failures:
+          $ref: '#/components/schemas/sle_classifier_summary_failures'
         impact:
-          $ref: '#/components/schemas/sle_summary_impact'
-        sle:
-          $ref: '#/components/schemas/sle_summary_sle'
+          $ref: '#/components/schemas/sle_classifier_summary_impact'
+        metric:
+          minLength: 1
+          type: string
         start:
           type: number
       required:
       - start
       - end
-      - sle
+      - metric
+      - classifier
       - impact
-      - classifiers
-      - events
+      - failures
       type: object
-    site_sle_metrics:
-      additionalProperties: false
-      properties:
-        enabled:
-          $ref: '#/components/schemas/strings'
-        supported:
-          $ref: '#/components/schemas/strings'
-      required:
-      - supported
-      - enabled
-      type: object
-    sle_summary_sle_samples:
-      additionalProperties: false
-      properties:
-        degraded:
-          $ref: '#/components/schemas/sle_summary_sle_samples_degraded'
-        total:
-          $ref: '#/components/schemas/sle_summary_sle_samples_total'
-        value:
-          $ref: '#/components/schemas/sle_summary_sle_samples_value'
-      required:
-      - total
-      - degraded
-      - value
-      type: object
-    sle_impact_summary_wlan:
-      items:
-        $ref: '#/components/schemas/sle_impact_summary_wlan_item'
-      type: array
-      uniqueItems: true
-    sle_impacted_interfaces_interface:
-      additionalProperties: false
-      properties:
-        degraded:
-          type: number
-        duration:
-          type: number
-        interface_name:
-          type: string
-        switch_mac:
-          type: string
-        switch_name:
-          type: string
-        total:
-          type: number
-      type: object
-    sle_classifier_summary_failures:
-      items:
-        additionalProperties: true
-        type: object
-      type: array
-    sle_impacted_users_clients:
-      items:
-        $ref: '#/components/schemas/sle_impacted_users_client'
-      type: array
-      uniqueItems: true
-    sle_impacted_gateways_gateway:
-      additionalProperties: false
-      properties:
-        degraded:
-          type: number
-        duration:
-          type: integer
-        gateway_mac:
-          type: string
-        gateway_model:
-          type: string
-        gateway_version:
-          type: string
-        name:
-          type: string
-        total:
-          type: integer
-      type: object
-    sle_summary_classifiers:
-      items:
-        $ref: '#/components/schemas/sle_classifier'
-      type: array
-      uniqueItems: true
-    sle_summary_sle_samples_value:
-      items:
-        $ref: '#/components/schemas/number_or_null'
-      type: array
     sle_impacted_users:
       additionalProperties: false
       properties:
@@ -1617,6 +1804,20 @@ components:
       - page
       - limit
       type: object
+    site_sle_threshold_scope_parameter:
+      description: 'enum: `ap`, `client`, `gateway`, `site`, `switch`'
+      enum:
+      - ap
+      - client
+      - gateway
+      - site
+      - switch
+      type: string
+    sle_summary_trend_classifiers:
+      items:
+        $ref: '#/components/schemas/sle_trend_classifier'
+      type: array
+      uniqueItems: true
     sle_summary_trend:
       additionalProperties: false
       properties:
@@ -1634,70 +1835,36 @@ components:
       - sle
       - classifiers
       type: object
-    sle_impacted_switches_switches:
-      items:
-        $ref: '#/components/schemas/sle_impacted_switches_switch'
-      type: array
-    sle_impact_summary_ap:
-      items:
-        $ref: '#/components/schemas/sle_impact_summary_ap_item'
-      type: array
-      uniqueItems: true
-    sle_summary_impact:
+    response_http400:
       additionalProperties: false
       properties:
-        num_aps:
-          type: number
-        num_users:
-          type: number
-        total_aps:
-          type: number
-        total_users:
-          type: number
-      required:
-      - num_users
-      - num_aps
-      - total_users
-      - total_aps
-      type: object
-    sle_impacted_client_gateways:
-      items:
-        $ref: '#/components/schemas/sle_impacted_client_gateway'
-      type: array
-    sle_impacted_client_gateway:
-      additionalProperties: false
-      properties:
-        chassis_mac:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
-        gateway_mac:
-          type: string
-        gateway_name:
-          type: string
-        interfaces:
-          $ref: '#/components/schemas/strings'
-      type: object
-    sle_impacted_chassis_chassis_item:
-      additionalProperties: false
-      properties:
-        chassis:
-          type: string
-        degraded:
-          type: number
-        duration:
-          type: number
-        role:
-          type: string
-        switch_mac:
-          type: string
-        switch_name:
-          type: string
-        total:
-          type: number
       type: object
     sle_impacted_gateways_gateways:
       items:
         $ref: '#/components/schemas/sle_impacted_gateways_gateway'
       type: array
+    sle_impacted_gateways_gateway:
+      additionalProperties: false
+      properties:
+        degraded:
+          type: number
+        duration:
+          type: integer
+        gateway_mac:
+          type: string
+        gateway_model:
+          type: string
+        gateway_version:
+          type: string
+        name:
+          type: string
+        total:
+          type: integer
+      type: object
     sle_impacted_switches_switch:
       additionalProperties: false
       properties:
@@ -1718,51 +1885,69 @@ components:
         total:
           type: number
       type: object
-    sle_impacted_interfaces:
+    sle_impacted_interfaces_interface:
       additionalProperties: false
       properties:
-        classifier:
+        degraded:
+          type: number
+        duration:
+          type: number
+        interface_name:
           type: string
-        end:
-          type: integer
-        failure:
+        switch_mac:
           type: string
-        interfaces:
-          $ref: '#/components/schemas/sle_impacted_interfaces_interfaces'
-        limit:
-          type: integer
-        metric:
+        switch_name:
           type: string
-        page:
-          type: integer
-        start:
-          type: integer
-        total_count:
-          type: integer
+        total:
+          type: number
       type: object
-    site_sle_impacted_aps_scope_parameters:
-      description: 'enum: `site`'
+    sle_classifier:
+      additionalProperties: false
+      properties:
+        impact:
+          $ref: '#/components/schemas/sle_classifier_impact'
+        interval:
+          type: number
+        name:
+          minLength: 1
+          type: string
+        samples:
+          $ref: '#/components/schemas/sle_classifier_samples'
+        x_label:
+          minLength: 1
+          type: string
+        y_label:
+          minLength: 1
+          type: string
+      required:
+      - name
+      - x_label
+      - y_label
+      - interval
+      - impact
+      type: object
+    sle_summary_sle_samples:
+      additionalProperties: false
+      properties:
+        degraded:
+          $ref: '#/components/schemas/sle_summary_sle_samples_degraded'
+        total:
+          $ref: '#/components/schemas/sle_summary_sle_samples_total'
+        value:
+          $ref: '#/components/schemas/sle_summary_sle_samples_value'
+      required:
+      - total
+      - degraded
+      - value
+      type: object
+    site_sle_scope:
+      description: 'enum: `gateway`, `site`, `switch`'
       enum:
-      - site
-      type: string
-    site_sle_impact_summary_scope_parameters:
-      description: 'enum: `ap`, `client`, `gateway`, `site`, `switch`'
-      enum:
-      - ap
-      - client
       - gateway
       - site
       - switch
       type: string
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    site_sle_metric_classifiers_scope_parameters:
+    site_sle_histogram_scope_parameters:
       description: 'enum: `ap`, `client`, `gateway`, `site`, `switch`'
       enum:
       - ap
@@ -1776,6 +1961,106 @@ components:
         $ref: '#/components/schemas/sle_impact_summary_device_os_item'
       type: array
       uniqueItems: true
+    sle_classifier_summary_impact:
+      additionalProperties: false
+      properties:
+        num_aps:
+          type: number
+        num_users:
+          type: number
+        total_aps:
+          type: number
+        total_users:
+          type: number
+      required:
+      - num_users
+      - num_aps
+      - total_users
+      - total_aps
+      type: object
+    sle_summary_sle:
+      additionalProperties: false
+      properties:
+        interval:
+          type: number
+        name:
+          minLength: 1
+          type: string
+        samples:
+          $ref: '#/components/schemas/sle_summary_sle_samples'
+        x_label:
+          minLength: 1
+          type: string
+        y_label:
+          minLength: 1
+          type: string
+      required:
+      - name
+      - x_label
+      - y_label
+      - interval
+      - samples
+      type: object
+    sle_impacted_chassis_chassis_item:
+      additionalProperties: false
+      properties:
+        chassis:
+          type: string
+        degraded:
+          type: number
+        duration:
+          type: number
+        role:
+          type: string
+        switch_mac:
+          type: string
+        switch_name:
+          type: string
+        total:
+          type: number
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    site_sle_impacted_switches_scope_parameters:
+      description: 'enum: `site`'
+      enum:
+      - site
+      type: string
+    site_sle_metric_summary_scope_parameters:
+      description: 'enum: `ap`, `client`, `gateway`, `site`, `switch`'
+      enum:
+      - ap
+      - client
+      - gateway
+      - site
+      - switch
+      type: string
+    sle_impacted_clients:
+      additionalProperties: false
+      properties:
+        classifier:
+          type: string
+        clients:
+          $ref: '#/components/schemas/sle_impacted_clients_clients'
+        end:
+          type: integer
+        failure:
+          type: string
+        limit:
+          type: integer
+        metric:
+          type: string
+        page:
+          type: integer
+        start:
+          type: integer
+        total_count:
+          type: integer
+      type: object
     sle_impacted_chassis:
       additionalProperties: false
       properties:
@@ -1798,177 +2083,11 @@ components:
         total_count:
           type: integer
       type: object
-    sle_impacted_aps_ap:
-      additionalProperties: false
-      properties:
-        ap_mac:
-          minLength: 1
-          type: string
-        degraded:
-          type: number
-        duration:
-          type: number
-        name:
-          minLength: 1
-          type: string
-        total:
-          type: number
-      required:
-      - ap_mac
-      - name
-      - duration
-      - degraded
-      - total
-      type: object
-    site_sle_impacted_gateways_scope_parameters:
-      description: 'enum: `site`'
-      enum:
-      - site
-      type: string
-    sle_impact_summary_ap_item:
-      additionalProperties: false
-      properties:
-        ap_mac:
-          minLength: 1
-          type: string
-        degraded:
-          type: number
-        duration:
-          type: number
-        name:
-          minLength: 1
-          type: string
-        total:
-          type: number
-      required:
-      - ap_mac
-      - name
-      - duration
-      - degraded
-      - total
-      type: object
-    sle_histogram_data:
+    sle_impacted_interfaces_interfaces:
       items:
-        $ref: '#/components/schemas/sle_histogram_data_item'
+        $ref: '#/components/schemas/sle_impacted_interfaces_interface'
       type: array
-      uniqueItems: true
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    sle_histogram_data_item:
-      additionalProperties: false
-      properties:
-        range:
-          $ref: '#/components/schemas/sle_histogram_data_item_range'
-        value:
-          type: number
-      required:
-      - value
-      type: object
-    sle_impacted_applications_apps:
-      items:
-        $ref: '#/components/schemas/sle_impacted_applications_app'
-      type: array
-    site_sle_impacted_users_scope_parameter:
-      description: 'enum: `ap`, `site`'
-      enum:
-      - ap
-      - site
-      type: string
-    sle_impacted_users_client:
-      additionalProperties: false
-      properties:
-        degraded:
-          type: number
-        duration:
-          type: number
-        gateways:
-          $ref: '#/components/schemas/sle_impacted_client_gateways'
-        mac:
-          type: string
-        name:
-          type: string
-        src_ip:
-          type: string
-        total:
-          type: number
-      type: object
-    sle_impact_summary_band_item:
-      additionalProperties: false
-      properties:
-        band:
-          minLength: 1
-          type: string
-        degraded:
-          type: number
-        duration:
-          type: number
-        name:
-          minLength: 1
-          type: string
-        total:
-          type: number
-      required:
-      - band
-      - name
-      - duration
-      - degraded
-      - total
-      type: object
-    sle_impacted_gateways:
-      additionalProperties: false
-      properties:
-        classifier:
-          type: string
-        end:
-          type: integer
-        failure:
-          type: string
-        gateways:
-          $ref: '#/components/schemas/sle_impacted_gateways_gateways'
-        limit:
-          type: integer
-        metric:
-          type: string
-        page:
-          type: integer
-        start:
-          type: integer
-        total_count:
-          type: integer
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    sle_impact_summary_band:
-      items:
-        $ref: '#/components/schemas/sle_impact_summary_band_item'
-      type: array
-      uniqueItems: true
-    site_sle_impacted_chassis_scope_parameters:
-      description: 'enum: `gateway`, `site`, `switch`'
-      enum:
-      - gateway
-      - site
-      - switch
-      type: string
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    site_sle_threshold_scope_parameter:
+    site_sle_metric_classifiers_scope_parameters:
       description: 'enum: `ap`, `client`, `gateway`, `site`, `switch`'
       enum:
       - ap
@@ -1977,92 +2096,11 @@ components:
       - site
       - switch
       type: string
-    site_sle_metrics_scope_parameters:
-      description: 'enum: `ap`, `client`, `gateway`, `site`, `switch`'
-      enum:
-      - ap
-      - client
-      - gateway
-      - site
-      - switch
-      type: string
-    site_sle_impacted_interfaces_scope_parameters:
-      description: 'enum: `gateway`, `site`, `switch`'
-      enum:
-      - gateway
-      - site
-      - switch
-      type: string
-    sle_summary_sle_samples_degraded:
+    sle_impact_summary_wlan:
       items:
-        $ref: '#/components/schemas/number_or_null'
+        $ref: '#/components/schemas/sle_impact_summary_wlan_item'
       type: array
-    sle_classifier_summary_trend:
-      additionalProperties: false
-      properties:
-        classifier:
-          $ref: '#/components/schemas/sle_trend_classifier'
-        end:
-          type: number
-        metric:
-          minLength: 1
-          type: string
-        start:
-          type: number
-      required:
-      - start
-      - end
-      - metric
-      - classifier
-      type: object
-    sle_impacted_applications:
-      additionalProperties: false
-      properties:
-        apps:
-          $ref: '#/components/schemas/sle_impacted_applications_apps'
-        classifier:
-          type: string
-        end:
-          type: integer
-        failure:
-          type: string
-        limit:
-          type: string
-        metric:
-          type: string
-        page:
-          type: integer
-        start:
-          type: integer
-        total_count:
-          type: integer
-      type: object
-    sle_threshold:
-      properties:
-        default:
-          readOnly: true
-          type: number
-        direction:
-          minLength: 1
-          readOnly: true
-          type: string
-        maximum:
-          type: number
-        metric:
-          minLength: 1
-          readOnly: true
-          type: string
-        minimum:
-          type: number
-        threshold:
-          minLength: 1
-          readOnly: true
-          type: string
-        units:
-          minLength: 1
-          readOnly: true
-          type: string
-      type: object
+      uniqueItems: true
     sle_impacted_applications_app:
       additionalProperties: false
       properties:
@@ -2079,267 +2117,61 @@ components:
         total:
           type: integer
       type: object
-    sle_histogram:
-      additionalProperties: false
-      properties:
-        data:
-          $ref: '#/components/schemas/sle_histogram_data'
-        end:
-          type: number
-        metric:
-          minLength: 1
-          type: string
-        start:
-          type: number
-        x_label:
-          minLength: 1
-          type: string
-        y_label:
-          minLength: 1
-          type: string
-      required:
-      - metric
-      - start
-      - end
-      - data
-      - x_label
-      - y_label
-      type: object
-    sle_impacted_clients_client_switch:
-      additionalProperties: false
-      properties:
-        interfaces:
-          $ref: '#/components/schemas/strings'
-        switch_mac:
-          type: string
-        switch_name:
-          type: string
-      type: object
-    site_sle_impacted_clients_scope_parameters:
-      description: 'enum: `gateway`, `site`, `switch`'
+    site_sle_impacted_aps_scope_parameters:
+      description: 'enum: `site`'
       enum:
-      - gateway
       - site
-      - switch
       type: string
+  parameters:
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
   examples:
-    SleImpactedApplicationsExample:
+    SleImpactedChassisExample:
       value:
-        apps:
-        - app: ZOOM
-          degraded: 371103
-          duration: 0
-          name: ZOOM
-          threshold: 173
-          total: 1771274
+        chassis:
+        - chassis: '1'
+          degraded: 12.283334
+          duration: 13655.167
+          role: master
+          switch_mac: d0dd49012345
+          switch_name: test-chassis
+          total: 13655.167
         classifier: ''
-        end: 1668760746
+        end: 1668760643
         failure: ''
-        limit: '1000'
-        metric: application_health
+        limit: 1000
+        metric: switch_health
         page: 1
         start: 1668121200
         total_count: 1
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    SleClassifierSummaryTrendExample:
-      value:
-        classifier:
-          interval: 3600
-          name: wifi-interference
-          samples:
-            degraded:
-            - 0
-            - 0
-            - 210.03334
-            - 3.1333334
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 102.5
-            - 108.03333
-            - 0
-            - 0
-            - 201.9
-            - 566.48334
-            - 135.63333
-            - 0
-            duration:
-            - 0
-            - 0
-            - 210.03334
-            - 3.1333334
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 0
-            - 102.5
-            - 108.03333
-            - 0
-            - 0
-            - 201.9
-            - 566.48334
-            - 135.63333
-            - 0
-            total:
-            - 1302.3
-            - 1289.0167
-            - 1396.3167
-            - 1423.6666
-            - 1439.2167
-            - 1414.7
-            - 1361.0834
-            - 1371.5834
-            - 1372.0667
-            - 1339.1
-            - 1374.3667
-            - 1369.9
-            - 1352.4833
-            - 1382.8
-            - 1426.7167
-            - 1425.6333
-            - 1403.9333
-            - 1420.75
-            - 1416.8334
-            - 1437.3334
-            - 1425.1
-            - 1485.3667
-            - 1426.4333
-            - 444.13333
-          x_label: seconds
-          y_label: user-minutes
-        end: 1627312871
-        metric: capacity
-        start: 1627226471
-    SleImpactedUsersExample:
-      value:
-        classifier: ''
-        end: 1627313103
-        failure: ''
-        limit: 1000
-        metric: capacity
-        page: 1
-        start: 1627226703
-        total_count: 21
-        users:
-        - ap_mac: d420b0830000
-          ap_name: ap33.lab
-          degraded: 2
-          device_os: '14.6'
-          device_type: iPhone
-          duration: 1270
-          mac: dc080f360000
-          name: aPhone-20973
-          ssid: lab.1X
-          total: 1270
-          wlan_id: a937da77-0000-0000-0000-f2134d7b1483
-        - ap_mac: 5c5b35500000
-          ap_name: ap43.lab
-          degraded: 36
-          device_os: Android 11
-          device_type: OnePlus
-          duration: 767
-          mac: 4c4feedc0000
-          name: OnePlus-8
-          ssid: lab.1X
-          total: 767
-          wlan_id: a937da77-0000-0000-0000-f2134d7b1483
-        - ap_mac: 5c5b35500000
-          ap_name: ap43.lab
-          degraded: 2
-          device_os: Catalina
-          device_type: Mac
-          duration: 1405
-          mac: a483e7390000
-          name: tmunzer-mbp
-          ssid: lab.1X
-          total: 1405
-          wlan_id: a937da77-0000-0000-0000-f2134d7b1483
-        - ap_mac: 5c5b35500000
-          ap_name: ap43.lab
-          degraded: 81
-          device_os: Linux
-          device_type: unknown
-          duration: 1403
-          mac: 5caafd0d0000
-          name: SonosZP
-          ssid: lab
-          total: 1403
-          wlan_id: 649a2336-0000-0000-0000-f637dbe50e7b
-    SleHistogramExample:
-      value:
-        data:
-        - range:
-          - null
-          - 0
-          value: 0
-        - range:
-          - 0
-          - 10
-          value: 0
-        - range:
-          - 10
-          - 20
-          value: 5105
-        - range:
-          - 20
-          - 30
-          value: 10616
-        - range:
-          - 30
-          - 40
-          value: 40051
-        - range:
-          - 40
-          - 50
-          value: 141201
-        - range:
-          - 50
-          - 60
-          value: 949823
-        - range:
-          - 60
-          - 70
-          value: 686308
-        - range:
-          - 70
-          - 80
-          value: 177670
-        - range:
-          - 80
-          - 90
-          value: 689
-        - range:
-          - 90
-          - 100
-          value: 0
-        - range:
-          - 100
-          - null
-          value: 0
-        end: 1627055181
-        metric: capacity
-        start: 1626968781
-        x_label: available_bandwidth(%)
-        y_label: seconds
     SleSummaryTrendExample:
       value:
         classifiers:
@@ -2746,48 +2578,110 @@ components:
           x_label: seconds
           y_label: '%'
         start: 1627226206
-    SleImpactedClientsExample:
+    HTTP429Example:
       value:
-        classifier: ''
-        clients:
-        - degraded: 40
-          duration: 11014
-          mac: '001122334455'
-          name: test-device
-          switches:
-          - interfaces:
-            - ge-0/0/6
-            switch_mac: 2c2131001122
-            switch_name: test-ex
-          total: 11014
-        end: 1668760198
-        failure: ''
-        limit: 1000
-        metric: switch_throughput
-        page: 1
-        start: 1668726000
-        total_count: 1
-    SleImpactedApsExample:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    SleThresholdExample:
       value:
-        aps:
-        - ap_mac: 5c5b35500000
-          degraded: 1486
-          duration: 0
-          name: ap43.lab
-          total: 27377
-        - ap_mac: d420b0830000
-          degraded: 3
-          duration: 0
-          name: ap33.lab
-          total: 1189
-        classifier: ''
-        end: 1627313016
-        failure: ''
-        limit: 1000
+        default: -72
+        direction: left
+        maximum: -60
+        metric: coverage
+        minimum: -90
+        threshold: '-66'
+        units: dBm
+    SleClassifierSummaryTrendExample:
+      value:
+        classifier:
+          interval: 3600
+          name: wifi-interference
+          samples:
+            degraded:
+            - 0
+            - 0
+            - 210.03334
+            - 3.1333334
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 102.5
+            - 108.03333
+            - 0
+            - 0
+            - 201.9
+            - 566.48334
+            - 135.63333
+            - 0
+            duration:
+            - 0
+            - 0
+            - 210.03334
+            - 3.1333334
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 0
+            - 102.5
+            - 108.03333
+            - 0
+            - 0
+            - 201.9
+            - 566.48334
+            - 135.63333
+            - 0
+            total:
+            - 1302.3
+            - 1289.0167
+            - 1396.3167
+            - 1423.6666
+            - 1439.2167
+            - 1414.7
+            - 1361.0834
+            - 1371.5834
+            - 1372.0667
+            - 1339.1
+            - 1374.3667
+            - 1369.9
+            - 1352.4833
+            - 1382.8
+            - 1426.7167
+            - 1425.6333
+            - 1403.9333
+            - 1420.75
+            - 1416.8334
+            - 1437.3334
+            - 1425.1
+            - 1485.3667
+            - 1426.4333
+            - 444.13333
+          x_label: seconds
+          y_label: user-minutes
+        end: 1627312871
         metric: capacity
-        page: 1
-        start: 1627226616
-        total_count: 2
+        start: 1627226471
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     SleImpactedInterfacesExample:
       value:
         classifier: ''
@@ -2811,20 +2705,19 @@ components:
         page: 1
         start: 1668726000
         total_count: 5
-    SleImpactedGatewaysExample:
+    SleImpactedApplicationsExample:
       value:
+        apps:
+        - app: ZOOM
+          degraded: 371103
+          duration: 0
+          name: ZOOM
+          threshold: 173
+          total: 1771274
         classifier: ''
         end: 1668760746
         failure: ''
-        gateways:
-        - degraded: 758573.1
-          duration: 2770997
-          gateway_mac: fc3342001122
-          gateway_model: SRX320
-          gateway_version: 20.4R1.12
-          name: test-SRX
-          total: 2770997
-        limit: 1000
+        limit: '1000'
         metric: application_health
         page: 1
         start: 1668121200
@@ -2926,94 +2819,117 @@ components:
           name: MlN.1X
           total: 3462
           wlan_id: a937da77-fe3c-4784-86c4-f2134d7b1483
-    SiteSleMetricsExample:
+    SleHistogramExample:
       value:
-        enabled:
-        - coverage
-        - capacity
-        - time-to-connect
-        - failed-to-connect
-        - roaming
-        - roaming-v2
-        - throughput
-        - switch_health
-        - switch_throughput
-        - switch_stc
-        - gateway-health
-        - application_health
-        - wan-link-health
-        - ap-availability
-        supported:
-        - coverage
-        - capacity
-        - time-to-connect
-        - failed-to-connect
-        - roaming
-        - roaming-v2
-        - location_jitter
-        - location_latency
-        - throughput
-        - location_dropped-requests
-        - switch_health
-        - switch_throughput
-        - switch_stc
-        - gateway-health
-        - application_health
-        - wan-link-health
-        - ap-availability
-        - location_sdk-connect-time
-        - location_ble-hung
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    SleImpactedChassisExample:
-      value:
-        chassis:
-        - chassis: '1'
-          degraded: 12.283334
-          duration: 13655.167
-          role: master
-          switch_mac: d0dd49012345
-          switch_name: test-chassis
-          total: 13655.167
-        classifier: ''
-        end: 1668760643
-        failure: ''
-        limit: 1000
-        metric: switch_health
-        page: 1
-        start: 1668121200
-        total_count: 1
-    SleThresholdExample:
-      value:
-        default: -72
-        direction: left
-        maximum: -60
-        metric: coverage
-        minimum: -90
-        threshold: '-66'
-        units: dBm
-    SleImpactedSwitchesExample:
+        data:
+        - range:
+          - null
+          - 0
+          value: 0
+        - range:
+          - 0
+          - 10
+          value: 0
+        - range:
+          - 10
+          - 20
+          value: 5105
+        - range:
+          - 20
+          - 30
+          value: 10616
+        - range:
+          - 30
+          - 40
+          value: 40051
+        - range:
+          - 40
+          - 50
+          value: 141201
+        - range:
+          - 50
+          - 60
+          value: 949823
+        - range:
+          - 60
+          - 70
+          value: 686308
+        - range:
+          - 70
+          - 80
+          value: 177670
+        - range:
+          - 80
+          - 90
+          value: 689
+        - range:
+          - 90
+          - 100
+          value: 0
+        - range:
+          - 100
+          - null
+          value: 0
+        end: 1627055181
+        metric: capacity
+        start: 1626968781
+        x_label: available_bandwidth(%)
+        y_label: seconds
+    SleImpactedUsersExample:
       value:
         classifier: ''
-        end: 1668760198
+        end: 1627313103
         failure: ''
         limit: 1000
-        metric: switch_throughput
+        metric: capacity
         page: 1
-        start: 1668726000
-        switches:
-        - degraded: 109.88333
-          duration: 5753.75
-          interface:
-          - ge-0/0/11
-          - xe-0/1/0
-          name: test-ex
-          switch_mac: 2c2131001122
-          switch_model: EX2300-C-12P
-          switch_version: 20.4R3-S3.4
-          total: 5753.75
-        total_count: 1
+        start: 1627226703
+        total_count: 21
+        users:
+        - ap_mac: d420b0830000
+          ap_name: ap33.lab
+          degraded: 2
+          device_os: '14.6'
+          device_type: iPhone
+          duration: 1270
+          mac: dc080f360000
+          name: aPhone-20973
+          ssid: lab.1X
+          total: 1270
+          wlan_id: a937da77-0000-0000-0000-f2134d7b1483
+        - ap_mac: 5c5b35500000
+          ap_name: ap43.lab
+          degraded: 36
+          device_os: Android 11
+          device_type: OnePlus
+          duration: 767
+          mac: 4c4feedc0000
+          name: OnePlus-8
+          ssid: lab.1X
+          total: 767
+          wlan_id: a937da77-0000-0000-0000-f2134d7b1483
+        - ap_mac: 5c5b35500000
+          ap_name: ap43.lab
+          degraded: 2
+          device_os: Catalina
+          device_type: Mac
+          duration: 1405
+          mac: a483e7390000
+          name: tmunzer-mbp
+          ssid: lab.1X
+          total: 1405
+          wlan_id: a937da77-0000-0000-0000-f2134d7b1483
+        - ap_mac: 5c5b35500000
+          ap_name: ap43.lab
+          degraded: 81
+          device_os: Linux
+          device_type: unknown
+          duration: 1403
+          mac: 5caafd0d0000
+          name: SonosZP
+          ssid: lab
+          total: 1403
+          wlan_id: 649a2336-0000-0000-0000-f637dbe50e7b
     SleClassifierSummaryExample:
       value:
         classifier:
@@ -3111,9 +3027,124 @@ components:
           total_users: 26
         metric: capacity
         start: 1627226471
-    HTTP400Example:
+    SleImpactedApsExample:
       value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+        aps:
+        - ap_mac: 5c5b35500000
+          degraded: 1486
+          duration: 0
+          name: ap43.lab
+          total: 27377
+        - ap_mac: d420b0830000
+          degraded: 3
+          duration: 0
+          name: ap33.lab
+          total: 1189
+        classifier: ''
+        end: 1627313016
+        failure: ''
+        limit: 1000
+        metric: capacity
+        page: 1
+        start: 1627226616
+        total_count: 2
+    SiteSleMetricsExample:
+      value:
+        enabled:
+        - coverage
+        - capacity
+        - time-to-connect
+        - failed-to-connect
+        - roaming
+        - roaming-v2
+        - throughput
+        - switch_health
+        - switch_throughput
+        - switch_stc
+        - gateway-health
+        - application_health
+        - wan-link-health
+        - ap-availability
+        supported:
+        - coverage
+        - capacity
+        - time-to-connect
+        - failed-to-connect
+        - roaming
+        - roaming-v2
+        - location_jitter
+        - location_latency
+        - throughput
+        - location_dropped-requests
+        - switch_health
+        - switch_throughput
+        - switch_stc
+        - gateway-health
+        - application_health
+        - wan-link-health
+        - ap-availability
+        - location_sdk-connect-time
+        - location_ble-hung
+    SleImpactedGatewaysExample:
+      value:
+        classifier: ''
+        end: 1668760746
+        failure: ''
+        gateways:
+        - degraded: 758573.1
+          duration: 2770997
+          gateway_mac: fc3342001122
+          gateway_model: SRX320
+          gateway_version: 20.4R1.12
+          name: test-SRX
+          total: 2770997
+        limit: 1000
+        metric: application_health
+        page: 1
+        start: 1668121200
+        total_count: 1
+    SleImpactedSwitchesExample:
+      value:
+        classifier: ''
+        end: 1668760198
+        failure: ''
+        limit: 1000
+        metric: switch_throughput
+        page: 1
+        start: 1668726000
+        switches:
+        - degraded: 109.88333
+          duration: 5753.75
+          interface:
+          - ge-0/0/11
+          - xe-0/1/0
+          name: test-ex
+          switch_mac: 2c2131001122
+          switch_model: EX2300-C-12P
+          switch_version: 20.4R3-S3.4
+          total: 5753.75
+        total_count: 1
+    SleImpactedClientsExample:
+      value:
+        classifier: ''
+        clients:
+        - degraded: 40
+          duration: 11014
+          mac: '001122334455'
+          name: test-device
+          switches:
+          - interfaces:
+            - ge-0/0/6
+            switch_mac: 2c2131001122
+            switch_name: test-ex
+          total: 11014
+        end: 1668760198
+        failure: ''
+        limit: 1000
+        metric: switch_throughput
+        page: 1
+        start: 1668726000
+        total_count: 1
     SleSummaryExample:
       value:
         classifiers:
@@ -3546,55 +3577,24 @@ components:
           x_label: seconds
           y_label: '%'
         start: 1627226206
-    HTTP401Example:
+    HTTP403Example:
       value:
-        detail: Authentication credentials were not provided.
-  parameters:
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
+        detail: You do not have permission to perform this action.
   responses:
-    SleSummaryTrend:
+    SleImpactSummary:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/SleSummaryTrendExample'
+              $ref: '#/components/examples/SleImpactSummaryExample'
           schema:
-            $ref: '#/components/schemas/sle_summary_trend'
+            $ref: '#/components/schemas/sle_impact_summary'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/SleSummaryTrendExample'
+              $ref: '#/components/examples/SleImpactSummaryExample'
           schema:
-            $ref: '#/components/schemas/sle_summary_trend'
+            $ref: '#/components/schemas/sle_impact_summary'
       description: Example response
     HTTP403:
       content:
@@ -3611,134 +3611,20 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    SleThreshold:
+    SleSummaryTrend:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/SleThresholdExample'
+              $ref: '#/components/examples/SleSummaryTrendExample'
           schema:
-            $ref: '#/components/schemas/sle_threshold'
+            $ref: '#/components/schemas/sle_summary_trend'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/SleThresholdExample'
+              $ref: '#/components/examples/SleSummaryTrendExample'
           schema:
-            $ref: '#/components/schemas/sle_threshold'
-      description: Example response
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    SleClassifierSummaryTrend:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleClassifierSummaryTrendExample'
-          schema:
-            $ref: '#/components/schemas/sle_classifier_summary_trend'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleClassifierSummaryTrendExample'
-          schema:
-            $ref: '#/components/schemas/sle_classifier_summary_trend'
-      description: Example response
-    SleSummary:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleSummaryExample'
-          schema:
-            $ref: '#/components/schemas/sle_summary'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleSummaryExample'
-          schema:
-            $ref: '#/components/schemas/sle_summary'
-      description: Example response
-    SleImpactedAps:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleImpactedApsExample'
-          schema:
-            $ref: '#/components/schemas/sle_impacted_aps'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleImpactedApsExample'
-          schema:
-            $ref: '#/components/schemas/sle_impacted_aps'
-      description: Example response
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    SleImpactedUsers:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleImpactedUsersExample'
-          schema:
-            $ref: '#/components/schemas/sle_impacted_users'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleImpactedUsersExample'
-          schema:
-            $ref: '#/components/schemas/sle_impacted_users'
-      description: Example response
-    SleImpactedClients:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleImpactedClientsExample'
-          schema:
-            $ref: '#/components/schemas/sle_impacted_clients'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleImpactedClientsExample'
-          schema:
-            $ref: '#/components/schemas/sle_impacted_clients'
-      description: Example response
-    SleClassifierSummary:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleClassifierSummaryExample'
-          schema:
-            $ref: '#/components/schemas/sle_classifier_summary'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SleClassifierSummaryExample'
-          schema:
-            $ref: '#/components/schemas/sle_classifier_summary'
+            $ref: '#/components/schemas/sle_summary_trend'
       description: Example response
     SleImpactedChassis:
       content:
@@ -3755,66 +3641,51 @@ components:
           schema:
             $ref: '#/components/schemas/sle_impacted_chassis'
       description: Example response
-    SleImpactedApplications:
+    SleImpactedClients:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/SleImpactedApplicationsExample'
+              $ref: '#/components/examples/SleImpactedClientsExample'
           schema:
-            $ref: '#/components/schemas/sle_impacted_applications'
+            $ref: '#/components/schemas/sle_impacted_clients'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/SleImpactedApplicationsExample'
+              $ref: '#/components/examples/SleImpactedClientsExample'
           schema:
-            $ref: '#/components/schemas/sle_impacted_applications'
+            $ref: '#/components/schemas/sle_impacted_clients'
       description: Example response
-    SleImpactSummary:
+    SleSummary:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/SleImpactSummaryExample'
+              $ref: '#/components/examples/SleSummaryExample'
           schema:
-            $ref: '#/components/schemas/sle_impact_summary'
+            $ref: '#/components/schemas/sle_summary'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/SleImpactSummaryExample'
+              $ref: '#/components/examples/SleSummaryExample'
           schema:
-            $ref: '#/components/schemas/sle_impact_summary'
+            $ref: '#/components/schemas/sle_summary'
       description: Example response
-    SleImpactedInterfaces:
+    SleHistogram:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/SleImpactedInterfacesExample'
+              $ref: '#/components/examples/SleHistogramExample'
           schema:
-            $ref: '#/components/schemas/sle_impacted_interfaces'
+            $ref: '#/components/schemas/sle_histogram'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/SleImpactedInterfacesExample'
+              $ref: '#/components/examples/SleHistogramExample'
           schema:
-            $ref: '#/components/schemas/sle_impacted_interfaces'
+            $ref: '#/components/schemas/sle_histogram'
       description: Example response
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     SleImpactedSwitches:
       content:
         application/json:
@@ -3830,21 +3701,21 @@ components:
           schema:
             $ref: '#/components/schemas/sle_impacted_switches'
       description: Example response
-    SleImpactedGateways:
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/SleImpactedGatewaysExample'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/sle_impacted_gateways'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/SleImpactedGatewaysExample'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/sle_impacted_gateways'
-      description: Example response
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP400:
       content:
         application/json:
@@ -3860,6 +3731,105 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
+    SleImpactedInterfaces:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleImpactedInterfacesExample'
+          schema:
+            $ref: '#/components/schemas/sle_impacted_interfaces'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleImpactedInterfacesExample'
+          schema:
+            $ref: '#/components/schemas/sle_impacted_interfaces'
+      description: Example response
+    SleImpactedAps:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleImpactedApsExample'
+          schema:
+            $ref: '#/components/schemas/sle_impacted_aps'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleImpactedApsExample'
+          schema:
+            $ref: '#/components/schemas/sle_impacted_aps'
+      description: Example response
+    SleImpactedUsers:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleImpactedUsersExample'
+          schema:
+            $ref: '#/components/schemas/sle_impacted_users'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleImpactedUsersExample'
+          schema:
+            $ref: '#/components/schemas/sle_impacted_users'
+      description: Example response
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    SleClassifierSummary:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleClassifierSummaryExample'
+          schema:
+            $ref: '#/components/schemas/sle_classifier_summary'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleClassifierSummaryExample'
+          schema:
+            $ref: '#/components/schemas/sle_classifier_summary'
+      description: Example response
+    SleThreshold:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleThresholdExample'
+          schema:
+            $ref: '#/components/schemas/sle_threshold'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleThresholdExample'
+          schema:
+            $ref: '#/components/schemas/sle_threshold'
+      description: Example response
     SiteSleMetrics:
       content:
         application/json:
@@ -3875,20 +3845,50 @@ components:
           schema:
             $ref: '#/components/schemas/site_sle_metrics'
       description: OK
-    SleHistogram:
+    SleImpactedGateways:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/SleHistogramExample'
+              $ref: '#/components/examples/SleImpactedGatewaysExample'
           schema:
-            $ref: '#/components/schemas/sle_histogram'
+            $ref: '#/components/schemas/sle_impacted_gateways'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/SleHistogramExample'
+              $ref: '#/components/examples/SleImpactedGatewaysExample'
           schema:
-            $ref: '#/components/schemas/sle_histogram'
+            $ref: '#/components/schemas/sle_impacted_gateways'
+      description: Example response
+    SleImpactedApplications:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleImpactedApplicationsExample'
+          schema:
+            $ref: '#/components/schemas/sle_impacted_applications'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleImpactedApplicationsExample'
+          schema:
+            $ref: '#/components/schemas/sle_impacted_applications'
+      description: Example response
+    SleClassifierSummaryTrend:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleClassifierSummaryTrendExample'
+          schema:
+            $ref: '#/components/schemas/sle_classifier_summary_trend'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SleClassifierSummaryTrendExample'
+          schema:
+            $ref: '#/components/schemas/sle_classifier_summary_trend'
       description: Example response
   securitySchemes:
     apiToken:

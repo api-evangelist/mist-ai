@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   contact:
     email: tmunzer@juniper.net
@@ -47,7 +47,7 @@ info:
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
-  title: Mist Admins Constants Definitions API
+  title: Mist Constants Definitions API
   version: 2604.1.1
   x-logo:
     altText: Juniper-MistAI
@@ -437,27 +437,377 @@ paths:
       tags:
       - Constants Definitions
 components:
+  responses:
+    ConstApEslVersions:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstApEslVersionsExample'
+          schema:
+            $ref: '#/components/schemas/const_ap_esl_versions'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstApEslVersionsExample'
+          schema:
+            $ref: '#/components/schemas/const_ap_esl_versions'
+      description: List of Available AP ESL Versions
+    ConstLicenseTypes:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstLicenseTypesExample'
+          schema:
+            $ref: '#/components/schemas/const_license_types'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstLicenseTypesExample'
+          schema:
+            $ref: '#/components/schemas/const_license_types'
+      description: List of License Types
+    ConstApLedDefinitions:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstApLedDefinitionsExample'
+          schema:
+            $ref: '#/components/schemas/const_ap_leds'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstApLedDefinitionsExample'
+          schema:
+            $ref: '#/components/schemas/const_ap_leds'
+      description: List of AP Led Status
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    ConstCountries:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstCountriesExample'
+          schema:
+            $ref: '#/components/schemas/const_countries'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstCountriesExample'
+          schema:
+            $ref: '#/components/schemas/const_countries'
+      description: List of Countries
+    ConstGatewayApplications:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstGatewayApplicationsExample'
+          schema:
+            $ref: '#/components/schemas/const_gateway_applications_definitions'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstGatewayApplicationsExample'
+          schema:
+            $ref: '#/components/schemas/const_gateway_applications_definitions'
+      description: List of Alarm Definitions
+    ConstWebhookTopics:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstWebhookTopicsExample'
+          schema:
+            $ref: '#/components/schemas/const_webhook_topics'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstWebhookTopicsExample'
+          schema:
+            $ref: '#/components/schemas/const_webhook_topics'
+      description: List of Webhook Topics
+    ConstFingerprintTypes:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstFingerprintTypesExample'
+          schema:
+            $ref: '#/components/schemas/const_fingerprint_types'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstFingerprintTypesExample'
+          schema:
+            $ref: '#/components/schemas/const_fingerprint_types'
+      description: List of Fingerprint Types
+    ConstStates:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstStatesExample'
+          schema:
+            $ref: '#/components/schemas/const_states'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstStatesExample'
+          schema:
+            $ref: '#/components/schemas/const_states'
+      description: List of Countries
+    ConstTrafficTypes:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstTrafficTypesExample'
+          schema:
+            $ref: '#/components/schemas/const_traffic_types'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstTrafficTypesExample'
+          schema:
+            $ref: '#/components/schemas/const_traffic_types'
+      description: List of Traffic Types
+    ConstLanguages:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstLanguagesExample'
+          schema:
+            $ref: '#/components/schemas/const_languages'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstLanguagesExample'
+          schema:
+            $ref: '#/components/schemas/const_languages'
+      description: List of Languages
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    ConstApChannels:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstApChannelsExample'
+          schema:
+            $ref: '#/components/schemas/const_ap_channel'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstApChannelsExample'
+          schema:
+            $ref: '#/components/schemas/const_ap_channel'
+      description: AP Channels
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    ConstApplications:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstApplicationsExample'
+          schema:
+            $ref: '#/components/schemas/const_application_definitions'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstApplicationsExample'
+          schema:
+            $ref: '#/components/schemas/const_application_definitions'
+      description: List of Applications
+    ConstInsightMetrics:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstInsightMetricsExample'
+          schema:
+            $ref: '#/components/schemas/const_insight_metrics'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstInsightMetricsExample'
+          schema:
+            $ref: '#/components/schemas/const_insight_metrics'
+      description: Insight Metrics Definition
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    ConstMarvisClientVersions:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstMarvisClientVersionsExample'
+          schema:
+            $ref: '#/components/schemas/const_marvis_client_versions'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstMarvisClientVersionsExample'
+          schema:
+            $ref: '#/components/schemas/const_marvis_client_versions'
+      description: List of Webhook Topics
+    ConstAppSubCategoryDefinitions:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstAppSubCategoryDefinitionsExample'
+          schema:
+            $ref: '#/components/schemas/const_app_subcategory_definitions'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstAppSubCategoryDefinitionsExample'
+          schema:
+            $ref: '#/components/schemas/const_app_subcategory_definitions'
+      description: List of Application Sub-categories Definitions
+    ConstAppCategoryDefinitions:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstAppCategoryDefinitionsExample'
+          schema:
+            $ref: '#/components/schemas/const_app_category_definitions'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstAppCategoryDefinitionsExample'
+          schema:
+            $ref: '#/components/schemas/const_app_category_definitions'
+      description: List of Application Categories Definitions
   schemas:
-    const_insight_metrics_property_scope:
-      description: 'enum: `ap`, `client`, `device`, `gateway`, `map`, `msp`, `mxcluster`, `mxedge`, `org`, `otherdevice`, `rssizone`, `sdkclient`, `site`, `switch`, `wlan`, `zone`'
-      enum:
-      - ap
-      - client
-      - device
-      - gateway
-      - map
-      - msp
-      - mxcluster
-      - mxedge
-      - org
-      - otherdevice
-      - rssizone
-      - sdkclient
-      - site
-      - switch
-      - wlan
-      - zone
-      type: string
+    const_ap_esl_versions:
+      items:
+        $ref: '#/components/schemas/const_ap_esl_version'
+      type: array
+    const_app_category_definitions:
+      items:
+        $ref: '#/components/schemas/const_app_category_definition'
+      type: array
+    const_app_category_definition:
+      additionalProperties: false
+      properties:
+        display:
+          description: Description of the app category
+          examples:
+          - Images
+          type: string
+        filters:
+          $ref: '#/components/schemas/const_app_category_definition_filters'
+        includes:
+          $ref: '#/components/schemas/const_app_category_definition_includes'
+        key:
+          description: Key name of the app category
+          examples:
+          - Images
+          type: string
+      required:
+      - key
+      - display
+      type: object
+    const_ap_leds:
+      items:
+        $ref: '#/components/schemas/const_ap_led'
+      type: array
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
+    const_app_subcategory_definitions:
+      items:
+        $ref: '#/components/schemas/const_app_subcategory_definition'
+      type: array
+    const_insight_metrics_property_example_any_of:
+      anyOf:
+      - $ref: '#/components/schemas/const_insight_metrics_property_examples'
+      - $ref: '#/components/schemas/const_insight_metrics_property_examples_object'
+    const_ap_esl_version:
+      additionalProperties: false
+      properties:
+        esl_version:
+          examples:
+          - 2.5.1
+          readOnly: true
+          type: string
+        model:
+          examples:
+          - AP34
+          readOnly: true
+          type: string
+      type: object
     const_application_definition:
       additionalProperties: false
       properties:
@@ -490,83 +840,92 @@ components:
         ssr_app_id:
           type: boolean
       type: object
-    strings:
+    const_languages:
       items:
-        type: string
+        $ref: '#/components/schemas/const_language'
       type: array
-      uniqueItems: true
-    const_app_category_definition_filters:
-      additionalProperties: false
-      examples:
-      - srx:
-        - Enhanced_Images_Media
-        - Enhanced_Web_Images
-        - Enhanced_Image_Servers
-      properties:
-        srx:
-          $ref: '#/components/schemas/strings'
-        ssr:
-          $ref: '#/components/schemas/strings'
-      type: object
-    const_traffic_types:
-      items:
-        $ref: '#/components/schemas/const_traffic_type'
-      type: array
-    const_ap_esl_version:
-      additionalProperties: false
-      properties:
-        esl_version:
-          examples:
-          - 2.5.1
-          readOnly: true
-          type: string
-        model:
-          examples:
-          - AP34
-          readOnly: true
-          type: string
-      type: object
     const_insight_metrics_property_report_durations:
       additionalProperties:
         $ref: '#/components/schemas/const_insight_metrics_property_report_duration'
       description: Property key is the duration (e.g. 1d, 1w, ...)
       type: object
-    const_languages:
-      items:
-        $ref: '#/components/schemas/const_language'
-      type: array
-    const_country:
+    const_license_type:
       additionalProperties: false
       properties:
-        alpha2:
-          description: Country code, in two-character
+        description:
           examples:
-          - FR
+          - Wired Assurance 12
           type: string
-        certified:
+        includes:
+          $ref: '#/components/schemas/const_license_type_includes'
+        key:
           examples:
-          - true
-          type: boolean
+          - sub_ex12
+          type: string
         name:
           examples:
-          - France
+          - SUB-EX12
           type: string
-        numeric:
-          description: Country code, ISO 3166-1 numeric
-          examples:
-          - 250
-          type: number
-      required:
-      - alpha2
-      - numeric
-      - name
-      - certified
       type: object
-    const_app_category_definition_includes:
-      description: List of other App Categories contained by this one
-      items:
-        type: string
-      type: array
+    const_insight_metrics_property_param:
+      additionalProperties: false
+      properties:
+        required:
+          type: boolean
+      type: object
+    const_fingerprint_types:
+      additionalProperties: false
+      properties:
+        family:
+          $ref: '#/components/schemas/strings'
+        mfg:
+          $ref: '#/components/schemas/strings'
+        model:
+          $ref: '#/components/schemas/strings'
+        os:
+          $ref: '#/components/schemas/strings'
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    const_insight_metrics_property_values:
+      additionalProperties: true
+      type: object
+    ap_channel_band24_channels:
+      additionalProperties:
+        $ref: '#/components/schemas/ap_channel_band24_channel'
+      description: Property key is the channel width
+      examples:
+      - '20':
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        '40':
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+      type: object
     ap_channel_band5_channels:
       additionalProperties:
         $ref: '#/components/schemas/ap_channel_band5_channel'
@@ -692,167 +1051,51 @@ components:
         - 161
         - 165
       type: object
-    const_ap_leds:
+    const_traffic_types:
       items:
-        $ref: '#/components/schemas/const_ap_led'
+        $ref: '#/components/schemas/const_traffic_type'
       type: array
-    const_insight_metrics_property_keys:
-      additionalProperties: true
-      type: object
-    const_insight_metrics_property_param:
-      additionalProperties: false
-      properties:
-        required:
-          type: boolean
-      type: object
-    const_insight_metrics_property_params:
+    const_insight_metrics:
       additionalProperties:
-        $ref: '#/components/schemas/const_insight_metrics_property_param'
-      description: Property key is the parameter name
+        $ref: '#/components/schemas/const_insight_metrics_property'
+      description: Property key is the metric name
       type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
+    const_countries:
+      items:
+        $ref: '#/components/schemas/const_country'
+      type: array
+    const_insight_metrics_property_scopes:
+      items:
+        $ref: '#/components/schemas/const_insight_metrics_property_scope'
+      type: array
+    const_license_types:
+      items:
+        $ref: '#/components/schemas/const_license_type'
+      type: array
     const_insight_metrics_property_examples_object:
       additionalProperties:
         $ref: '#/components/schemas/const_insight_metrics_property_examples'
       description: Object containing named fields, each with array of example values
       type: object
-    const_license_type_includes:
+    const_app_category_definition_filters:
+      additionalProperties: false
       examples:
-      - - sub_ex12a
-        - sub_ex12p
-      items:
-        type: string
-      type: array
+      - srx:
+        - Enhanced_Images_Media
+        - Enhanced_Web_Images
+        - Enhanced_Image_Servers
+      properties:
+        srx:
+          $ref: '#/components/schemas/strings'
+        ssr:
+          $ref: '#/components/schemas/strings'
+      type: object
     ap_channel_band6_channel:
       items:
         examples:
         - 1
         type: integer
       type: array
-    const_license_type:
-      additionalProperties: false
-      properties:
-        description:
-          examples:
-          - Wired Assurance 12
-          type: string
-        includes:
-          $ref: '#/components/schemas/const_license_type_includes'
-        key:
-          examples:
-          - sub_ex12
-          type: string
-        name:
-          examples:
-          - SUB-EX12
-          type: string
-      type: object
-    const_marvis_client_versions:
-      items:
-        $ref: '#/components/schemas/const_marvis_client_version'
-      type: array
-    const_webhook_topics:
-      items:
-        $ref: '#/components/schemas/const_webhook_topic'
-      type: array
-    ap_channel_band5_channel:
-      items:
-        examples:
-        - 36
-        type: integer
-      type: array
-    const_license_types:
-      items:
-        $ref: '#/components/schemas/const_license_type'
-      type: array
-    const_app_subcategory_definitions:
-      items:
-        $ref: '#/components/schemas/const_app_subcategory_definition'
-      type: array
-    const_app_subcategory_definition:
-      additionalProperties: false
-      properties:
-        display:
-          description: Description of the app subcategory
-          examples:
-          - Office Document
-          type: string
-        key:
-          description: Key name of the app subcategory
-          examples:
-          - Office_Documents
-          type: string
-        traffic_type:
-          description: Type of traffic (QoS) of the app subcategory
-          examples:
-          - Images
-          type: string
-      required:
-      - key
-      - display
-      - traffic_type
-      type: object
-    ap_channel_band24_channels:
-      additionalProperties:
-        $ref: '#/components/schemas/ap_channel_band24_channel'
-      description: Property key is the channel width
-      examples:
-      - '20':
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-        - 7
-        - 8
-        - 9
-        - 10
-        - 11
-        '40':
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-        - 7
-        - 8
-        - 9
-        - 10
-        - 11
-      type: object
-    const_gateway_applications_definition:
-      additionalProperties: false
-      properties:
-        app_id:
-          examples:
-          - true
-          type: boolean
-        key:
-          examples:
-          - 4shared
-          type: string
-        name:
-          examples:
-          - 4shared
-          type: string
-        ssr_app_id:
-          examples:
-          - true
-          type: boolean
-      type: object
-    const_insight_metrics_property_example_any_of:
-      anyOf:
-      - $ref: '#/components/schemas/const_insight_metrics_property_examples'
-      - $ref: '#/components/schemas/const_insight_metrics_property_examples_object'
     const_webhook_topic:
       additionalProperties: false
       properties:
@@ -874,6 +1117,67 @@ components:
           - alarms
           type: string
       type: object
+    const_insight_metrics_property_examples:
+      items:
+        $ref: '#/components/schemas/const_insight_metrics_property_example'
+      type: array
+    const_gateway_applications_definitions:
+      items:
+        $ref: '#/components/schemas/const_gateway_applications_definition'
+      type: array
+    const_ap_led:
+      additionalProperties: false
+      properties:
+        code:
+          examples:
+          - '01'
+          type: string
+        description:
+          examples:
+          - LED not working
+          type: string
+        key:
+          examples:
+          - LED_FAILURE
+          type: string
+        name:
+          examples:
+          - LED Failure
+          type: string
+      required:
+      - code
+      - key
+      - name
+      - description
+      type: object
+    ap_channel_band5_channel:
+      items:
+        examples:
+        - 36
+        type: integer
+      type: array
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    ap_channel_band24_channel:
+      items:
+        examples:
+        - 1
+        type: integer
+      type: array
     const_traffic_type:
       additionalProperties: false
       properties:
@@ -910,128 +1214,140 @@ components:
           - medium
           type: string
       type: object
-    const_app_category_definition:
+    const_states:
+      items:
+        $ref: '#/components/schemas/const_state'
+      type: array
+    const_gateway_applications_definition:
+      additionalProperties: false
+      properties:
+        app_id:
+          examples:
+          - true
+          type: boolean
+        key:
+          examples:
+          - 4shared
+          type: string
+        name:
+          examples:
+          - 4shared
+          type: string
+        ssr_app_id:
+          examples:
+          - true
+          type: boolean
+      type: object
+    const_app_subcategory_definition:
       additionalProperties: false
       properties:
         display:
-          description: Description of the app category
+          description: Description of the app subcategory
           examples:
-          - Images
+          - Office Document
           type: string
-        filters:
-          $ref: '#/components/schemas/const_app_category_definition_filters'
-        includes:
-          $ref: '#/components/schemas/const_app_category_definition_includes'
         key:
-          description: Key name of the app category
+          description: Key name of the app subcategory
+          examples:
+          - Office_Documents
+          type: string
+        traffic_type:
+          description: Type of traffic (QoS) of the app subcategory
           examples:
           - Images
           type: string
       required:
       - key
       - display
+      - traffic_type
       type: object
-    const_insight_metrics_property_scopes:
+    const_insight_metrics_property:
+      additionalProperties: false
+      properties:
+        ctype:
+          $ref: '#/components/schemas/strings'
+        description:
+          type: string
+        example:
+          $ref: '#/components/schemas/const_insight_metrics_property_example_any_of'
+        intervals:
+          $ref: '#/components/schemas/const_insight_metrics_property_intervals'
+        keys:
+          $ref: '#/components/schemas/const_insight_metrics_property_keys'
+        params:
+          $ref: '#/components/schemas/const_insight_metrics_property_params'
+        report_durations:
+          $ref: '#/components/schemas/const_insight_metrics_property_report_durations'
+        report_scopes:
+          $ref: '#/components/schemas/strings'
+        scopes:
+          $ref: '#/components/schemas/const_insight_metrics_property_scopes'
+        sle_baselined:
+          type: boolean
+        sle_classifiers:
+          $ref: '#/components/schemas/strings'
+        type:
+          type: string
+        unit:
+          type: string
+        values:
+          $ref: '#/components/schemas/const_insight_metrics_property_values'
+      type: object
+    const_insight_metrics_property_example:
+      anyOf:
+      - type: integer
+      - type: number
+      - type: string
+      - type: boolean
+      - type: 'null'
+      - additionalProperties: true
+        type: object
+    const_license_type_includes:
+      examples:
+      - - sub_ex12a
+        - sub_ex12p
       items:
-        $ref: '#/components/schemas/const_insight_metrics_property_scope'
-      type: array
-    const_ap_esl_versions:
-      items:
-        $ref: '#/components/schemas/const_ap_esl_version'
+        type: string
       type: array
     const_insight_metrics_property_intervals:
       additionalProperties:
         $ref: '#/components/schemas/const_insight_metrics_property_interval'
       description: Property key is the interval (e.g. 10m, 1h, ...)
       type: object
-    const_state:
-      additionalProperties: false
-      properties:
-        iso_code:
-          examples:
-          - AK
-          type: string
-        name:
-          examples:
-          - Alaska
-          type: string
-      type: object
-    const_app_category_definitions:
-      items:
-        $ref: '#/components/schemas/const_app_category_definition'
-      type: array
-    const_insight_metrics_property_values:
-      additionalProperties: true
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
     const_application_definitions:
       items:
         $ref: '#/components/schemas/const_application_definition'
       type: array
-    const_states:
+    const_app_category_definition_includes:
+      description: List of other App Categories contained by this one
       items:
-        $ref: '#/components/schemas/const_state'
+        type: string
       type: array
-    ap_channel_band24_channel:
-      items:
-        examples:
-        - 1
-        type: integer
-      type: array
-    const_insight_metrics_property_examples:
-      items:
-        $ref: '#/components/schemas/const_insight_metrics_property_example'
-      type: array
-    response_http403:
+    const_marvis_client_version:
       additionalProperties: false
       properties:
-        detail:
+        label:
           examples:
-          - You do not have permission to perform this action.
+          - default
+          type: string
+        notes:
+          type: string
+        os:
+          description: Client OS
+          examples:
+          - windows
+          type: string
+        url:
+          description: Client download url
+          examples:
+          - https://mobile.mist.com/installers/marvisclient/...
+          type: string
+        version:
+          description: Client version
+          examples:
+          - 0.100.29
           type: string
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    const_ap_led:
-      additionalProperties: false
-      properties:
-        code:
-          examples:
-          - '01'
-          type: string
-        description:
-          examples:
-          - LED not working
-          type: string
-        key:
-          examples:
-          - LED_FAILURE
-          type: string
-        name:
-          examples:
-          - LED Failure
-          type: string
-      required:
-      - code
-      - key
-      - name
-      - description
-      type: object
-    const_countries:
-      items:
-        $ref: '#/components/schemas/const_country'
-      type: array
     response_http400:
       additionalProperties: false
       properties:
@@ -1040,18 +1356,62 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    const_fingerprint_types:
+    const_ap_channel:
       additionalProperties: false
       properties:
-        family:
-          $ref: '#/components/schemas/strings'
-        mfg:
-          $ref: '#/components/schemas/strings'
-        model:
-          $ref: '#/components/schemas/strings'
-        os:
-          $ref: '#/components/schemas/strings'
+        band24_40mhz_allowed:
+          examples:
+          - true
+          type: boolean
+        band24_channels:
+          $ref: '#/components/schemas/ap_channel_band24_channels'
+        band24_enabled:
+          examples:
+          - true
+          type: boolean
+        band5_channels:
+          $ref: '#/components/schemas/ap_channel_band5_channels'
+        band5_enabled:
+          examples:
+          - true
+          type: boolean
+        band6_channels:
+          $ref: '#/components/schemas/ap_channel_band6_channels'
+        band6_enabled:
+          examples:
+          - true
+          type: boolean
+        certified:
+          examples:
+          - true
+          type: boolean
+        code:
+          description: Country code, ISO 3166-1 numeric
+          examples:
+          - 840
+          type: integer
+        dfs_ok:
+          examples:
+          - true
+          type: boolean
+        key:
+          description: Country code, in two-character
+          examples:
+          - US
+          type: string
+        name:
+          examples:
+          - United States
+          type: string
+        uses:
+          examples:
+          - US_FCC
+          type: string
       type: object
+    const_webhook_topics:
+      items:
+        $ref: '#/components/schemas/const_webhook_topic'
+      type: array
     ap_channel_band6_channels:
       additionalProperties:
         $ref: '#/components/schemas/ap_channel_band6_channel'
@@ -1307,90 +1667,97 @@ components:
         - 213
         - 229
       type: object
-    const_marvis_client_version:
-      additionalProperties: false
-      properties:
-        label:
-          examples:
-          - default
-          type: string
-        notes:
-          type: string
-        os:
-          description: Client OS
-          examples:
-          - windows
-          type: string
-        url:
-          description: Client download url
-          examples:
-          - https://mobile.mist.com/installers/marvisclient/...
-          type: string
-        version:
-          description: Client version
-          examples:
-          - 0.100.29
-          type: string
+    const_insight_metrics_property_params:
+      additionalProperties:
+        $ref: '#/components/schemas/const_insight_metrics_property_param'
+      description: Property key is the parameter name
       type: object
-    const_insight_metrics_property_report_duration:
-      additionalProperties: false
-      properties:
-        duration:
-          type: integer
-        interval:
-          type: integer
+    const_insight_metrics_property_keys:
+      additionalProperties: true
       type: object
-    const_insight_metrics_property_example:
-      anyOf:
-      - type: integer
-      - type: number
-      - type: string
-      - type: boolean
-      - type: 'null'
-      - additionalProperties: true
-        type: object
-    const_gateway_applications_definitions:
-      items:
-        $ref: '#/components/schemas/const_gateway_applications_definition'
-      type: array
-    const_insight_metrics_property:
-      additionalProperties: false
-      properties:
-        ctype:
-          $ref: '#/components/schemas/strings'
-        description:
-          type: string
-        example:
-          $ref: '#/components/schemas/const_insight_metrics_property_example_any_of'
-        intervals:
-          $ref: '#/components/schemas/const_insight_metrics_property_intervals'
-        keys:
-          $ref: '#/components/schemas/const_insight_metrics_property_keys'
-        params:
-          $ref: '#/components/schemas/const_insight_metrics_property_params'
-        report_durations:
-          $ref: '#/components/schemas/const_insight_metrics_property_report_durations'
-        report_scopes:
-          $ref: '#/components/schemas/strings'
-        scopes:
-          $ref: '#/components/schemas/const_insight_metrics_property_scopes'
-        sle_baselined:
-          type: boolean
-        sle_classifiers:
-          $ref: '#/components/schemas/strings'
-        type:
-          type: string
-        unit:
-          type: string
-        values:
-          $ref: '#/components/schemas/const_insight_metrics_property_values'
-      type: object
+    const_insight_metrics_property_scope:
+      description: 'enum: `ap`, `client`, `device`, `gateway`, `map`, `msp`, `mxcluster`, `mxedge`, `org`, `otherdevice`, `rssizone`, `sdkclient`, `site`, `switch`, `wlan`, `zone`'
+      enum:
+      - ap
+      - client
+      - device
+      - gateway
+      - map
+      - msp
+      - mxcluster
+      - mxedge
+      - org
+      - otherdevice
+      - rssizone
+      - sdkclient
+      - site
+      - switch
+      - wlan
+      - zone
+      type: string
     const_insight_metrics_property_interval:
       additionalProperties: false
       properties:
         interval:
           type: integer
         max_age:
+          type: integer
+      type: object
+    const_country:
+      additionalProperties: false
+      properties:
+        alpha2:
+          description: Country code, in two-character
+          examples:
+          - FR
+          type: string
+        certified:
+          examples:
+          - true
+          type: boolean
+        name:
+          examples:
+          - France
+          type: string
+        numeric:
+          description: Country code, ISO 3166-1 numeric
+          examples:
+          - 250
+          type: number
+      required:
+      - alpha2
+      - numeric
+      - name
+      - certified
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    const_state:
+      additionalProperties: false
+      properties:
+        iso_code:
+          examples:
+          - AK
+          type: string
+        name:
+          examples:
+          - Alaska
+          type: string
+      type: object
+    const_marvis_client_versions:
+      items:
+        $ref: '#/components/schemas/const_marvis_client_version'
+      type: array
+    const_insight_metrics_property_report_duration:
+      additionalProperties: false
+      properties:
+        duration:
+          type: integer
+        interval:
           type: integer
       type: object
     const_language:
@@ -1413,159 +1780,7 @@ components:
       - display_native
       - key
       type: object
-    const_insight_metrics:
-      additionalProperties:
-        $ref: '#/components/schemas/const_insight_metrics_property'
-      description: Property key is the metric name
-      type: object
-    const_ap_channel:
-      additionalProperties: false
-      properties:
-        band24_40mhz_allowed:
-          examples:
-          - true
-          type: boolean
-        band24_channels:
-          $ref: '#/components/schemas/ap_channel_band24_channels'
-        band24_enabled:
-          examples:
-          - true
-          type: boolean
-        band5_channels:
-          $ref: '#/components/schemas/ap_channel_band5_channels'
-        band5_enabled:
-          examples:
-          - true
-          type: boolean
-        band6_channels:
-          $ref: '#/components/schemas/ap_channel_band6_channels'
-        band6_enabled:
-          examples:
-          - true
-          type: boolean
-        certified:
-          examples:
-          - true
-          type: boolean
-        code:
-          description: Country code, ISO 3166-1 numeric
-          examples:
-          - 840
-          type: integer
-        dfs_ok:
-          examples:
-          - true
-          type: boolean
-        key:
-          description: Country code, in two-character
-          examples:
-          - US
-          type: string
-        name:
-          examples:
-          - United States
-          type: string
-        uses:
-          examples:
-          - US_FCC
-          type: string
-      type: object
   examples:
-    ConstStatesExample:
-      value:
-      - iso_code: AK
-        name: Alaska
-      - iso_code: AL
-        name: Alabama
-      - iso_code: AS
-        name: American Samoa
-      - iso_code: AZ
-        name: Arizona
-      - iso_code: CA
-        name: California
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    ConstMarvisClientVersionsExample:
-      value:
-      - label: default
-        notes: ''
-        os: android
-        url: https://mobile.mist.com/installers/marvisclient/android/1.1.9/marvisclient-installer.apk
-        version: 1.1.9
-      - label: default
-        notes: ''
-        os: macos
-        url: https://mobile.mist.com/installers/marvisclient/macos/0.100.29/marvisclient-installer.dmg
-        version: 0.100.29
-      - label: default
-        notes: ''
-        os: windows
-        url: https://mobile.mist.com/installers/marvisclient/windows/0.100.26/marvisclient-installer.zip
-        version: 0.100.26
-    ConstApplicationsExample:
-      value:
-      - app_id: true
-        app_image_url: ''
-        app_probe: true
-        category: FileSharing
-        group: File Sharing
-        key: dropbox
-        name: Dropbox
-        signature_based: true
-        ssr_app_id: true
-    ConstApLedDefinitionsExample:
-      value:
-      - code: '01'
-        description: LED not working
-        key: LED_FAILURE
-        name: LED Failure
-    ConstLanguagesExample:
-      value:
-      - display: English (US)
-        display_native: English (US)
-        key: en-US
-    ConstCountriesExample:
-      value:
-      - alpha2: FR
-        certified: true
-        name: France
-        numeric: 250
-    ConstAppSubCategoryDefinitionsExample:
-      value:
-      - display: Office Documents
-        key: Office_Documents
-        traffic_type: data_interactive
-    ConstWebhookTopicsExample:
-      value:
-      - for_org: true
-        has_delivery_results: true
-        key: alarms
-      - key: asset-raw-rssi
-      - for_org: true
-        has_delivery_results: true
-        key: audits
-      - for_org: true
-        key: client-info
-      - for_org: true
-        key: client-join
-      - key: client-latency
-      - for_org: true
-        key: client-sessions
-      - allows_single_event_per_message: true
-        for_org: true
-        key: device-events
-      - for_org: true
-        has_delivery_results: true
-        key: device-updowns
-      - for_org: true
-        key: minis-reachability
-    ConstGatewayApplicationsExample:
-      value:
-      - app_id: true
-        key: 4shared
-        name: 4shared
-        ssr_app_id: true
     ConstInsightMetricsExample:
       value:
         bytes:
@@ -1626,6 +1841,124 @@ components:
           - device
           type: timeseries
           unit: ''
+    ConstApEslVersionsExample:
+      value:
+      - esl_version: 2.5.1
+        model: AP34
+      - esl_version: 2.5.0
+        model: AP43
+    ConstCountriesExample:
+      value:
+      - alpha2: FR
+        certified: true
+        name: France
+        numeric: 250
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    ConstAppSubCategoryDefinitionsExample:
+      value:
+      - display: Office Documents
+        key: Office_Documents
+        traffic_type: data_interactive
+    ConstStatesExample:
+      value:
+      - iso_code: AK
+        name: Alaska
+      - iso_code: AL
+        name: Alabama
+      - iso_code: AS
+        name: American Samoa
+      - iso_code: AZ
+        name: Arizona
+      - iso_code: CA
+        name: California
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    ConstApplicationsExample:
+      value:
+      - app_id: true
+        app_image_url: ''
+        app_probe: true
+        category: FileSharing
+        group: File Sharing
+        key: dropbox
+        name: Dropbox
+        signature_based: true
+        ssr_app_id: true
+    ConstAppCategoryDefinitionsExample:
+      value:
+      - display: Images
+        filters:
+          srx:
+          - Enhanced_Images_Media
+          - Enhanced_Web_Images
+          - Enhanced_Image_Servers
+        key: Images
+      - display: Standard
+        includes:
+        - Adult
+        - FileSharing
+        - Games
+        - Images
+        - Malware
+        - NewsAndReference
+        - Recreation
+        - Religion
+        - Security
+        - Sports
+        - Technology
+        - Violence
+        key: Standard
+    ConstGatewayApplicationsExample:
+      value:
+      - app_id: true
+        key: 4shared
+        name: 4shared
+        ssr_app_id: true
+    ConstWebhookTopicsExample:
+      value:
+      - for_org: true
+        has_delivery_results: true
+        key: alarms
+      - key: asset-raw-rssi
+      - for_org: true
+        has_delivery_results: true
+        key: audits
+      - for_org: true
+        key: client-info
+      - for_org: true
+        key: client-join
+      - key: client-latency
+      - for_org: true
+        key: client-sessions
+      - allows_single_event_per_message: true
+        for_org: true
+        key: device-events
+      - for_org: true
+        has_delivery_results: true
+        key: device-updowns
+      - for_org: true
+        key: minis-reachability
+    ConstTrafficTypesExample:
+      value:
+      - display: VoIP Video
+        dscp: 32
+        failover_policy: non_revertible
+        max_jitter: 250
+        max_latency: 1500
+        max_loss: 35
+        name: voip_video
+        traffic_class: medium
+    ConstLanguagesExample:
+      value:
+      - display: English (US)
+        display_native: English (US)
+        key: en-US
     ConstApChannelsExample:
       value:
         band24_40mhz_allowed: true
@@ -2033,9 +2366,6 @@ components:
         key: US
         name: United States
         uses: US_FCC
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     ConstFingerprintTypesExample:
       value:
         family:
@@ -2069,6 +2399,26 @@ components:
         - Android
         - Apple OS
         - Asha Platform OS
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    ConstMarvisClientVersionsExample:
+      value:
+      - label: default
+        notes: ''
+        os: android
+        url: https://mobile.mist.com/installers/marvisclient/android/1.1.9/marvisclient-installer.apk
+        version: 1.1.9
+      - label: default
+        notes: ''
+        os: macos
+        url: https://mobile.mist.com/installers/marvisclient/macos/0.100.29/marvisclient-installer.dmg
+        version: 0.100.29
+      - label: default
+        notes: ''
+        os: windows
+        url: https://mobile.mist.com/installers/marvisclient/windows/0.100.26/marvisclient-installer.zip
+        version: 0.100.26
     ConstLicenseTypesExample:
       value:
       - description: Wired Assurance 12
@@ -2077,362 +2427,12 @@ components:
         - sub_ex12p
         key: sub_ex12
         name: SUB-EX12
-    ConstApEslVersionsExample:
+    ConstApLedDefinitionsExample:
       value:
-      - esl_version: 2.5.1
-        model: AP34
-      - esl_version: 2.5.0
-        model: AP43
-    ConstTrafficTypesExample:
-      value:
-      - display: VoIP Video
-        dscp: 32
-        failover_policy: non_revertible
-        max_jitter: 250
-        max_latency: 1500
-        max_loss: 35
-        name: voip_video
-        traffic_class: medium
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    ConstAppCategoryDefinitionsExample:
-      value:
-      - display: Images
-        filters:
-          srx:
-          - Enhanced_Images_Media
-          - Enhanced_Web_Images
-          - Enhanced_Image_Servers
-        key: Images
-      - display: Standard
-        includes:
-        - Adult
-        - FileSharing
-        - Games
-        - Images
-        - Malware
-        - NewsAndReference
-        - Recreation
-        - Religion
-        - Security
-        - Sports
-        - Technology
-        - Violence
-        key: Standard
-  responses:
-    ConstWebhookTopics:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstWebhookTopicsExample'
-          schema:
-            $ref: '#/components/schemas/const_webhook_topics'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstWebhookTopicsExample'
-          schema:
-            $ref: '#/components/schemas/const_webhook_topics'
-      description: List of Webhook Topics
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    ConstApLedDefinitions:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstApLedDefinitionsExample'
-          schema:
-            $ref: '#/components/schemas/const_ap_leds'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstApLedDefinitionsExample'
-          schema:
-            $ref: '#/components/schemas/const_ap_leds'
-      description: List of AP Led Status
-    ConstMarvisClientVersions:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstMarvisClientVersionsExample'
-          schema:
-            $ref: '#/components/schemas/const_marvis_client_versions'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstMarvisClientVersionsExample'
-          schema:
-            $ref: '#/components/schemas/const_marvis_client_versions'
-      description: List of Webhook Topics
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    ConstAppSubCategoryDefinitions:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstAppSubCategoryDefinitionsExample'
-          schema:
-            $ref: '#/components/schemas/const_app_subcategory_definitions'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstAppSubCategoryDefinitionsExample'
-          schema:
-            $ref: '#/components/schemas/const_app_subcategory_definitions'
-      description: List of Application Sub-categories Definitions
-    ConstApChannels:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstApChannelsExample'
-          schema:
-            $ref: '#/components/schemas/const_ap_channel'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstApChannelsExample'
-          schema:
-            $ref: '#/components/schemas/const_ap_channel'
-      description: AP Channels
-    ConstAppCategoryDefinitions:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstAppCategoryDefinitionsExample'
-          schema:
-            $ref: '#/components/schemas/const_app_category_definitions'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstAppCategoryDefinitionsExample'
-          schema:
-            $ref: '#/components/schemas/const_app_category_definitions'
-      description: List of Application Categories Definitions
-    ConstFingerprintTypes:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstFingerprintTypesExample'
-          schema:
-            $ref: '#/components/schemas/const_fingerprint_types'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstFingerprintTypesExample'
-          schema:
-            $ref: '#/components/schemas/const_fingerprint_types'
-      description: List of Fingerprint Types
-    ConstApplications:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstApplicationsExample'
-          schema:
-            $ref: '#/components/schemas/const_application_definitions'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstApplicationsExample'
-          schema:
-            $ref: '#/components/schemas/const_application_definitions'
-      description: List of Applications
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    ConstStates:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstStatesExample'
-          schema:
-            $ref: '#/components/schemas/const_states'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstStatesExample'
-          schema:
-            $ref: '#/components/schemas/const_states'
-      description: List of Countries
-    ConstApEslVersions:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstApEslVersionsExample'
-          schema:
-            $ref: '#/components/schemas/const_ap_esl_versions'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstApEslVersionsExample'
-          schema:
-            $ref: '#/components/schemas/const_ap_esl_versions'
-      description: List of Available AP ESL Versions
-    ConstTrafficTypes:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstTrafficTypesExample'
-          schema:
-            $ref: '#/components/schemas/const_traffic_types'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstTrafficTypesExample'
-          schema:
-            $ref: '#/components/schemas/const_traffic_types'
-      description: List of Traffic Types
-    ConstLanguages:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstLanguagesExample'
-          schema:
-            $ref: '#/components/schemas/const_languages'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstLanguagesExample'
-          schema:
-            $ref: '#/components/schemas/const_languages'
-      description: List of Languages
-    ConstInsightMetrics:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstInsightMetricsExample'
-          schema:
-            $ref: '#/components/schemas/const_insight_metrics'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstInsightMetricsExample'
-          schema:
-            $ref: '#/components/schemas/const_insight_metrics'
-      description: Insight Metrics Definition
-    ConstCountries:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstCountriesExample'
-          schema:
-            $ref: '#/components/schemas/const_countries'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstCountriesExample'
-          schema:
-            $ref: '#/components/schemas/const_countries'
-      description: List of Countries
-    ConstGatewayApplications:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstGatewayApplicationsExample'
-          schema:
-            $ref: '#/components/schemas/const_gateway_applications_definitions'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstGatewayApplicationsExample'
-          schema:
-            $ref: '#/components/schemas/const_gateway_applications_definitions'
-      description: List of Alarm Definitions
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    ConstLicenseTypes:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstLicenseTypesExample'
-          schema:
-            $ref: '#/components/schemas/const_license_types'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstLicenseTypesExample'
-          schema:
-            $ref: '#/components/schemas/const_license_types'
-      description: List of License Types
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
+      - code: '01'
+        description: LED not working
+        key: LED_FAILURE
+        name: LED Failure
   parameters:
     country_code:
       description: Country code, in two-character

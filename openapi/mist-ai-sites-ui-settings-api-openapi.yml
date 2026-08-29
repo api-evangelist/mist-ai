@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   contact:
     email: tmunzer@juniper.net
@@ -47,7 +47,7 @@ info:
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
-  title: Mist Admins Sites UI Settings API
+  title: Mist Sites UI Settings API
   version: 2604.1.1
   x-logo:
     altText: Juniper-MistAI
@@ -315,22 +315,42 @@ paths:
       - Sites UI Settings
 components:
   schemas:
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    ui_settings_tile_sorted_columns_id:
-      type: string
-    ui_settings_tile_metric:
+    ui_settings_tiles:
+      items:
+        $ref: '#/components/schemas/ui_settings_tile'
+      type: array
+      uniqueItems: true
+    ui_settings_default_time_range:
       additionalProperties: false
       properties:
-        apiName:
+        end:
           examples:
-          - client_dhcp_latency
+          - 1508828400
+          type: integer
+        endDate:
+          examples:
+          - 10/23/2017
           type: string
+        interval:
+          examples:
+          - 1d
+          type: string
+        name:
+          examples:
+          - This Week
+          type: string
+        shortName:
+          examples:
+          - thisWeek
+          type: string
+        start:
+          examples:
+          - 1508655600
+          type: integer
+        usePreset:
+          examples:
+          - true
+          type: boolean
       type: object
     response_http403:
       additionalProperties: false
@@ -340,27 +360,148 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
-    ui_settings_tiles:
-      items:
-        $ref: '#/components/schemas/ui_settings_tile'
-      type: array
-      uniqueItems: true
-    site_id:
+    org_id:
       examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
       format: uuid
       readOnly: true
       type: string
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    ui_settings_tile_metric:
+      additionalProperties: false
+      properties:
+        apiName:
+          examples:
+          - client_dhcp_latency
+          type: string
+      type: object
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    ui_settings:
+      description: UI Settings
+      properties:
+        created_time:
+          $ref: '#/components/schemas/created_time'
+        defaultScopeId:
+          examples:
+          - 67970e46-4e12-11e6-9188-0242ad112847
+          type: string
+        defaultScopeType:
+          examples:
+          - site
+          type: string
+        defaultTimeRange:
+          $ref: '#/components/schemas/ui_settings_default_time_range'
+        description:
+          examples:
+          - Description of the databoard
+          type: string
+        for_site:
+          examples:
+          - true
+          readOnly: true
+          type: boolean
+        id:
+          $ref: '#/components/schemas/id'
+        isCustomDataboard:
+          type: boolean
+        isScopeLinked:
+          type: boolean
+        isTimeRangeLinked:
+          type: boolean
+        modified_time:
+          $ref: '#/components/schemas/modified_time'
+        name:
+          examples:
+          - New Databoard
+          type: string
+        org_id:
+          $ref: '#/components/schemas/org_id'
+        purpose:
+          examples:
+          - databoard
+          type: string
+        site_id:
+          $ref: '#/components/schemas/site_id'
+        tiles:
+          $ref: '#/components/schemas/ui_settings_tiles'
+      required:
+      - description
+      - purpose
+      type: object
+    ui_settings_tile_time_range:
+      additionalProperties: false
+      properties:
+        end:
+          examples:
+          - 1508823743
+          type: number
+        endDate:
+          examples:
+          - 10/23/2017
+          type: string
+        interval:
+          examples:
+          - 1d
+          type: string
+        name:
+          examples:
+          - Past 7 Days
+          type: string
+        shortName:
+          examples:
+          - 7d
+          type: string
+        start:
+          examples:
+          - 1508223600
+          type: integer
+        usePreset:
+          examples:
+          - true
+          type: boolean
+      type: object
     response_http404:
       additionalProperties: false
       properties:
         id:
           type: string
       type: object
-    ui_settings_tile_sorted_columns_ids:
-      items:
-        $ref: '#/components/schemas/ui_settings_tile_sorted_columns_id'
-      type: array
+    ui_settings_tile_sorted_columns_id:
+      type: string
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
     ui_settings_tile:
       additionalProperties: false
       properties:
@@ -429,236 +570,60 @@ components:
           - averageTimeSeriesChart
           type: string
       type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    ui_settings_list:
-      items:
-        $ref: '#/components/schemas/ui_settings'
-      type: array
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    ui_settings_default_time_range:
-      additionalProperties: false
-      properties:
-        end:
-          examples:
-          - 1508828400
-          type: integer
-        endDate:
-          examples:
-          - 10/23/2017
-          type: string
-        interval:
-          examples:
-          - 1d
-          type: string
-        name:
-          examples:
-          - This Week
-          type: string
-        shortName:
-          examples:
-          - thisWeek
-          type: string
-        start:
-          examples:
-          - 1508655600
-          type: integer
-        usePreset:
-          examples:
-          - true
-          type: boolean
-      type: object
-    ui_settings:
-      description: UI Settings
-      properties:
-        created_time:
-          $ref: '#/components/schemas/created_time'
-        defaultScopeId:
-          examples:
-          - 67970e46-4e12-11e6-9188-0242ad112847
-          type: string
-        defaultScopeType:
-          examples:
-          - site
-          type: string
-        defaultTimeRange:
-          $ref: '#/components/schemas/ui_settings_default_time_range'
-        description:
-          examples:
-          - Description of the databoard
-          type: string
-        for_site:
-          examples:
-          - true
-          readOnly: true
-          type: boolean
-        id:
-          $ref: '#/components/schemas/id'
-        isCustomDataboard:
-          type: boolean
-        isScopeLinked:
-          type: boolean
-        isTimeRangeLinked:
-          type: boolean
-        modified_time:
-          $ref: '#/components/schemas/modified_time'
-        name:
-          examples:
-          - New Databoard
-          type: string
-        org_id:
-          $ref: '#/components/schemas/org_id'
-        purpose:
-          examples:
-          - databoard
-          type: string
-        site_id:
-          $ref: '#/components/schemas/site_id'
-        tiles:
-          $ref: '#/components/schemas/ui_settings_tiles'
-      required:
-      - description
-      - purpose
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    org_id:
+    site_id:
       examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
       format: uuid
       readOnly: true
       type: string
-    ui_settings_tile_time_range:
-      additionalProperties: false
-      properties:
-        end:
-          examples:
-          - 1508823743
-          type: number
-        endDate:
-          examples:
-          - 10/23/2017
-          type: string
-        interval:
-          examples:
-          - 1d
-          type: string
-        name:
-          examples:
-          - Past 7 Days
-          type: string
-        shortName:
-          examples:
-          - 7d
-          type: string
-        start:
-          examples:
-          - 1508223600
-          type: integer
-        usePreset:
-          examples:
-          - true
-          type: boolean
-      type: object
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
     created_time:
       description: When the object has been created, in epoch
       format: double
       readOnly: true
       type: number
+    ui_settings_list:
+      items:
+        $ref: '#/components/schemas/ui_settings'
+      type: array
+    ui_settings_tile_sorted_columns_ids:
+      items:
+        $ref: '#/components/schemas/ui_settings_tile_sorted_columns_id'
+      type: array
+  parameters:
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    uisetting_id:
+      in: path
+      name: uisetting_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   responses:
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP429:
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP429Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP429Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    UiSettingsArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/UiSettingsArrayExample'
-          schema:
-            $ref: '#/components/schemas/ui_settings_list'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/UiSettingsArrayExample'
-          schema:
-            $ref: '#/components/schemas/ui_settings_list'
-      description: List of Site UI Setting
-    UiSettings:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/UiSettingsExample'
-          schema:
-            $ref: '#/components/schemas/ui_settings'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/UiSettingsExample'
-          schema:
-            $ref: '#/components/schemas/ui_settings'
-      description: Example response
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP400:
       content:
         application/json:
@@ -676,85 +641,76 @@ components:
       description: Bad Syntax
     OK:
       description: OK
-    HTTP401:
+    UiSettingsArray:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP401Example'
+              $ref: '#/components/examples/UiSettingsArrayExample'
           schema:
-            $ref: '#/components/schemas/response_http401'
+            $ref: '#/components/schemas/ui_settings_list'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP401Example'
+              $ref: '#/components/examples/UiSettingsArrayExample'
           schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
+            $ref: '#/components/schemas/ui_settings_list'
+      description: List of Site UI Setting
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    UiSettings:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/UiSettingsExample'
+          schema:
+            $ref: '#/components/schemas/ui_settings'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/UiSettingsExample'
+          schema:
+            $ref: '#/components/schemas/ui_settings'
+      description: Example response
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   examples:
-    UiSettingsExample:
-      value:
-        created_time: 1508823803
-        defaultScopeId: 67970e46-4e12-11e6-9188-0242ad112847
-        defaultScopeType: site
-        defaultTimeRange:
-          end: 1508828400
-          endDate: 10/23/2017
-          interval: 1d
-          name: This Week
-          shortName: thisWeek
-          start: 1508655600
-          usePreset: true
-        description: Description of the databoard
-        for_site: true
-        id: 3bdcc7e8-c04d-4512-b4fc-093da9057eb0
-        isCustomDataboard: true
-        isScopeLinked: true
-        isTimeRangeLinked: true
-        modified_time: 0
-        name: New Databoard
-        org_id: cc079380-5029-4d4a-9125-858de85731ff
-        purpose: databoard
-        site_id: 67970e46-4e12-11e6-9188-0242ad112847
-        tiles:
-        - chartBand: 2.4 ghz
-          chartColor: '#00B4AD'
-          chartDirection: tx + rx
-          chartRankBy: string
-          chartType: timeSeries
-          colspan: 5
-          column: 1
-          hideEmptyRows: true
-          id: 7a9ab38c-cfc3-483d-b51a-0aec571fadc0
-          metric:
-            apiName: client_dhcp_latency
-          name: New Analysis
-          row: 1
-          rowspan: 2
-          scopeId: e0c767834b4c
-          scopeType: client
-          timeRange:
-            end: 1508823743
-            endDate: 10/23/2017
-            interval: 1d
-            name: Past 7 Days
-            shortName: 7d
-            start: 1508223600
-            usePreset: true
-          trendType: line
-          vizType: averageTimeSeriesChart
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     UiSettingsArrayExample:
       value:
       - created_time: 1508823803
@@ -806,25 +762,69 @@ components:
             usePreset: true
           trendType: line
           vizType: averageTimeSeriesChart
-  parameters:
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    uisetting_id:
-      in: path
-      name: uisetting_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    UiSettingsExample:
+      value:
+        created_time: 1508823803
+        defaultScopeId: 67970e46-4e12-11e6-9188-0242ad112847
+        defaultScopeType: site
+        defaultTimeRange:
+          end: 1508828400
+          endDate: 10/23/2017
+          interval: 1d
+          name: This Week
+          shortName: thisWeek
+          start: 1508655600
+          usePreset: true
+        description: Description of the databoard
+        for_site: true
+        id: 3bdcc7e8-c04d-4512-b4fc-093da9057eb0
+        isCustomDataboard: true
+        isScopeLinked: true
+        isTimeRangeLinked: true
+        modified_time: 0
+        name: New Databoard
+        org_id: cc079380-5029-4d4a-9125-858de85731ff
+        purpose: databoard
+        site_id: 67970e46-4e12-11e6-9188-0242ad112847
+        tiles:
+        - chartBand: 2.4 ghz
+          chartColor: '#00B4AD'
+          chartDirection: tx + rx
+          chartRankBy: string
+          chartType: timeSeries
+          colspan: 5
+          column: 1
+          hideEmptyRows: true
+          id: 7a9ab38c-cfc3-483d-b51a-0aec571fadc0
+          metric:
+            apiName: client_dhcp_latency
+          name: New Analysis
+          row: 1
+          rowspan: 2
+          scopeId: e0c767834b4c
+          scopeType: client
+          timeRange:
+            end: 1508823743
+            endDate: 10/23/2017
+            interval: 1d
+            name: Past 7 Days
+            shortName: 7d
+            start: 1508223600
+            usePreset: true
+          trendType: line
+          vizType: averageTimeSeriesChart
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."
