@@ -1,0 +1,477 @@
+slug: mist-ai
+provider: Juniper Mist AI
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 46
+edges:
+- tag: Orgs Admins
+  spec_file: mist-ai-orgs-admins-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: revokeOrgAdmin, inviteOrgAdmin, uninviteOrgAdmin — schemas admin_privilege_role, admin_privilege_scope,
+    admin_privilege_views
+  reason: Invitation, privilege assignment and revocation of administrator accounts on the platform is
+    joiner-mover-leaver style access administration, clearly Identity & Access Management.
+- tag: MSPs SSO
+  spec_file: mist-ai-msps-sso-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: createMspSso, getMspSamlMetadata, deleteMspSsoAdmins, listMspSsoLatestFailures — schemas sso_idp_sign_algo,
+    sso_nameid_format, oauth_provider_domain
+  reason: Configures SAML/OAuth single-sign-on identity providers and the administrators federated through
+    them, which is identity federation and access administration. Mapped to cross-industry IAM rather
+    than any telecom capability since this governs platform admin login, not subscriber authentication.
+- tag: MSPs SSO Roles
+  spec_file: mist-ai-msps-sso-roles-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: createMspSsoRole, updateMspSsoRole — schemas sso_role_msp_privileges, privilege_msp_role,
+    privilege_msp_scope, admin_privilege_views
+  reason: Defines roles and privilege scopes granted to federated administrators — role-based access control
+    administration, i.e. identity and access management.
+- tag: Orgs IDP Profiles
+  spec_file: mist-ai-orgs-idp-profiles-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.78
+  evidence: createOrgIdpProfile with schemas idp_profile_matching_attack_name, idp_profile_matching_severity,
+    idp_profile_action
+  reason: Intrusion detection/prevention profiles matching attack names and severities with actions —
+    security threat detection and response controls configured on the network security stack.
+- tag: Utilities Common
+  spec_file: mist-ai-utilities-common-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.78
+  evidence: restartSiteMultipleDevices; pingFromDevice; bounceDevicePort; clearSiteDeviceMacTable; monitorSiteDeviceTraffic
+  reason: Operational device utilities — restart, ping, ARP, port bounce, traffic monitoring — are day-to-day
+    network operations/troubleshooting actions on enterprise IT infrastructure, mapping to Cross-Industry
+    IT Operations Management rather than telecom carrier network operations.
+- tag: Orgs Clients - NAC
+  spec_file: mist-ai-orgs-clients-nac-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: searchOrgNacClientEvents; POST /nac_clients/{client_mac}/coa sendOrgNacClientCoA; schemas
+    nac_cert_subject, last_username, nac_client_event_idp_role
+  reason: Network Access Control client authentication events, IdP roles, certificate subjects and RADIUS
+    Change-of-Authorization — network access authentication/authorisation for enterprise users and devices,
+    i.e. Identity & Access Management. Not telecom subscriber authentication (enterprise NAC, not a carrier
+    AAA for subscribers).
+- tag: Orgs SSO
+  spec_file: mist-ai-orgs-sso-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: createOrgSso; getOrgSamlMetadata; deleteOrgSsoAdmins; schemas sso_idp_sign_algo, sso_nameid_format,
+    oauth_provider_domain
+  reason: Configuration of SAML/OAuth identity-provider federation and administrator accounts for the
+    organisation is identity federation and access management.
+- tag: Orgs SSO Roles
+  spec_file: mist-ai-orgs-sso-roles-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: createOrgSsoRole; schemas sso_role_org_privileges, privilege_org_role, privilege_org_scope,
+    admin_privilege_views
+  reason: Definition of roles and privilege scopes granted to federated administrators — authorisation/role
+    management, a core IAM function.
+- tag: Sites Devices
+  spec_file: mist-ai-sites-devices-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: GET /api/v1/sites/{site_id}/devices listSiteDevices; searchSiteDeviceConfigHistory; searchSiteDeviceLastConfigs;
+    schemas junos_port_config, switch_bgp_config_hold_time_zero
+  reason: Operations enumerate, search, import/export and track configuration history of network devices
+    (switches, gateways, APs) at a site. This is enterprise network infrastructure inventory and configuration
+    management, i.e. cross-industry IT Infrastructure Management, not a telecom carrier network domain
+    capability.
+- tag: Sites Devices - Wired
+  spec_file: mist-ai-sites-devices-wired-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: PUT /api/v1/sites/{site_id}/devices/{device_id}/local_port_config updateSiteLocalSwitchPortConfig;
+    schemas switch_port_local_usage_mode, switch_port_local_usage_dot1x
+  reason: Configures local switch port settings (speed, duplex, dot1x, storm control) on wired LAN switches
+    — enterprise network infrastructure configuration.
+- tag: Sites Devices - Wired - Virtual Chassis
+  spec_file: mist-ai-sites-devices-wired-virtual-chassis-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: createSiteVirtualChassis; updateSiteVirtualChassisMember; changeSiteSwitchVcPortMode; schema
+    virtual_chassis_config_members
+  reason: Creates and manages Juniper virtual chassis stacks and VC ports on LAN switches — configuration
+    of enterprise switching infrastructure.
+- tag: Utilities LAN
+  spec_file: mist-ai-utilities-lan-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.75
+  evidence: cableTestFromSwitch; clearBpduErrorsFromPortsOnSwitch; upgradeSiteDevicesBios; pollSiteSwitchStats
+  reason: Switch-level operational commands (cable test, clear BPDU errors, clear dot1x sessions, BIOS/FPGA
+    upgrade, stats polling) are enterprise LAN operations and maintenance actions — Cross-Industry IT
+    Operations Management.
+- tag: Utilities WAN
+  spec_file: mist-ai-utilities-wan-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.75
+  evidence: clearSiteSsrBgpRoutes; showSiteGatewayOspfNeighbors; testSiteSsrDnsResolution; showSiteSsrAndSrxRoutes
+  reason: Routing and gateway diagnostic/operational commands (BGP clear, OSPF show, route show, service
+    ping) on SSR/SRX WAN devices — enterprise network operations and troubleshooting under Cross-Industry
+    IT Operations Management.
+- tag: Orgs EVPN Topologies
+  spec_file: mist-ai-orgs-evpn-topologies-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.72
+  evidence: createOrgEvpnTopology with schemas evpn_topology_switch_role, evpn_topology_switch_downlinks,
+    switch_network
+  reason: Defines and maintains EVPN fabric topologies including switch roles, downlinks and IP configuration
+    — design and configuration of enterprise campus/datacentre network infrastructure, mapped to Cross-Industry
+    IT Infrastructure Management.
+- tag: Orgs Gateway Templates
+  spec_file: mist-ai-orgs-gateway-templates-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.72
+  evidence: createOrgGatewayTemplate with schemas bgp_config, tunnel_config, network_source_nat, gateway_vrf_instances
+  reason: Templates that define WAN gateway configuration (BGP, VRFs, tunnels, NAT, path strategy) for
+    controlled deployment to devices — configuration of enterprise network infrastructure, i.e. IT Infrastructure
+    Management.
+- tag: Orgs NAC Portals
+  spec_file: mist-ai-orgs-nac-portals-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: getOrgNacPortalSamlMetadata; listOrgNacPortalSsoLatestFailures; schemas nac_portal_sso, nac_portal_guest_portal_auth,
+    nac_portal_eap_type
+  reason: Configures network-access-control portals with SSO/SAML federation, guest authentication and
+    EAP types — authentication of users/devices onto the network, mapped to Identity & Access Management.
+- tag: Orgs SCEP
+  spec_file: mist-ai-orgs-scep-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: listOrgIssuedClientCertificates; revokeOrgIssuedClientCertificates; schemas org_setting_scep_cert_provider,
+    issued_client_certificate
+  reason: SCEP configuration plus issuance and revocation of client certificates is PKI credential lifecycle
+    used to authenticate devices/users — identity and access management, not a telecom-specific capability.
+- tag: Sites Clients - NAC
+  spec_file: mist-ai-sites-clients-nac-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: 'searchSiteNacClientEvents; sendSiteNacClientCoA; schemas: last_nacrule_id, nac_cert_subject,
+    last_username'
+  reason: Network Access Control client authentication events and Change-of-Authorization actions — access
+    control/authorisation of users and devices onto the enterprise network, i.e. Identity & Access Management.
+    Not telecom subscriber authentication (enterprise NAC, not carrier AAA).
+- tag: Sites Devices - WAN Cluster
+  spec_file: mist-ai-sites-devices-wan-cluster-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.72
+  evidence: createSiteDeviceHaCluster / deleteSiteDeviceHaCluster; schema gateway_cluster_node
+  reason: Creates and deletes high-availability gateway clusters on WAN edge devices — configuration of
+    network infrastructure resilience, a cross-industry IT infrastructure capability.
+- tag: Sites EVPN Topologies
+  spec_file: mist-ai-sites-evpn-topologies-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.72
+  evidence: createSiteEvpnTopology / updateSiteEvpnTopology; schemas evpn_topology_switch_downlinks, evpn_topology_switch_role,
+    wired_port_config
+  reason: Defines and maintains EVPN-VXLAN campus fabric topologies (switch roles, uplinks, downlinks)
+    — design and configuration of enterprise network infrastructure.
+- tag: Sites Network Templates
+  spec_file: mist-ai-sites-network-templates-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.72
+  evidence: 'GET /api/v1/sites/{site_id}/networktemplates/derived  listSiteNetworkTemplatesDerived ; schemas:
+    switch_port_usage_dynamic_rule, switch_bgp_config_hold_time, snmp_usm'
+  reason: Derived switch configuration templates (port usage, VRF, BGP, RADIUS, SNMP) are enterprise network
+    element configuration standards — IT infrastructure/network management for this enterprise networking
+    vendor rather than carrier network configuration.
+- tag: Sites Networks
+  spec_file: mist-ai-sites-networks-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.72
+  evidence: 'GET /api/v1/sites/{site_id}/networks/derived  listSiteNetworksDerived ; schemas: network_internet_access,
+    network_source_nat, vlan_id_with_variable'
+  reason: Definition of site network segments (VLANs, NAT, VPN/tenant access) is enterprise network infrastructure
+    configuration — BC-600.50. Vendor is an enterprise LAN/WAN platform, so cross-industry IT rather than
+    telecom-carrier network operations.
+- tag: Sites Skyatp
+  spec_file: mist-ai-sites-skyatp-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.72
+  evidence: countSiteSkyatpEvents; searchSiteSkyatpEvents; schemas events_skyatp, response_events_sky_atp_search
+  reason: Sky Advanced Threat Prevention event counting and search is malware/threat event telemetry consumed
+    for detection and investigation, matching threat detection and response rather than any network configuration
+    or assurance capability.
+- tag: Sites Wlans
+  spec_file: mist-ai-sites-wlans-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.72
+  evidence: POST /api/v1/sites/{site_id}/wlans createSiteWlan; schemas wlan_auth_servers, wlan_dynamic_vlan_type,
+    wlan_portal_sms_provider, radius_acct_server
+  reason: Full CRUD over WLAN/SSID definitions including VLANs, RADIUS auth/accounting servers and captive-portal
+    templates — configuration of enterprise wireless network infrastructure.
+- tag: Utilities Upgrade
+  spec_file: mist-ai-utilities-upgrade-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.72
+  evidence: upgradeOrgDevices; cancelOrgDeviceUpgrade; listOrgAvailableDeviceVersions; upgrade_device_strategy
+  reason: Firmware/software upgrade scheduling and cancellation across APs, switches, MxEdge and SSR devices
+    — infrastructure lifecycle/operations maintenance, mapped to Cross-Industry IT Operations Management.
+- tag: Admins
+  spec_file: mist-ai-admins-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /api/v1/register registerNewAdmin; POST /api/v1/invite/verify/{token} verifyAdminInvite
+  reason: Administrator account registration and invite verification for the network management platform
+    — identity and access administration, not network operations.
+- tag: Admins Login
+  spec_file: mist-ai-admins-login-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /api/v1/login/two_factor twoFactor
+  reason: Admin authentication including two-factor login. This is authentication plumbing; the closest
+    honest capability is identity & access management.
+- tag: MSPs Admins
+  spec_file: mist-ai-msps-admins-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /api/v1/msps/{msp_id}/invites  inviteMspAdmin; DELETE .../admins/{admin_id}  revokeMspAdmin;
+    schemas admin_privilege_role, admin_privilege_scope
+  reason: Invitation, revocation and privilege/role scoping of administrator accounts is identity and
+    access administration for the platform.
+- tag: Orgs Alarms
+  spec_file: mist-ai-orgs-alarms-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: POST /api/v1/orgs/{org_id}/alarms/ack ackOrgMultipleAlarms; GET /alarms/search searchOrgAlarms
+  reason: Enterprise network alarm acknowledgement and search on an AIOps networking platform — IT operations
+    monitoring/alerting, not telecom carrier fault management (this is enterprise Wi-Fi/switch/WAN assurance).
+    Mapped to IT Operations Management; some chance the intended read is IT Service Management incident
+    handling.
+- tag: Orgs Device Profiles
+  spec_file: mist-ai-orgs-device-profiles-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: createOrgDeviceProfile / assignOrgDeviceProfile with schemas junos_port_config, switch_dhcpd_config_property,
+    radius_acct_server
+  reason: Operations create and assign configuration profiles for enterprise network elements (switch
+    ports, DHCP, RADIUS, tunnels). This is configuration management of network infrastructure. Mist is
+    an enterprise networking/AIOps platform, not a carrier OSS, so the honest mapping is Cross-Industry
+    IT Infrastructure Management rather than a telco-operator network capability.
+- tag: Orgs Devices
+  spec_file: mist-ai-orgs-devices-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: listOrgDevices, countOrgDevices, searchOrgDeviceEvents, searchOrgDeviceLastConfigs, listOrgDevicesSummary
+  reason: Inventory listing, counting, search and event/config history for network devices (APs, switches,
+    gateways) in an org — enterprise network infrastructure inventory and monitoring, i.e. Cross-Industry
+    IT infrastructure management rather than operator network operations.
+- tag: Orgs NAC Rules
+  spec_file: mist-ai-orgs-nac-rules-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: createOrgNacRule; schemas nac_auth_type, nac_rule_matching, nac_rule_guest_auth_state, nac_rule_apply_tags
+  reason: Rules that match client attributes and authentication type to authorise network access — access
+    authorisation policy, mapped to Identity & Access Management under Cybersecurity.
+- tag: Orgs Stats
+  spec_file: mist-ai-orgs-stats-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: GET /api/v1/orgs/{org_id}/stats getOrgStats; schemas stats_org_sle, stats_org_sle_user_minutes
+  reason: Organisation-wide operational statistics and service-level-expectation metrics for the managed
+    enterprise network — day-to-day IT operations monitoring. Vendor is an enterprise networking/AIOps
+    devtool, so cross-industry IT rather than carrier telecom capabilities.
+- tag: Orgs Stats - BGP Peers
+  spec_file: mist-ai-orgs-stats-bgp-peers-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: searchOrgBgpStats, countOrgBgpStats; schemas bgp_stats, bgp_stats_state, bgp_as
+  reason: Monitoring of BGP routing peer state and counters across the managed enterprise network — network
+    operations monitoring. Enterprise networking vendor, so IT Operations Management rather than telecom
+    network fault/performance capabilities.
+- tag: Orgs Stats - Devices
+  spec_file: mist-ai-orgs-stats-devices-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: GET /api/v1/orgs/{org_id}/stats/devices listOrgDevicesStats; schemas stats_devices, ap_radio_stat,
+    stats_switch_module_stat_item
+  reason: Runtime statistics for APs, switches and gateways — operational monitoring of IT network devices.
+    Cross-industry IT operations is the honest mapping for an enterprise networking platform.
+- tag: Orgs Stats - MxEdges
+  spec_file: mist-ai-orgs-stats-mxedges-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: listOrgMxEdgesStats; schemas stats_mxedge_cpu_stat_cpus, stats_mxedge_port_stat, fwupdate_stat
+  reason: Health and performance telemetry for Mist Edge appliances (CPU, ports, services) — infrastructure
+    monitoring within IT operations.
+- tag: Orgs Stats - Ospf
+  spec_file: mist-ai-orgs-stats-ospf-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: searchOrgOspfStats; schemas ospf_peer_stats_search_result, ospf_peer_stats_count_distinct
+  reason: OSPF routing peer statistics search and counts — monitoring of network routing state, i.e. IT
+    operations monitoring on an enterprise networking platform.
+- tag: Orgs Stats - Ports
+  spec_file: mist-ai-orgs-stats-ports-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: searchOrgSwOrGwPorts; schemas stats_switch_port, port_auth_state, port_stp_state, tx_bps,
+    rx_bps
+  reason: Switch and gateway port-level traffic and state statistics — operational monitoring of enterprise
+    network infrastructure.
+- tag: Orgs WxTunnels
+  spec_file: mist-ai-orgs-wxtunnels-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: createOrgWxTunnel; schemas wxlan_tunnel_ipsec, wxlan_tunnel_dmvpn, wxlan_tunnel_peers
+  reason: CRUD over IPsec/DMVPN tunnel definitions is configuration of enterprise network infrastructure
+    (compute/storage/network), not a telecom carrier capability.
+- tag: Sites Alarms
+  spec_file: mist-ai-sites-alarms-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: searchSiteAlarms; ackSiteAlarm; unackSiteAllAlarms; SubscribeSiteAlarms
+  reason: Acknowledging, counting, searching and subscribing to infrastructure alarms is operational monitoring
+    of the managed network — IT operations management, not financial-crime or telecom-carrier fault management.
+- tag: Sites Devices - Wireless
+  spec_file: mist-ai-sites-devices-wireless-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: listSiteDeviceRadioChannels; setSiteDeviceIotPort; enableSiteDeviceZigbeeJoin; schema ap_channel_band5_channels
+  reason: Manages access point radio channel listings and AP IoT/Zigbee port settings — configuration
+    of enterprise Wi-Fi infrastructure. Not carrier spectrum management; these are unlicensed Wi-Fi AP
+    settings on an enterprise WLAN platform.
+- tag: Sites MxEdges
+  spec_file: mist-ai-sites-mxedges-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: GET /api/v1/sites/{site_id}/mxedges  listSiteMxEdges ; PUT /api/v1/sites/{site_id}/mxedges/{mxedge_id}  updateSiteMxEdge
+  reason: CRUD plus event search and support-file upload for Mist Edge appliances (schemas such as 'mxedge_tunterm_switch_config',
+    'mxedge_mgmt') is management of enterprise network infrastructure devices — IT Infrastructure Management
+    (compute, storage, network).
+- tag: Sites Stats - Clients Wireless
+  spec_file: mist-ai-sites-stats-clients-wireless-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: GET /api/v1/sites/{site_id}/stats/clients listSiteWirelessClientsStats; schemas stats_wireless_client,
+    dot11_band, rx_retries, tx_bps
+  reason: Wi-Fi client connection statistics (802.11 band, throughput, retries) used to monitor WLAN health.
+    'Clients' are wireless stations, not customers — this is IT network operations monitoring.
+- tag: Sites Stats - Devices
+  spec_file: mist-ai-sites-stats-devices-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: GET /api/v1/sites/{site_id}/stats/switches/metrics getSiteSwitchesMetrics; schemas stats_gateway_module_stat_item,
+    ap_radio_stat, bgp_peer
+  reason: Operational metrics for APs, switches and gateways at a site — day-to-day monitoring of network
+    infrastructure. Fits IT Operations Management (monitoring) for an enterprise networking platform.
+- tag: Utilities PCAPs
+  spec_file: mist-ai-utilities-pcaps-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: startSitePacketCapture; stopOrgPacketCapture; getSiteCapturingStatus; capture_tcpdump_expression
+  reason: Packet-capture orchestration for troubleshooting enterprise wireless/wired/gateway traffic —
+    a network monitoring and diagnostics function within Cross-Industry IT Operations Management.
+- tag: Utilities Wi-Fi
+  spec_file: mist-ai-utilities-wi-fi-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: disconnectSiteWirelessClient; reauthSiteDot1xWirelessClient; optimizeSiteRrm; deauthSiteWirelessClientsConnectedToARogue
+  reason: Wireless operational actions — client disconnect/reauth, RRM radio optimisation, rogue client
+    deauth, AP reprovision — are day-to-day enterprise Wi-Fi network operations, mapped to Cross-Industry
+    IT Operations Management.
