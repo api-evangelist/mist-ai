@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -184,49 +153,161 @@ paths:
       tags:
       - Constants Models
 components:
+  responses:
+    ConstDeviceModels:
+      content:
+        application/json:
+          examples:
+            AP:
+              $ref: '#/components/examples/ConstDeviceModelsAP'
+            Gateway:
+              $ref: '#/components/examples/ConstDeviceModelsGateway'
+            Switch:
+              $ref: '#/components/examples/ConstDeviceModelsSwitch'
+          schema:
+            $ref: '#/components/schemas/const_device_models'
+        application/vnd.api+json:
+          examples:
+            AP:
+              $ref: '#/components/examples/ConstDeviceModelsAP'
+            Gateway:
+              $ref: '#/components/examples/ConstDeviceModelsGateway'
+            Switch:
+              $ref: '#/components/examples/ConstDeviceModelsSwitch'
+          schema:
+            $ref: '#/components/schemas/const_device_models'
+      description: List of supported device models
+    ConstDefaultGatewayConfig:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstDefaultGatewayConfigExample'
+          schema:
+            additionalProperties: true
+            type: object
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstDefaultGatewayConfigExample'
+          schema:
+            additionalProperties: true
+            type: object
+      description: OK
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    ConstOtherDeviceModels:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstOtherDeviceModelsExample'
+          schema:
+            $ref: '#/components/schemas/const_other_device_models'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstOtherDeviceModelsExample'
+          schema:
+            $ref: '#/components/schemas/const_other_device_models'
+      description: OK
+    ConstMxEdgeModels:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstMxEdgeModelsExample'
+          schema:
+            $ref: '#/components/schemas/const_mxedge_models'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstMxEdgeModelsExample'
+          schema:
+            $ref: '#/components/schemas/const_mxedge_models'
+      description: List of MxEdge Models
   schemas:
-    const_device_ap_extios:
+    const_device_switch_default:
       additionalProperties: false
       properties:
-        default_dir:
-          $ref: '#/components/schemas/const_device_ap_extios_default_dir'
-        input:
-          type: boolean
-        output:
-          type: boolean
+        _ports:
+          examples:
+          - ge-0/0/0-47, et-0/1/0-3, xe-0/2/0-3, ge-0/2/0-3
+          type: string
       type: object
-    const_device_ap_extios_default_dir:
-      description: 'enum: `IN`, `OUT`'
-      enum:
-      - IN
-      - OUT
-      type: string
-    const_device_gateway_defaults:
-      additionalProperties:
-        description: List of interfaces names (e.g. "ge-0/0/3,ge-1/0/3")
-        type: string
-      description: Object Key is the interface type name (e.g. "lan_ports", "wan_ports", ...)
-      type: object
-    response_http403:
+    response_http400:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    const_other_device_model:
-      additionalProperties: false
-      properties:
-        _vendor_model_id:
-          type: string
-        display:
-          type: string
-        model:
-          type: string
-        type:
-          type: string
-        vendor:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
     const_device_ap_band5:
@@ -245,62 +326,30 @@ components:
           - 8
           type: integer
       type: object
-    const_device_switch_default:
+    const_other_device_model:
       additionalProperties: false
       properties:
-        _ports:
-          examples:
-          - ge-0/0/0-47, et-0/1/0-3, xe-0/2/0-3, ge-0/2/0-3
+        _vendor_model_id:
           type: string
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    const_mxedge_model:
-      additionalProperties: false
-      properties:
-        custom_ports:
-          type: boolean
         display:
-          examples:
-          - X10
           type: string
         model:
-          examples:
-          - ME-X10
           type: string
-        ports:
-          additionalProperties:
-            $ref: '#/components/schemas/const_mxedge_model_port'
-          type: object
+        type:
+          type: string
+        vendor:
+          type: string
       type: object
-    const_device_model:
-      discriminator:
-        mapping:
-          ap: '#/components/schemas/const_device_ap'
-          gateway: '#/components/schemas/const_device_switch'
-          switch: '#/components/schemas/const_device_gateway'
-        propertyName: type
-      oneOf:
-      - $ref: '#/components/schemas/const_device_ap'
-      - $ref: '#/components/schemas/const_device_switch'
-      - $ref: '#/components/schemas/const_device_gateway'
-    const_device_models:
+    const_mxedge_models:
       items:
-        $ref: '#/components/schemas/const_device_model'
+        $ref: '#/components/schemas/const_mxedge_model'
       type: array
-    const_device_ap_band_24_usage:
-      description: 'enum: `24`, `5`, `6`'
-      enum:
-      - '24'
-      - '5'
-      - '6'
-      type: string
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
     const_device_ap_band24:
       additionalProperties: false
       properties:
@@ -321,10 +370,131 @@ components:
           - 8
           type: integer
       type: object
-    const_device_ap_band_24_usages:
-      items:
-        $ref: '#/components/schemas/const_device_ap_band_24_usage'
-      type: array
+    const_device_switch:
+      additionalProperties: false
+      properties:
+        alias:
+          examples:
+          - EX4100-48P-CHAS
+          type: string
+        defaults:
+          $ref: '#/components/schemas/const_device_switch_default'
+        description:
+          examples:
+          - Juniper EX4100 Series
+          type: string
+        display:
+          examples:
+          - EX4100-48P
+          type: string
+        evolved_os:
+          default: false
+          type: boolean
+        evpn_ri_type:
+          examples:
+          - mac-vrf
+          type: string
+        experimental:
+          default: false
+          type: boolean
+        fans_pluggable:
+          default: false
+          examples:
+          - true
+          type: boolean
+        has_bgp:
+          default: false
+          examples:
+          - true
+          type: boolean
+        has_ets:
+          default: false
+          type: boolean
+        has_evpn:
+          default: false
+          examples:
+          - true
+          type: boolean
+        has_irb:
+          default: false
+          examples:
+          - true
+          type: boolean
+        has_poe_out:
+          default: false
+          examples:
+          - true
+          type: boolean
+        has_snapshot:
+          default: true
+          type: boolean
+        has_vc:
+          default: true
+          examples:
+          - true
+          type: boolean
+        model:
+          examples:
+          - EX4100-48P
+          type: string
+        modular:
+          default: false
+          type: boolean
+        no_shaping_rate:
+          default: false
+          type: boolean
+        number_fans:
+          examples:
+          - 2
+          type: integer
+        oc_device:
+          default: false
+          examples:
+          - true
+          type: boolean
+        oob_interface:
+          examples:
+          - re0:mgmt-0, re1:mgmt-0
+          type: string
+        packet_action_drop_only:
+          default: false
+          type: boolean
+        pic:
+          additionalProperties:
+            description: List of type and number of ports (e.g. "mge*8, ge*16")
+            type: string
+          description: Object Key is the PIC number
+          examples:
+          - '0': ge*48
+            '1': qsfp+*4
+            '2': sfp+*4 (uplink)
+          type: object
+        sub_required:
+          type: string
+        type:
+          $ref: '#/components/schemas/const_device_type_switch'
+      required:
+      - type
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    const_device_model:
+      discriminator:
+        mapping:
+          ap: '#/components/schemas/const_device_ap'
+          gateway: '#/components/schemas/const_device_switch'
+          switch: '#/components/schemas/const_device_gateway'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/const_device_ap'
+      - $ref: '#/components/schemas/const_device_switch'
+      - $ref: '#/components/schemas/const_device_gateway'
     const_device_type_ap:
       description: 'Device Type. enum: `ap`'
       enum:
@@ -337,24 +507,106 @@ components:
       - gateway
       readOnly: true
       type: string
-    const_mxedge_model_port:
+    response_http429:
       additionalProperties: false
       properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    const_mxedge_model:
+      additionalProperties: false
+      properties:
+        custom_ports:
+          type: boolean
         display:
           examples:
-          - xe0
+          - X10
           type: string
-        speed:
+        model:
           examples:
-          - 10000
-          type: integer
+          - ME-X10
+          type: string
+        ports:
+          additionalProperties:
+            $ref: '#/components/schemas/const_mxedge_model_port'
+          type: object
       type: object
-    const_device_type_switch:
-      description: 'Device Type. enum: `switch`'
-      enum:
-      - switch
-      readOnly: true
-      type: string
+    const_device_ap_disallowed_channels:
+      items:
+        type: integer
+      type: array
+    const_device_gateway:
+      additionalProperties: false
+      properties:
+        defaults:
+          $ref: '#/components/schemas/const_device_gateway_defaults'
+        description:
+          type: string
+        experimental:
+          default: false
+          type: boolean
+        fans_pluggable:
+          default: true
+          type: boolean
+        ha_node0_fpc:
+          type: integer
+        ha_node1_fpc:
+          type: integer
+        has_bgp:
+          default: false
+          type: boolean
+        has_fxp0:
+          default: true
+          type: boolean
+        has_ha_control:
+          default: false
+          type: boolean
+        has_ha_data:
+          default: false
+          type: boolean
+        has_irb:
+          default: false
+          type: boolean
+        has_poe_out:
+          default: true
+          type: boolean
+        has_snapshot:
+          default: true
+          type: boolean
+        irb_disabled_by_default:
+          default: false
+          type: boolean
+        model:
+          type: string
+        number_fans:
+          type: integer
+        oc_device:
+          default: false
+          type: boolean
+        pic:
+          $ref: '#/components/schemas/const_device_gateway_pic'
+        ports:
+          $ref: '#/components/schemas/const_device_gateway_ports'
+        sub_required:
+          type: string
+        t128_device:
+          default: false
+          type: boolean
+        type:
+          $ref: '#/components/schemas/const_device_type_gateway'
+      required:
+      - type
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
     const_device_gateway_ports:
       additionalProperties: false
       description: Object Key is the interface name (e.g. "ge-0/0/1", ...)
@@ -366,6 +618,41 @@ components:
         speed:
           type: integer
       type: object
+    const_device_ap_band6:
+      additionalProperties: false
+      properties:
+        max_clients:
+          examples:
+          - 128
+          type: integer
+        max_power:
+          examples:
+          - 17
+          type: integer
+        min_power:
+          examples:
+          - 8
+          type: integer
+      type: object
+    const_device_ap_extios_default_dir:
+      description: 'enum: `IN`, `OUT`'
+      enum:
+      - IN
+      - OUT
+      type: string
+    const_device_type_switch:
+      description: 'Device Type. enum: `switch`'
+      enum:
+      - switch
+      readOnly: true
+      type: string
+    const_device_ap_band_24_usage:
+      description: 'enum: `24`, `5`, `6`'
+      enum:
+      - '24'
+      - '5'
+      - '6'
+      type: string
     const_device_ap:
       additionalProperties: false
       properties:
@@ -497,224 +784,16 @@ components:
       - ap_type
       - type
       type: object
-    const_device_ap_band6:
+    const_device_ap_extios:
       additionalProperties: false
       properties:
-        max_clients:
-          examples:
-          - 128
-          type: integer
-        max_power:
-          examples:
-          - 17
-          type: integer
-        min_power:
-          examples:
-          - 8
-          type: integer
+        default_dir:
+          $ref: '#/components/schemas/const_device_ap_extios_default_dir'
+        input:
+          type: boolean
+        output:
+          type: boolean
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    const_device_switch:
-      additionalProperties: false
-      properties:
-        alias:
-          examples:
-          - EX4100-48P-CHAS
-          type: string
-        defaults:
-          $ref: '#/components/schemas/const_device_switch_default'
-        description:
-          examples:
-          - Juniper EX4100 Series
-          type: string
-        display:
-          examples:
-          - EX4100-48P
-          type: string
-        evolved_os:
-          default: false
-          type: boolean
-        evpn_ri_type:
-          examples:
-          - mac-vrf
-          type: string
-        experimental:
-          default: false
-          type: boolean
-        fans_pluggable:
-          default: false
-          examples:
-          - true
-          type: boolean
-        has_bgp:
-          default: false
-          examples:
-          - true
-          type: boolean
-        has_ets:
-          default: false
-          type: boolean
-        has_evpn:
-          default: false
-          examples:
-          - true
-          type: boolean
-        has_irb:
-          default: false
-          examples:
-          - true
-          type: boolean
-        has_poe_out:
-          default: false
-          examples:
-          - true
-          type: boolean
-        has_snapshot:
-          default: true
-          type: boolean
-        has_vc:
-          default: true
-          examples:
-          - true
-          type: boolean
-        model:
-          examples:
-          - EX4100-48P
-          type: string
-        modular:
-          default: false
-          type: boolean
-        no_shaping_rate:
-          default: false
-          type: boolean
-        number_fans:
-          examples:
-          - 2
-          type: integer
-        oc_device:
-          default: false
-          examples:
-          - true
-          type: boolean
-        oob_interface:
-          examples:
-          - re0:mgmt-0, re1:mgmt-0
-          type: string
-        packet_action_drop_only:
-          default: false
-          type: boolean
-        pic:
-          additionalProperties:
-            description: List of type and number of ports (e.g. "mge*8, ge*16")
-            type: string
-          description: Object Key is the PIC number
-          examples:
-          - '0': ge*48
-            '1': qsfp+*4
-            '2': sfp+*4 (uplink)
-          type: object
-        sub_required:
-          type: string
-        type:
-          $ref: '#/components/schemas/const_device_type_switch'
-      required:
-      - type
-      type: object
-    const_other_device_models:
-      items:
-        $ref: '#/components/schemas/const_other_device_model'
-      type: array
-    const_device_gateway:
-      additionalProperties: false
-      properties:
-        defaults:
-          $ref: '#/components/schemas/const_device_gateway_defaults'
-        description:
-          type: string
-        experimental:
-          default: false
-          type: boolean
-        fans_pluggable:
-          default: true
-          type: boolean
-        ha_node0_fpc:
-          type: integer
-        ha_node1_fpc:
-          type: integer
-        has_bgp:
-          default: false
-          type: boolean
-        has_fxp0:
-          default: true
-          type: boolean
-        has_ha_control:
-          default: false
-          type: boolean
-        has_ha_data:
-          default: false
-          type: boolean
-        has_irb:
-          default: false
-          type: boolean
-        has_poe_out:
-          default: true
-          type: boolean
-        has_snapshot:
-          default: true
-          type: boolean
-        irb_disabled_by_default:
-          default: false
-          type: boolean
-        model:
-          type: string
-        number_fans:
-          type: integer
-        oc_device:
-          default: false
-          type: boolean
-        pic:
-          $ref: '#/components/schemas/const_device_gateway_pic'
-        ports:
-          $ref: '#/components/schemas/const_device_gateway_ports'
-        sub_required:
-          type: string
-        t128_device:
-          default: false
-          type: boolean
-        type:
-          $ref: '#/components/schemas/const_device_type_gateway'
-      required:
-      - type
-      type: object
-    const_device_ap_disallowed_channels:
-      items:
-        type: integer
-      type: array
-    const_mxedge_models:
-      items:
-        $ref: '#/components/schemas/const_mxedge_model'
-      type: array
     const_device_gateway_pic:
       additionalProperties:
         description: List of type and number of ports (e.g. "mge*8, ge*16")
@@ -737,7 +816,53 @@ components:
           - 8
           type: integer
       type: object
+    const_device_ap_band_24_usages:
+      items:
+        $ref: '#/components/schemas/const_device_ap_band_24_usage'
+      type: array
+    const_device_gateway_defaults:
+      additionalProperties:
+        description: List of interfaces names (e.g. "ge-0/0/3,ge-1/0/3")
+        type: string
+      description: Object Key is the interface type name (e.g. "lan_ports", "wan_ports", ...)
+      type: object
+    const_other_device_models:
+      items:
+        $ref: '#/components/schemas/const_other_device_model'
+      type: array
+    const_device_models:
+      items:
+        $ref: '#/components/schemas/const_device_model'
+      type: array
+    const_mxedge_model_port:
+      additionalProperties: false
+      properties:
+        display:
+          examples:
+          - xe0
+          type: string
+        speed:
+          examples:
+          - 10000
+          type: integer
+      type: object
   examples:
+    ConstOtherDeviceModelsExample:
+      value:
+      - _vendor_model_id: '65'
+        display: W1850
+        model: W1850
+        type: router
+        vendor: cradlepoint
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     ConstDeviceModelsSwitch:
       value:
       - alias: EX4100-48P-CHAS
@@ -764,23 +889,36 @@ components:
           '2': sfp+*4 (uplink)
         sub_required: string
         type: switch
-    ConstMxEdgeModelsExample:
+    ConstDeviceModelsGateway:
       value:
-      - display: X10
-        model: ME-X10
-        ports:
-          '0':
-            display: xe0
-            speed: 10000
-          '1':
-            display: xe1
-            speed: 10000
-          '2':
-            display: xe2
-            speed: 10000
-          '3':
-            display: xe3
-            speed: 10000
+      - defaults:
+          ha_control_port: ge-0/0/1
+          ha_data_ports: ge-0/0/2,ge-3/0/2
+          ha_fxp0_port: ge-0/0/0
+          ha_lan_ports: ge-0/0/4,ge-3/0/4
+          ha_wan_ports: ge-0/0/3,ge-3/0/3
+          lan_ports: ge-0/0/1-6
+          lte_wan_ports: cl-1/0/0
+          wan_ports: ge-0/0/0,ge-0/0/7
+        description: Juniper SRX320 Series
+        fans_pluggable: false
+        ha_node0_fpc: 3
+        ha_node1_fpc: 3
+        has_bgp: true
+        has_fxp0: false
+        has_ha_control: false
+        has_ha_data: false
+        has_irb: true
+        has_poe_out: true
+        has_snapshot: true
+        irb_disabled_by_default: false
+        model: SRX320
+        number_fans: 1
+        oc_device: true
+        pic:
+          '0': ge*6, sfp*2
+        sub_required: wan1
+        type: gateway
     ConstDeviceModelsAP:
       value:
       - ap_type: jewel
@@ -845,22 +983,23 @@ components:
           beacon_rate: 4
           beams: 9
           power: 8
-    ConstOtherDeviceModelsExample:
+    ConstMxEdgeModelsExample:
       value:
-      - _vendor_model_id: '65'
-        display: W1850
-        model: W1850
-        type: router
-        vendor: cradlepoint
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
+      - display: X10
+        model: ME-X10
+        ports:
+          '0':
+            display: xe0
+            speed: 10000
+          '1':
+            display: xe1
+            speed: 10000
+          '2':
+            display: xe2
+            speed: 10000
+          '3':
+            display: xe3
+            speed: 10000
     ConstDefaultGatewayConfigExample:
       value:
         dhcpd_config:
@@ -904,179 +1043,9 @@ components:
           - any
           tenants:
           - lan
-    ConstDeviceModelsGateway:
+    HTTP403Example:
       value:
-      - defaults:
-          ha_control_port: ge-0/0/1
-          ha_data_ports: ge-0/0/2,ge-3/0/2
-          ha_fxp0_port: ge-0/0/0
-          ha_lan_ports: ge-0/0/4,ge-3/0/4
-          ha_wan_ports: ge-0/0/3,ge-3/0/3
-          lan_ports: ge-0/0/1-6
-          lte_wan_ports: cl-1/0/0
-          wan_ports: ge-0/0/0,ge-0/0/7
-        description: Juniper SRX320 Series
-        fans_pluggable: false
-        ha_node0_fpc: 3
-        ha_node1_fpc: 3
-        has_bgp: true
-        has_fxp0: false
-        has_ha_control: false
-        has_ha_data: false
-        has_irb: true
-        has_poe_out: true
-        has_snapshot: true
-        irb_disabled_by_default: false
-        model: SRX320
-        number_fans: 1
-        oc_device: true
-        pic:
-          '0': ge*6, sfp*2
-        sub_required: wan1
-        type: gateway
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-  responses:
-    ConstDeviceModels:
-      content:
-        application/json:
-          examples:
-            AP:
-              $ref: '#/components/examples/ConstDeviceModelsAP'
-            Gateway:
-              $ref: '#/components/examples/ConstDeviceModelsGateway'
-            Switch:
-              $ref: '#/components/examples/ConstDeviceModelsSwitch'
-          schema:
-            $ref: '#/components/schemas/const_device_models'
-        application/vnd.api+json:
-          examples:
-            AP:
-              $ref: '#/components/examples/ConstDeviceModelsAP'
-            Gateway:
-              $ref: '#/components/examples/ConstDeviceModelsGateway'
-            Switch:
-              $ref: '#/components/examples/ConstDeviceModelsSwitch'
-          schema:
-            $ref: '#/components/schemas/const_device_models'
-      description: List of supported device models
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    ConstDefaultGatewayConfig:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstDefaultGatewayConfigExample'
-          schema:
-            additionalProperties: true
-            type: object
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstDefaultGatewayConfigExample'
-          schema:
-            additionalProperties: true
-            type: object
-      description: OK
-    ConstOtherDeviceModels:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstOtherDeviceModelsExample'
-          schema:
-            $ref: '#/components/schemas/const_other_device_models'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstOtherDeviceModelsExample'
-          schema:
-            $ref: '#/components/schemas/const_other_device_models'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    ConstMxEdgeModels:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstMxEdgeModelsExample'
-          schema:
-            $ref: '#/components/schemas/const_mxedge_models'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstMxEdgeModelsExample'
-          schema:
-            $ref: '#/components/schemas/const_mxedge_models'
-      description: List of MxEdge Models
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+        detail: You do not have permission to perform this action.
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

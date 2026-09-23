@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -227,19 +196,39 @@ paths:
       - Orgs MxTunnels
 components:
   schemas:
-    response_http403:
+    mxtunnel_ipsec:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
+        dns_servers:
+          $ref: '#/components/schemas/mxtunnel_ipsec_dns_servers'
+        dns_suffix:
+          $ref: '#/components/schemas/strings'
+        enabled:
+          type: boolean
+        extra_routes:
+          $ref: '#/components/schemas/mxtunnel_ipsec_extra_routes'
+        split_tunnel:
+          type: boolean
+        use_mxedge:
+          type: boolean
       type: object
-    org_id:
+    time_of_day:
+      default: any
+      description: '`any` / HH:MM (24-hour format)'
       examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
+      - '12:00'
+      type: string
+    day_of_week:
+      description: 'enum: `any`, `fri`, `mon`, `sat`, `sun`, `thu`, `tue`, `wed`'
+      enum:
+      - any
+      - fri
+      - mon
+      - sat
+      - sun
+      - thu
+      - tue
+      - wed
       type: string
     response_http400:
       additionalProperties: false
@@ -249,86 +238,31 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    mxtunnels:
-      items:
-        $ref: '#/components/schemas/mxtunnel'
-      type: array
-    time_of_day:
-      default: any
-      description: '`any` / HH:MM (24-hour format)'
-      examples:
-      - '12:00'
-      type: string
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
     mxtunnel_ipsec_dns_servers:
       items:
         type: string
       type:
       - array
       - 'null'
-    mxtunnel_protocol:
-      default: udp
-      description: 'enum: `ip`, `udp`'
-      enum:
-      - ip
-      - udp
-      type: string
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    mxtunnels:
+      items:
+        $ref: '#/components/schemas/mxtunnel'
+      type: array
     mxtunnel_vlan_ids:
       description: List of vlan_ids that will be used
       items:
         type: integer
       type: array
-    mxtunnel_ipsec_extra_route:
-      additionalProperties: false
-      properties:
-        dest:
-          type: string
-        next_hop:
-          format: ipv4
-          type: string
-      type: object
-    auto_preemption:
-      additionalProperties: false
-      description: Schedule to preempt ap’s which are not connected to preferred peer
-      properties:
-        day_of_week:
-          $ref: '#/components/schemas/day_of_week'
-        enabled:
-          default: false
-          description: Whether auto preemption should happen
-          type: boolean
-        time_of_day:
-          $ref: '#/components/schemas/time_of_day'
-      type: object
-    mxtunnel_mxcluster_ids:
-      description: List of mxclusters to deploy this tunnel to
-      items:
-        format: uuid
-        type: string
-      type: array
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
     mxtunnel:
       description: MxTunnel
       properties:
@@ -383,14 +317,12 @@ components:
         vlan_ids:
           $ref: '#/components/schemas/mxtunnel_vlan_ids'
       type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
     id:
       description: Unique ID of the object instance in the Mist Organization
       examples:
@@ -398,17 +330,12 @@ components:
       format: uuid
       readOnly: true
       type: string
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
     mxtunnel_anchor_mxtunnel_ids:
       description: List of anchor mxtunnels used for forming edge to edge tunnels
       items:
@@ -417,38 +344,80 @@ components:
         format: uuid
         type: string
       type: array
-    mxtunnel_ipsec:
+    response_http401:
       additionalProperties: false
       properties:
-        dns_servers:
-          $ref: '#/components/schemas/mxtunnel_ipsec_dns_servers'
-        dns_suffix:
-          $ref: '#/components/schemas/strings'
-        enabled:
-          type: boolean
-        extra_routes:
-          $ref: '#/components/schemas/mxtunnel_ipsec_extra_routes'
-        split_tunnel:
-          type: boolean
-        use_mxedge:
-          type: boolean
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
       type: object
-    day_of_week:
-      description: 'enum: `any`, `fri`, `mon`, `sat`, `sun`, `thu`, `tue`, `wed`'
-      enum:
-      - any
-      - fri
-      - mon
-      - sat
-      - sun
-      - thu
-      - tue
-      - wed
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
       type: string
+    mxtunnel_mxcluster_ids:
+      description: List of mxclusters to deploy this tunnel to
+      items:
+        format: uuid
+        type: string
+      type: array
     mxtunnel_ipsec_extra_routes:
       items:
         $ref: '#/components/schemas/mxtunnel_ipsec_extra_route'
       type: array
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    mxtunnel_ipsec_extra_route:
+      additionalProperties: false
+      properties:
+        dest:
+          type: string
+        next_hop:
+          format: ipv4
+          type: string
+      type: object
+    auto_preemption:
+      additionalProperties: false
+      description: Schedule to preempt ap’s which are not connected to preferred peer
+      properties:
+        day_of_week:
+          $ref: '#/components/schemas/day_of_week'
+        enabled:
+          default: false
+          description: Whether auto preemption should happen
+          type: boolean
+        time_of_day:
+          $ref: '#/components/schemas/time_of_day'
+      type: object
+    mxtunnel_protocol:
+      default: udp
+      description: 'enum: `ip`, `udp`'
+      enum:
+      - ip
+      - udp
+      type: string
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
   parameters:
     page:
       in: query
@@ -457,18 +426,18 @@ components:
         default: 1
         minimum: 1
         type: integer
-    mxtunnel_id:
+    org_id:
       in: path
-      name: mxtunnel_id
+      name: org_id
       required: true
       schema:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
-    org_id:
+    mxtunnel_id:
       in: path
-      name: org_id
+      name: mxtunnel_id
       required: true
       schema:
         examples:
@@ -483,21 +452,6 @@ components:
         minimum: 0
         type: integer
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP400:
       content:
         application/json:
@@ -513,23 +467,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    OK:
-      description: OK
-    MxtunnelsArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxtunnelsArrayExample'
-          schema:
-            $ref: '#/components/schemas/mxtunnels'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxtunnelsArrayExample'
-          schema:
-            $ref: '#/components/schemas/mxtunnels'
-      description: OK
     HTTP404:
       content:
         application/json:
@@ -539,36 +476,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    Mxtunnel:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxtunnelExample'
-          schema:
-            $ref: '#/components/schemas/mxtunnel'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxtunnelExample'
-          schema:
-            $ref: '#/components/schemas/mxtunnel'
-      description: OK
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -584,36 +506,66 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    MxtunnelsArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxtunnelsArrayExample'
+          schema:
+            $ref: '#/components/schemas/mxtunnels'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxtunnelsArrayExample'
+          schema:
+            $ref: '#/components/schemas/mxtunnels'
+      description: OK
+    OK:
+      description: OK
+    Mxtunnel:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxtunnelExample'
+          schema:
+            $ref: '#/components/schemas/mxtunnel'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxtunnelExample'
+          schema:
+            $ref: '#/components/schemas/mxtunnel'
+      description: OK
   examples:
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
-    MxtunnelsArrayExample:
+    HTTP401Example:
       value:
-      - hello_interval: 60
-        hello_retries: 3
-        ipsec:
-          dns_servers:
-          - 172.16.0.8
-          enabled: true
-          extra_routes:
-          - dest: 172.16.0.0/12
-            next_hop: 172.16.0.1
-          split_tunnel: true
-        mxcluster_ids:
-        - 572586b7-f97b-a22b-526c-8b97a3f609c4
-        name: HQ
-        protocol: udp
-        vlan_ids:
-        - 3
-        - 4
-        - 5
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     MxtunnelExample:
       value:
         cluster_ids:
@@ -637,9 +589,26 @@ components:
         site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
         vlan_ids:
         - 0
-    HTTP401Example:
+    MxtunnelsArrayExample:
       value:
-        detail: Authentication credentials were not provided.
+      - hello_interval: 60
+        hello_retries: 3
+        ipsec:
+          dns_servers:
+          - 172.16.0.8
+          enabled: true
+          extra_routes:
+          - dest: 172.16.0.0/12
+            next_hop: 172.16.0.1
+          split_tunnel: true
+        mxcluster_ids:
+        - 572586b7-f97b-a22b-526c-8b97a3f609c4
+        name: HQ
+        protocol: udp
+        vlan_ids:
+        - 3
+        - 4
+        - 5
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

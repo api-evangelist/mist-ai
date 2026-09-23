@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -129,21 +98,35 @@ paths:
       tags:
       - Utilities Location
 components:
+  parameters:
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   schemas:
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
     response_http400:
       additionalProperties: false
       properties:
         detail:
           examples:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    utils_send_ble_beacon_map_ids:
+      examples:
+      - - 845a23bf-bed9-e43c-4c86-6fa474be7ae5
+      items:
+        type: string
+      type: array
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
           type: string
       type: object
     utils_send_ble_beacon:
@@ -167,12 +150,6 @@ components:
         map_ids:
           $ref: '#/components/schemas/utils_send_ble_beacon_map_ids'
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
     response_http401:
       additionalProperties: false
       properties:
@@ -189,6 +166,14 @@ components:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
     utils_send_ble_beacon_macs:
       examples:
       - - 5c5b35584a6f
@@ -196,38 +181,7 @@ components:
       items:
         type: string
       type: array
-    utils_send_ble_beacon_map_ids:
-      examples:
-      - - 845a23bf-bed9-e43c-4c86-6fa474be7ae5
-      items:
-        type: string
-      type: array
-  parameters:
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP400:
       content:
         application/json:
@@ -243,8 +197,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    OK:
-      description: OK
     HTTP404:
       content:
         application/json:
@@ -254,21 +206,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -284,19 +236,36 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    OK:
+      description: OK
   examples:
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

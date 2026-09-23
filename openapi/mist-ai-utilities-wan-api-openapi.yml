@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -192,7 +161,60 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Releases an active DHCP lease.\n\n\nThe output will be available through websocket.\n\nAs there can be multiple commands issued against the same Device at the same\ntime and the output all goes through the same websocket stream, session is\nintroduced for demux.\n\n\n\n#### Subscribe to Device Command outputs\n\n\n`WS /api-ws/v1/stream`\n\n\n```json\n\n{ \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\" }\n\n```\n\n\n\n#### Example output from ws stream\n\n\n```json\n{\n    \"event\": \"data\",\n    \"channel\": \"/sites/d6fb4f96-3ba4-4cf5-8af2-a8d7b85087ac/devices/00000000-0000-0000-1000-0200010edbca/cmd\",\n    \"data\": \"{\\\"event\\\": \\\"data\\\", \\\"channel\\\": \\\"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/0200010edbca/cmd\\\",\\\"data\\\": {\\\"session\\\": \\\"356b2150-7307-4165-8411-52794c1ee8b0\\\",\\\"raw\\\": \\\"Releasing dhcp...\\\"}}\"\n}\n{\n    \"event\": \"data\",\n    \"channel\": \"/sites/d6fb4f96-3ba4-4cf5-8af2-a8d7b85087ac/devices/00000000-0000-0000-1000-0200010edbca/cmd\",\n    \"data\": \"{\\\"event\\\": \\\"data\\\", \\\"channel\\\": \\\"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/0200010edbca/cmd\\\",\\\"data\\\": {\\\"session\\\": \\\"356b2150-7307-4165-8411-52794c1ee8b0\\\",\\\"raw\\\": \\\"Successfully released DHCP lease.\\\"}}\"\n}\n```"
+      description: 'Releases an active DHCP lease.
+
+
+        The output will be available through websocket.
+
+
+        As there can be multiple commands issued against the same Device at the same
+
+        time and the output all goes through the same websocket stream, session is
+
+        introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+
+        { "subscribe": "/sites/{site_id}/devices/{device_id}/cmd" }
+
+
+        ```
+
+
+        #### Example output from ws stream
+
+
+        ```json
+
+        {
+
+        "event": "data",
+
+        "channel": "/sites/d6fb4f96-3ba4-4cf5-8af2-a8d7b85087ac/devices/00000000-0000-0000-1000-0200010edbca/cmd",
+
+        "data": "{\"event\": \"data\", \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/0200010edbca/cmd\",\"data\": {\"session\": \"356b2150-7307-4165-8411-52794c1ee8b0\",\"raw\": \"Releasing dhcp...\"}}"
+
+        }
+
+        {
+
+        "event": "data",
+
+        "channel": "/sites/d6fb4f96-3ba4-4cf5-8af2-a8d7b85087ac/devices/00000000-0000-0000-1000-0200010edbca/cmd",
+
+        "data": "{\"event\": \"data\", \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/0200010edbca/cmd\",\"data\": {\"session\": \"356b2150-7307-4165-8411-52794c1ee8b0\",\"raw\": \"Successfully released DHCP lease.\"}}"
+
+        }
+
+        ```'
       operationId: releaseSiteSsrDhcpLease
       requestBody:
         content:
@@ -224,7 +246,38 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "DNS resolutions are performed on the Device.\n\nThe output will be available through websocket. As there can be multiple commands issued against the same SSR at the same time and the output all goes through the same websocket stream, `session` is used for demux.\n \n #### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n##### Example output from ws stream\n```\n Router      | Hostname               | Resolved | Last Resolved        | Expiration\n-------------|------------------------|----------|----------------------|---------------------\n test-device | xxx.yyy.net            | Y        | 2022-03-28T03:56:49Z | 2022-03-28T03:57:49Z\n```"
+      description: 'DNS resolutions are performed on the Device.
+
+
+        The output will be available through websocket. As there can be multiple commands issued against the same SSR at the same time and the output all goes through the same websocket stream, `session` is used for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+        ##### Example output from ws stream
+
+        ```
+
+        Router | Hostname | Resolved | Last Resolved | Expiration
+
+        -------------|------------------------|----------|----------------------|---------------------
+
+        test-device | xxx.yyy.net | Y | 2022-03-28T03:56:49Z | 2022-03-28T03:57:49Z
+
+        ```'
       operationId: testSiteSsrDnsResolution
       responses:
         '200':
@@ -247,7 +300,26 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Run top command on switches and SRX. The output will be available through websocket. \n\nAs there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n  \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```"
+      description: 'Run top command on switches and SRX. The output will be available through websocket.
+
+
+        As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```'
       operationId: runSiteSrxTopCommand
       responses:
         '200':
@@ -270,7 +342,48 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Ping from SSR\n\nService Ping can be performed from the Device. The output will be available through websocket. As there can be multiple command issued against the same device at the same time and the output all goes through the same websocket stream, session is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n##### Example output from ws stream\n```json\n{\n    \"event\": \"data\",\n    \"channel\": \"/sites/4ac1dcf4-9d8b-7211-65c4-057819f0862b/devices/00000000-0000-0000-1000-5c5b350e0060/cmd\",\n    \"data\": {\n        \"session\": \"session_id\",\n        \"raw\": \"64 bytes from 23.211.0.110: seq=8 ttl=58 time=12.323 ms\\n\"\n    }\n}\n```"
+      description: 'Ping from SSR
+
+
+        Service Ping can be performed from the Device. The output will be available through websocket. As there can be multiple command issued against the same device at the same time and the output all goes through the same websocket stream, session is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+        ##### Example output from ws stream
+
+        ```json
+
+        {
+
+        "event": "data",
+
+        "channel": "/sites/4ac1dcf4-9d8b-7211-65c4-057819f0862b/devices/00000000-0000-0000-1000-5c5b350e0060/cmd",
+
+        "data": {
+
+        "session": "session_id",
+
+        "raw": "64 bytes from 23.211.0.110: seq=8 ttl=58 time=12.323 ms\n"
+
+        }
+
+        }
+
+        ```'
       operationId: servicePingFromSsr
       requestBody:
         content:
@@ -305,7 +418,47 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get OSPF Database from SSR and SRX. The output will be available through websocket. \n\nAs there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n  \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n\n#### Example output from ws stream\n```\n===== ==================== ========== ======= ======== ================ =================== =================\nVrf   Neighbor Router ID   Priority   State   Uptime   Dead Timer Due   Interface Address   Interface State\n===== ==================== ========== ======= ======== ================ =================== =================\n      1.0.0.3                     1   Full       852               38   172.16.3.2          Backup\n      1.0.0.4                     1   Full       811               33   172.16.3.2          DROther\n      1.0.0.3                     1   Full       852               38   172.16.4.2          Backup\n      1.0.0.4                     1   Full       811               34   172.16.4.2          DROther\n```"
+      description: 'Get OSPF Database from SSR and SRX. The output will be available through websocket.
+
+
+        As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+
+        #### Example output from ws stream
+
+        ```
+
+        ===== ==================== ========== ======= ======== ================ =================== =================
+
+        Vrf Neighbor Router ID Priority State Uptime Dead Timer Due Interface Address Interface State
+
+        ===== ==================== ========== ======= ======== ================ =================== =================
+
+        1.0.0.3 1 Full 852 38 172.16.3.2 Backup
+
+        1.0.0.4 1 Full 811 33 172.16.3.2 DROther
+
+        1.0.0.3 1 Full 852 38 172.16.4.2 Backup
+
+        1.0.0.4 1 Full 811 34 172.16.4.2 DROther
+
+        ```'
       operationId: showSiteGatewayOspfDatabase
       requestBody:
         content:
@@ -334,7 +487,45 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get OSPF interfaces from SSR and SRX. The output will be available through websocket. \n\nAs there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n  \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n\n#### Example output from ws stream\n```\n===== ================== =================== ============== =============== =========== ========= ===========\nVrf   Device Interface   Network Interface   Interface Up   IP Address      OSPF Type   Area ID   Area Type\n===== ================== =================== ============== =============== =========== ========= ===========\n      net1               g1                          True   172.16.1.2/24   Broadcast   0.0.0.0   default\n      net3               g3                          True   172.16.3.2/24   Broadcast   0.0.0.0   default\n      net4               g4                          True   172.16.4.2/24   Broadcast   0.0.0.4   default\n```"
+      description: 'Get OSPF interfaces from SSR and SRX. The output will be available through websocket.
+
+
+        As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+
+        #### Example output from ws stream
+
+        ```
+
+        ===== ================== =================== ============== =============== =========== ========= ===========
+
+        Vrf Device Interface Network Interface Interface Up IP Address OSPF Type Area ID Area Type
+
+        ===== ================== =================== ============== =============== =========== ========= ===========
+
+        net1 g1 True 172.16.1.2/24 Broadcast 0.0.0.0 default
+
+        net3 g3 True 172.16.3.2/24 Broadcast 0.0.0.0 default
+
+        net4 g4 True 172.16.4.2/24 Broadcast 0.0.0.4 default
+
+        ```'
       operationId: showSiteGatewayOspfInterfaces
       requestBody:
         content:
@@ -363,7 +554,47 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get OSPF Neighbors from SSR and SRX. The output will be available through websocket. \n\nAs there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n  \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n\n#### Example output from ws stream\n```\n===== ==================== ========== ======= ======== ================ =================== =================\nVrf   Neighbor Router ID   Priority   State   Uptime   Dead Timer Due   Interface Address   Interface State\n===== ==================== ========== ======= ======== ================ =================== =================\n      1.0.0.3                     1   Full       852               38   172.16.3.2          Backup\n      1.0.0.4                     1   Full       811               33   172.16.3.2          DROther\n      1.0.0.3                     1   Full       852               38   172.16.4.2          Backup\n      1.0.0.4                     1   Full       811               34   172.16.4.2          DROther\n```"
+      description: 'Get OSPF Neighbors from SSR and SRX. The output will be available through websocket.
+
+
+        As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+
+        #### Example output from ws stream
+
+        ```
+
+        ===== ==================== ========== ======= ======== ================ =================== =================
+
+        Vrf Neighbor Router ID Priority State Uptime Dead Timer Due Interface Address Interface State
+
+        ===== ==================== ========== ======= ======== ================ =================== =================
+
+        1.0.0.3 1 Full 852 38 172.16.3.2 Backup
+
+        1.0.0.4 1 Full 811 33 172.16.3.2 DROther
+
+        1.0.0.3 1 Full 852 38 172.16.4.2 Backup
+
+        1.0.0.4 1 Full 811 34 172.16.4.2 DROther
+
+        ```'
       operationId: showSiteGatewayOspfNeighbors
       requestBody:
         content:
@@ -392,7 +623,45 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get OSPF summary from SSR and SRX. The output will be available through websocket. \n\nAs there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n  \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n\n#### Example output from ws stream\n```\n===== =========== ========== ============= ==================== ========= =========== =============\nVrf   Router ID   ABR Type   ASBR Router   External LSA Count   Area ID   Area Type   Area Border\n                                                                                      Router\n===== =========== ========== ============= ==================== ========= =========== =============\n      1.0.0.2     cisco            False                    0   0.0.0.0\n      1.0.0.2     cisco            False                    0   0.0.0.4   default\n```"
+      description: 'Get OSPF summary from SSR and SRX. The output will be available through websocket.
+
+
+        As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+
+        #### Example output from ws stream
+
+        ```
+
+        ===== =========== ========== ============= ==================== ========= =========== =============
+
+        Vrf Router ID ABR Type ASBR Router External LSA Count Area ID Area Type Area Border
+
+        Router
+
+        ===== =========== ========== ============= ==================== ========= =========== =============
+
+        1.0.0.2 cisco False 0 0.0.0.0
+
+        1.0.0.2 cisco False 0 0.0.0.4 default
+
+        ```'
       operationId: showSiteGatewayOspfSummary
       requestBody:
         content:
@@ -421,7 +690,64 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get routes from SSR, SRX and Switch. \n\nThe output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n##### Example output from ws stream\n```\nadmin@labsystem1.fiedler# show bgp neighbors\nBGP neighbor is 192.168.4.1, remote AS 4200000001, local AS 4200000128, external\nlink\n  BGP version 4, remote router ID 1.1.1.1\n  BGP state = Established, up for 00:27:25\n  Last read 00:00:25, hold time is 90, keepalive interval is 30 seconds\n  Configured hold time is 90, keepalive interval is 30 seconds\n  Neighbor capabilities:\n    4 Byte AS: advertised and received\n    Route refresh: advertised and received(old &amp; new)\n    Address family IPv4 Unicast: advertised and received\n    Graceful Restart Capability: advertised and received\n      Remote Restart timer is 120 seconds\n      Address families by peer:\n        none\n        ...\n```"
+      description: 'Get routes from SSR, SRX and Switch.
+
+
+        The output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+        ##### Example output from ws stream
+
+        ```
+
+        admin@labsystem1.fiedler# show bgp neighbors
+
+        BGP neighbor is 192.168.4.1, remote AS 4200000001, local AS 4200000128, external
+
+        link
+
+        BGP version 4, remote router ID 1.1.1.1
+
+        BGP state = Established, up for 00:27:25
+
+        Last read 00:00:25, hold time is 90, keepalive interval is 30 seconds
+
+        Configured hold time is 90, keepalive interval is 30 seconds
+
+        Neighbor capabilities:
+
+        4 Byte AS: advertised and received
+
+        Route refresh: advertised and received(old & new)
+
+        Address family IPv4 Unicast: advertised and received
+
+        Graceful Restart Capability: advertised and received
+
+        Remote Restart timer is 120 seconds
+
+        Address families by peer:
+
+        none
+
+        ...
+
+        ```'
       operationId: showSiteSsrAndSrxRoutes
       requestBody:
         content:
@@ -450,7 +776,51 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get service path information of the Device.\n\n\nThe output will be available through websocket. As there can be multiple command\nissued against the same device at the same time and the output all goes through\nthe same websocket stream, session is introduced for demux.\n\n\n\n#### Subscribe to Device Command outputs\n\n`WS /api-ws/v1/stream`\n\n\n```json\n{ \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\" }\n```\n\n#### Example output from ws stream\n\n```json\n{\n      \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-xxxxxxxxxxxx/devices/00000000-0000-0000-1000-xxxxxxxxxxxx/cmd\",\n      \"event\": \"data\",\n      \"data\": {\n              \"session\": \"5cb8a6db-d11a-42cd-bed7-19e9f29e637\",\n              \"raw\": \"{\\\"status\\\":\\\"SUCCESS\\\",\\\"finished\\\":true,\\\"rows\\\":[{\\\"service\\\":\\\"management\\\",\\\"type\\\":\\\"service-agent\\\",\\\"network_interface\\\":\\\"ge-0/0/0\\\",\\\"destination\\\":\\\"\\\",\\\"gateway_ip\\\":\\\"192.168.1.1\\\",\\\"vector\\\":\\\"\\\",\\\"cost\\\":0,\\\"rate\\\":0,\\\"state\\\":\\\"Up\\\",\\\"capacity\\\":\\\"0/unlimited\\\",\\\"meetsSLA\\\":\\\"Yes\\\"},{\\\"service\\\":\\\"management\\\",\\\"type\\\":\\\"service-agent\\\",\\\"network_interface\\\":\\\"ge-0/0/1\\\",\\\"destination\\\":\\\"\\\",\\\"gateway_ip\\\":\\\"192.168.0.1\\\",\\\"vector\\\":\\\"\\\",\\\"cost\\\":0,\\\"rate\\\":0,\\\"state\\\":\\\"Up\\\",\\\"capacity\\\":\\\"0/unlimited\\\",\\\"meetsSLA\\\":\\\"Yes\\\"}]}\"\n      }\n}\n```"
+      description: 'Get service path information of the Device.
+
+
+        The output will be available through websocket. As there can be multiple command
+
+        issued against the same device at the same time and the output all goes through
+
+        the same websocket stream, session is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        { "subscribe": "/sites/{site_id}/devices/{device_id}/cmd" }
+
+        ```
+
+
+        #### Example output from ws stream
+
+
+        ```json
+
+        {
+
+        "channel": "/sites/d6fb4f96-xxxx-xxxx-xxxx-xxxxxxxxxxxx/devices/00000000-0000-0000-1000-xxxxxxxxxxxx/cmd",
+
+        "event": "data",
+
+        "data": {
+
+        "session": "5cb8a6db-d11a-42cd-bed7-19e9f29e637",
+
+        "raw": "{\"status\":\"SUCCESS\",\"finished\":true,\"rows\":[{\"service\":\"management\",\"type\":\"service-agent\",\"network_interface\":\"ge-0/0/0\",\"destination\":\"\",\"gateway_ip\":\"192.168.1.1\",\"vector\":\"\",\"cost\":0,\"rate\":0,\"state\":\"Up\",\"capacity\":\"0/unlimited\",\"meetsSLA\":\"Yes\"},{\"service\":\"management\",\"type\":\"service-agent\",\"network_interface\":\"ge-0/0/1\",\"destination\":\"\",\"gateway_ip\":\"192.168.0.1\",\"vector\":\"\",\"cost\":0,\"rate\":0,\"state\":\"Up\",\"capacity\":\"0/unlimited\",\"meetsSLA\":\"Yes\"}]}"
+
+        }
+
+        }
+
+        ```'
       operationId: showSiteSsrServicePath
       requestBody:
         content:
@@ -483,7 +853,51 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get active sessions passing through the Device.\n\n\nThe output will be available through websocket. As there can be multiple command\nissued against the same device at the same time and the output all goes through\nthe same websocket stream, session is introduced for demux.\n\n\n\n#### Subscribe to Device Command outputs\n\n`WS /api-ws/v1/stream`\n\n\n```json \n{ \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\" }\n```\n\n\n#### Example output from ws stream\n\n```json \n{\n      \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-xxxxxxxxxxxx/devices/00000000-0000-0000-1000-xxxxxxxxxxxx/cmd\",\n      \"event\": \"data\",\n      \"data\": {\n              \"session\": \"f517bf29-1141-41ae-a084-17cacb0ccb57\",\n              \"raw\": \"{\\\"status\\\":\\\"SUCCESS\\\",\\\"finished\\\":true,\\\"rows\\\":[{\\\"session_id\\\":\\\"a04b1cc7-dcc1-40a6-a010-0fe46ca38551\\\",\\\"direction\\\":\\\"forward\\\",\\\"service\\\":\\\"internet\\\",\\\"tenant\\\":\\\"SRV.PRD-Core\\\",\\\"device_interface\\\":\\\"ge-0/0/3\\\",\\\"network_interface\\\":\\\"ge-0/0/3.100\\\",\\\"protocol\\\":\\\"TCP\\\",\\\"source_ip\\\":\\\"10.3.20.101\\\",\\\"source_port\\\":45733,\\\"destination_ip\\\":\\\"13.38.46.35\\\",\\\"destination_port\\\":443,\\\"nat_ip\\\":\\\"192.168.1.115\\\",\\\"nat_port\\\":45256,\\\"payload_encrypted\\\":false,\\\"timeout\\\":1581,\\\"uptime\\\":319},{\\\"session_id\\\":\\\"a04b1cc7-dcc1-40a6-a010-0fe46ca38551\\\",\\\"direction\\\":\\\"reverse\\\",\\\"service\\\":\\\"internet\\\",\\\"tenant\\\":\\\"SRV.PRD-Core\\\",\\\"device_interface\\\":\\\"ge-0/0/0\\\",\\\"network_interface\\\":\\\"ge-0/0/0\\\",\\\"protocol\\\":\\\"TCP\\\",\\\"source_ip\\\":\\\"13.38.46.35\\\",\\\"source_port\\\":443,\\\"destination_ip\\\":\\\"192.168.1.115\\\",\\\"destination_port\\\":45256,\\\"nat_ip\\\":\\\"0.0.0.0\\\",\\\"nat_port\\\":0,\\\"payload_encrypted\\\":false,\\\"timeout\\\":1581,\\\"uptime\\\":319}]}\\n\"\n      }\n}\n```"
+      description: 'Get active sessions passing through the Device.
+
+
+        The output will be available through websocket. As there can be multiple command
+
+        issued against the same device at the same time and the output all goes through
+
+        the same websocket stream, session is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        { "subscribe": "/sites/{site_id}/devices/{device_id}/cmd" }
+
+        ```
+
+
+        #### Example output from ws stream
+
+
+        ```json
+
+        {
+
+        "channel": "/sites/d6fb4f96-xxxx-xxxx-xxxx-xxxxxxxxxxxx/devices/00000000-0000-0000-1000-xxxxxxxxxxxx/cmd",
+
+        "event": "data",
+
+        "data": {
+
+        "session": "f517bf29-1141-41ae-a084-17cacb0ccb57",
+
+        "raw": "{\"status\":\"SUCCESS\",\"finished\":true,\"rows\":[{\"session_id\":\"a04b1cc7-dcc1-40a6-a010-0fe46ca38551\",\"direction\":\"forward\",\"service\":\"internet\",\"tenant\":\"SRV.PRD-Core\",\"device_interface\":\"ge-0/0/3\",\"network_interface\":\"ge-0/0/3.100\",\"protocol\":\"TCP\",\"source_ip\":\"10.3.20.101\",\"source_port\":45733,\"destination_ip\":\"13.38.46.35\",\"destination_port\":443,\"nat_ip\":\"192.168.1.115\",\"nat_port\":45256,\"payload_encrypted\":false,\"timeout\":1581,\"uptime\":319},{\"session_id\":\"a04b1cc7-dcc1-40a6-a010-0fe46ca38551\",\"direction\":\"reverse\",\"service\":\"internet\",\"tenant\":\"SRV.PRD-Core\",\"device_interface\":\"ge-0/0/0\",\"network_interface\":\"ge-0/0/0\",\"protocol\":\"TCP\",\"source_ip\":\"13.38.46.35\",\"source_port\":443,\"destination_ip\":\"192.168.1.115\",\"destination_port\":45256,\"nat_ip\":\"0.0.0.0\",\"nat_port\":0,\"payload_encrypted\":false,\"timeout\":1581,\"uptime\":319}]}\n"
+
+        }
+
+        }
+
+        ```'
       operationId: showSiteSsrAndSrxSessions
       requestBody:
         content:
@@ -512,36 +926,40 @@ paths:
       tags:
       - Utilities WAN
 components:
+  parameters:
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    device_id:
+      in: path
+      name: device_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   schemas:
-    response_http403:
+    response_http400:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - You do not have permission to perform this action.
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    utils_clear_session_session_ids:
-      description: List of id of the sessions to be cleared
-      examples:
-      - - 88776655-0123-4567-890a-112233445566
-      items:
-        format: uuid
-        type: string
-      type: array
-    utils_release_dhcp:
-      properties:
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        port_id:
-          description: The network interface on which to release the current DHCP release
-          examples:
-          - ge-0/0/1.10
-          minLength: 1
-          type: string
-      required:
-      - port_id
-      type: object
+    ha_cluster_node_enum:
+      description: 'only for HA. enum: `node0`, `node1`'
+      enum:
+      - node0
+      - node1
+      type: string
     utils_clear_session:
       description: To use five tuples to lookup the session to be cleared, all must be provided
       properties:
@@ -555,101 +973,25 @@ components:
         session_ids:
           $ref: '#/components/schemas/utils_clear_session_session_ids'
       type: object
-    utils_clear_bgp_type:
-      default: hard
-      description: 'enum: `hard`, `in`, `out`, `soft`'
-      enum:
-      - hard
-      - in
-      - out
-      - soft
-      type: string
-    response_http400:
+    websocket_session:
       additionalProperties: false
       properties:
-        detail:
+        session:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - 19e73828-937f-05e6-f709-e29efdb0a82b
           type: string
+      required:
+      - session
       type: object
-    utils_show_ospf_summary:
-      properties:
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        vrf:
-          description: VRF name
-          examples:
-          - lan
-          type: string
-      type: object
-    utils_show_session:
+    utils_show_service_path:
+      description: The exact service name for which to display the service path
       properties:
         node:
           $ref: '#/components/schemas/ha_cluster_node_enum'
         service_name:
-          description: The exact service name for which to display the active sessions
           examples:
           - any
           type: string
-        session_id:
-          description: Show session details by session_id
-          type: string
-      type: object
-    utils_show_ospf_database:
-      properties:
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        self_originate:
-          default: false
-          description: Show originating info, default is false
-          type: boolean
-        vrf:
-          description: VRF name
-          examples:
-          - lan
-          type: string
-      type: object
-    utils_clear_arp:
-      properties:
-        ip:
-          description: The IP address for which to clear an ARP entry. port_id must be specified.
-          examples:
-          - 10.1.1.1
-          type: string
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        port_id:
-          description: The device interface on which to clear the ARP cache.
-          examples:
-          - wan
-          type: string
-        vlan:
-          description: The VLAN on which to clear the ARP cache. port_id must be specified.
-          examples:
-          - 1000
-          type: integer
-        vrf:
-          description: The vrf for which to clear an ARP entry. applicable for switch.
-          examples:
-          - guest
-          type: string
-      type: object
-    utils_clear_bgp:
-      properties:
-        neighbor:
-          default: all
-          description: can be ip, ipv6, all
-          type: string
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        type:
-          $ref: '#/components/schemas/utils_clear_bgp_type'
-        vrf:
-          description: VRF name
-          type: string
-      required:
-      - neighbor
-      - type
       type: object
     websocket_session_with_url:
       additionalProperties: false
@@ -672,12 +1014,111 @@ components:
         id:
           type: string
       type: object
-    ha_cluster_node_enum:
-      description: 'only for HA. enum: `node0`, `node1`'
-      enum:
-      - node0
-      - node1
-      type: string
+    utils_show_ospf_database:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        self_originate:
+          default: false
+          description: Show originating info, default is false
+          type: boolean
+        vrf:
+          description: VRF name
+          examples:
+          - lan
+          type: string
+      type: object
+    utils_show_ospf_summary:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        vrf:
+          description: VRF name
+          examples:
+          - lan
+          type: string
+      type: object
+    utils_clear_bgp:
+      properties:
+        neighbor:
+          default: all
+          description: can be ip, ipv6, all
+          type: string
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        type:
+          $ref: '#/components/schemas/utils_clear_bgp_type'
+        vrf:
+          description: VRF name
+          type: string
+      required:
+      - neighbor
+      - type
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    utils_service_ping:
+      properties:
+        count:
+          default: 10
+          type: integer
+        host:
+          format: ipv4
+          type: string
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        service:
+          description: Ping packet takes the same path as the service
+          type: string
+        size:
+          default: 56
+          maximum: 65535
+          minimum: 56
+          type: integer
+        tenant:
+          description: Tenant context in which the packet is sent
+          type: string
+      required:
+      - host
+      - service
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    utils_show_ospf_interfaces:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        port_id:
+          description: Network interface
+          examples:
+          - ge-0/0/3
+          type: string
+        vrf:
+          description: VRF name
+          examples:
+          - lan
+          type: string
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
     utils_show_route:
       properties:
         duration:
@@ -718,81 +1159,26 @@ components:
           - default
           type: string
       type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    utils_show_ospf_interfaces:
-      properties:
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        port_id:
-          description: Network interface
-          examples:
-          - ge-0/0/3
-          type: string
-        vrf:
-          description: VRF name
-          examples:
-          - lan
-          type: string
-      type: object
-    utils_service_ping:
-      properties:
-        count:
-          default: 10
-          type: integer
-        host:
-          format: ipv4
-          type: string
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        service:
-          description: Ping packet takes the same path as the service
-          type: string
-        size:
-          default: 56
-          maximum: 65535
-          minimum: 56
-          type: integer
-        tenant:
-          description: Tenant context in which the packet is sent
-          type: string
-      required:
-      - host
-      - service
-      type: object
-    utils_show_route_protocol:
-      default: bgp
-      description: 'enum: `any`, `bgp`, `direct`, `evpn`, `ospf`, `static`'
+    utils_clear_bgp_type:
+      default: hard
+      description: 'enum: `hard`, `in`, `out`, `soft`'
       enum:
-      - any
-      - bgp
-      - direct
-      - evpn
-      - ospf
-      - static
+      - hard
+      - in
+      - out
+      - soft
       type: string
-    utils_show_service_path:
-      description: The exact service name for which to display the service path
+    utils_show_session:
       properties:
         node:
           $ref: '#/components/schemas/ha_cluster_node_enum'
         service_name:
+          description: The exact service name for which to display the active sessions
           examples:
           - any
+          type: string
+        session_id:
+          description: Show session details by session_id
           type: string
       type: object
     utils_show_ospf_neighbors:
@@ -815,56 +1201,69 @@ components:
           - lan
           type: string
       type: object
+    utils_release_dhcp:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        port_id:
+          description: The network interface on which to release the current DHCP release
+          examples:
+          - ge-0/0/1.10
+          minLength: 1
+          type: string
+      required:
+      - port_id
+      type: object
+    utils_show_route_protocol:
+      default: bgp
+      description: 'enum: `any`, `bgp`, `direct`, `evpn`, `ospf`, `static`'
+      enum:
+      - any
+      - bgp
+      - direct
+      - evpn
+      - ospf
+      - static
+      type: string
+    utils_clear_arp:
+      properties:
+        ip:
+          description: The IP address for which to clear an ARP entry. port_id must be specified.
+          examples:
+          - 10.1.1.1
+          type: string
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        port_id:
+          description: The device interface on which to clear the ARP cache.
+          examples:
+          - wan
+          type: string
+        vlan:
+          description: The VLAN on which to clear the ARP cache. port_id must be specified.
+          examples:
+          - 1000
+          type: integer
+        vrf:
+          description: The vrf for which to clear an ARP entry. applicable for switch.
+          examples:
+          - guest
+          type: string
+      type: object
+    utils_clear_session_session_ids:
+      description: List of id of the sessions to be cleared
+      examples:
+      - - 88776655-0123-4567-890a-112233445566
+      items:
+        format: uuid
+        type: string
+      type: array
     ha_cluster_node:
       properties:
         node:
           $ref: '#/components/schemas/ha_cluster_node_enum'
       type: object
-    websocket_session:
-      additionalProperties: false
-      properties:
-        session:
-          examples:
-          - 19e73828-937f-05e6-f709-e29efdb0a82b
-          type: string
-      required:
-      - session
-      type: object
-  parameters:
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    device_id:
-      in: path
-      name: device_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP400:
       content:
         application/json:
@@ -880,8 +1279,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    OK:
-      description: OK
     HTTP404:
       content:
         application/json:
@@ -891,6 +1288,36 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP403:
       content:
         application/json:
@@ -915,6 +1342,8 @@ components:
           schema:
             $ref: '#/components/schemas/websocket_session_with_url'
       description: OK
+    OK:
+      description: OK
     WebsocketSession:
       content:
         application/json:
@@ -924,34 +1353,19 @@ components:
           schema:
             $ref: '#/components/schemas/websocket_session'
       description: OK
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   examples:
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

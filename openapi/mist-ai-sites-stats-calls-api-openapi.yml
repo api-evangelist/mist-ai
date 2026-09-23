@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -322,7 +291,91 @@ paths:
       tags:
       - Sites Stats - Calls
 components:
+  parameters:
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+      in: query
+      name: search_after
+      schema:
+        type: string
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    page:
+      in: query
+      name: page
+      schema:
+        default: 1
+        minimum: 1
+        type: integer
+    client_mac:
+      in: path
+      name: client_mac
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
+        type: string
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
+    sort:
+      description: On which field the list should be sorted, -prefix represents DESC order
+      in: query
+      name: sort
+      schema:
+        default: timestamp
+        examples:
+        - -site_id
+        type: string
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
   responses:
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
     CallStatsSummary:
       content:
         application/json:
@@ -338,36 +391,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_stats_calls_summary'
       description: Example response
-    CallTroubleshoot:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CallTroubleshootExample'
-          schema:
-            $ref: '#/components/schemas/call_troubleshoot'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CallTroubleshootExample'
-          schema:
-            $ref: '#/components/schemas/call_troubleshoot'
-      description: Example response
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP400:
       content:
         application/json:
@@ -401,36 +424,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -446,6 +454,36 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    CallTroubleshoot:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CallTroubleshootExample'
+          schema:
+            $ref: '#/components/schemas/call_troubleshoot'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CallTroubleshootExample'
+          schema:
+            $ref: '#/components/schemas/call_troubleshoot'
+      description: Example response
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
     CallTroubleshootSummary:
       content:
         application/json:
@@ -462,6 +500,56 @@ components:
             $ref: '#/components/schemas/response_call_troubleshoot_summary'
       description: Example response
   schemas:
+    stats_calls:
+      items:
+        $ref: '#/components/schemas/stats_call'
+      type: array
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    count_site_calls_distinct:
+      default: mac
+      description: 'enum: `mac`'
+      enum:
+      - mac
+      type: string
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_call_troubleshoot_summary:
+      additionalProperties: false
+      properties:
+        mac:
+          examples:
+          - 983a78ea4a44
+          type: string
+        meeting_id:
+          examples:
+          - b784d744-9a7c-4fad-9af0-f78858a319b1
+          format: uuid
+          type: string
+        results:
+          $ref: '#/components/schemas/call_troubleshoot_summaries'
+      type: object
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
     stats_call:
       additionalProperties: false
       properties:
@@ -487,201 +575,6 @@ components:
           type: integer
         video_quality:
           type: integer
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_call_troubleshoot_summary:
-      additionalProperties: false
-      properties:
-        mac:
-          examples:
-          - 983a78ea4a44
-          type: string
-        meeting_id:
-          examples:
-          - b784d744-9a7c-4fad-9af0-f78858a319b1
-          format: uuid
-          type: string
-        results:
-          $ref: '#/components/schemas/call_troubleshoot_summaries'
-      type: object
-    response_count:
-      additionalProperties: false
-      properties:
-        distinct:
-          type: string
-        end:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/count_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    call_troubleshoot_summaries:
-      items:
-        $ref: '#/components/schemas/call_troubleshoot_summary'
-      type: array
-    call_troubleshoot_data:
-      additionalProperties: false
-      properties:
-        ap_num_clients:
-          examples:
-          - -0.6565111
-          type: number
-        ap_rtt:
-          examples:
-          - 0.16559607
-          type: number
-        client_cpu:
-          examples:
-          - 3.7028809
-          type: number
-        client_n_streams:
-          examples:
-          - 0.15803306
-          type: number
-        client_radio_band:
-          examples:
-          - 0.5576923
-          type: number
-        client_rssi:
-          examples:
-          - -1.0839354
-          type: number
-        client_rx_bytes:
-          examples:
-          - 2.2622051
-          type: number
-        client_rx_rates:
-          examples:
-          - 0.62357205
-          type: number
-        client_rx_retries:
-          examples:
-          - 0.26726437
-          type: number
-        client_tx_bytes:
-          examples:
-          - 0.15803306
-          type: number
-        client_tx_rates:
-          examples:
-          - 0.62357205
-          type: number
-        client_tx_retries:
-          examples:
-          - 0.77553505
-          type: number
-        client_vpn_distance:
-          examples:
-          - 1.6474955
-          type: number
-        client_wifi_version:
-          examples:
-          - 0.18267937
-          type: number
-        expected:
-          examples:
-          - 30.941595
-          type: number
-        radio_bandwidth:
-          examples:
-          - -0.06538621
-          type: number
-        radio_channel:
-          examples:
-          - -0.73391086
-          type: number
-        radio_tx_power:
-          examples:
-          - 0.10027129
-          type: number
-        radio_util:
-          examples:
-          - 12.770318
-          type: number
-        radio_util_interference:
-          examples:
-          - -3.079999
-          type: number
-        site_num_clients:
-          examples:
-          - 0.017364305
-          type: number
-        wan_avg_download_mbps:
-          examples:
-          - 1.4803165
-          type: number
-        wan_avg_upload_mbps:
-          examples:
-          - -0.038184267
-          type: number
-        wan_jitter:
-          examples:
-          - 5.9680853
-          type: number
-        wan_max_download_mbps:
-          examples:
-          - 1.4803165
-          type: number
-        wan_max_upload_mbps:
-          examples:
-          - -0.038184267
-          type: number
-        wan_rtt:
-          examples:
-          - 46.77899
-          type: number
-      type: object
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    count_result:
-      additionalProperties:
-        type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
       type: object
     call_troubleshoot_summary:
       additionalProperties: false
@@ -813,6 +706,135 @@ components:
         video_out:
           $ref: '#/components/schemas/call_troubleshoot_summary_data'
       type: object
+    call_troubleshoot_data:
+      additionalProperties: false
+      properties:
+        ap_num_clients:
+          examples:
+          - -0.6565111
+          type: number
+        ap_rtt:
+          examples:
+          - 0.16559607
+          type: number
+        client_cpu:
+          examples:
+          - 3.7028809
+          type: number
+        client_n_streams:
+          examples:
+          - 0.15803306
+          type: number
+        client_radio_band:
+          examples:
+          - 0.5576923
+          type: number
+        client_rssi:
+          examples:
+          - -1.0839354
+          type: number
+        client_rx_bytes:
+          examples:
+          - 2.2622051
+          type: number
+        client_rx_rates:
+          examples:
+          - 0.62357205
+          type: number
+        client_rx_retries:
+          examples:
+          - 0.26726437
+          type: number
+        client_tx_bytes:
+          examples:
+          - 0.15803306
+          type: number
+        client_tx_rates:
+          examples:
+          - 0.62357205
+          type: number
+        client_tx_retries:
+          examples:
+          - 0.77553505
+          type: number
+        client_vpn_distance:
+          examples:
+          - 1.6474955
+          type: number
+        client_wifi_version:
+          examples:
+          - 0.18267937
+          type: number
+        expected:
+          examples:
+          - 30.941595
+          type: number
+        radio_bandwidth:
+          examples:
+          - -0.06538621
+          type: number
+        radio_channel:
+          examples:
+          - -0.73391086
+          type: number
+        radio_tx_power:
+          examples:
+          - 0.10027129
+          type: number
+        radio_util:
+          examples:
+          - 12.770318
+          type: number
+        radio_util_interference:
+          examples:
+          - -3.079999
+          type: number
+        site_num_clients:
+          examples:
+          - 0.017364305
+          type: number
+        wan_avg_download_mbps:
+          examples:
+          - 1.4803165
+          type: number
+        wan_avg_upload_mbps:
+          examples:
+          - -0.038184267
+          type: number
+        wan_jitter:
+          examples:
+          - 5.9680853
+          type: number
+        wan_max_download_mbps:
+          examples:
+          - 1.4803165
+          type: number
+        wan_max_upload_mbps:
+          examples:
+          - -0.038184267
+          type: number
+        wan_rtt:
+          examples:
+          - 46.77899
+          type: number
+      type: object
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
     troubleshoot_call_item:
       additionalProperties: false
       properties:
@@ -943,36 +965,11 @@ components:
         video_out:
           $ref: '#/components/schemas/call_troubleshoot_data'
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    response_stats_calls:
-      additionalProperties: false
-      properties:
-        end:
-          type: number
-        limit:
-          type: integer
-        next:
-          type: string
-        results:
-          $ref: '#/components/schemas/stats_calls'
-        start:
-          type: number
-        total:
-          type: integer
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
     response_http429:
       additionalProperties: false
       properties:
@@ -980,38 +977,6 @@ components:
           examples:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
-      type: object
-    response_stats_calls_summary:
-      additionalProperties: false
-      properties:
-        bad_minutes:
-          examples:
-          - 5566.0
-          type: number
-        bad_minutes_client:
-          examples:
-          - 526.0
-          type: number
-        bad_minutes_site_wan:
-          examples:
-          - 3612.0
-          type: number
-        bad_minutes_wireless:
-          examples:
-          - 1428.0
-          type: number
-        num_aps:
-          examples:
-          - 1
-          type: integer
-        num_users:
-          examples:
-          - 3
-          type: integer
-        total_minutes:
-          examples:
-          - 5566.0
-          type: number
       type: object
     call_troubleshoot_summary_data:
       additionalProperties: false
@@ -1145,18 +1110,99 @@ components:
           - 46.77899
           type: number
       type: object
-    site_id:
+    response_count:
+      additionalProperties: false
+      properties:
+        distinct:
+          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    org_id:
       examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
       format: uuid
       readOnly: true
       type: string
-    count_site_calls_distinct:
-      default: mac
-      description: 'enum: `mac`'
-      enum:
-      - mac
-      type: string
+    call_troubleshoot_summaries:
+      items:
+        $ref: '#/components/schemas/call_troubleshoot_summary'
+      type: array
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    response_stats_calls:
+      additionalProperties: false
+      properties:
+        end:
+          type: number
+        limit:
+          type: integer
+        next:
+          type: string
+        results:
+          $ref: '#/components/schemas/stats_calls'
+        start:
+          type: number
+        total:
+          type: integer
+      type: object
+    response_stats_calls_summary:
+      additionalProperties: false
+      properties:
+        bad_minutes:
+          examples:
+          - 5566.0
+          type: number
+        bad_minutes_client:
+          examples:
+          - 526.0
+          type: number
+        bad_minutes_site_wan:
+          examples:
+          - 3612.0
+          type: number
+        bad_minutes_wireless:
+          examples:
+          - 1428.0
+          type: number
+        num_aps:
+          examples:
+          - 1
+          type: integer
+        num_users:
+          examples:
+          - 3
+          type: integer
+        total_minutes:
+          examples:
+          - 5566.0
+          type: number
+      type: object
+    call_troubleshoots:
+      items:
+        $ref: '#/components/schemas/troubleshoot_call_item'
+      type: array
     call_troubleshoot:
       additionalProperties: false
       properties:
@@ -1172,15 +1218,141 @@ components:
         results:
           $ref: '#/components/schemas/call_troubleshoots'
       type: object
-    call_troubleshoots:
-      items:
-        $ref: '#/components/schemas/troubleshoot_call_item'
-      type: array
-    stats_calls:
-      items:
-        $ref: '#/components/schemas/stats_call'
-      type: array
   examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    CallTroubleshootSummaryExample:
+      value:
+        mac: 983a78ea4a44
+        meeting_id: b784d744-9a7c-4fad-9af0-f78858a319b1
+        results:
+        - ap_num_clients: -0.08802365511655807
+          ap_rtt: 0.09924473613500595
+          audio_in:
+            ap_num_clients: 45.48306793636746
+            ap_rtt: 6.352042701509264
+            client_cpu: 9.323452578650581
+            client_radio_band: 0.5841414928436279
+            client_rssi: 17.251008563571506
+            client_tx_bytes: 1.8379177401463191
+            client_tx_rates: 10.668423069847954
+            client_tx_retries: 43.323209603627525
+            client_vpn_distance: 112.4420166015625
+            expected: 29.74261474609375
+            radio_bandwidth: -0.1533682727151447
+            radio_channel: 0.662909648484654
+            radio_util: 27.891777674357098
+            radio_util_interference: 4.38913492154744
+            site_num_clients: -0.2855822932389047
+            site_wan_avg_upload_mbps: -0.988989942603641
+            site_wan_jitter: 0.7875519659784105
+            site_wan_rtt: 15.094849904378256
+            site_wan_upload_mbps: -0.8131117953194512
+          audio_out:
+            ap_num_clients: 45.48306793636746
+            ap_rtt: 6.352042701509264
+            client_cpu: 9.323452578650581
+            client_radio_band: 0.5841414928436279
+            client_rssi: 17.251008563571506
+            client_tx_bytes: 1.8379177401463191
+            client_tx_rates: 10.668423069847954
+            client_tx_retries: 43.323209603627525
+            client_vpn_distance: 112.4420166015625
+            expected: 29.74261474609375
+            radio_bandwidth: -0.1533682727151447
+            radio_channel: 0.662909648484654
+            radio_util: 27.891777674357098
+            radio_util_interference: 4.38913492154744
+            site_num_clients: -0.2855822932389047
+            site_wan_avg_upload_mbps: -0.988989942603641
+            site_wan_jitter: 0.7875519659784105
+            site_wan_rtt: 15.094849904378256
+            site_wan_upload_mbps: -0.8131117953194512
+          client_cpu: 0.00834270566701889
+          client_n_streams: 0.00734270566701889
+          client_radio_band: 0.5841414928436279
+          client_rssi: 0.7594696879386902
+          client_rx_bytes: 2.365511655807e-05
+          client_rx_rates: 0.02441493794322014
+          client_rx_retries: -0.14325742423534393
+          client_tx_bytes: 0.00102365511655807
+          client_tx_rates: 0.22236637771129608
+          client_tx_retries: 0.3308201730251312
+          client_vpn_distance: -0.0001660545531194657
+          client_wifi_version: 7.0566701889e-07
+          expected: -2.8630001056670187
+          radio_ap_change: 0.01850946433842182
+          radio_bandwidth: -0.021175479516386986
+          radio_channel: 0.11686426401138306
+          radio_rx_failed: 1.1782013177871704
+          radio_tx_power: 0.121039018034935
+          radio_util: 0.2452986091375351
+          radio_util_interference: 3.4367904663085938
+          site_num_clients: 0.055026158690452576
+          site_wan_avg_download_mbps: 3.0566701889e-07
+          site_wan_avg_upload_mbps: 5.566701889e-08
+          site_wan_download_mbps: 8.0566701889e-07
+          site_wan_jitter: 0.7875519659784105
+          site_wan_rtt: 15.094849904378256
+          site_wan_upload_mbps: 2.0566701889e-07
+          timestamp: 1695425115
+          video_in:
+            ap_num_clients: 45.48306793636746
+            ap_rtt: 6.352042701509264
+            client_cpu: 9.323452578650581
+            client_radio_band: 0.5841414928436279
+            client_rssi: 17.251008563571506
+            client_tx_bytes: 1.8379177401463191
+            client_tx_rates: 10.668423069847954
+            client_tx_retries: 43.323209603627525
+            client_vpn_distance: 112.4420166015625
+            expected: 29.74261474609375
+            radio_bandwidth: -0.1533682727151447
+            radio_channel: 0.662909648484654
+            radio_util: 27.891777674357098
+            radio_util_interference: 4.38913492154744
+            site_num_clients: -0.2855822932389047
+            site_wan_avg_upload_mbps: -0.988989942603641
+            site_wan_jitter: 0.7875519659784105
+            site_wan_rtt: 15.094849904378256
+            site_wan_upload_mbps: -0.8131117953194512
+          video_out:
+            ap_num_clients: 45.48306793636746
+            ap_rtt: 6.352042701509264
+            client_cpu: 9.323452578650581
+            client_radio_band: 0.5841414928436279
+            client_rssi: 17.251008563571506
+            client_tx_bytes: 1.8379177401463191
+            client_tx_rates: 10.668423069847954
+            client_tx_retries: 43.323209603627525
+            client_vpn_distance: 112.4420166015625
+            expected: 29.74261474609375
+            radio_bandwidth: -0.1533682727151447
+            radio_channel: 0.662909648484654
+            radio_util: 27.891777674357098
+            radio_util_interference: 4.38913492154744
+            site_num_clients: -0.2855822932389047
+            site_wan_avg_upload_mbps: -0.988989942603641
+            site_wan_jitter: 0.7875519659784105
+            site_wan_rtt: 15.094849904378256
+            site_wan_upload_mbps: -0.8131117953194512
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
     CallTroubleshootExample:
       value:
         mac: 983a78ea4a44
@@ -1328,130 +1500,9 @@ components:
             wan_max_download_mbps: 1.4803165
             wan_max_upload_mbps: -0.038184267
             wan_rtt: 46.77899
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
-    CallTroubleshootSummaryExample:
-      value:
-        mac: 983a78ea4a44
-        meeting_id: b784d744-9a7c-4fad-9af0-f78858a319b1
-        results:
-        - ap_num_clients: -0.08802365511655807
-          ap_rtt: 0.09924473613500595
-          audio_in:
-            ap_num_clients: 45.48306793636746
-            ap_rtt: 6.352042701509264
-            client_cpu: 9.323452578650581
-            client_radio_band: 0.5841414928436279
-            client_rssi: 17.251008563571506
-            client_tx_bytes: 1.8379177401463191
-            client_tx_rates: 10.668423069847954
-            client_tx_retries: 43.323209603627525
-            client_vpn_distance: 112.4420166015625
-            expected: 29.74261474609375
-            radio_bandwidth: -0.1533682727151447
-            radio_channel: 0.662909648484654
-            radio_util: 27.891777674357098
-            radio_util_interference: 4.38913492154744
-            site_num_clients: -0.2855822932389047
-            site_wan_avg_upload_mbps: -0.988989942603641
-            site_wan_jitter: 0.7875519659784105
-            site_wan_rtt: 15.094849904378256
-            site_wan_upload_mbps: -0.8131117953194512
-          audio_out:
-            ap_num_clients: 45.48306793636746
-            ap_rtt: 6.352042701509264
-            client_cpu: 9.323452578650581
-            client_radio_band: 0.5841414928436279
-            client_rssi: 17.251008563571506
-            client_tx_bytes: 1.8379177401463191
-            client_tx_rates: 10.668423069847954
-            client_tx_retries: 43.323209603627525
-            client_vpn_distance: 112.4420166015625
-            expected: 29.74261474609375
-            radio_bandwidth: -0.1533682727151447
-            radio_channel: 0.662909648484654
-            radio_util: 27.891777674357098
-            radio_util_interference: 4.38913492154744
-            site_num_clients: -0.2855822932389047
-            site_wan_avg_upload_mbps: -0.988989942603641
-            site_wan_jitter: 0.7875519659784105
-            site_wan_rtt: 15.094849904378256
-            site_wan_upload_mbps: -0.8131117953194512
-          client_cpu: 0.00834270566701889
-          client_n_streams: 0.00734270566701889
-          client_radio_band: 0.5841414928436279
-          client_rssi: 0.7594696879386902
-          client_rx_bytes: 2.365511655807e-05
-          client_rx_rates: 0.02441493794322014
-          client_rx_retries: -0.14325742423534393
-          client_tx_bytes: 0.00102365511655807
-          client_tx_rates: 0.22236637771129608
-          client_tx_retries: 0.3308201730251312
-          client_vpn_distance: -0.0001660545531194657
-          client_wifi_version: 7.0566701889e-07
-          expected: -2.8630001056670187
-          radio_ap_change: 0.01850946433842182
-          radio_bandwidth: -0.021175479516386986
-          radio_channel: 0.11686426401138306
-          radio_rx_failed: 1.1782013177871704
-          radio_tx_power: 0.121039018034935
-          radio_util: 0.2452986091375351
-          radio_util_interference: 3.4367904663085938
-          site_num_clients: 0.055026158690452576
-          site_wan_avg_download_mbps: 3.0566701889e-07
-          site_wan_avg_upload_mbps: 5.566701889e-08
-          site_wan_download_mbps: 8.0566701889e-07
-          site_wan_jitter: 0.7875519659784105
-          site_wan_rtt: 15.094849904378256
-          site_wan_upload_mbps: 2.0566701889e-07
-          timestamp: 1695425115
-          video_in:
-            ap_num_clients: 45.48306793636746
-            ap_rtt: 6.352042701509264
-            client_cpu: 9.323452578650581
-            client_radio_band: 0.5841414928436279
-            client_rssi: 17.251008563571506
-            client_tx_bytes: 1.8379177401463191
-            client_tx_rates: 10.668423069847954
-            client_tx_retries: 43.323209603627525
-            client_vpn_distance: 112.4420166015625
-            expected: 29.74261474609375
-            radio_bandwidth: -0.1533682727151447
-            radio_channel: 0.662909648484654
-            radio_util: 27.891777674357098
-            radio_util_interference: 4.38913492154744
-            site_num_clients: -0.2855822932389047
-            site_wan_avg_upload_mbps: -0.988989942603641
-            site_wan_jitter: 0.7875519659784105
-            site_wan_rtt: 15.094849904378256
-            site_wan_upload_mbps: -0.8131117953194512
-          video_out:
-            ap_num_clients: 45.48306793636746
-            ap_rtt: 6.352042701509264
-            client_cpu: 9.323452578650581
-            client_radio_band: 0.5841414928436279
-            client_rssi: 17.251008563571506
-            client_tx_bytes: 1.8379177401463191
-            client_tx_rates: 10.668423069847954
-            client_tx_retries: 43.323209603627525
-            client_vpn_distance: 112.4420166015625
-            expected: 29.74261474609375
-            radio_bandwidth: -0.1533682727151447
-            radio_channel: 0.662909648484654
-            radio_util: 27.891777674357098
-            radio_util_interference: 4.38913492154744
-            site_num_clients: -0.2855822932389047
-            site_wan_avg_upload_mbps: -0.988989942603641
-            site_wan_jitter: 0.7875519659784105
-            site_wan_rtt: 15.094849904378256
-            site_wan_upload_mbps: -0.8131117953194512
     CallStatsSummaryExample:
       value:
         bad_minutes: 5566.0
@@ -1461,88 +1512,6 @@ components:
         num_aps: 1
         num_users: 3
         total_minutes: 575217
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-  parameters:
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    page:
-      in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
-    sort:
-      description: On which field the list should be sorted, -prefix represents DESC order
-      in: query
-      name: sort
-      schema:
-        default: timestamp
-        examples:
-        - -site_id
-        type: string
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
-      schema:
-        type: string
-    client_mac:
-      in: path
-      name: client_mac
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

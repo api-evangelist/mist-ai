@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -255,7 +224,45 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "TDR can be performed from the Switch. The output will be available through websocket. As there can be multiple commands issued against the same Switch at the same time and the output all goes through the same websocket stream, session is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n##### Example output from ws stream\n```json\n{\n    \"event\": \"data\",\n    \"channel\": \"/sites/4ac1dcf4-9d8b-7211-65c4-057819f0862b/devices/00000000-0000-0000-1000-5c5b350e0060/cmd\",\n    \"data\": {\n        \"session\": \"session_id\",\n        \"raw\": \"Interface TDR detail:\\nTest status : Test successfully executed  ge-0/0/0\\n\"\n    }\n}\n```"
+      description: 'TDR can be performed from the Switch. The output will be available through websocket. As there can be multiple commands issued against the same Switch at the same time and the output all goes through the same websocket stream, session is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+        ##### Example output from ws stream
+
+        ```json
+
+        {
+
+        "event": "data",
+
+        "channel": "/sites/4ac1dcf4-9d8b-7211-65c4-057819f0862b/devices/00000000-0000-0000-1000-5c5b350e0060/cmd",
+
+        "data": {
+
+        "session": "session_id",
+
+        "raw": "Interface TDR detail:\nTest status : Test successfully executed ge-0/0/0\n"
+
+        }
+
+        }
+
+        ```'
       operationId: cableTestFromSwitch
       requestBody:
         content:
@@ -469,7 +476,26 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get ARP Table from the Device.\n\nThe output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n"
+      description: 'Get ARP Table from the Device.
+
+
+        The output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```'
       operationId: showSiteDeviceArpTable
       requestBody:
         content:
@@ -642,35 +668,14 @@ paths:
       - Utilities LAN
 components:
   schemas:
-    upgrade_fpga_multi_device_ids:
-      description: List of device id to upgrade bios
-      items:
-        examples:
-        - 00000000-0000-0000-1000-5c5b35584a6f
-        format: uuid
-        type: string
-      type: array
-    upgrade_bios_multi_device_ids:
-      description: List of device id to upgrade bios
-      items:
-        examples:
-        - 00000000-0000-0000-1000-5c5b35584a6f
-        format: uuid
-        type: string
-      type: array
-    response_http403:
-      additionalProperties: false
+    utils_cable_tests:
       properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
+        port:
+          description: The port to run the cable test
           type: string
+      required:
+      - port
       type: object
-    utils_clear_bpdu_ports:
-      description: List of ports on which to clear the detected BPDU error, or `all` for all ports
-      items:
-        type: string
-      type: array
     upgrade_fpga:
       properties:
         reboot:
@@ -682,6 +687,125 @@ components:
           examples:
           - REV37
           type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    ha_cluster_node_enum:
+      description: 'only for HA. enum: `node0`, `node1`'
+      enum:
+      - node0
+      - node1
+      type: string
+    upgrade_bios_multi_models:
+      description: List of device model to upgrade bios
+      items:
+        examples:
+        - EX4400-48T
+        type: string
+      type: array
+    clear_dot1x_session_ports:
+      description: List of port IDs where the dot1x session must be cleared. Use `all` to clear sessions on all ports.
+      examples:
+      - - ge-0/0/0
+        - ge-0/0/1
+      items:
+        type: string
+      type: array
+    utils_clear_macs:
+      properties:
+        ports:
+          $ref: '#/components/schemas/utils_clear_macs_ports'
+      type: object
+    websocket_session:
+      additionalProperties: false
+      properties:
+        session:
+          examples:
+          - 19e73828-937f-05e6-f709-e29efdb0a82b
+          type: string
+      required:
+      - session
+      type: object
+    upgrade_fpga_multi_models:
+      description: List of device model to upgrade bios
+      items:
+        examples:
+        - EX4400-48T
+        type: string
+      type: array
+    clear_dot1x_session:
+      properties:
+        ports:
+          $ref: '#/components/schemas/clear_dot1x_session_ports'
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    upgrade_fpga_multi_device_ids:
+      description: List of device id to upgrade bios
+      items:
+        examples:
+        - 00000000-0000-0000-1000-5c5b35584a6f
+        format: uuid
+        type: string
+      type: array
+    utils_clear_bpdu:
+      properties:
+        ports:
+          $ref: '#/components/schemas/utils_clear_bpdu_ports'
+      type: object
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    utils_clear_bpdu_ports:
+      description: List of ports on which to clear the detected BPDU error, or `all` for all ports
+      items:
+        type: string
+      type: array
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_device_bios_upgrade:
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    devices_ids:
+      properties:
+        device_ids:
+          items:
+            format: uuid
+            type: string
+          type: array
+      required:
+      - device_ids
       type: object
     utils_show_arp:
       properties:
@@ -716,70 +840,14 @@ components:
           - guest
           type: string
       type: object
-    response_http400:
+    response_http403:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - You do not have permission to perform this action.
           type: string
       type: object
-    upgrade_bios:
-      properties:
-        reboot:
-          default: false
-          description: Reboot device immediately after upgrade is completed
-          type: boolean
-        version:
-          description: Specific bios version
-          examples:
-          - CDEN_P_EX1_00.20.01.00
-          type: string
-      type: object
-    devices_ids:
-      properties:
-        device_ids:
-          items:
-            format: uuid
-            type: string
-          type: array
-      required:
-      - device_ids
-      type: object
-    clear_dot1x_session:
-      properties:
-        ports:
-          $ref: '#/components/schemas/clear_dot1x_session_ports'
-      type: object
-    response_wired_coa:
-      additionalProperties: false
-      properties:
-        device_mac:
-          examples:
-          - 5c5b35000002
-          type: string
-        port_id:
-          examples:
-          - ge-0/0/0
-          type: string
-        session:
-          examples:
-          - 0a2a11b8-4b30-40d8-a6d1-e91ea540d86f
-          format: uuid
-          type: string
-      type: object
-    upgrade_bios_multi_models:
-      description: List of device model to upgrade bios
-      items:
-        examples:
-        - EX4400-48T
-        type: string
-      type: array
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
     upgrade_fpga_multi:
       properties:
         device_ids:
@@ -801,47 +869,31 @@ components:
       items:
         type: string
       type: array
-    response_http404:
+    response_wired_coa:
       additionalProperties: false
       properties:
-        id:
-          type: string
-      type: object
-    ha_cluster_node_enum:
-      description: 'only for HA. enum: `node0`, `node1`'
-      enum:
-      - node0
-      - node1
-      type: string
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
+        device_mac:
           examples:
-          - Authentication credentials were not provided.
+          - 5c5b35000002
           type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
+        port_id:
           examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          - ge-0/0/0
+          type: string
+        session:
+          examples:
+          - 0a2a11b8-4b30-40d8-a6d1-e91ea540d86f
+          format: uuid
           type: string
       type: object
-    utils_clear_macs:
-      properties:
-        ports:
-          $ref: '#/components/schemas/utils_clear_macs_ports'
-      type: object
-    response_device_bios_upgrade:
-      additionalProperties: false
-      properties:
-        status:
-          type: string
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-      type: object
+    upgrade_bios_multi_device_ids:
+      description: List of device id to upgrade bios
+      items:
+        examples:
+        - 00000000-0000-0000-1000-5c5b35584a6f
+        format: uuid
+        type: string
+      type: array
     upgrade_bios_multi:
       properties:
         device_ids:
@@ -858,43 +910,17 @@ components:
           - CDEN_P_EX1_00.15.01.00
           type: string
       type: object
-    utils_clear_bpdu:
+    upgrade_bios:
       properties:
-        ports:
-          $ref: '#/components/schemas/utils_clear_bpdu_ports'
-      type: object
-    clear_dot1x_session_ports:
-      description: List of port IDs where the dot1x session must be cleared. Use `all` to clear sessions on all ports.
-      examples:
-      - - ge-0/0/0
-        - ge-0/0/1
-      items:
-        type: string
-      type: array
-    upgrade_fpga_multi_models:
-      description: List of device model to upgrade bios
-      items:
-        examples:
-        - EX4400-48T
-        type: string
-      type: array
-    utils_cable_tests:
-      properties:
-        port:
-          description: The port to run the cable test
-          type: string
-      required:
-      - port
-      type: object
-    websocket_session:
-      additionalProperties: false
-      properties:
-        session:
+        reboot:
+          default: false
+          description: Reboot device immediately after upgrade is completed
+          type: boolean
+        version:
+          description: Specific bios version
           examples:
-          - 19e73828-937f-05e6-f709-e29efdb0a82b
+          - CDEN_P_EX1_00.20.01.00
           type: string
-      required:
-      - session
       type: object
   parameters:
     site_id:
@@ -906,18 +932,18 @@ components:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
-    device_id:
+    org_id:
       in: path
-      name: device_id
+      name: org_id
       required: true
       schema:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
-    org_id:
+    device_id:
       in: path
-      name: org_id
+      name: device_id
       required: true
       schema:
         examples:
@@ -934,47 +960,6 @@ components:
         pattern: ^[0-9a-fA-F]{12}$
         type: string
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    OK:
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     DeviceBiosUpgrade:
       content:
         application/json:
@@ -990,21 +975,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_device_bios_upgrade'
       description: OK
-    HTTP403:
+    HTTP400:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP400Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
+            $ref: '#/components/schemas/response_http400'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP400Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
     ReauthWiredClient:
       content:
         application/json:
@@ -1020,15 +1005,30 @@ components:
           schema:
             $ref: '#/components/schemas/response_wired_coa'
       description: Reauth Wired Client
-    WebsocketSession:
+    HTTP404:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/websocket_session'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
           schema:
-            $ref: '#/components/schemas/websocket_session'
-      description: OK
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -1044,28 +1044,54 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    OK:
+      description: OK
+    WebsocketSession:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/websocket_session'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/websocket_session'
+      description: OK
   examples:
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    DeviceBiosUpgradeExample:
-      value:
-        status: inprogress
-        timestamp: 1428949501
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     ReauthWiredClientExample:
       value:
         device_mac: 5c5b35000002
         port_id: ge-0/0/0
         session: 0a2a11b8-4b30-40d8-a6d1-e91ea540d86f
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    DeviceBiosUpgradeExample:
+      value:
+        status: inprogress
+        timestamp: 1428949501
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

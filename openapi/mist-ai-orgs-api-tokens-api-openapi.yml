@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -84,18 +53,7 @@ security:
 - basicAuth: []
   csrfToken: []
 tags:
-- description: 'Org API token is a unique identifier used by an application to authenticate and access a service''s API.
-
-    These tokens are used to authenticate requests made to the API server and ensure secure access to the API.
-
-
-    They are not bound to any specific user and provide access to the organization as a whole.
-
-
-    Organization tokens support different privileges and can only be used for the specific organization they are generated for.
-
-
-    Rate limiting is done on an individual token basis, so if one token reaches its rate limit, it does not impact other tokens.'
+- description: Org API token is a unique identifier used by an application to authenticate and access a service's API.
   name: Orgs API Tokens
 paths:
   /api/v1/orgs/{org_id}/apitokens:
@@ -223,34 +181,6 @@ paths:
       - Orgs API Tokens
 components:
   schemas:
-    admin_privilege_views:
-      description: "Custom roles restrict Org users to specific UI views. This is useful for limiting UI access of Org users. Custom roles restrict Org users to specific UI views. This is useful for limiting UI access of Org users.  \nYou can define custom roles by adding the `views` attribute along with `role` when assigning privileges.  \nBelow are the list of supported UI views. Note that this is UI only feature.  \n\n  | UI View | Required Role | Description |\n  | --- | --- | --- |\n  | `reporting` | `read` | full access to all analytics tools |\n  | `marketing` | `read` | can view analytics and location maps |\n  | `super_observer` | `read` | can view all the organization except the subscription page |\n  | `location` | `write` | can view and manage location maps, can view analytics |\n  | `security` | `write` | can view and manage site labels, policies and security |\n  | `switch_admin` | `helpdesk` | can view and manage Switch ports, can view wired clients |\n  | `mxedge_admin` | `admin` | can view and manage Mist edges and Mist tunnels |\n  | `lobby_admin` | `admin` | full access to Org and Site Pre-shared keys |"
-      items:
-        $ref: '#/components/schemas/admin_privilege_view'
-      type: array
-    org_apitoken_src_ips:
-      description: List of allowed IP addresses from where the token can be used from. At most 10 IP addresses can be specified, cannot be changed once the API Token is created.
-      examples:
-      - - 63.3.56.0/24
-        - 63.3.55.4
-      items:
-        type: string
-      maximum: 10
-      type: array
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
     response_http400:
       additionalProperties: false
       properties:
@@ -259,17 +189,11 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    org_apitoken_privileges:
-      description: List of privileges the token has on the orgs/sites
-      examples:
-      - - role: admin
-          scope: org
-      items:
-        $ref: '#/components/schemas/privilege_org'
-      maxItems: 10
-      minItems: 1
-      type: array
-      uniqueItems: true
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
     privilege_org:
       additionalProperties: false
       description: Privileges settings
@@ -301,10 +225,24 @@ components:
       - role
       - scope
       type: object
-    org_apitokens:
+    org_apitoken_privileges:
+      description: List of privileges the token has on the orgs/sites
+      examples:
+      - - role: admin
+          scope: org
       items:
-        $ref: '#/components/schemas/org_apitoken'
+        $ref: '#/components/schemas/privilege_org'
+      maxItems: 10
+      minItems: 1
       type: array
+      uniqueItems: true
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
     response_http404:
       additionalProperties: false
       properties:
@@ -319,6 +257,10 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
+    org_apitokens:
+      items:
+        $ref: '#/components/schemas/org_apitoken'
+      type: array
     response_http429:
       additionalProperties: false
       properties:
@@ -327,18 +269,45 @@ components:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
+    privilege_org_role:
+      description: 'access permissions. enum: `admin`, `helpdesk`, `installer`, `read`, `write`'
+      enum:
+      - admin
+      - helpdesk
+      - installer
+      - read
+      - write
+      type: string
+    org_id:
       examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
       format: uuid
       readOnly: true
       type: string
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    admin_privilege_views:
+      description: "Custom roles restrict Org users to specific UI views. This is useful for limiting UI access of Org users. Custom roles restrict Org users to specific UI views. This is useful for limiting UI access of Org users.  \nYou can define custom roles by adding the `views` attribute along with `role` when assigning privileges.  \nBelow are the list of supported UI views. Note that this is UI only feature.  \n\n  | UI View | Required Role | Description |\n  | --- | --- | --- |\n  | `reporting` | `read` | full access to all analytics tools |\n  | `marketing` | `read` | can view analytics and location maps |\n  | `super_observer` | `read` | can view all the organization except the subscription page |\n  | `location` | `write` | can view and manage location maps, can view analytics |\n  | `security` | `write` | can view and manage site labels, policies and security |\n  | `switch_admin` | `helpdesk` | can view and manage Switch ports, can view wired clients |\n  | `mxedge_admin` | `admin` | can view and manage Mist edges and Mist tunnels |\n  | `lobby_admin` | `admin` | full access to Org and Site Pre-shared keys |"
+      items:
+        $ref: '#/components/schemas/admin_privilege_view'
+      type: array
+    admin_privilege_view:
+      enum:
+      - lobby_admin
+      - location
+      - marketing
+      - mxedge_admin
+      - reporting
+      - security
+      - super_observer
+      - switch_admin
+      type: string
     privilege_org_scope:
       description: 'enum: `org`, `site`, `sitegroup`, `orgsites`'
       enum:
@@ -347,6 +316,15 @@ components:
       - sitegroup
       - orgsites
       type: string
+    org_apitoken_src_ips:
+      description: List of allowed IP addresses from where the token can be used from. At most 10 IP addresses can be specified, cannot be changed once the API Token is created.
+      examples:
+      - - 63.3.56.0/24
+        - 63.3.55.4
+      items:
+        type: string
+      maximum: 10
+      type: array
     org_apitoken:
       description: "Org API Token\n\n**Note:**\n`privilege` field is required to create the object, but may not be \nreturned in the POST API Response (only in the afterward GET)"
       properties:
@@ -388,42 +366,7 @@ components:
       required:
       - name
       type: object
-    privilege_org_role:
-      description: 'access permissions. enum: `admin`, `helpdesk`, `installer`, `read`, `write`'
-      enum:
-      - admin
-      - helpdesk
-      - installer
-      - read
-      - write
-      type: string
-    admin_privilege_view:
-      enum:
-      - lobby_admin
-      - location
-      - marketing
-      - mxedge_admin
-      - reporting
-      - security
-      - super_observer
-      - switch_admin
-      type: string
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP400:
       content:
         application/json:
@@ -439,23 +382,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    OK:
-      description: OK
-    ApitokenOrg:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ApitokenOrgExample'
-          schema:
-            $ref: '#/components/schemas/org_apitoken'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ApitokenOrgExample'
-          schema:
-            $ref: '#/components/schemas/org_apitoken'
-      description: OK
     HTTP404:
       content:
         application/json:
@@ -465,36 +391,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    ApitokensOrgArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ApitokensOrgArrayExample'
-          schema:
-            $ref: '#/components/schemas/org_apitokens'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ApitokensOrgArrayExample'
-          schema:
-            $ref: '#/components/schemas/org_apitokens'
-      description: OK
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -510,10 +421,92 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    ApitokenOrg:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ApitokenOrgExample'
+          schema:
+            $ref: '#/components/schemas/org_apitoken'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ApitokenOrgExample'
+          schema:
+            $ref: '#/components/schemas/org_apitoken'
+      description: OK
+    ApitokensOrgArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ApitokensOrgArrayExample'
+          schema:
+            $ref: '#/components/schemas/org_apitokens'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ApitokensOrgArrayExample'
+          schema:
+            $ref: '#/components/schemas/org_apitokens'
+      description: OK
+    OK:
+      description: OK
+  parameters:
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    apitoken_id:
+      in: path
+      name: apitoken_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   examples:
+    ApitokenOrgExample:
+      value:
+        created_by: user@mycorp.com
+        created_time: 1626875902
+        id: 497f6eca-6276-4993-bfeb-53efbbba6f08
+        key: 1qkb...QQCL
+        last_used: 1690115110
+        name: org_token_xyz
+        org_id: a40f5d1f-d889-42e9-94ea-b9b33585fc6b
+        privileges:
+        - org_id: a40f5d1f-d889-42e9-94ea-b9b33585fc6b
+          role: admin
+          scope: org
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
@@ -533,41 +526,6 @@ components:
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
-    ApitokenOrgExample:
-      value:
-        created_by: user@mycorp.com
-        created_time: 1626875902
-        id: 497f6eca-6276-4993-bfeb-53efbbba6f08
-        key: 1qkb...QQCL
-        last_used: 1690115110
-        name: org_token_xyz
-        org_id: a40f5d1f-d889-42e9-94ea-b9b33585fc6b
-        privileges:
-        - org_id: a40f5d1f-d889-42e9-94ea-b9b33585fc6b
-          role: admin
-          scope: org
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-  parameters:
-    apitoken_id:
-      in: path
-      name: apitoken_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

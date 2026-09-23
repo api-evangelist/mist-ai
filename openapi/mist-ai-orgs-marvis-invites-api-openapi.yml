@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -224,13 +193,11 @@ paths:
       - Orgs Marvis Invites
 components:
   schemas:
-    response_http403:
+    marvis_client_location:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
+        enabled:
+          type: boolean
       type: object
     response_http400:
       additionalProperties: false
@@ -240,21 +207,42 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    marvis_client_location:
+    marvis_clients:
+      items:
+        $ref: '#/components/schemas/marvis_client'
+      type: array
+    response_http404:
       additionalProperties: false
       properties:
-        enabled:
-          type: boolean
+        id:
+          type: string
+      type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
       type: object
     marvis_client_telemetry:
       additionalProperties: false
       description: 'Note: some stats are not collected when it''s not connected to Mist infrastructure'
-      properties:
-        enabled:
-          type: boolean
-      type: object
-    marvis_client_synthetic_test:
-      additionalProperties: false
       properties:
         enabled:
           type: boolean
@@ -283,70 +271,21 @@ components:
         telemetry:
           $ref: '#/components/schemas/marvis_client_telemetry'
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    response_http401:
+    response_http403:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - Authentication credentials were not provided.
+          - You do not have permission to perform this action.
           type: string
       type: object
-    response_http429:
+    marvis_client_synthetic_test:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
+        enabled:
+          type: boolean
       type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    marvis_clients:
-      items:
-        $ref: '#/components/schemas/marvis_client'
-      type: array
   responses:
-    MarvisClientsArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MarvisClientsArrayExample'
-          schema:
-            $ref: '#/components/schemas/marvis_clients'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MarvisClientsArrayExample'
-          schema:
-            $ref: '#/components/schemas/marvis_clients'
-      description: Example response
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP400:
       content:
         application/json:
@@ -362,23 +301,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    OK:
-      description: OK
-    MarvisClient:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MarvisClientExample'
-          schema:
-            $ref: '#/components/schemas/marvis_client'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MarvisClientExample'
-          schema:
-            $ref: '#/components/schemas/marvis_client'
-      description: Example response
     HTTP404:
       content:
         application/json:
@@ -388,21 +310,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -418,39 +340,54 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    MarvisClientExample:
-      value:
-        enrollment_url: marvisclient://api.mist.com/path/to/url
-        id: 3a14098f-b995-7552-b0a4-b8ee39b337a6
-        name: Handhelds
-    MarvisClientsArrayExample:
-      value:
-      - enrollment_url: marvisclient://api.mist.com/path/to/url
-        id: 3a14098f-b995-7552-b0a4-b8ee39b337a6
-        name: Handhelds
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    MarvisClient:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MarvisClientExample'
+          schema:
+            $ref: '#/components/schemas/marvis_client'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MarvisClientExample'
+          schema:
+            $ref: '#/components/schemas/marvis_client'
+      description: Example response
+    OK:
+      description: OK
+    MarvisClientsArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MarvisClientsArrayExample'
+          schema:
+            $ref: '#/components/schemas/marvis_clients'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MarvisClientsArrayExample'
+          schema:
+            $ref: '#/components/schemas/marvis_clients'
+      description: Example response
   parameters:
-    marvisinvite_id:
-      in: path
-      name: marvisinvite_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
     org_id:
       in: path
       name: org_id
@@ -460,6 +397,38 @@ components:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
+    marvisinvite_id:
+      in: path
+      name: marvisinvite_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    MarvisClientExample:
+      value:
+        enrollment_url: marvisclient://api.mist.com/path/to/url
+        id: 3a14098f-b995-7552-b0a4-b8ee39b337a6
+        name: Handhelds
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    MarvisClientsArrayExample:
+      value:
+      - enrollment_url: marvisclient://api.mist.com/path/to/url
+        id: 3a14098f-b995-7552-b0a4-b8ee39b337a6
+        name: Handhelds
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -84,7 +53,15 @@ security:
 - basicAuth: []
   csrfToken: []
 tags:
-- description: "A Mist account can be linked to OAuth2 providers:\n  1. First, login with your Mist account\n  2. Obtain the Authorization URL for Linking\n  3. Obtain the authorization code by clicking / going through Authorization URL\n  4. Link Mist Account against OAuth2 Provider by using the authorization code"
+- description: 'A Mist account can be linked to OAuth2 providers:
+
+    1. First, login with your Mist account
+
+    2. Obtain the Authorization URL for Linking
+
+    3. Obtain the authorization code by clicking / going through Authorization URL
+
+    4. Link Mist Account against OAuth2 Provider by using the authorization code'
   name: Self OAuth2
 paths:
   /api/v1/self/oauth/{provider}:
@@ -151,6 +128,65 @@ paths:
       - Self OAuth2
 components:
   schemas:
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_self_oauth_url:
+      additionalProperties: false
+      properties:
+        authorization_url:
+          type: string
+        linked:
+          type: boolean
+      required:
+      - linked
+      - authorization_url
+      type: object
+    response_self_oauth_link_failure:
+      additionalProperties: false
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+      required:
+      - error
+      - error_description
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
     response_http403:
       additionalProperties: false
       properties:
@@ -177,81 +213,22 @@ components:
       required:
       - code
       type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_self_oauth_link_failure:
-      additionalProperties: false
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-      required:
-      - error
-      - error_description
-      type: object
-    response_self_oauth_url:
-      additionalProperties: false
-      properties:
-        authorization_url:
-          type: string
-        linked:
-          type: boolean
-      required:
-      - linked
-      - authorization_url
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
   responses:
-    HTTP401:
+    SelfOauthLinkFailure:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP401Example'
+              $ref: '#/components/examples/SelfOauthLinkFailureExample'
           schema:
-            $ref: '#/components/schemas/response_http401'
+            $ref: '#/components/schemas/response_self_oauth_link_failure'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP401Example'
+              $ref: '#/components/examples/SelfOauthLinkFailureExample'
           schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
+            $ref: '#/components/schemas/response_self_oauth_link_failure'
+      description: Authorization Error
     HTTP400:
       content:
         application/json:
@@ -276,6 +253,36 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP403:
       content:
         application/json:
@@ -306,21 +313,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_self_oauth_url'
       description: OK
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     SelfOauthLinkSuccess:
       content:
         application/json:
@@ -336,46 +328,31 @@ components:
           schema:
             $ref: '#/components/schemas/response_self_oauth_link_success'
       description: OK
-    SelfOauthLinkFailure:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SelfOauthLinkFailureExample'
-          schema:
-            $ref: '#/components/schemas/response_self_oauth_link_failure'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SelfOauthLinkFailureExample'
-          schema:
-            $ref: '#/components/schemas/response_self_oauth_link_failure'
-      description: Authorization Error
   examples:
-    SelfOauthLinkFailureExample:
-      value:
-        error: access_denied
-        error_description: The resource owner or authorization server denied the request.
-    SelfOauthUrlExample:
-      value:
-        authorization_url: https://accounts.google.com/o/oauth2/v2/auth?.....
-        linked: false
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
     SelfOauthLinkSuccessExample:
       value:
         action: oauth account linked
         id: google_user_id
-    HTTP401Example:
+    SelfOauthUrlExample:
       value:
-        detail: Authentication credentials were not provided.
+        authorization_url: https://accounts.google.com/o/oauth2/v2/auth?.....
+        linked: false
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    SelfOauthLinkFailureExample:
+      value:
+        error: access_denied
+        error_description: The resource owner or authorization server denied the request.
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -84,13 +53,7 @@ security:
 - basicAuth: []
   csrfToken: []
 tags:
-- description: 'Licenses are a type of service or access that customers can purchase for various features or services offered by a company.
-
-
-    Subscriptions can have different statuses, such as active, expired, exceeded, or trial, depending on their validity and usage. The status of a subscription determines whether it is currently active and valid, has expired, has exceeded the allowed usage limit, or is in a trial period.
-
-
-    Licenses can be activated using an activation code, and the activation process confirms the inputted code and activates the subscription.'
+- description: Licenses are a type of service or access that customers can purchase for various features or services offered by a company.
   name: Orgs Licenses
 paths:
   /api/v1/orgs/{org_id}/claim:
@@ -179,7 +142,15 @@ paths:
       tags:
       - Orgs Licenses
     put:
-      description: "Move, Undo Move or Delete Org License to Another Org\nIf the admin has admin privilege against the `org_id` and `dst_org_id`, he can move some of the licenses to another Org. Given that: \n1. the specified license is currently active \n2. there’s enough licenses left in the specified license (by subscription_id) \n3. there will still be enough entitled licenses for the type of license after the amendment"
+      description: 'Move, Undo Move or Delete Org License to Another Org
+
+        If the admin has admin privilege against the `org_id` and `dst_org_id`, he can move some of the licenses to another Org. Given that:
+
+        1. the specified license is currently active
+
+        2. there’s enough licenses left in the specified license (by subscription_id)
+
+        3. there will still be enough entitled licenses for the type of license after the amendment'
       operationId: moveOrDeleteOrgLicenseToAnotherOrg
       requestBody:
         content:
@@ -249,33 +220,95 @@ paths:
       - Orgs Licenses
 components:
   schemas:
-    license_amendments:
+    response_claim_license_inventory_duplicated:
       items:
-        $ref: '#/components/schemas/license_amendment'
-      readOnly: true
+        $ref: '#/components/schemas/response_claim_license_inventory_item'
       type: array
       uniqueItems: true
-    response_claim_license_license_error:
+    response_claim_license_license_duplicated:
       items:
-        $ref: '#/components/schemas/response_claim_license_license_error_item'
+        $ref: '#/components/schemas/response_claim_license_license_item'
       type: array
       uniqueItems: true
-    response_http403:
+    response_http400:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - You do not have permission to perform this action.
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    response_async_license_details:
+    response_claim_license_license_added:
       items:
-        $ref: '#/components/schemas/response_async_license_detail'
+        $ref: '#/components/schemas/response_claim_license_license_item'
       type: array
-    licenses:
-      items:
-        $ref: '#/components/schemas/license_sub'
-      type: array
+      uniqueItems: true
+    device_type_default_ap:
+      default: ap
+      description: 'enum: `ap`, `gateway`, `switch`'
+      enum:
+      - ap
+      - gateway
+      - switch
+      type: string
+    claim_type:
+      default: all
+      description: 'what to claim. enum: `all`, `inventory`, `license`'
+      enum:
+      - all
+      - inventory
+      - license
+      type: string
+    response_async_license_detail:
+      additionalProperties: false
+      description: detail claim status per device
+      properties:
+        mac:
+          description: Device MAC Address
+          type: string
+        status:
+          type: string
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+      type: object
+    license:
+      additionalProperties: false
+      description: License
+      properties:
+        amendments:
+          $ref: '#/components/schemas/license_amendments'
+        entitled:
+          additionalProperties:
+            type: integer
+          description: Property key is license type (e.g. SUB-MAN) and Property value is the number of licenses entitled.
+          readOnly: true
+          type: object
+        fully_loaded:
+          $ref: '#/components/schemas/license_fully_loaded'
+        licenses:
+          $ref: '#/components/schemas/licenses'
+        summary:
+          $ref: '#/components/schemas/license_summary'
+        usages:
+          $ref: '#/components/schemas/license_usages'
+      type: object
+    claim_activation:
+      properties:
+        async:
+          default: false
+          description: Whether to do a async claim process
+          type: boolean
+        code:
+          description: Activation code
+          type: string
+        device_type:
+          $ref: '#/components/schemas/device_type_default_ap'
+        type:
+          $ref: '#/components/schemas/claim_type'
+      required:
+      - code
+      - type
+      type: object
     license_amendment:
       additionalProperties: false
       properties:
@@ -301,26 +334,68 @@ components:
           $ref: '#/components/schemas/license_type'
       readOnly: true
       type: object
-    license_summary:
-      additionalProperties:
-        type: integer
-      description: Number of licenses currently consumed. Property key is license type (e.g. SUB-MAN).
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
       readOnly: true
-      type: object
-    org_id:
+      type: number
+    response_async_license_status:
+      description: 'processing status of async. enum: `prepared`, `ongoing`, `done`'
+      enum:
+      - prepared
+      - ongoing
+      - done
+      type: string
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    license_amendments:
+      items:
+        $ref: '#/components/schemas/license_amendment'
+      readOnly: true
+      type: array
+      uniqueItems: true
+    site_id:
       examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
       format: uuid
       readOnly: true
       type: string
-    response_http400:
+    response_claim_license_license_error_item:
+      properties:
+        order:
+          type: string
+        reason:
+          type: string
+      required:
+      - order
+      - reason
+    response_http404:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+        id:
           type: string
       type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    response_claim_license_inventory_pending_item:
+      additionalProperties: false
+      properties:
+        mac:
+          type: string
+      type: object
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
     license_usages:
       additionalProperties:
         readOnly: true
@@ -328,11 +403,61 @@ components:
       description: Number of available licenes. Property key is the service name (e.g. "SUB-MAN"). name (e.g. "SUB-MAN")
       readOnly: true
       type: object
-    usage_org_licenses:
-      items:
-        $ref: '#/components/schemas/license_usage_org'
-      type: array
-      uniqueItems: true
+    org_license_action:
+      properties:
+        amendment_id:
+          description: If `op`==`unamend`, the ID of the operation to cancel
+          format: uuid
+          type: string
+        dst_org_id:
+          description: If `op`==`amend`, the id of the org where the license is moved
+          format: uuid
+          type: string
+        notes:
+          description: If `op`==`annotate`
+          type: string
+        op:
+          $ref: '#/components/schemas/org_license_action_operation'
+        quantity:
+          description: If `op`==`amend`, the number of licenses to move
+          type: integer
+        subscription_id:
+          description: If `op`==`amend` or `op`==`delete`, the ID of the subscription to use
+          type: string
+      required:
+      - op
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_claim_license_license_item:
+      properties:
+        end:
+          type: integer
+        quantity:
+          type: integer
+        start:
+          type: integer
+        type:
+          type: string
+      required:
+      - type
+      - start
+      - end
+      - quantity
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
     response_claim_license_inventory_item:
       properties:
         mac:
@@ -351,31 +476,110 @@ components:
       - type
       - magic
       - mac
-    response_async_license_status:
-      description: 'processing status of async. enum: `prepared`, `ongoing`, `done`'
-      enum:
-      - prepared
-      - ongoing
-      - done
-      type: string
-    claim_type:
-      default: all
-      description: 'what to claim. enum: `all`, `inventory`, `license`'
-      enum:
-      - all
-      - inventory
-      - license
-      type: string
-    response_claim_license_license_added:
+    response_claim_license:
+      additionalProperties: false
+      properties:
+        inventory_added:
+          $ref: '#/components/schemas/response_claim_license_inventory_added'
+        inventory_duplicated:
+          $ref: '#/components/schemas/response_claim_license_inventory_duplicated'
+        inventory_pending:
+          $ref: '#/components/schemas/response_claim_license_inventory_pending'
+        license_added:
+          $ref: '#/components/schemas/response_claim_license_license_added'
+        license_duplicated:
+          $ref: '#/components/schemas/response_claim_license_license_duplicated'
+        license_error:
+          $ref: '#/components/schemas/response_claim_license_license_error'
+      required:
+      - license_added
+      - license_duplicated
+      - license_error
+      - inventory_added
+      - inventory_duplicated
+      type: object
+    usage_org_licenses:
       items:
-        $ref: '#/components/schemas/response_claim_license_license_item'
+        $ref: '#/components/schemas/license_usage_org'
       type: array
       uniqueItems: true
-    timestamp:
-      description: Epoch (seconds)
-      format: double
+    license_type:
+      description: Type of license. The list of supported license type can be retrieve with the [List License Type](/#operations/listLicenseTypes) API request.
       readOnly: true
-      type: number
+      type: string
+    licenses:
+      items:
+        $ref: '#/components/schemas/license_sub'
+      type: array
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    response_claim_license_inventory_pending:
+      description: for async claim
+      items:
+        $ref: '#/components/schemas/response_claim_license_inventory_pending_item'
+      type: array
+      uniqueItems: true
+    license_fully_loaded:
+      additionalProperties:
+        readOnly: true
+        type: integer
+      description: Maximum number of licenses that may be required if the service is enabled on all the Organization Devices. Property key is the service name (e.g. "SUB-MAN").
+      readOnly: true
+      type: object
+    license_summary:
+      additionalProperties:
+        type: integer
+      description: Number of licenses currently consumed. Property key is license type (e.g. SUB-MAN).
+      readOnly: true
+      type: object
+    response_claim_license_license_error:
+      items:
+        $ref: '#/components/schemas/response_claim_license_license_error_item'
+      type: array
+      uniqueItems: true
+    response_async_license_completed:
+      items:
+        type: string
+      type: array
+    response_claim_license_inventory_added:
+      items:
+        $ref: '#/components/schemas/response_claim_license_inventory_item'
+      type: array
+      uniqueItems: true
+    license_usage_org:
+      additionalProperties: false
+      properties:
+        for_site:
+          readOnly: true
+          type: boolean
+        fully_loaded:
+          $ref: '#/components/schemas/license_fully_loaded'
+        num_devices:
+          readOnly: true
+          type: integer
+        site_id:
+          $ref: '#/components/schemas/site_id'
+        summary:
+          $ref: '#/components/schemas/license_summary'
+        usages:
+          $ref: '#/components/schemas/license_usages'
+      required:
+      - num_devices
+      - site_id
+      - usages
+      type: object
     response_async_license:
       additionalProperties: false
       properties:
@@ -405,207 +609,6 @@ components:
           description: total number of device included in claim
           type: integer
       type: object
-    response_claim_license_license_error_item:
-      properties:
-        order:
-          type: string
-        reason:
-          type: string
-      required:
-      - order
-      - reason
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    org_license_action:
-      properties:
-        amendment_id:
-          description: If `op`==`unamend`, the ID of the operation to cancel
-          format: uuid
-          type: string
-        dst_org_id:
-          description: If `op`==`amend`, the id of the org where the license is moved
-          format: uuid
-          type: string
-        notes:
-          description: If `op`==`annotate`
-          type: string
-        op:
-          $ref: '#/components/schemas/org_license_action_operation'
-        quantity:
-          description: If `op`==`amend`, the number of licenses to move
-          type: integer
-        subscription_id:
-          description: If `op`==`amend` or `op`==`delete`, the ID of the subscription to use
-          type: string
-      required:
-      - op
-      type: object
-    license_usage_org:
-      additionalProperties: false
-      properties:
-        for_site:
-          readOnly: true
-          type: boolean
-        fully_loaded:
-          $ref: '#/components/schemas/license_fully_loaded'
-        num_devices:
-          readOnly: true
-          type: integer
-        site_id:
-          $ref: '#/components/schemas/site_id'
-        summary:
-          $ref: '#/components/schemas/license_summary'
-        usages:
-          $ref: '#/components/schemas/license_usages'
-      required:
-      - num_devices
-      - site_id
-      - usages
-      type: object
-    license_fully_loaded:
-      additionalProperties:
-        readOnly: true
-        type: integer
-      description: Maximum number of licenses that may be required if the service is enabled on all the Organization Devices. Property key is the service name (e.g. "SUB-MAN").
-      readOnly: true
-      type: object
-    response_claim_license_inventory_duplicated:
-      items:
-        $ref: '#/components/schemas/response_claim_license_inventory_item'
-      type: array
-      uniqueItems: true
-    response_async_license_detail:
-      additionalProperties: false
-      description: detail claim status per device
-      properties:
-        mac:
-          description: Device MAC Address
-          type: string
-        status:
-          type: string
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    license:
-      additionalProperties: false
-      description: License
-      properties:
-        amendments:
-          $ref: '#/components/schemas/license_amendments'
-        entitled:
-          additionalProperties:
-            type: integer
-          description: Property key is license type (e.g. SUB-MAN) and Property value is the number of licenses entitled.
-          readOnly: true
-          type: object
-        fully_loaded:
-          $ref: '#/components/schemas/license_fully_loaded'
-        licenses:
-          $ref: '#/components/schemas/licenses'
-        summary:
-          $ref: '#/components/schemas/license_summary'
-        usages:
-          $ref: '#/components/schemas/license_usages'
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    response_claim_license:
-      additionalProperties: false
-      properties:
-        inventory_added:
-          $ref: '#/components/schemas/response_claim_license_inventory_added'
-        inventory_duplicated:
-          $ref: '#/components/schemas/response_claim_license_inventory_duplicated'
-        inventory_pending:
-          $ref: '#/components/schemas/response_claim_license_inventory_pending'
-        license_added:
-          $ref: '#/components/schemas/response_claim_license_license_added'
-        license_duplicated:
-          $ref: '#/components/schemas/response_claim_license_license_duplicated'
-        license_error:
-          $ref: '#/components/schemas/response_claim_license_license_error'
-      required:
-      - license_added
-      - license_duplicated
-      - license_error
-      - inventory_added
-      - inventory_duplicated
-      type: object
-    response_claim_license_inventory_pending_item:
-      additionalProperties: false
-      properties:
-        mac:
-          type: string
-      type: object
-    response_claim_license_inventory_pending:
-      description: for async claim
-      items:
-        $ref: '#/components/schemas/response_claim_license_inventory_pending_item'
-      type: array
-      uniqueItems: true
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    claim_activation:
-      properties:
-        async:
-          default: false
-          description: Whether to do a async claim process
-          type: boolean
-        code:
-          description: Activation code
-          type: string
-        device_type:
-          $ref: '#/components/schemas/device_type_default_ap'
-        type:
-          $ref: '#/components/schemas/claim_type'
-      required:
-      - code
-      - type
-      type: object
-    response_async_license_incompleted:
-      description: Current incompleted lists (macs)
-      items:
-        type: string
-      type: array
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
     org_license_action_operation:
       description: 'to move a license, use the `amend` operation. enum: `amend`, `annotate`, `delete`, `unamend`'
       enum:
@@ -614,16 +617,6 @@ components:
       - delete
       - unamend
       type: string
-    response_claim_license_license_duplicated:
-      items:
-        $ref: '#/components/schemas/response_claim_license_license_item'
-      type: array
-      uniqueItems: true
-    response_claim_license_inventory_added:
-      items:
-        $ref: '#/components/schemas/response_claim_license_inventory_item'
-      type: array
-      uniqueItems: true
     license_sub:
       additionalProperties: false
       properties:
@@ -660,53 +653,16 @@ components:
           $ref: '#/components/schemas/license_type'
       readOnly: true
       type: object
-    response_async_license_completed:
+    response_async_license_details:
+      items:
+        $ref: '#/components/schemas/response_async_license_detail'
+      type: array
+    response_async_license_incompleted:
+      description: Current incompleted lists (macs)
       items:
         type: string
       type: array
-    response_claim_license_license_item:
-      properties:
-        end:
-          type: integer
-        quantity:
-          type: integer
-        start:
-          type: integer
-        type:
-          type: string
-      required:
-      - type
-      - start
-      - end
-      - quantity
-    license_type:
-      description: Type of license. The list of supported license type can be retrieve with the [List License Type](/#operations/listLicenseTypes) API request.
-      readOnly: true
-      type: string
-    device_type_default_ap:
-      default: ap
-      description: 'enum: `ap`, `gateway`, `switch`'
-      enum:
-      - ap
-      - gateway
-      - switch
-      type: string
   responses:
-    License:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/LicenseExample'
-          schema:
-            $ref: '#/components/schemas/license'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/LicenseExample'
-          schema:
-            $ref: '#/components/schemas/license'
-      description: OK
     LicenseUsageOrg:
       content:
         application/json:
@@ -722,21 +678,6 @@ components:
           schema:
             $ref: '#/components/schemas/usage_org_licenses'
       description: OK
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP400:
       content:
         application/json:
@@ -752,8 +693,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    OK:
-      description: OK
     ClaimLicense:
       content:
         application/json:
@@ -778,36 +717,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    AsyncLicense:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/AsyncLicenseExample'
-          schema:
-            $ref: '#/components/schemas/response_async_license'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/AsyncLicenseExample'
-          schema:
-            $ref: '#/components/schemas/response_async_license'
-      description: OK
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -823,63 +747,67 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    License:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/LicenseExample'
+          schema:
+            $ref: '#/components/schemas/license'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/LicenseExample'
+          schema:
+            $ref: '#/components/schemas/license'
+      description: OK
+    OK:
+      description: OK
+    AsyncLicense:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/AsyncLicenseExample'
+          schema:
+            $ref: '#/components/schemas/response_async_license'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/AsyncLicenseExample'
+          schema:
+            $ref: '#/components/schemas/response_async_license'
+      description: OK
+  parameters:
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   examples:
-    ClaimLicenseLicensesSuccessfullyClaimedAndApplied:
-      value:
-        inventory_added:
-        - mac: 5c5b35000018
-          magic: 6JG8EPTFV2A9Z2N
-          model: AP41
-          serial: FXLH2015150025
-          type: ap
-        inventory_duplicated:
-        - mac: 5c5b35000012
-          magic: DVH4VSNMSZPDXBR
-          model: AP41
-          serial: FXLH2015150027
-          type: ap
-        inventory_pending:
-        - mac: 5c5b35000012
-        license_added:
-        - end: 1520380800
-          quantity: 180
-          start: 1504828800
-          type: SUB-MAN
-        - end: 1520380800
-          quantity: 120
-          start: 1504828800
-          type: SUB-LOC
-        license_duplicated:
-        - end: 1520380800
-          quantity: 180
-          start: 1504828800
-          type: SUB-MAN
-        license_error:
-        - order: '00000464'
-          reason: ''
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    AsyncLicenseExample:
-      value:
-        completed:
-        - '000000000022'
-        - '000000000011'
-        details:
-        - mac: '000000000022'
-          status: added
-          timestamp: 1709598053
-        failed: 0
-        incompleted: []
-        processed: 2
-        scheduled_at: 1709598052
-        status: done
-        succeed: 2
-        timestamp: 1709598053
-        total: 2
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     LicenseExample:
       value:
         amendments:
@@ -1039,12 +967,45 @@ components:
           SUB-EX24: 3
           SUB-MAN: 22
           SUB-VNA: 20
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    ClaimLicenseLicensesSuccessfullyClaimedAndApplied:
+      value:
+        inventory_added:
+        - mac: 5c5b35000018
+          magic: 6JG8EPTFV2A9Z2N
+          model: AP41
+          serial: FXLH2015150025
+          type: ap
+        inventory_duplicated:
+        - mac: 5c5b35000012
+          magic: DVH4VSNMSZPDXBR
+          model: AP41
+          serial: FXLH2015150027
+          type: ap
+        inventory_pending:
+        - mac: 5c5b35000012
+        license_added:
+        - end: 1520380800
+          quantity: 180
+          start: 1504828800
+          type: SUB-MAN
+        - end: 1520380800
+          quantity: 120
+          start: 1504828800
+          type: SUB-LOC
+        license_duplicated:
+        - end: 1520380800
+          quantity: 180
+          start: 1504828800
+          type: SUB-MAN
+        license_error:
+        - order: '00000464'
+          reason: ''
     LicenseUsageOrgExample:
       value:
       - fully_loaded:
@@ -1055,16 +1016,26 @@ components:
         usages:
           SUB-LOC: 30
           SUB-MAN: 60
-  parameters:
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    AsyncLicenseExample:
+      value:
+        completed:
+        - '000000000022'
+        - '000000000011'
+        details:
+        - mac: '000000000022'
+          status: added
+          timestamp: 1709598053
+        failed: 0
+        incompleted: []
+        processed: 2
+        scheduled_at: 1709598052
+        status: done
+        succeed: 2
+        timestamp: 1709598053
+        total: 2
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

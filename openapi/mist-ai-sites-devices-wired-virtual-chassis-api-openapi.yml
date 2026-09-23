@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -93,7 +62,6 @@ paths:
     - $ref: '#/components/parameters/device_id'
     post:
       description: 'Change VCP port mode
-
 
 
         Some switch model allows changing VCP port behaviors, e.g. - use them as regular network ports - change vcp protocol Note, this command will reboot the switch'
@@ -173,7 +141,23 @@ paths:
       tags:
       - Sites Devices - Wired - Virtual Chassis
     post:
-      description: "For models (e.g. EX3400 and up) having dedicated VC ports, it is easier to form a VC by just connecting cables with the dedicated VC ports. Cloud will detect the new VC and update the inventory.  \nIn case that the user would like to choose the dedicated switch as a VC master or for EX2300-C-12P and EX2300-C-12T which doesn't have dedicated VC ports, below are procedures to automate the VC creation:\n1. Power on the switch that is chosen as the VC master first, and then powering on the other member switches.\n2. Claim or adopt all these switches under the same organization's Inventory\n3. Assign these switches into the same Site\n4. Wait for all the switches to be connected to Mist\n5. Invoke vc command on the switch chosen to be the VC master. For EX2300-C-12P, VC ports will be created automatically.\n6. Connect the cables to the VC ports for these switches\n7. Wait for the VC to be formed. The Org's inventory will be updated for the new VC."
+      description: 'For models (e.g. EX3400 and up) having dedicated VC ports, it is easier to form a VC by just connecting cables with the dedicated VC ports. Cloud will detect the new VC and update the inventory.
+
+        In case that the user would like to choose the dedicated switch as a VC master or for EX2300-C-12P and EX2300-C-12T which doesn''t have dedicated VC ports, below are procedures to automate the VC creation:
+
+        1. Power on the switch that is chosen as the VC master first, and then powering on the other member switches.
+
+        2. Claim or adopt all these switches under the same organization''s Inventory
+
+        3. Assign these switches into the same Site
+
+        4. Wait for all the switches to be connected to Mist
+
+        5. Invoke vc command on the switch chosen to be the VC master. For EX2300-C-12P, VC ports will be created automatically.
+
+        6. Connect the cables to the VC ports for these switches
+
+        7. Wait for the VC to be formed. The Org''s inventory will be updated for the new VC.'
       operationId: createSiteVirtualChassis
       requestBody:
         content:
@@ -237,7 +221,97 @@ paths:
       tags:
       - Sites Devices - Wired - Virtual Chassis
     put:
-      description: "The VC creation and adding member switch API will update the device' s virtual chassis config which is applied after VC is formed to create JUNOS pre-provisioned virtual chassis configuration.\n\n**Note:** Update Device's VC config can achieve similar purpose by directly modifying current virtual_chassis config. However, it cannot fulfill requests to enabling vc_ports on new members that are yet to belong to current VC.\n\n\n## Change to use preprovisioned VC\nTo switch the VC to use preprovisioned VC, enable preprovisioned in virtual_chassis config. Both vc_role master and backup will be matched to routing-engine role in Junos preprovisioned VC config.\n\nIn this config, fpc0 has to be the same as the mac of device_id. Use renumber if you want to replace fpc0 which involves device_id change.\n\n**Notice:** to configure preprovisioned VC, every member of the VC must be in the inventory.\n\n## Add new members\nFor models (e.g. EX4300 and up) having dedicated VC ports, it is easier to add new member switches into a VC by just connecting cables with the dedicated VC ports. Cloud will detect the new members and update the inventory.\n\nFor EX2300 VC, adding new members requires to follow the procedures below:\n1. Powering on the new member switches and ensuring cables are not connected to any VC ports.\n2. Claim or adopt all new member switches under the VC's organization Inventory\n3. Assign all new member switches to the same Site as the VC\n4. Invoke vc command to add switches to the VC.\n5. Connect the cables to the VC ports for these switches\n6. After a while, the Org's Inventory shows that new switches has been added into the VC.\n\n## Removing member switch\nTo remove a member switch from the VC, following the procedures below:\n\n1. Ensuring the VC is connected to the cloud first\n2. Unplug the cable from the VC port of the switch\n3. Waiting for the VC state (vc_state) of this switch is changed to not-present\n4. Invoke update_vc with remove to remove this switch from the VC\n5. The Org's Inventory shows the switch is removed.\n\nPlease notice that member ID 0 (fpc0) cannot be removed. When a VC has two switches left, unplugging the cable may result in the situation that fpc0 becomes a line card (LC). When this situation is happening, please re-plug in the cable, wait for both switches becoming present (show virtual-chassis) and then removing the cable again.\n\n## Renumber a member switch\nWhen a member switch doesn' t work properly and needed to be replaced, the renumber API could be used. The following two types of renumber are supported:\n\n1. Replace a non-fpc0 member switch\n2. Replace fpc0. When fpc0 is replaced, PAPI device config and JUNOS config will be both updated.\n\nFor renumber to work, the following procedures are needed: \n1. Ensuring the VC is connected to the cloud and the state of the member switch to be replaced must be non present. \n2. Adding the new member switch to the VC \n3. Waiting for the VC state (vc_state) of this VC to be updated to API server \n4. Invoke vc with renumber to replace\\ the new member switch from fpc X to\n\n## Perprovision VC members\nBy specifying \"preprovision\" op, you can convert the current VC to pre-provisioned mode, update VC members as well as specify vc_ports when adding new members for device models without dedicated vc ports. Use renumber for fpc0 replacement which involves device_id change.\n\nNote: \n1. vc_ports is used for adding new members and not needed if \n  * the device model has dedicated vc ports, or \n  * no new member is added \n2. New VC members to be added should exist in the same Site as the VC"
+      description: 'The VC creation and adding member switch API will update the device'' s virtual chassis config which is applied after VC is formed to create JUNOS pre-provisioned virtual chassis configuration.
+
+
+        **Note:** Update Device''s VC config can achieve similar purpose by directly modifying current virtual_chassis config. However, it cannot fulfill requests to enabling vc_ports on new members that are yet to belong to current VC.
+
+
+        ## Change to use preprovisioned VC
+
+        To switch the VC to use preprovisioned VC, enable preprovisioned in virtual_chassis config. Both vc_role master and backup will be matched to routing-engine role in Junos preprovisioned VC config.
+
+
+        In this config, fpc0 has to be the same as the mac of device_id. Use renumber if you want to replace fpc0 which involves device_id change.
+
+
+        **Notice:** to configure preprovisioned VC, every member of the VC must be in the inventory.
+
+
+        ## Add new members
+
+        For models (e.g. EX4300 and up) having dedicated VC ports, it is easier to add new member switches into a VC by just connecting cables with the dedicated VC ports. Cloud will detect the new members and update the inventory.
+
+
+        For EX2300 VC, adding new members requires to follow the procedures below:
+
+        1. Powering on the new member switches and ensuring cables are not connected to any VC ports.
+
+        2. Claim or adopt all new member switches under the VC''s organization Inventory
+
+        3. Assign all new member switches to the same Site as the VC
+
+        4. Invoke vc command to add switches to the VC.
+
+        5. Connect the cables to the VC ports for these switches
+
+        6. After a while, the Org''s Inventory shows that new switches has been added into the VC.
+
+
+        ## Removing member switch
+
+        To remove a member switch from the VC, following the procedures below:
+
+
+        1. Ensuring the VC is connected to the cloud first
+
+        2. Unplug the cable from the VC port of the switch
+
+        3. Waiting for the VC state (vc_state) of this switch is changed to not-present
+
+        4. Invoke update_vc with remove to remove this switch from the VC
+
+        5. The Org''s Inventory shows the switch is removed.
+
+
+        Please notice that member ID 0 (fpc0) cannot be removed. When a VC has two switches left, unplugging the cable may result in the situation that fpc0 becomes a line card (LC). When this situation is happening, please re-plug in the cable, wait for both switches becoming present (show virtual-chassis) and then removing the cable again.
+
+
+        ## Renumber a member switch
+
+        When a member switch doesn'' t work properly and needed to be replaced, the renumber API could be used. The following two types of renumber are supported:
+
+
+        1. Replace a non-fpc0 member switch
+
+        2. Replace fpc0. When fpc0 is replaced, PAPI device config and JUNOS config will be both updated.
+
+
+        For renumber to work, the following procedures are needed:
+
+        1. Ensuring the VC is connected to the cloud and the state of the member switch to be replaced must be non present.
+
+        2. Adding the new member switch to the VC
+
+        3. Waiting for the VC state (vc_state) of this VC to be updated to API server
+
+        4. Invoke vc with renumber to replace\ the new member switch from fpc X to
+
+
+        ## Perprovision VC members
+
+        By specifying "preprovision" op, you can convert the current VC to pre-provisioned mode, update VC members as well as specify vc_ports when adding new members for device models without dedicated vc ports. Use renumber for fpc0 replacement which involves device_id change.
+
+
+        Note:
+
+        1. vc_ports is used for adding new members and not needed if
+
+        * the device model has dedicated vc ports, or
+
+        * no new member is added
+
+        2. New VC members to be added should exist in the same Site as the VC'
       operationId: updateSiteVirtualChassisMember
       requestBody:
         content:
@@ -320,7 +394,22 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Converts an FPC0-based VC to a Virtualmac VC, removing the limitation where the device ID must change whenever FPC0 is renumbered or removed.\n\n\nHTTP400 Error possible reasons:\n  - The device is not an OC device\n  - Virtualmac VC is disabled in the Org Knob settings\n  - The VC is already a Virtualmac VC\n  - The VC is currently disconnected\n  - The device is standalone\n  - A new FPC0 exists with its own device config, causing ambiguity."
+      description: 'Converts an FPC0-based VC to a Virtualmac VC, removing the limitation where the device ID must change whenever FPC0 is renumbered or removed.
+
+
+        HTTP400 Error possible reasons:
+
+        - The device is not an OC device
+
+        - Virtualmac VC is disabled in the Org Knob settings
+
+        - The VC is already a Virtualmac VC
+
+        - The VC is currently disconnected
+
+        - The device is standalone
+
+        - A new FPC0 exists with its own device config, causing ambiguity.'
       operationId: convertSiteVirtualChassisToVirtualMac
       responses:
         '200':
@@ -389,167 +478,33 @@ paths:
       - Sites Devices - Wired - Virtual Chassis
 components:
   schemas:
-    virtual_chassis_member_update_vc_role:
-      description: 'Required if `op`==`add` or `op`==`preprovision`. enum: `backup`, `linecard`, `master`'
-      enum:
-      - backup
-      - linecard
-      - master
-      type: string
-    virtual_chassis_update_members:
-      items:
-        $ref: '#/components/schemas/virtual_chassis_member_update'
-      type: array
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
     module_stat_item_fans:
       items:
         $ref: '#/components/schemas/module_stat_item_fans_items'
       type: array
       uniqueItems: true
-    memory_stat:
+    module_stat_item_temperatures_item:
       additionalProperties: false
-      description: Memory usage stat (for virtual chassis, memory usage of master RE)
       properties:
-        usage:
+        celsius:
+          examples:
+          - 45
           type: number
-      required:
-      - usage
+        name:
+          examples:
+          - CPU
+          type: string
+        status:
+          examples:
+          - ok
+          type: string
       type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
     response_http400:
       additionalProperties: false
       properties:
         detail:
           examples:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    module_stat_item_pics_item_port_groups_item:
-      additionalProperties: false
-      properties:
-        count:
-          type: integer
-        type:
-          type: string
-      type: object
-    virtual_chassis_member_update:
-      additionalProperties: false
-      properties:
-        mac:
-          description: Required if `op`==`add` or `op`==`preprovision`.
-          type: string
-        member:
-          description: Required if `op`==`remove`
-          type: integer
-        member_id:
-          description: Required if `op`==`preprovision`. Optional if `op`==`add`
-          type: integer
-        vc_ports:
-          $ref: '#/components/schemas/virtual_chassis_member_update_vc_ports'
-        vc_role:
-          $ref: '#/components/schemas/virtual_chassis_member_update_vc_role'
-      type: object
-    vc_port:
-      properties:
-        mode:
-          $ref: '#/components/schemas/vc_port_mode'
-      type: object
-    virtual_chassis_port_operation:
-      description: 'enum: `delete`, `set`'
-      enum:
-      - delete
-      - set
-      minLength: 1
-      type: string
-    module_stat_item_poe:
-      additionalProperties: false
-      properties:
-        max_power:
-          examples:
-          - 250
-          type: number
-        power_draw:
-          examples:
-          - 120.3
-          type: number
-        status:
-          type: string
-      type: object
-    module_stat_item_vc_links_item:
-      additionalProperties: false
-      properties:
-        neighbor_module_idx:
-          examples:
-          - 1
-          type: integer
-        neighbor_port_id:
-          examples:
-          - vcp-255/1/0
-          type: string
-        port_id:
-          examples:
-          - vcp-255/1/0
-          type: string
-      type: object
-    virtual_chassis_update:
-      description: Virtual Chassis
-      properties:
-        member:
-          description: Only if `op`==`renumber`
-          type: integer
-        members:
-          $ref: '#/components/schemas/virtual_chassis_update_members'
-        new-member:
-          description: Only if `op`==`renumber`
-          type: integer
-        op:
-          $ref: '#/components/schemas/virtual_chassis_update_op'
-        remove_inventory:
-          default: false
-          description: Only if `op`==`preprovision`. When removing members from a pre-provisioned VC, set to `true` to delete the inventory records for removed members (e.g. for RMA). Members being removed must be in "not-present" state.
-          type: boolean
-      type: object
-    virtual_chassis_config_members:
-      items:
-        $ref: '#/components/schemas/virtual_chassis_config_member'
-      type: array
-    virtual_chassis_member_update_vc_ports:
-      description: Required if `op`==`add` or `op`==`preprovision`
-      items:
-        type: string
-      type: array
-    module_stat_item_pics:
-      items:
-        $ref: '#/components/schemas/module_stat_item_pics_item'
-      type: array
-    module_stat_item_fans_items:
-      additionalProperties: false
-      properties:
-        airflow:
-          examples:
-          - out
-          type: string
-        name:
-          examples:
-          - Fan 0
-          type: string
-        rpm:
-          type: integer
-        status:
-          examples:
-          - ok
           type: string
       type: object
     cpu_stat:
@@ -588,77 +543,23 @@ components:
           - number
           - 'null'
       type: object
-    module_stat_item_errors_items:
+    virtual_chassis_member_update:
       additionalProperties: false
       properties:
-        feature:
-          examples:
-          - Mist-Management
+        mac:
+          description: Required if `op`==`add` or `op`==`preprovision`.
           type: string
-        minimum_version:
-          examples:
-          - 128T-6.0.0-1
-          type: string
-        reason:
-          type: string
-        since:
-          examples:
-          - 1657497600
+        member:
+          description: Required if `op`==`remove`
           type: integer
-        type:
-          examples:
-          - FW_UPGRADE_REQUIRED_BY_FEATURE
-          type: string
-      required:
-      - since
-      - type
-      type: object
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
-    module_stat_item_pics_item:
-      additionalProperties: false
-      properties:
-        index:
+        member_id:
+          description: Required if `op`==`preprovision`. Optional if `op`==`add`
           type: integer
-        model_number:
-          type: string
-        port_groups:
-          $ref: '#/components/schemas/module_stat_item_pics_item_port_groups'
+        vc_ports:
+          $ref: '#/components/schemas/virtual_chassis_member_update_vc_ports'
+        vc_role:
+          $ref: '#/components/schemas/virtual_chassis_member_update_vc_role'
       type: object
-    last_seen:
-      description: Last seen timestamp
-      examples:
-      - 1470417522
-      format: double
-      readOnly: true
-      type:
-      - number
-      - 'null'
-    module_stat_item_temperatures_item:
-      additionalProperties: false
-      properties:
-        celsius:
-          examples:
-          - 45
-          type: number
-        name:
-          examples:
-          - CPU
-          type: string
-        status:
-          examples:
-          - ok
-          type: string
-      type: object
-    stats_switch_module_stat:
-      items:
-        $ref: '#/components/schemas/stats_switch_module_stat_item'
-      minItems: 1
-      type: array
-      uniqueItems: true
     virtual_chassis_config_member:
       additionalProperties: false
       properties:
@@ -679,18 +580,98 @@ components:
       - mac
       - vc_role
       type: object
-    cpu_stat_load_avg:
-      description: Load averages for the last 1, 5, and 15 minutes
+    virtual_chassis_update_members:
       items:
-        type: number
+        $ref: '#/components/schemas/virtual_chassis_member_update'
       type: array
-    virtual_chassis_config_member_vc_role:
-      description: 'enum: `backup`, `linecard`, `master`'
+    module_stat_item_errors:
+      description: Used to report all error states the device node is running into. An error should always have `type` and `since` fields, and could have some other fields specific to that type.
+      items:
+        $ref: '#/components/schemas/module_stat_item_errors_items'
+      type: array
+    virtual_chassis_config:
+      description: Virtual Chassis
+      properties:
+        locating:
+          readOnly: true
+          type: boolean
+        members:
+          $ref: '#/components/schemas/virtual_chassis_config_members'
+        preprovisioned:
+          default: false
+          description: To create the Virtual Chassis in Pre-Provisioned mode
+          type: boolean
+      type: object
+    virtual_chassis_member_update_vc_ports:
+      description: Required if `op`==`add` or `op`==`preprovision`
+      items:
+        type: string
+      type: array
+    virtual_chassis_update_op:
+      description: 'enum: `add`, `preprovision`, `remove`, `renumber`'
       enum:
-      - backup
-      - linecard
-      - master
+      - add
+      - preprovision
+      - remove
+      - renumber
       type: string
+    virtual_chassis_update:
+      description: Virtual Chassis
+      properties:
+        member:
+          description: Only if `op`==`renumber`
+          type: integer
+        members:
+          $ref: '#/components/schemas/virtual_chassis_update_members'
+        new-member:
+          description: Only if `op`==`renumber`
+          type: integer
+        op:
+          $ref: '#/components/schemas/virtual_chassis_update_op'
+        remove_inventory:
+          default: false
+          description: Only if `op`==`preprovision`. When removing members from a pre-provisioned VC, set to `true` to delete the inventory records for removed members (e.g. for RMA). Members being removed must be in "not-present" state.
+          type: boolean
+      type: object
+    response_virtual_chassis_config:
+      additionalProperties: false
+      properties:
+        config_type:
+          readOnly: true
+          type: string
+        id:
+          $ref: '#/components/schemas/id'
+        locating:
+          readOnly: true
+          type: boolean
+        mac:
+          type: string
+        members:
+          $ref: '#/components/schemas/stats_switch_module_stat'
+        model:
+          readOnly: true
+          type: string
+        num_routing_engines:
+          description: routing-engine count
+          examples:
+          - 1
+          type: integer
+        org_id:
+          $ref: '#/components/schemas/org_id'
+        serial:
+          readOnly: true
+          type: string
+        site_id:
+          $ref: '#/components/schemas/site_id'
+        status:
+          readOnly: true
+          type: string
+        type:
+          type: string
+        vc_mac:
+          readOnly: true
+          type: string
+      type: object
     stats_switch_module_stat_item:
       additionalProperties: false
       properties:
@@ -838,33 +819,25 @@ components:
           - string
           - 'null'
       type: object
+    virtual_chassis_member_update_vc_role:
+      description: 'Required if `op`==`add` or `op`==`preprovision`. enum: `backup`, `linecard`, `master`'
+      enum:
+      - backup
+      - linecard
+      - master
+      type: string
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
     response_http404:
       additionalProperties: false
       properties:
         id:
           type: string
       type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    module_stat_item_errors:
-      description: Used to report all error states the device node is running into. An error should always have `type` and `since` fields, and could have some other fields specific to that type.
-      items:
-        $ref: '#/components/schemas/module_stat_item_errors_items'
-      type: array
     id:
       description: Unique ID of the object instance in the Mist Organization
       examples:
@@ -872,34 +845,6 @@ components:
       format: uuid
       readOnly: true
       type: string
-    config_vc_port_member:
-      additionalProperties: false
-      properties:
-        member:
-          type: number
-        vc_ports:
-          $ref: '#/components/schemas/strings'
-      required:
-      - member
-      type: object
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    vc_port_mode:
-      description: 'enum: `network`, `vcp-higig`, `vcp-hgoe`'
-      enum:
-      - network
-      - vcp-higig
-      - vcp-hgoe
-      type: string
-    module_stat_item_psus:
-      items:
-        $ref: '#/components/schemas/module_stat_item_psus_item'
-      type: array
-      uniqueItems: true
     module_stat_item_psus_item:
       additionalProperties: false
       properties:
@@ -912,76 +857,182 @@ components:
           - ok
           type: string
       type: object
+    module_stat_item_errors_items:
+      additionalProperties: false
+      properties:
+        feature:
+          examples:
+          - Mist-Management
+          type: string
+        minimum_version:
+          examples:
+          - 128T-6.0.0-1
+          type: string
+        reason:
+          type: string
+        since:
+          examples:
+          - 1657497600
+          type: integer
+        type:
+          examples:
+          - FW_UPGRADE_REQUIRED_BY_FEATURE
+          type: string
+      required:
+      - since
+      - type
+      type: object
+    cpu_stat_load_avg:
+      description: Load averages for the last 1, 5, and 15 minutes
+      items:
+        type: number
+      type: array
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    module_stat_item_fans_items:
+      additionalProperties: false
+      properties:
+        airflow:
+          examples:
+          - out
+          type: string
+        name:
+          examples:
+          - Fan 0
+          type: string
+        rpm:
+          type: integer
+        status:
+          examples:
+          - ok
+          type: string
+      type: object
+    virtual_chassis_port_members:
+      items:
+        $ref: '#/components/schemas/config_vc_port_member'
+      type: array
+      uniqueItems: true
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    module_stat_item_psus:
+      items:
+        $ref: '#/components/schemas/module_stat_item_psus_item'
+      type: array
+      uniqueItems: true
+    virtual_chassis_port_operation:
+      description: 'enum: `delete`, `set`'
+      enum:
+      - delete
+      - set
+      minLength: 1
+      type: string
+    module_stat_item_vc_links_item:
+      additionalProperties: false
+      properties:
+        neighbor_module_idx:
+          examples:
+          - 1
+          type: integer
+        neighbor_port_id:
+          examples:
+          - vcp-255/1/0
+          type: string
+        port_id:
+          examples:
+          - vcp-255/1/0
+          type: string
+      type: object
+    vc_port:
+      properties:
+        mode:
+          $ref: '#/components/schemas/vc_port_mode'
+      type: object
+    last_seen:
+      description: Last seen timestamp
+      examples:
+      - 1470417522
+      format: double
+      readOnly: true
+      type:
+      - number
+      - 'null'
     module_stat_item_vc_links:
       items:
         $ref: '#/components/schemas/module_stat_item_vc_links_item'
       type: array
       uniqueItems: true
-    response_virtual_chassis_config:
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    virtual_chassis_config_members:
+      items:
+        $ref: '#/components/schemas/virtual_chassis_config_member'
+      type: array
+    module_stat_item_pics_item_port_groups:
+      items:
+        $ref: '#/components/schemas/module_stat_item_pics_item_port_groups_item'
+      type: array
+    response_http403:
       additionalProperties: false
       properties:
-        config_type:
-          readOnly: true
-          type: string
-        id:
-          $ref: '#/components/schemas/id'
-        locating:
-          readOnly: true
-          type: boolean
-        mac:
-          type: string
-        members:
-          $ref: '#/components/schemas/stats_switch_module_stat'
-        model:
-          readOnly: true
-          type: string
-        num_routing_engines:
-          description: routing-engine count
+        detail:
           examples:
-          - 1
-          type: integer
-        org_id:
-          $ref: '#/components/schemas/org_id'
-        serial:
-          readOnly: true
-          type: string
-        site_id:
-          $ref: '#/components/schemas/site_id'
-        status:
-          readOnly: true
-          type: string
-        type:
-          type: string
-        vc_mac:
-          readOnly: true
+          - You do not have permission to perform this action.
           type: string
       type: object
-    virtual_chassis_config:
-      description: Virtual Chassis
+    vc_port_mode:
+      description: 'enum: `network`, `vcp-higig`, `vcp-hgoe`'
+      enum:
+      - network
+      - vcp-higig
+      - vcp-hgoe
+      type: string
+    memory_stat:
+      additionalProperties: false
+      description: Memory usage stat (for virtual chassis, memory usage of master RE)
       properties:
-        locating:
-          readOnly: true
-          type: boolean
-        members:
-          $ref: '#/components/schemas/virtual_chassis_config_members'
-        preprovisioned:
-          default: false
-          description: To create the Virtual Chassis in Pre-Provisioned mode
-          type: boolean
+        usage:
+          type: number
+      required:
+      - usage
       type: object
+    virtual_chassis_config_member_vc_role:
+      description: 'enum: `backup`, `linecard`, `master`'
+      enum:
+      - backup
+      - linecard
+      - master
+      type: string
     module_stat_item_temperatures:
       items:
         $ref: '#/components/schemas/module_stat_item_temperatures_item'
       type: array
       uniqueItems: true
-    virtual_chassis_update_op:
-      description: 'enum: `add`, `preprovision`, `remove`, `renumber`'
-      enum:
-      - add
-      - preprovision
-      - remove
-      - renumber
-      type: string
+    module_stat_item_pics_item:
+      additionalProperties: false
+      properties:
+        index:
+          type: integer
+        model_number:
+          type: string
+        port_groups:
+          $ref: '#/components/schemas/module_stat_item_pics_item_port_groups'
+      type: object
     virtual_chassis_port:
       properties:
         members:
@@ -992,15 +1043,53 @@ components:
       - op
       - members
       type: object
-    module_stat_item_pics_item_port_groups:
+    stats_switch_module_stat:
       items:
-        $ref: '#/components/schemas/module_stat_item_pics_item_port_groups_item'
-      type: array
-    virtual_chassis_port_members:
-      items:
-        $ref: '#/components/schemas/config_vc_port_member'
+        $ref: '#/components/schemas/stats_switch_module_stat_item'
+      minItems: 1
       type: array
       uniqueItems: true
+    module_stat_item_pics_item_port_groups_item:
+      additionalProperties: false
+      properties:
+        count:
+          type: integer
+        type:
+          type: string
+      type: object
+    module_stat_item_pics:
+      items:
+        $ref: '#/components/schemas/module_stat_item_pics_item'
+      type: array
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
+    module_stat_item_poe:
+      additionalProperties: false
+      properties:
+        max_power:
+          examples:
+          - 250
+          type: number
+        power_draw:
+          examples:
+          - 120.3
+          type: number
+        status:
+          type: string
+      type: object
+    config_vc_port_member:
+      additionalProperties: false
+      properties:
+        member:
+          type: number
+        vc_ports:
+          $ref: '#/components/schemas/strings'
+      required:
+      - member
+      type: object
   parameters:
     site_id:
       in: path
@@ -1021,21 +1110,6 @@ components:
         format: uuid
         type: string
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP400:
       content:
         application/json:
@@ -1051,6 +1125,60 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
     OK:
       description: OK
     VirtualChassis:
@@ -1068,58 +1196,19 @@ components:
           schema:
             $ref: '#/components/schemas/response_virtual_chassis_config'
       description: Example response
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   examples:
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     VirtualChassisExample:
       value:
         config_type: nonprovisioned

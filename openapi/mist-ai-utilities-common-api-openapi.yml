@@ -9,41 +9,10 @@ info:
 
     > Date: **May 13, 2026**
 
-    <div class="notification"> NOTE:<br>Some important API changes will be introduced. Please make sure to read the <a href="https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/important-api-changes">announcements</a> </div>
 
+    NOTE:
 
-    ---
-
-    ## Additional Documentation
-
-    * [Mist Automation Guide](https://www.juniper.net/documentation/us/en/software/mist/automation-integration/index.html)
-
-    * [Mist Location SDK](https://www.juniper.net/documentation/us/en/software/mist/location-services/topics/concept/mist-how-get-mist-sdk.html)
-
-    * [Mist Product Updates](https://www.juniper.net/documentation/us/en/software/mist/product-updates/)
-
-
-    ## Helpful Resources
-
-    * [API Sandbox and Exercises](https://api-class.mist.com/)
-
-    * [Postman Collection, Runners and Webhook Samples](https://www.postman.com/juniper-mist/workspace/mist-systems-s-public-workspace)
-
-    * [Python Script Examples](https://github.com/tmunzer/mist_library)
-
-    * [API Demo Apps](https://apps.mist-lab.fr/)
-
-    * [Juniper Blog](https://blogs.juniper.net/)
-
-
-    ## Mist Web Browser Extension:
-
-    * Google Chrome, Microsoft Edge and other Chromium-based browser: [Chrome Web Store](https://chromewebstore.google.com/detail/mist-extension/ejhpdcljeamillfhdihkkmoakanpbplh)
-
-    * Firefox: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mist-extension/)
-
-
-    ---'
+    Some important API changes will be introduced.'
   license:
     name: MIT
     url: https://raw.githubusercontent.com/tmunzer/Mist-OAS3.0/main/LICENSE
@@ -85,7 +54,6 @@ security:
   csrfToken: []
 tags:
 - description: 'API Calls to use Devices Troubleshooting tools.
-
 
 
     Some API Calls can be used with any type of devices (Access Points, Switches and Gateways), and some others may be limited to some types of devices (e.g. "Junos Only")'
@@ -135,7 +103,47 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "ARP can be performed on the Device. The output will be available through websocket. As there can be multiple commands issued against the same AP at the same time and the output all goes through the same websocket stream, session is introduced for demux.\n\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n##### Example output from ws stream\n```json\n{ \n \"event\": \"data\", \n \"channel\": \"/sites/4ac1dcf4-9d8b-7211-65c4-057819f0862b/devices/00000000-0000-0000-1000-5c5b350e0060/cmd\", \n \"data\": { \n   \"session\": \"session_id\", \n   \"raw\": \n   \"Output\": \"\\tMAC\\t\\tDEV\\tVLAN\\tRx Packets\\t\\t Rx Bytes\\t\\tTx Packets\\t\\t Tx Bytes\\tFlows\\tIdle sec\\n-----------------------------------------------------------------------------------------------------------------------\"\n  } \n}\n```"
+      description: 'ARP can be performed on the Device. The output will be available through websocket. As there can be multiple commands issued against the same AP at the same time and the output all goes through the same websocket stream, session is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+        ##### Example output from ws stream
+
+        ```json
+
+        {
+
+        "event": "data",
+
+        "channel": "/sites/4ac1dcf4-9d8b-7211-65c4-057819f0862b/devices/00000000-0000-0000-1000-5c5b350e0060/cmd",
+
+        "data": {
+
+        "session": "session_id",
+
+        "raw":
+
+        "Output": "\tMAC\t\tDEV\tVLAN\tRx Packets\t\t Rx Bytes\t\tTx Packets\t\t Tx Bytes\tFlows\tIdle sec\n-----------------------------------------------------------------------------------------------------------------------"
+
+        }
+
+        }
+
+        ```'
       operationId: arpFromDevice
       requestBody:
         content:
@@ -167,7 +175,51 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Port Bounce can be performed from Switch/Gateway.\n\n **Note:** Ports starting with vme, ae, irb, and HA control ports (for SSR only) are not supported\n\nThe output will be available through websocket. As there can be multiple commands issued against the same AP at the same time and the output all goes through the same websocket stream, session is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n##### Example output from ws stream\n```json\n{\n    \"event\": \"data\",\n    \"channel\": \"/sites/4ac1dcf4-9d8b-7211-65c4-057819f0862b/devices/00000000-0000-0000-1000-5c5b350e0060/cmd\",\n    \"data\": {\n        \"session\": \"session_id\",\n        \"raw\": \"Port bounce complete.\"\n    }\n}\n```"
+      description: 'Port Bounce can be performed from Switch/Gateway.
+
+
+        **Note:** Ports starting with vme, ae, irb, and HA control ports (for SSR only) are not supported
+
+
+        The output will be available through websocket. As there can be multiple commands issued against the same AP at the same time and the output all goes through the same websocket stream, session is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+        ##### Example output from ws stream
+
+        ```json
+
+        {
+
+        "event": "data",
+
+        "channel": "/sites/4ac1dcf4-9d8b-7211-65c4-057819f0862b/devices/00000000-0000-0000-1000-5c5b350e0060/cmd",
+
+        "data": {
+
+        "session": "session_id",
+
+        "raw": "Port bounce complete."
+
+        }
+
+        }
+
+        ```'
       operationId: bounceDevicePort
       requestBody:
         content:
@@ -202,7 +254,26 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Clear MAC Table from the Device.\n\nThe output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n"
+      description: 'Clear MAC Table from the Device.
+
+
+        The output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```'
       operationId: clearSiteDeviceMacTable
       requestBody:
         content:
@@ -298,7 +369,28 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "### Access Points\nLocate an Access Point by blinking it's LED.\nIt is a persisted state that has to be stopped by calling Stop Locating API\n\n### Switches\nLocate a Switch by blinking all port LEDs. \nBy default, request is sent to `master` switch and LEDs will keep flashing for 5 minutes.\nIn case of virtual chassis (VC) the desired member mac has to be passed in the request payload. \nAt anypoint, only one VC member can be requested to flash the LED. \nTo stop LED flashing before the duration ends /unlocate API request can be made. \nIf /unlocate API is not called LED will continue to flash on device for the given duration. \nDefault duration is 5 minutes and 120 minutes is the maximum."
+      description: '### Access Points
+
+        Locate an Access Point by blinking it''s LED.
+
+        It is a persisted state that has to be stopped by calling Stop Locating API
+
+
+        ### Switches
+
+        Locate a Switch by blinking all port LEDs.
+
+        By default, request is sent to `master` switch and LEDs will keep flashing for 5 minutes.
+
+        In case of virtual chassis (VC) the desired member mac has to be passed in the request payload.
+
+        At anypoint, only one VC member can be requested to flash the LED.
+
+        To stop LED flashing before the duration ends /unlocate API request can be made.
+
+        If /unlocate API is not called LED will continue to flash on device for the given duration.
+
+        Default duration is 5 minutes and 120 minutes is the maximum.'
       operationId: startSiteLocateDevice
       requestBody:
         content:
@@ -326,7 +418,11 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Monitor traffic on switches and SRX.\n  * JUNOS uses cmd \"monitor interface <port>\" to monitor traffic on particular <port>\n  * JUNOS uses cmd \"monitor interface traffic\" to monitor traffic on all ports"
+      description: 'Monitor traffic on switches and SRX.
+
+        * JUNOS uses cmd "monitor interface " to monitor traffic on particular
+
+        * JUNOS uses cmd "monitor interface traffic" to monitor traffic on all ports'
       operationId: monitorSiteDeviceTraffic
       requestBody:
         content:
@@ -354,7 +450,48 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Ping from AP, Switch and SSR\n\nPing can be performed from the Device. The output will be available through websocket. As there can be multiple commands issued against the same AP at the same time and the output all goes through the same websocket stream, session is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n##### Example output from ws stream\n```json\n{\n    \"event\": \"data\",\n    \"channel\": \"/sites/4ac1dcf4-9d8b-7211-65c4-057819f0862b/devices/00000000-0000-0000-1000-5c5b350e0060/cmd\",\n    \"data\": {\n        \"session\": \"session_id\",\n        \"raw\": \"64 bytes from 23.211.0.110: seq=8 ttl=58 time=12.323 ms\\n\"\n    }\n}\n```"
+      description: 'Ping from AP, Switch and SSR
+
+
+        Ping can be performed from the Device. The output will be available through websocket. As there can be multiple commands issued against the same AP at the same time and the output all goes through the same websocket stream, session is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+        ##### Example output from ws stream
+
+        ```json
+
+        {
+
+        "event": "data",
+
+        "channel": "/sites/4ac1dcf4-9d8b-7211-65c4-057819f0862b/devices/00000000-0000-0000-1000-5c5b350e0060/cmd",
+
+        "data": {
+
+        "session": "session_id",
+
+        "raw": "64 bytes from 23.211.0.110: seq=8 ttl=58 time=12.323 ms\n"
+
+        }
+
+        }
+
+        ```'
       operationId: pingFromDevice
       requestBody:
         content:
@@ -553,7 +690,48 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get BGP Summary from SSR, SRX and Switch.\n\n\nThe output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n\n}\n```\n\n##### Example output from ws stream\n```\nTue 2024-04-23 16:36:06 UTC\nRetrieving bgp entries...\nBGP table version is 354, local router ID is 10.224.8.16, vrf id 0\nDefault local pref 100, local AS 65000\nStatus codes:  s suppressed, d damped, h history, * valid, > best, = multipath,\n              i internal, r RIB_failure, S Stale, R Removed\nNexthop codes: @NNN nexthop's vrf id, < announce-nh-self\nOrigin codes:  i - IGP, e - EGP, ? - incomplete\nRPKI validation codes: V valid, I invalid, N Not found\n\n  Network                                      Next Hop                                  Metric LocPrf Weight Path\n*> 161.161.161.0/24\n```\""
+      description: 'Get BGP Summary from SSR, SRX and Switch.
+
+
+        The output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+
+        }
+
+        ```
+
+
+        ##### Example output from ws stream
+
+        ```
+
+        Tue 2024-04-23 16:36:06 UTC
+
+        Retrieving bgp entries...
+
+        BGP table version is 354, local router ID is 10.224.8.16, vrf id 0
+
+        Default local pref 100, local AS 65000
+
+        Status codes: s suppressed, d damped, h history, * valid, > best, = multipath,
+
+        i internal, r RIB_failure, S Stale, R Removed
+
+        Nexthop codes: @NNN nexthop''s vrf id, 161.161.161.0/24
+
+        ```"'
       operationId: showSiteDeviceBgpSummary
       requestBody:
         content:
@@ -610,7 +788,26 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get Dot1X Table from the Device.\n\nThe output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n"
+      description: 'Get Dot1X Table from the Device.
+
+
+        The output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```'
       operationId: showSiteDeviceDot1xTable
       requestBody:
         content:
@@ -668,7 +865,33 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get forwarding table from the Device. The output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n#### Subscribe to Device Command outputs\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n\n##### Example output from ws stream\n```\nMon 2024-05-20 16:47:30 UTC Retrieving fib entries… Entry Count: 3268 Capacity:    22668 ==================== ====== ======= ================== ===== ====================== =========== =========== ====== IP Prefix            Port   Proto   Tenant             VRF   Service                Next Hops   Vector      Cost ==================== ====== ======= ================== ===== ====================== =========== =========== ====== 0.0.0.0/0               0   None    Old_Mgmt           -     internet-wan_and_lte   1-2.0       broadband      1 1-4.0       lte           10 branch1-Kiosk      -     internet-wan_and_lte   1-2.0       broadband      1 1-4.0       lte           10 branch1-MGT        -     internet-wan_and_lte   1-2.0       broadband      1 1-4.0       lte           10 3.1.1.0/24              0   None    Old_Mgmt           -     internet-wan_and_lte   1-2.0       broadband      1 1-4.0       lte           10 branch1-Kiosk      -     internet-wan_and_lte   1-2.0       broadband      1 1-4.0       lte           10 branch1-MGT        -     internet-wan_and_lte   1-2.0       broadband      1 1-4.0       lte           10\n\n```\n"
+      description: 'Get forwarding table from the Device. The output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+
+        ##### Example output from ws stream
+
+        ```
+
+        Mon 2024-05-20 16:47:30 UTC Retrieving fib entries… Entry Count: 3268 Capacity: 22668 ==================== ====== ======= ================== ===== ====================== =========== =========== ====== IP Prefix Port Proto Tenant VRF Service Next Hops Vector Cost ==================== ====== ======= ================== ===== ====================== =========== =========== ====== 0.0.0.0/0 0 None Old_Mgmt - internet-wan_and_lte 1-2.0 broadband 1 1-4.0 lte 10 branch1-Kiosk - internet-wan_and_lte 1-2.0 broadband 1 1-4.0 lte 10 branch1-MGT - internet-wan_and_lte 1-2.0 broadband 1 1-4.0 lte 10 3.1.1.0/24 0 None Old_Mgmt - internet-wan_and_lte 1-2.0 broadband 1 1-4.0 lte 10 branch1-Kiosk - internet-wan_and_lte 1-2.0 broadband 1 1-4.0 lte 10 branch1-MGT - internet-wan_and_lte 1-2.0 broadband 1 1-4.0 lte 10
+
+
+        ```'
       operationId: showSiteDeviceForwardingTable
       requestBody:
         content:
@@ -697,7 +920,75 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Get MAC Table from the Device.\n\nThe output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.\n\n\n\n#### Subscribe to Device Command outputs\n\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n```\n\n\n#### Example output from ws stream\n\n```json \n{\n    \"event\": \"data\",\n    \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/00000000-0000-0000-1000-209339xxxxxx/cmd\",\n    \"data\": \"{\\\"event\\\": \\\"data\\\", \\\"channel\\\": \\\"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/209339xxxxxx/cmd\\\", \\\"data\\\": {\\\"session\\\": \\\"eec2b6e4-1e63-4f9f-9cf8-ef7f9632861e\\\", \\\"raw\\\": \\\"\\\\nMAC flags (S - static MAC, D - dynamic MAC, L - locally learned, P - Persistent static, C - Control MAC\\\\n           SE - statistics enabled, NM - non configured MAC, R - remote PE MAC, O - ovsdb MAC\\\\n           GBP - group based policy, B - Blocked MAC)\\\\n\\\\n\\\\nE\\\"}}\"\n}\n{\n    \"event\": \"data\",\n    \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/00000000-0000-0000-1000-209339xxxxxx/cmd\",\n    \"data\": \"{\\\"event\\\": \\\"data\\\", \\\"channel\\\": \\\"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/209339xxxxxx/cmd\\\", \\\"data\\\": {\\\"session\\\": \\\"eec2b6e4-1e63-4f9f-9cf8-ef7f9632861e\\\", \\\"raw\\\": \\\"thernet switching table : 59 entries, 59 learned\\\\nRouting instance : default-switch\\\\n    Vlan                MAC                 MAC         Age   GBP     Logical                NH        MAC        RTR\\\\n    name                address             flags      \\\"}}\"\n}\n{\n    \"event\": \"data\",\n    \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/00000000-0000-0000-1000-209339xxxxxx/cmd\",\n    \"data\": \"{\\\"event\\\": \\\"data\\\", \\\"channel\\\": \\\"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/209339xxxxxx/cmd\\\", \\\"data\\\": {\\\"session\\\": \\\"eec2b6e4-1e63-4f9f-9cf8-ef7f9632861e\\\", \\\"raw\\\": \\\"       Tag     interface              Index     property   ID\\\\n    corp                00:50:56:87:4f:69   D             -           xe-0/1/3.0             0                    0       \\\\n    corp                00:50:56:87:ce:f5   D             -           x\\\"}}\"\n}\n{\n    \"event\": \"data\",\n    \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/00000000-0000-0000-1000-209339xxxxxx/cmd\",\n    \"data\": \"{\\\"event\\\": \\\"data\\\", \\\"channel\\\": \\\"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/209339xxxxxx/cmd\\\", \\\"data\\\": {\\\"session\\\": \\\"eec2b6e4-1e63-4f9f-9cf8-ef7f9632861e\\\", \\\"raw\\\": \\\"e-0/1/3.0             0                    0       \\\\n    corp                20:93:39:0f:62:00   D             -           xe-0/1/3.0             0                    0       \\\\n    ifo                 00:50:56:87:2d:42   D             -           xe-0/1/3.0 \\\"}}\"\n}\n...\n```"
+      description: 'Get MAC Table from the Device.
+
+
+        The output will be available through websocket. As there can be multiple commands issued against the same device at the same time and the output all goes through the same websocket stream, `session` is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        ```
+
+
+        #### Example output from ws stream
+
+
+        ```json
+
+        {
+
+        "event": "data",
+
+        "channel": "/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/00000000-0000-0000-1000-209339xxxxxx/cmd",
+
+        "data": "{\"event\": \"data\", \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/209339xxxxxx/cmd\", \"data\": {\"session\": \"eec2b6e4-1e63-4f9f-9cf8-ef7f9632861e\", \"raw\": \"\\nMAC flags (S - static MAC, D - dynamic MAC, L - locally learned, P - Persistent static, C - Control MAC\\n SE - statistics enabled, NM - non configured MAC, R - remote PE MAC, O - ovsdb MAC\\n GBP - group based policy, B - Blocked MAC)\\n\\n\\nE\"}}"
+
+        }
+
+        {
+
+        "event": "data",
+
+        "channel": "/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/00000000-0000-0000-1000-209339xxxxxx/cmd",
+
+        "data": "{\"event\": \"data\", \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/209339xxxxxx/cmd\", \"data\": {\"session\": \"eec2b6e4-1e63-4f9f-9cf8-ef7f9632861e\", \"raw\": \"thernet switching table : 59 entries, 59 learned\\nRouting instance : default-switch\\n Vlan MAC MAC Age GBP Logical NH MAC RTR\\n name address flags \"}}"
+
+        }
+
+        {
+
+        "event": "data",
+
+        "channel": "/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/00000000-0000-0000-1000-209339xxxxxx/cmd",
+
+        "data": "{\"event\": \"data\", \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/209339xxxxxx/cmd\", \"data\": {\"session\": \"eec2b6e4-1e63-4f9f-9cf8-ef7f9632861e\", \"raw\": \" Tag interface Index property ID\\n corp 00:50:56:87:4f:69 D - xe-0/1/3.0 0 0 \\n corp 00:50:56:87:ce:f5 D - x\"}}"
+
+        }
+
+        {
+
+        "event": "data",
+
+        "channel": "/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/00000000-0000-0000-1000-209339xxxxxx/cmd",
+
+        "data": "{\"event\": \"data\", \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-a8d7b85087ac/devices/209339xxxxxx/cmd\", \"data\": {\"session\": \"eec2b6e4-1e63-4f9f-9cf8-ef7f9632861e\", \"raw\": \"e-0/1/3.0 0 0 \\n corp 20:93:39:0f:62:00 D - xe-0/1/3.0 0 0 \\n ifo 00:50:56:87:2d:42 D - xe-0/1/3.0 \"}}"
+
+        }
+
+        ...
+
+        ```'
       operationId: showSiteDeviceMacTable
       requestBody:
         content:
@@ -782,7 +1073,48 @@ paths:
     - $ref: '#/components/parameters/site_id'
     - $ref: '#/components/parameters/device_id'
     post:
-      description: "Traceroute can be performed from the Device.\n\nThe output will be available through websocket. As there can be multiple commands issued against the same Device at the same time and the output all goes through the same websocket stream, session is introduced for demux.\n\n\n#### Subscribe to Device Command outputs\n\n`WS /api-ws/v1/stream`\n\n```json\n{\n    \"subscribe\": \"/sites/{site_id}/devices/{device_id}/cmd\"\n}\n```\n\n\n#### Example output from ws stream\n```json\n{\n  \"channel\": \"/sites/d6fb4f96-xxxx-xxxx-xxxx-xxxxxxxxxxxx/devices/00000000-0000-0000-1000-xxxxxxxxxxxx/cmd\",\n  \"event\": \"data\",\n  \"data\": {\n    \"session\": \"9106e908-74dc-4a4f-9050-9c2adcaf44a5\",\n    \"raw\": \"Running traceroute...\\ntraceroute to 8.8.8.8, 64 hops max\\n 0  192.168.1.1 1 ms  192.168.1.1 1 ms  192.168.1.1 1 ms\\n 1  80.10.236.81 2 ms  80.10.236.81 4 ms  80.10.236.81 2 ms\\n 2  193.253.80.250 3 ms  193.253.80.250 2 ms  193.253.80.250 2 ms\\n 3  193.252.159.41 2 ms  193.252.159.41 1 ms  193.252.159.41 3 ms\\n\"\n}\n```"
+      description: 'Traceroute can be performed from the Device.
+
+
+        The output will be available through websocket. As there can be multiple commands issued against the same Device at the same time and the output all goes through the same websocket stream, session is introduced for demux.
+
+
+        #### Subscribe to Device Command outputs
+
+
+        `WS /api-ws/v1/stream`
+
+
+        ```json
+
+        {
+
+        "subscribe": "/sites/{site_id}/devices/{device_id}/cmd"
+
+        }
+
+        ```
+
+
+        #### Example output from ws stream
+
+        ```json
+
+        {
+
+        "channel": "/sites/d6fb4f96-xxxx-xxxx-xxxx-xxxxxxxxxxxx/devices/00000000-0000-0000-1000-xxxxxxxxxxxx/cmd",
+
+        "event": "data",
+
+        "data": {
+
+        "session": "9106e908-74dc-4a4f-9050-9c2adcaf44a5",
+
+        "raw": "Running traceroute...\ntraceroute to 8.8.8.8, 64 hops max\n 0 192.168.1.1 1 ms 192.168.1.1 1 ms 192.168.1.1 1 ms\n 1 80.10.236.81 2 ms 80.10.236.81 4 ms 80.10.236.81 2 ms\n 2 193.253.80.250 3 ms 193.253.80.250 2 ms 193.253.80.250 2 ms\n 3 193.252.159.41 2 ms 193.252.159.41 1 ms 193.252.159.41 3 ms\n"
+
+        }
+
+        ```'
       operationId: tracerouteFromDevice
       requestBody:
         content:
@@ -836,76 +1168,26 @@ paths:
       tags:
       - Utilities Common
 components:
-  schemas:
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    utils_show_dot1x:
-      properties:
-        duration:
-          default: 0
-          description: Duration in sec for which refresh is enabled. Should be set only if interval is configured to non-zero value.
-          maximum: 300
-          minimum: 0
-          type: integer
-        interval:
-          default: 0
-          description: Rate at which output will refresh
-          maximum: 10
-          minimum: 0
-          type: integer
-        port_id:
-          description: Device Port ID
-          examples:
-          - ge-0/0/0.0
-          type: string
-      type: object
-    clear_policy_hit_count:
-      properties:
-        policy_name:
-          type: string
-      required:
-      - policy_name
-      type: object
-    utils_devices_restart:
-      properties:
-        member:
-          description: Optional for VC member
-          maximum: 9
-          minimum: 0
-          type: integer
-        node:
-          $ref: '#/components/schemas/utils_devices_restart_node'
-      type: object
-    utils_monitor_traffic:
-      properties:
-        port:
-          description: Port name, if no port input is provided then all ports will be monitored
-          examples:
-          - ge-0/0/1
-          type: string
-      type: object
-    utils_release_dhcp_leases_macs:
-      description: A list of client macs to be released
-      examples:
-      - - 90ec77aabbcc
-        - 90ec77aabbdd
-      items:
+  parameters:
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
         type: string
-      type: array
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
+    device_id:
+      in: path
+      name: device_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+  schemas:
     utils_ping:
       properties:
         count:
@@ -936,10 +1218,119 @@ components:
       required:
       - host
       type: object
-    utils_bounce_port:
+    response_http400:
+      additionalProperties: false
       properties:
-        ports:
-          $ref: '#/components/schemas/utils_bounce_port_ports'
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    utils_show_evpn_database:
+      properties:
+        duration:
+          default: 0
+          description: Duration in sec for which refresh is enabled. Should be set only if interval is configured to non-zero value.
+          maximum: 300
+          minimum: 0
+          type: integer
+        interval:
+          default: 0
+          description: Rate at which output will refresh
+          maximum: 10
+          minimum: 0
+          type: integer
+        mac:
+          description: Client mac filter
+          examples:
+          - f8c1165c6400
+          type: string
+        port_id:
+          description: Interface name
+          examples:
+          - ge-0/0/0.0
+          type: string
+      type: object
+    ha_cluster_node_enum:
+      description: 'only for HA. enum: `node0`, `node1`'
+      enum:
+      - node0
+      - node1
+      type: string
+    clear_policy_hit_count:
+      properties:
+        policy_name:
+          type: string
+      required:
+      - policy_name
+      type: object
+    locate_switch:
+      properties:
+        duration:
+          default: 5
+          description: Minutes the leds should keep flashing
+          maximum: 120
+          minimum: 1
+          type: integer
+        mac:
+          description: For virtual chassis, the MAC of the member
+          examples:
+          - f01c2d4ff760
+          type: string
+      type: object
+    websocket_session:
+      additionalProperties: false
+      properties:
+        session:
+          examples:
+          - 19e73828-937f-05e6-f709-e29efdb0a82b
+          type: string
+      required:
+      - session
+      type: object
+    websocket_session_with_url:
+      additionalProperties: false
+      properties:
+        session:
+          examples:
+          - 19e73828-937f-05e6-f709-e29efdb0a82b
+          type: string
+        url:
+          examples:
+          - wss://api-ws.mist.com/ssh?jwt=xxxx
+          type: string
+      required:
+      - session
+      - url
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    utils_monitor_traffic:
+      properties:
+        port:
+          description: Port name, if no port input is provided then all ports will be monitored
+          examples:
+          - ge-0/0/1
+          type: string
+      type: object
+    utils_bounce_port_ports:
+      description: List of ports to bounce
+      items:
+        type: string
+      type: array
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
+    utils_show_bgp_summary:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
       type: object
     utils_traceroute:
       properties:
@@ -970,59 +1361,41 @@ components:
           description: For SRX, optional, the source to initiate traceroute from. by default, master VRF/RI is assumed
           type: string
       type: object
-    utils_devices_restart_multi_device_ids:
-      items:
-        format: uuid
-        type: string
-      type: array
-    locate_switch:
-      properties:
-        duration:
-          default: 5
-          description: Minutes the leds should keep flashing
-          maximum: 120
-          minimum: 1
-          type: integer
-        mac:
-          description: For virtual chassis, the MAC of the member
-          examples:
-          - f01c2d4ff760
-          type: string
-      type: object
-    response_device_config_cli:
+    response_http401:
       additionalProperties: false
       properties:
-        cli:
-          $ref: '#/components/schemas/strings'
-      required:
-      - cli
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
       type: object
-    root_password_string:
+    utils_mac_table:
+      properties:
+        mac_address:
+          examples:
+          - f8c1165c6400
+          type: string
+        port_id:
+          examples:
+          - ge-0/0/0.0
+          type: string
+        vlan_id:
+          examples:
+          - ge-0/0/0.0
+          type: string
+      type: object
+    utils_bounce_port:
+      properties:
+        ports:
+          $ref: '#/components/schemas/utils_bounce_port_ports'
+      type: object
+    response_http429:
       additionalProperties: false
       properties:
-        root_password:
-          format: password
-          minLength: 1
-          type: string
-      required:
-      - root_password
-      type: object
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
-    utils_show_dhcp_leases:
-      properties:
-        network:
-          description: DHCP network for the leases, returns full table if not specified
+        detail:
           examples:
-          - guest
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-      required:
-      - network
       type: object
     utils_traceroute_protocol:
       default: udp
@@ -1031,51 +1404,6 @@ components:
       - icmp
       - udp
       type: string
-    websocket_session_with_url:
-      additionalProperties: false
-      properties:
-        session:
-          examples:
-          - 19e73828-937f-05e6-f709-e29efdb0a82b
-          type: string
-        url:
-          examples:
-          - wss://api-ws.mist.com/ssh?jwt=xxxx
-          type: string
-      required:
-      - session
-      - url
-      type: object
-    utils_show_evpn_database:
-      properties:
-        duration:
-          default: 0
-          description: Duration in sec for which refresh is enabled. Should be set only if interval is configured to non-zero value.
-          maximum: 300
-          minimum: 0
-          type: integer
-        interval:
-          default: 0
-          description: Rate at which output will refresh
-          maximum: 10
-          minimum: 0
-          type: integer
-        mac:
-          description: Client mac filter
-          examples:
-          - f8c1165c6400
-          type: string
-        port_id:
-          description: Interface name
-          examples:
-          - ge-0/0/0.0
-          type: string
-      type: object
-    utils_bounce_port_ports:
-      description: List of ports to bounce
-      items:
-        type: string
-      type: array
     utils_send_support_logs:
       properties:
         info:
@@ -1089,6 +1417,83 @@ components:
           maximum: 10
           minimum: 1
           type: integer
+      type: object
+    response_device_config_cli:
+      additionalProperties: false
+      properties:
+        cli:
+          $ref: '#/components/schemas/strings'
+      required:
+      - cli
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    utils_devices_restart_multi_device_ids:
+      items:
+        format: uuid
+        type: string
+      type: array
+    shell_node:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+      type: object
+    root_password_string:
+      additionalProperties: false
+      properties:
+        root_password:
+          format: password
+          minLength: 1
+          type: string
+      required:
+      - root_password
+      type: object
+    utils_release_dhcp_leases:
+      description: "Note: \n  * valid combinations for Junos: \n    * `port_id` \n    * `macs` + `network`\n  * valid combinations for SSR: \n    * `port_id` \n    * `macs` + `network`\n    * `port_id` + `network`\n    * `network`\n  * if network or port_id is specified and macs is empty, it means all clients under network or port_id"
+      properties:
+        macs:
+          $ref: '#/components/schemas/utils_release_dhcp_leases_macs'
+        network:
+          description: The network for the leases IPs to be released
+          examples:
+          - guest
+          type: string
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        port_id:
+          description: The network interface on which to release the current DHCP release
+          examples:
+          - ge-0/0/1.10
+          minLength: 1
+          type: string
+      required:
+      - port_id
+      type: object
+    utils_show_dot1x:
+      properties:
+        duration:
+          default: 0
+          description: Duration in sec for which refresh is enabled. Should be set only if interval is configured to non-zero value.
+          maximum: 300
+          minimum: 0
+          type: integer
+        interval:
+          default: 0
+          description: Rate at which output will refresh
+          maximum: 10
+          minimum: 0
+          type: integer
+        port_id:
+          description: Device Port ID
+          examples:
+          - ge-0/0/0.0
+          type: string
       type: object
     utils_show_forwarding_table:
       properties:
@@ -1130,50 +1535,29 @@ components:
           - guest
           type: string
       type: object
-    utils_release_dhcp_leases:
-      description: "Note: \n  * valid combinations for Junos: \n    * `port_id` \n    * `macs` + `network`\n  * valid combinations for SSR: \n    * `port_id` \n    * `macs` + `network`\n    * `port_id` + `network`\n    * `network`\n  * if network or port_id is specified and macs is empty, it means all clients under network or port_id"
-      properties:
-        macs:
-          $ref: '#/components/schemas/utils_release_dhcp_leases_macs'
-        network:
-          description: The network for the leases IPs to be released
-          examples:
-          - guest
-          type: string
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        port_id:
-          description: The network interface on which to release the current DHCP release
-          examples:
-          - ge-0/0/1.10
-          minLength: 1
-          type: string
-      required:
-      - port_id
-      type: object
-    ha_cluster_node_enum:
-      description: 'only for HA. enum: `node0`, `node1`'
+    utils_release_dhcp_leases_macs:
+      description: A list of client macs to be released
+      examples:
+      - - 90ec77aabbcc
+        - 90ec77aabbdd
+      items:
+        type: string
+      type: array
+    utils_devices_restart_node:
+      description: 'only for SRX/SSR: if node is not present, both nodes are restarted. For other devices: node should not be present'
       enum:
       - node0
       - node1
       type: string
-    utils_show_bgp_summary:
+    utils_devices_restart:
       properties:
+        member:
+          description: Optional for VC member
+          maximum: 9
+          minimum: 0
+          type: integer
         node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-      type: object
-    shell_node:
-      properties:
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
+          $ref: '#/components/schemas/utils_devices_restart_node'
       type: object
     utils_send_support_logs_info:
       default: full
@@ -1186,45 +1570,17 @@ components:
       - process
       - var-logs
       type: string
-    response_http404:
-      additionalProperties: false
+    utils_show_dhcp_leases:
       properties:
-        id:
-          type: string
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
+        network:
+          description: DHCP network for the leases, returns full table if not specified
           examples:
-          - Authentication credentials were not provided.
+          - guest
           type: string
-      type: object
-    utils_mac_table:
-      properties:
-        mac_address:
-          examples:
-          - f8c1165c6400
-          type: string
-        port_id:
-          examples:
-          - ge-0/0/0.0
-          type: string
-        vlan_id:
-          examples:
-          - ge-0/0/0.0
-          type: string
-      type: object
-    utils_devices_restart_node:
-      description: 'only for SRX/SSR: if node is not present, both nodes are restarted. For other devices: node should not be present'
-      enum:
-      - node0
-      - node1
-      type: string
-    ha_cluster_node:
-      properties:
         node:
           $ref: '#/components/schemas/ha_cluster_node_enum'
+      required:
+      - network
       type: object
     utils_devices_restart_multi:
       properties:
@@ -1236,51 +1592,12 @@ components:
       required:
       - device_ids
       type: object
-    websocket_session:
-      additionalProperties: false
+    ha_cluster_node:
       properties:
-        session:
-          examples:
-          - 19e73828-937f-05e6-f709-e29efdb0a82b
-          type: string
-      required:
-      - session
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
       type: object
-  parameters:
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    device_id:
-      in: path
-      name: device_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP400:
       content:
         application/json:
@@ -1296,8 +1613,30 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    OK:
-      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     DeviceConfigCmd:
       content:
         application/json:
@@ -1312,48 +1651,6 @@ components:
               $ref: '#/components/examples/DeviceConfigCmdExample'
           schema:
             $ref: '#/components/schemas/response_device_config_cli'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    WebsocketSessionWithUrl:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/websocket_session_with_url'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/websocket_session_with_url'
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    WebsocketSession:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/websocket_session'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/websocket_session'
       description: OK
     HTTP429:
       content:
@@ -1370,10 +1667,48 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    WebsocketSessionWithUrl:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/websocket_session_with_url'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/websocket_session_with_url'
+      description: OK
+    OK:
+      description: OK
+    WebsocketSession:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/websocket_session'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/websocket_session'
+      description: OK
   examples:
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
@@ -1384,9 +1719,6 @@ components:
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."
