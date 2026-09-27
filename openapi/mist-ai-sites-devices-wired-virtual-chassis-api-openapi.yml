@@ -478,9 +478,214 @@ paths:
       - Sites Devices - Wired - Virtual Chassis
 components:
   schemas:
-    module_stat_item_fans:
+    virtual_chassis_update_members:
       items:
-        $ref: '#/components/schemas/module_stat_item_fans_items'
+        $ref: '#/components/schemas/virtual_chassis_member_update'
+      type: array
+    virtual_chassis_config_member_vc_role:
+      description: 'enum: `backup`, `linecard`, `master`'
+      enum:
+      - backup
+      - linecard
+      - master
+      type: string
+    module_stat_item_pics_item_port_groups_item:
+      additionalProperties: false
+      properties:
+        count:
+          type: integer
+        type:
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    virtual_chassis_update:
+      description: Virtual Chassis
+      properties:
+        member:
+          description: Only if `op`==`renumber`
+          type: integer
+        members:
+          $ref: '#/components/schemas/virtual_chassis_update_members'
+        new-member:
+          description: Only if `op`==`renumber`
+          type: integer
+        op:
+          $ref: '#/components/schemas/virtual_chassis_update_op'
+        remove_inventory:
+          default: false
+          description: Only if `op`==`preprovision`. When removing members from a pre-provisioned VC, set to `true` to delete the inventory records for removed members (e.g. for RMA). Members being removed must be in "not-present" state.
+          type: boolean
+      type: object
+    module_stat_item_psus_item:
+      additionalProperties: false
+      properties:
+        name:
+          examples:
+          - Power Supply 0
+          type: string
+        status:
+          examples:
+          - ok
+          type: string
+      type: object
+    memory_stat:
+      additionalProperties: false
+      description: Memory usage stat (for virtual chassis, memory usage of master RE)
+      properties:
+        usage:
+          type: number
+      required:
+      - usage
+      type: object
+    module_stat_item_pics_item:
+      additionalProperties: false
+      properties:
+        index:
+          type: integer
+        model_number:
+          type: string
+        port_groups:
+          $ref: '#/components/schemas/module_stat_item_pics_item_port_groups'
+      type: object
+    module_stat_item_vc_links:
+      items:
+        $ref: '#/components/schemas/module_stat_item_vc_links_item'
+      type: array
+      uniqueItems: true
+    config_vc_port_member:
+      additionalProperties: false
+      properties:
+        member:
+          type: number
+        vc_ports:
+          $ref: '#/components/schemas/strings'
+      required:
+      - member
+      type: object
+    module_stat_item_fans_items:
+      additionalProperties: false
+      properties:
+        airflow:
+          examples:
+          - out
+          type: string
+        name:
+          examples:
+          - Fan 0
+          type: string
+        rpm:
+          type: integer
+        status:
+          examples:
+          - ok
+          type: string
+      type: object
+    virtual_chassis_port_operation:
+      description: 'enum: `delete`, `set`'
+      enum:
+      - delete
+      - set
+      minLength: 1
+      type: string
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    virtual_chassis_update_op:
+      description: 'enum: `add`, `preprovision`, `remove`, `renumber`'
+      enum:
+      - add
+      - preprovision
+      - remove
+      - renumber
+      type: string
+    module_stat_item_poe:
+      additionalProperties: false
+      properties:
+        max_power:
+          examples:
+          - 250
+          type: number
+        power_draw:
+          examples:
+          - 120.3
+          type: number
+        status:
+          type: string
+      type: object
+    cpu_stat_load_avg:
+      description: Load averages for the last 1, 5, and 15 minutes
+      items:
+        type: number
+      type: array
+    module_stat_item_pics:
+      items:
+        $ref: '#/components/schemas/module_stat_item_pics_item'
+      type: array
+    module_stat_item_pics_item_port_groups:
+      items:
+        $ref: '#/components/schemas/module_stat_item_pics_item_port_groups_item'
+      type: array
+    module_stat_item_errors:
+      description: Used to report all error states the device node is running into. An error should always have `type` and `since` fields, and could have some other fields specific to that type.
+      items:
+        $ref: '#/components/schemas/module_stat_item_errors_items'
+      type: array
+    virtual_chassis_port:
+      properties:
+        members:
+          $ref: '#/components/schemas/virtual_chassis_port_members'
+        op:
+          $ref: '#/components/schemas/virtual_chassis_port_operation'
+      required:
+      - op
+      - members
+      type: object
+    virtual_chassis_member_update_vc_role:
+      description: 'Required if `op`==`add` or `op`==`preprovision`. enum: `backup`, `linecard`, `master`'
+      enum:
+      - backup
+      - linecard
+      - master
+      type: string
+    virtual_chassis_port_members:
+      items:
+        $ref: '#/components/schemas/config_vc_port_member'
+      type: array
+      uniqueItems: true
+    vc_port:
+      properties:
+        mode:
+          $ref: '#/components/schemas/vc_port_mode'
+      type: object
+    module_stat_item_vc_links_item:
+      additionalProperties: false
+      properties:
+        neighbor_module_idx:
+          examples:
+          - 1
+          type: integer
+        neighbor_port_id:
+          examples:
+          - vcp-255/1/0
+          type: string
+        port_id:
+          examples:
+          - vcp-255/1/0
+          type: string
+      type: object
+    module_stat_item_temperatures:
+      items:
+        $ref: '#/components/schemas/module_stat_item_temperatures_item'
       type: array
       uniqueItems: true
     module_stat_item_temperatures_item:
@@ -499,139 +704,44 @@ components:
           - ok
           type: string
       type: object
-    response_http400:
+    response_http401:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - Authentication credentials were not provided.
           type: string
       type: object
-    cpu_stat:
+    stats_switch_module_stat:
+      items:
+        $ref: '#/components/schemas/stats_switch_module_stat_item'
+      minItems: 1
+      type: array
+      uniqueItems: true
+    module_stat_item_errors_items:
       additionalProperties: false
       properties:
-        idle:
-          description: Percentage of CPU time that is idle
-          readOnly: true
-          type:
-          - number
-          - 'null'
-        interrupt:
-          description: Percentage of CPU time being used by interrupts
-          readOnly: true
-          type:
-          - number
-          - 'null'
-        load_avg:
-          $ref: '#/components/schemas/cpu_stat_load_avg'
-        system:
-          description: Percentage of CPU time being used by system processes
-          readOnly: true
-          type:
-          - number
-          - 'null'
-        usage:
-          description: CPU usage
-          readOnly: true
-          type:
-          - number
-          - 'null'
-        user:
-          description: Percentage of CPU time being used by user processes
-          readOnly: true
-          type:
-          - number
-          - 'null'
-      type: object
-    virtual_chassis_member_update:
-      additionalProperties: false
-      properties:
-        mac:
-          description: Required if `op`==`add` or `op`==`preprovision`.
+        feature:
+          examples:
+          - Mist-Management
           type: string
-        member:
-          description: Required if `op`==`remove`
-          type: integer
-        member_id:
-          description: Required if `op`==`preprovision`. Optional if `op`==`add`
-          type: integer
-        vc_ports:
-          $ref: '#/components/schemas/virtual_chassis_member_update_vc_ports'
-        vc_role:
-          $ref: '#/components/schemas/virtual_chassis_member_update_vc_role'
-      type: object
-    virtual_chassis_config_member:
-      additionalProperties: false
-      properties:
-        locating:
-          readOnly: true
-          type: boolean
-        mac:
-          description: fpc0, same as the mac of device_id
+        minimum_version:
+          examples:
+          - 128T-6.0.0-1
           type: string
-        member_id:
-          description: For preprovisionned virtual chassis
+        reason:
+          type: string
+        since:
+          examples:
+          - 1657497600
           type: integer
-        vc_ports:
-          $ref: '#/components/schemas/strings'
-        vc_role:
-          $ref: '#/components/schemas/virtual_chassis_config_member_vc_role'
+        type:
+          examples:
+          - FW_UPGRADE_REQUIRED_BY_FEATURE
+          type: string
       required:
-      - mac
-      - vc_role
-      type: object
-    virtual_chassis_update_members:
-      items:
-        $ref: '#/components/schemas/virtual_chassis_member_update'
-      type: array
-    module_stat_item_errors:
-      description: Used to report all error states the device node is running into. An error should always have `type` and `since` fields, and could have some other fields specific to that type.
-      items:
-        $ref: '#/components/schemas/module_stat_item_errors_items'
-      type: array
-    virtual_chassis_config:
-      description: Virtual Chassis
-      properties:
-        locating:
-          readOnly: true
-          type: boolean
-        members:
-          $ref: '#/components/schemas/virtual_chassis_config_members'
-        preprovisioned:
-          default: false
-          description: To create the Virtual Chassis in Pre-Provisioned mode
-          type: boolean
-      type: object
-    virtual_chassis_member_update_vc_ports:
-      description: Required if `op`==`add` or `op`==`preprovision`
-      items:
-        type: string
-      type: array
-    virtual_chassis_update_op:
-      description: 'enum: `add`, `preprovision`, `remove`, `renumber`'
-      enum:
-      - add
-      - preprovision
-      - remove
-      - renumber
-      type: string
-    virtual_chassis_update:
-      description: Virtual Chassis
-      properties:
-        member:
-          description: Only if `op`==`renumber`
-          type: integer
-        members:
-          $ref: '#/components/schemas/virtual_chassis_update_members'
-        new-member:
-          description: Only if `op`==`renumber`
-          type: integer
-        op:
-          $ref: '#/components/schemas/virtual_chassis_update_op'
-        remove_inventory:
-          default: false
-          description: Only if `op`==`preprovision`. When removing members from a pre-provisioned VC, set to `true` to delete the inventory records for removed members (e.g. for RMA). Members being removed must be in "not-present" state.
-          type: boolean
+      - since
+      - type
       type: object
     response_virtual_chassis_config:
       additionalProperties: false
@@ -671,6 +781,85 @@ components:
         vc_mac:
           readOnly: true
           type: string
+      type: object
+    module_stat_item_fans:
+      items:
+        $ref: '#/components/schemas/module_stat_item_fans_items'
+      type: array
+      uniqueItems: true
+    virtual_chassis_member_update_vc_ports:
+      description: Required if `op`==`add` or `op`==`preprovision`
+      items:
+        type: string
+      type: array
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    virtual_chassis_config_members:
+      items:
+        $ref: '#/components/schemas/virtual_chassis_config_member'
+      type: array
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    virtual_chassis_member_update:
+      additionalProperties: false
+      properties:
+        mac:
+          description: Required if `op`==`add` or `op`==`preprovision`.
+          type: string
+        member:
+          description: Required if `op`==`remove`
+          type: integer
+        member_id:
+          description: Required if `op`==`preprovision`. Optional if `op`==`add`
+          type: integer
+        vc_ports:
+          $ref: '#/components/schemas/virtual_chassis_member_update_vc_ports'
+        vc_role:
+          $ref: '#/components/schemas/virtual_chassis_member_update_vc_role'
+      type: object
+    vc_port_mode:
+      description: 'enum: `network`, `vcp-higig`, `vcp-hgoe`'
+      enum:
+      - network
+      - vcp-higig
+      - vcp-hgoe
+      type: string
+    virtual_chassis_config_member:
+      additionalProperties: false
+      properties:
+        locating:
+          readOnly: true
+          type: boolean
+        mac:
+          description: fpc0, same as the mac of device_id
+          type: string
+        member_id:
+          description: For preprovisionned virtual chassis
+          type: integer
+        vc_ports:
+          $ref: '#/components/schemas/strings'
+        vc_role:
+          $ref: '#/components/schemas/virtual_chassis_config_member_vc_role'
+      required:
+      - mac
+      - vc_role
       type: object
     stats_switch_module_stat_item:
       additionalProperties: false
@@ -819,146 +1008,6 @@ components:
           - string
           - 'null'
       type: object
-    virtual_chassis_member_update_vc_role:
-      description: 'Required if `op`==`add` or `op`==`preprovision`. enum: `backup`, `linecard`, `master`'
-      enum:
-      - backup
-      - linecard
-      - master
-      type: string
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    module_stat_item_psus_item:
-      additionalProperties: false
-      properties:
-        name:
-          examples:
-          - Power Supply 0
-          type: string
-        status:
-          examples:
-          - ok
-          type: string
-      type: object
-    module_stat_item_errors_items:
-      additionalProperties: false
-      properties:
-        feature:
-          examples:
-          - Mist-Management
-          type: string
-        minimum_version:
-          examples:
-          - 128T-6.0.0-1
-          type: string
-        reason:
-          type: string
-        since:
-          examples:
-          - 1657497600
-          type: integer
-        type:
-          examples:
-          - FW_UPGRADE_REQUIRED_BY_FEATURE
-          type: string
-      required:
-      - since
-      - type
-      type: object
-    cpu_stat_load_avg:
-      description: Load averages for the last 1, 5, and 15 minutes
-      items:
-        type: number
-      type: array
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    module_stat_item_fans_items:
-      additionalProperties: false
-      properties:
-        airflow:
-          examples:
-          - out
-          type: string
-        name:
-          examples:
-          - Fan 0
-          type: string
-        rpm:
-          type: integer
-        status:
-          examples:
-          - ok
-          type: string
-      type: object
-    virtual_chassis_port_members:
-      items:
-        $ref: '#/components/schemas/config_vc_port_member'
-      type: array
-      uniqueItems: true
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    module_stat_item_psus:
-      items:
-        $ref: '#/components/schemas/module_stat_item_psus_item'
-      type: array
-      uniqueItems: true
-    virtual_chassis_port_operation:
-      description: 'enum: `delete`, `set`'
-      enum:
-      - delete
-      - set
-      minLength: 1
-      type: string
-    module_stat_item_vc_links_item:
-      additionalProperties: false
-      properties:
-        neighbor_module_idx:
-          examples:
-          - 1
-          type: integer
-        neighbor_port_id:
-          examples:
-          - vcp-255/1/0
-          type: string
-        port_id:
-          examples:
-          - vcp-255/1/0
-          type: string
-      type: object
-    vc_port:
-      properties:
-        mode:
-          $ref: '#/components/schemas/vc_port_mode'
-      type: object
     last_seen:
       description: Last seen timestamp
       examples:
@@ -968,25 +1017,66 @@ components:
       type:
       - number
       - 'null'
-    module_stat_item_vc_links:
-      items:
-        $ref: '#/components/schemas/module_stat_item_vc_links_item'
-      type: array
-      uniqueItems: true
+    virtual_chassis_config:
+      description: Virtual Chassis
+      properties:
+        locating:
+          readOnly: true
+          type: boolean
+        members:
+          $ref: '#/components/schemas/virtual_chassis_config_members'
+        preprovisioned:
+          default: false
+          description: To create the Virtual Chassis in Pre-Provisioned mode
+          type: boolean
+      type: object
     org_id:
       examples:
       - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
       format: uuid
       readOnly: true
       type: string
-    virtual_chassis_config_members:
+    cpu_stat:
+      additionalProperties: false
+      properties:
+        idle:
+          description: Percentage of CPU time that is idle
+          readOnly: true
+          type:
+          - number
+          - 'null'
+        interrupt:
+          description: Percentage of CPU time being used by interrupts
+          readOnly: true
+          type:
+          - number
+          - 'null'
+        load_avg:
+          $ref: '#/components/schemas/cpu_stat_load_avg'
+        system:
+          description: Percentage of CPU time being used by system processes
+          readOnly: true
+          type:
+          - number
+          - 'null'
+        usage:
+          description: CPU usage
+          readOnly: true
+          type:
+          - number
+          - 'null'
+        user:
+          description: Percentage of CPU time being used by user processes
+          readOnly: true
+          type:
+          - number
+          - 'null'
+      type: object
+    strings:
       items:
-        $ref: '#/components/schemas/virtual_chassis_config_member'
+        type: string
       type: array
-    module_stat_item_pics_item_port_groups:
-      items:
-        $ref: '#/components/schemas/module_stat_item_pics_item_port_groups_item'
-      type: array
+      uniqueItems: true
     response_http403:
       additionalProperties: false
       properties:
@@ -995,160 +1085,12 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
-    vc_port_mode:
-      description: 'enum: `network`, `vcp-higig`, `vcp-hgoe`'
-      enum:
-      - network
-      - vcp-higig
-      - vcp-hgoe
-      type: string
-    memory_stat:
-      additionalProperties: false
-      description: Memory usage stat (for virtual chassis, memory usage of master RE)
-      properties:
-        usage:
-          type: number
-      required:
-      - usage
-      type: object
-    virtual_chassis_config_member_vc_role:
-      description: 'enum: `backup`, `linecard`, `master`'
-      enum:
-      - backup
-      - linecard
-      - master
-      type: string
-    module_stat_item_temperatures:
+    module_stat_item_psus:
       items:
-        $ref: '#/components/schemas/module_stat_item_temperatures_item'
+        $ref: '#/components/schemas/module_stat_item_psus_item'
       type: array
       uniqueItems: true
-    module_stat_item_pics_item:
-      additionalProperties: false
-      properties:
-        index:
-          type: integer
-        model_number:
-          type: string
-        port_groups:
-          $ref: '#/components/schemas/module_stat_item_pics_item_port_groups'
-      type: object
-    virtual_chassis_port:
-      properties:
-        members:
-          $ref: '#/components/schemas/virtual_chassis_port_members'
-        op:
-          $ref: '#/components/schemas/virtual_chassis_port_operation'
-      required:
-      - op
-      - members
-      type: object
-    stats_switch_module_stat:
-      items:
-        $ref: '#/components/schemas/stats_switch_module_stat_item'
-      minItems: 1
-      type: array
-      uniqueItems: true
-    module_stat_item_pics_item_port_groups_item:
-      additionalProperties: false
-      properties:
-        count:
-          type: integer
-        type:
-          type: string
-      type: object
-    module_stat_item_pics:
-      items:
-        $ref: '#/components/schemas/module_stat_item_pics_item'
-      type: array
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
-    module_stat_item_poe:
-      additionalProperties: false
-      properties:
-        max_power:
-          examples:
-          - 250
-          type: number
-        power_draw:
-          examples:
-          - 120.3
-          type: number
-        status:
-          type: string
-      type: object
-    config_vc_port_member:
-      additionalProperties: false
-      properties:
-        member:
-          type: number
-        vc_ports:
-          $ref: '#/components/schemas/strings'
-      required:
-      - member
-      type: object
-  parameters:
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    device_id:
-      in: path
-      name: device_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
   responses:
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -1164,6 +1106,30 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    VirtualChassis:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/VirtualChassisExample'
+          schema:
+            $ref: '#/components/schemas/response_virtual_chassis_config'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/VirtualChassisExample'
+          schema:
+            $ref: '#/components/schemas/response_virtual_chassis_config'
+      description: Example response
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP403:
       content:
         application/json:
@@ -1181,34 +1147,49 @@ components:
       description: Permission Denied
     OK:
       description: OK
-    VirtualChassis:
+    HTTP400:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/VirtualChassisExample'
+              $ref: '#/components/examples/HTTP400Example'
           schema:
-            $ref: '#/components/schemas/response_virtual_chassis_config'
+            $ref: '#/components/schemas/response_http400'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/VirtualChassisExample'
+              $ref: '#/components/examples/HTTP400Example'
           schema:
-            $ref: '#/components/schemas/response_virtual_chassis_config'
-      description: Example response
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
   examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
     VirtualChassisExample:
       value:
         config_type: nonprovisioned
@@ -1351,6 +1332,25 @@ components:
         status: connected
         type: switch
         vc_mac: 52d9107af289
+  parameters:
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    device_id:
+      in: path
+      name: device_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

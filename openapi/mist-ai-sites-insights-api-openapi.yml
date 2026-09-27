@@ -341,93 +341,6 @@ paths:
       tags:
       - Sites Insights
 components:
-  parameters:
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    page:
-      in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
-    interval:
-      description: Aggregation works by giving a time range plus interval (e.g. 1d, 1h, 10m) where aggregation function would be applied to.
-      in: query
-      name: interval
-      schema:
-        examples:
-        - 10m
-        type: string
-    device_id:
-      in: path
-      name: device_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    device_mac:
-      in: path
-      name: device_mac
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
-        type: string
-    client_mac:
-      in: path
-      name: client_mac
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
-        type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    metric:
-      description: See [List Insight Metrics](/#operations/listInsightMetrics) for available metrics
-      in: path
-      name: metric
-      required: true
-      schema:
-        type: string
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
   schemas:
     response_http400:
       additionalProperties: false
@@ -437,16 +350,10 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    response_device_metrics_results:
-      items:
-        $ref: '#/components/schemas/response_device_metrics_results_items'
-      type: array
-    insight_metrics_results:
-      description: Results depends on the `metric` - some return numbers (e.g. bytes, ap-count), others return objects
-      items:
-        $ref: '#/components/schemas/insight_metrics_results_item'
-      type: array
-      uniqueItems: true
+    response_device_metrics_results_items:
+      oneOf:
+      - type: string
+      - type: integer
     insight_metrics_results_item:
       anyOf:
       - type: number
@@ -456,52 +363,6 @@ components:
       additionalProperties: false
       properties:
         id:
-          type: string
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    insight_metrics:
-      additionalProperties: false
-      properties:
-        end:
-          type: integer
-        interval:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/insight_metrics_results'
-        start:
-          type: integer
-      required:
-      - end
-      - interval
-      - start
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    response_device_metrics_results_items:
-      oneOf:
-      - type: string
-      - type: integer
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
           type: string
       type: object
     response_device_metrics:
@@ -527,12 +388,133 @@ components:
       - results
       - start
       type: object
+    insight_metrics_results:
+      description: Results depends on the `metric` - some return numbers (e.g. bytes, ap-count), others return objects
+      items:
+        $ref: '#/components/schemas/insight_metrics_results_item'
+      type: array
+      uniqueItems: true
+    insight_metrics:
+      additionalProperties: false
+      properties:
+        end:
+          type: integer
+        interval:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/insight_metrics_results'
+        start:
+          type: integer
+      required:
+      - end
+      - interval
+      - start
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    response_device_metrics_results:
+      items:
+        $ref: '#/components/schemas/response_device_metrics_results_items'
+      type: array
     strings:
       items:
         type: string
       type: array
       uniqueItems: true
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
   responses:
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    DeviceMetric:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceMetricExample'
+          schema:
+            $ref: '#/components/schemas/response_device_metrics'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceMetricExample'
+          schema:
+            $ref: '#/components/schemas/response_device_metrics'
+      description: OK
+    InsightMetric:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/InsightMetricExample'
+          schema:
+            $ref: '#/components/schemas/insight_metrics'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/InsightMetricExample'
+          schema:
+            $ref: '#/components/schemas/insight_metrics'
+      description: OK
     HTTP400:
       content:
         application/json:
@@ -563,88 +545,20 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    DeviceMetric:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceMetricExample'
-          schema:
-            $ref: '#/components/schemas/response_device_metrics'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceMetricExample'
-          schema:
-            $ref: '#/components/schemas/response_device_metrics'
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    InsightMetric:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/InsightMetricExample'
-          schema:
-            $ref: '#/components/schemas/insight_metrics'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/InsightMetricExample'
-          schema:
-            $ref: '#/components/schemas/insight_metrics'
-      description: OK
   examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    InsightMetricExample:
+      value:
+        end: 0
+        interval: 0
+        results:
+        - {}
+        start: 0
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
     DeviceMetricExample:
       value:
         end: 1604347200
@@ -702,13 +616,99 @@ components:
         - '2020-11-02 18:00:00+00:00'
         - '2020-11-02 19:00:00+00:00'
         start: 1604260800
-    InsightMetricExample:
+    HTTP400Example:
       value:
-        end: 0
-        interval: 0
-        results:
-        - {}
-        start: 0
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+  parameters:
+    device_mac:
+      in: path
+      name: device_mac
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
+        type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    interval:
+      description: Aggregation works by giving a time range plus interval (e.g. 1d, 1h, 10m) where aggregation function would be applied to.
+      in: query
+      name: interval
+      schema:
+        examples:
+        - 10m
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    metric:
+      description: See [List Insight Metrics](/#operations/listInsightMetrics) for available metrics
+      in: path
+      name: metric
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      schema:
+        default: 1
+        minimum: 1
+        type: integer
+    device_id:
+      in: path
+      name: device_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
+    client_mac:
+      in: path
+      name: client_mac
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

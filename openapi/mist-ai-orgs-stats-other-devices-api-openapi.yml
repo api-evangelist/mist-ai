@@ -95,42 +95,6 @@ components:
         id:
           type: string
       type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    stats_device_other_connected_device:
-      additionalProperties: false
-      properties:
-        mac:
-          examples:
-          - 020001abcdef
-          type: string
-        name:
-          examples:
-          - DNT-NTR-GWE
-          type: string
-        port_id:
-          examples:
-          - ge-0/0/1
-          type: string
-        type:
-          examples:
-          - gateway
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
     stats_device_other_vendor_specific:
       additionalProperties: false
       description: When `vendor`==`cradlepoint`
@@ -162,104 +126,23 @@ components:
           - 7.23.40
           type: string
       type: object
-    last_seen:
-      description: Last seen timestamp
-      examples:
-      - 1470417522
-      format: double
-      readOnly: true
-      type:
-      - number
-      - 'null'
-    stats_device_other_connected_devices:
-      additionalProperties:
-        $ref: '#/components/schemas/stats_device_other_connected_device'
-      description: Property key is the connected device MAC Address
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    stats_device_other_interface:
-      additionalProperties: false
-      properties:
-        bytes_in:
-          examples:
-          - 5623096929
-          type: integer
-        bytes_out:
-          examples:
-          - 12372750366
-          type: integer
-        carrier:
-          examples:
-          - Orange
-          type: string
-        imei:
-          examples:
-          - '866401234567893'
-          type: string
-        imsi:
-          examples:
-          - '2080101234567893'
-          type: string
-        ip:
-          examples:
-          - 10.134.237.57
-          type: string
-        link:
-          examples:
-          - true
-          type: boolean
-        mode:
-          examples:
-          - wan
-          type: string
-        mtu:
-          examples:
-          - 1500
-          type: integer
-        rsrp:
-          examples:
-          - -108.0
-          type: number
-        rsrq:
-          examples:
-          - -14.0
-          type: number
-        rssi:
-          examples:
-          - -74
-          type: integer
-        service_mode:
-          examples:
-          - 5G NSA
-          type: string
-        sinr:
-          examples:
-          - -1.2
-          type: number
-        state:
-          examples:
-          - READY
-          type: string
-        type:
-          examples:
-          - mdm
-          type: string
-        uptime:
-          examples:
-          - 2095779
-          type: integer
-      type: object
     stats_device_other_interfaces:
       additionalProperties:
         $ref: '#/components/schemas/stats_device_other_interface'
       description: Property key is the interface name
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    stats_device_other_connected_devices:
+      additionalProperties:
+        $ref: '#/components/schemas/stats_device_other_connected_device'
+      description: Property key is the connected device MAC Address
       type: object
     stats_device_other_vendor_specific_port:
       additionalProperties: false
@@ -341,6 +224,14 @@ components:
           - 2095779
           type: integer
       type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
     stats_device_other:
       additionalProperties: false
       properties:
@@ -385,46 +276,116 @@ components:
           - 7.22.70
           type: string
       type: object
+    stats_device_other_interface:
+      additionalProperties: false
+      properties:
+        bytes_in:
+          examples:
+          - 5623096929
+          type: integer
+        bytes_out:
+          examples:
+          - 12372750366
+          type: integer
+        carrier:
+          examples:
+          - Orange
+          type: string
+        imei:
+          examples:
+          - '866401234567893'
+          type: string
+        imsi:
+          examples:
+          - '2080101234567893'
+          type: string
+        ip:
+          examples:
+          - 10.134.237.57
+          type: string
+        link:
+          examples:
+          - true
+          type: boolean
+        mode:
+          examples:
+          - wan
+          type: string
+        mtu:
+          examples:
+          - 1500
+          type: integer
+        rsrp:
+          examples:
+          - -108.0
+          type: number
+        rsrq:
+          examples:
+          - -14.0
+          type: number
+        rssi:
+          examples:
+          - -74
+          type: integer
+        service_mode:
+          examples:
+          - 5G NSA
+          type: string
+        sinr:
+          examples:
+          - -1.2
+          type: number
+        state:
+          examples:
+          - READY
+          type: string
+        type:
+          examples:
+          - mdm
+          type: string
+        uptime:
+          examples:
+          - 2095779
+          type: integer
+      type: object
+    last_seen:
+      description: Last seen timestamp
+      examples:
+      - 1470417522
+      format: double
+      readOnly: true
+      type:
+      - number
+      - 'null'
+    stats_device_other_connected_device:
+      additionalProperties: false
+      properties:
+        mac:
+          examples:
+          - 020001abcdef
+          type: string
+        name:
+          examples:
+          - DNT-NTR-GWE
+          type: string
+        port_id:
+          examples:
+          - ge-0/0/1
+          type: string
+        type:
+          examples:
+          - gateway
+          type: string
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
   responses:
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -440,6 +401,15 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP403:
       content:
         application/json:
@@ -470,38 +440,40 @@ components:
           schema:
             $ref: '#/components/schemas/stats_device_other'
       description: Example response
-  parameters:
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    device_mac:
-      in: path
-      name: device_mac
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
-        type: string
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
   examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
     DeviceOtherStatsOtherdeviceStats:
       value:
         cached_stats: true
@@ -577,6 +549,34 @@ components:
               type: mdm
               uptime: 2095779
         version: 7.24.80
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+  parameters:
+    device_mac:
+      in: path
+      name: device_mac
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
+        type: string
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

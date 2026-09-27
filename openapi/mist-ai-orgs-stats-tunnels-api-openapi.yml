@@ -242,164 +242,105 @@ paths:
       tags:
       - Orgs Stats - Tunnels
 components:
-  parameters:
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
-      schema:
-        type: string
-    duration_5m:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 5m
-        examples:
-        - 10m
-        type: string
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    sort:
-      description: On which field the list should be sorted, -prefix represents DESC order
-      in: query
-      name: sort
-      schema:
-        default: timestamp
-        examples:
-        - -site_id
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
-  responses:
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    TunnelsSearch:
-      content:
-        application/json:
-          examples:
-            Type Wan:
-              $ref: '#/components/examples/TunnelsSearchTypeWan'
-            Type Wxtunnel:
-              $ref: '#/components/examples/TunnelsSearchTypeWxtunnel'
-          schema:
-            $ref: '#/components/schemas/response_tunnel_search'
-        application/vnd.api+json:
-          examples:
-            Type Wan:
-              $ref: '#/components/examples/TunnelsSearchTypeWan'
-            Type Wxtunnel:
-              $ref: '#/components/examples/TunnelsSearchTypeWxtunnel'
-          schema:
-            $ref: '#/components/schemas/response_tunnel_search'
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
   schemas:
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_count:
+      additionalProperties: false
+      properties:
+        distinct:
+          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    rx_bytes:
+      description: Amount of traffic received since connection
+      examples:
+      - 8515104416
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    rx_pkts:
+      description: Amount of packets received since connection
+      examples:
+      - 57770567
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    org_tunnel_count_distinct:
+      default: wxtunnel_id
+      description: 'enum: `ap`, `auth_algo`, `encrypt_algo`, `ike_version`, `ip`, `last_event`, `mac`, `mxcluster_id`, `mxedge_id`, `node`, `peer_host`, `peer_ip`, `peer_mxedge_id`, `protocol`, `remote_ip`, `remote_port`, `site_id`, `state`, `tunnel_name`, `up`, `wxtunnel_id`'
+      enum:
+      - ap
+      - auth_algo
+      - encrypt_algo
+      - ike_version
+      - ip
+      - last_event
+      - mac
+      - mxcluster_id
+      - mxedge_id
+      - node
+      - peer_host
+      - peer_ip
+      - peer_mxedge_id
+      - protocol
+      - remote_ip
+      - remote_port
+      - site_id
+      - state
+      - tunnel_name
+      - up
+      - wxtunnel_id
+      type: string
+    wan_tunnel_protocol:
+      description: 'enum: `gre`, `ipsec`'
+      enum:
+      - gre
+      - ipsec
+      type: string
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    tunnel_priority:
+      description: 'enum: `primary`, `secondary`'
+      enum:
+      - primary
+      - secondary
+      type: string
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
     stats_mxtunnel_session:
       additionalProperties: false
       properties:
@@ -420,18 +361,80 @@ components:
       - remote_sid
       - state
       type: object
-    response_http400:
+    stats_mxtunnel_state:
+      description: 'enum: `established`, `established_with_sessions`, `idle`, `wait-ctrl-conn`, `wait-ctrl-reply`'
+      enum:
+      - established
+      - established_with_sessions
+      - idle
+      - wait-ctrl-conn
+      - wait-ctrl-reply
+      readOnly: true
+      type: string
+    stats_mxtunnel:
       additionalProperties: false
+      description: MxTunnels statistics
       properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+        ap:
+          readOnly: true
           type: string
+        for_site:
+          readOnly: true
+          type: boolean
+        fwupdate:
+          $ref: '#/components/schemas/fwupdate_stat'
+        last_seen:
+          $ref: '#/components/schemas/last_seen'
+        mtu:
+          readOnly: true
+          type: integer
+        mxcluster_id:
+          format: uuid
+          readOnly: true
+          type: string
+        mxedge_id:
+          format: uuid
+          readOnly: true
+          type: string
+        mxtunnel_id:
+          format: uuid
+          readOnly: true
+          type: string
+        org_id:
+          $ref: '#/components/schemas/org_id'
+        peer_mxedge_id:
+          description: MxEdge ID of the peer(mist edge to mist edge tunnel)
+          format: uuid
+          readOnly: true
+          type: string
+        remote_ip:
+          readOnly: true
+          type: string
+        remote_port:
+          readOnly: true
+          type: integer
+        rx_control_pkts:
+          readOnly: true
+          type: integer
+        sessions:
+          $ref: '#/components/schemas/stats_mxtunnel_sessions'
+        site_id:
+          $ref: '#/components/schemas/site_id'
+        state:
+          $ref: '#/components/schemas/stats_mxtunnel_state'
+        tx_control_pkts:
+          readOnly: true
+          type: integer
+        uptime:
+          readOnly: true
+          type: integer
+      required:
+      - remote_ip
       type: object
-    tx_bytes:
-      description: Amount of traffic sent since connection
+    tx_pkts:
+      description: Amount of packets sent since connection
       examples:
-      - 211217389682
+      - 812204062
       format: int64
       readOnly: true
       type:
@@ -444,42 +447,62 @@ components:
       - wan
       - wxtunnel
       type: string
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    response_http404:
+    response_http401:
       additionalProperties: false
       properties:
-        id:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
           type: string
       type: object
-    stats_mxtunnel_state:
-      description: 'enum: `established`, `established_with_sessions`, `idle`, `wait-ctrl-conn`, `wait-ctrl-reply`'
+    fwupdate_stat_status:
+      description: 'enum: `inprogress`, `failed`, `upgraded`, `success`, `scheduled`, `error`'
       enum:
-      - established
-      - established_with_sessions
-      - idle
-      - wait-ctrl-conn
-      - wait-ctrl-reply
-      readOnly: true
-      type: string
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    rx_bytes:
-      description: Amount of traffic received since connection
-      examples:
-      - 8515104416
-      format: int64
+      - inprogress
+      - failed
+      - upgraded
+      - success
+      - scheduled
+      - error
       readOnly: true
       type:
-      - integer
+      - string
       - 'null'
+    response_tunnel_search_item:
+      oneOf:
+      - $ref: '#/components/schemas/stats_mxtunnel'
+      - $ref: '#/components/schemas/stats_wan_tunnel'
+    fwupdate_stat:
+      additionalProperties: false
+      properties:
+        progress:
+          examples:
+          - 10
+          maximum: 100
+          minimum: 0
+          readOnly: true
+          type:
+          - integer
+          - 'null'
+        status:
+          $ref: '#/components/schemas/fwupdate_stat_status'
+        status_id:
+          examples:
+          - 5
+          readOnly: true
+          type:
+          - integer
+          - 'null'
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+        will_retry:
+          examples:
+          - false
+          readOnly: true
+          type:
+          - boolean
+          - 'null'
+      type: object
     stats_mxtunnel_sessions:
       description: List of sessions
       items:
@@ -487,6 +510,26 @@ components:
       readOnly: true
       type: array
       uniqueItems: true
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    tx_bytes:
+      description: Amount of traffic sent since connection
+      examples:
+      - 211217389682
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
     count_result:
       additionalProperties:
         type: string
@@ -496,19 +539,6 @@ components:
       required:
       - count
       type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
     response_http429:
       additionalProperties: false
       properties:
@@ -517,15 +547,6 @@ components:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    last_seen:
-      description: Last seen timestamp
-      examples:
-      - 1470417522
-      format: double
-      readOnly: true
-      type:
-      - number
-      - 'null'
     org_tunnel_type_count:
       default: wxtunnel
       description: 'enum: `wan`, `wxtunnel`'
@@ -533,28 +554,6 @@ components:
       - wan
       - wxtunnel
       type: string
-    response_tunnel_search:
-      additionalProperties: false
-      properties:
-        end:
-          type: integer
-        limit:
-          type: integer
-        next:
-          type: string
-        results:
-          $ref: '#/components/schemas/response_tunnel_search_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
     stats_wan_tunnel:
       additionalProperties: false
       properties:
@@ -617,60 +616,42 @@ components:
       required:
       - peer_ip
       type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    response_count:
+    response_tunnel_search:
       additionalProperties: false
       properties:
-        distinct:
-          type: string
         end:
           type: integer
         limit:
           type: integer
+        next:
+          type: string
         results:
-          $ref: '#/components/schemas/count_results'
+          $ref: '#/components/schemas/response_tunnel_search_results'
         start:
           type: integer
         total:
           type: integer
       required:
-      - distinct
       - end
       - limit
       - results
       - start
       - total
       type: object
-    org_tunnel_count_distinct:
-      default: wxtunnel_id
-      description: 'enum: `ap`, `auth_algo`, `encrypt_algo`, `ike_version`, `ip`, `last_event`, `mac`, `mxcluster_id`, `mxedge_id`, `node`, `peer_host`, `peer_ip`, `peer_mxedge_id`, `protocol`, `remote_ip`, `remote_port`, `site_id`, `state`, `tunnel_name`, `up`, `wxtunnel_id`'
-      enum:
-      - ap
-      - auth_algo
-      - encrypt_algo
-      - ike_version
-      - ip
-      - last_event
-      - mac
-      - mxcluster_id
-      - mxedge_id
-      - node
-      - peer_host
-      - peer_ip
-      - peer_mxedge_id
-      - protocol
-      - remote_ip
-      - remote_port
-      - site_id
-      - state
-      - tunnel_name
-      - up
-      - wxtunnel_id
+    last_seen:
+      description: Last seen timestamp
+      examples:
+      - 1470417522
+      format: double
+      readOnly: true
+      type:
+      - number
+      - 'null'
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
       type: string
     response_http403:
       additionalProperties: false
@@ -680,194 +661,115 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
-    fwupdate_stat_status:
-      description: 'enum: `inprogress`, `failed`, `upgraded`, `success`, `scheduled`, `error`'
-      enum:
-      - inprogress
-      - failed
-      - upgraded
-      - success
-      - scheduled
-      - error
-      readOnly: true
-      type:
-      - string
-      - 'null'
-    rx_pkts:
-      description: Amount of packets received since connection
-      examples:
-      - 57770567
-      format: int64
-      readOnly: true
-      type:
-      - integer
-      - 'null'
     response_tunnel_search_results:
       items:
         $ref: '#/components/schemas/response_tunnel_search_item'
       type: array
-    tunnel_priority:
-      description: 'enum: `primary`, `secondary`'
-      enum:
-      - primary
-      - secondary
-      type: string
-    tx_pkts:
-      description: Amount of packets sent since connection
-      examples:
-      - 812204062
-      format: int64
-      readOnly: true
-      type:
-      - integer
-      - 'null'
-    stats_mxtunnel:
-      additionalProperties: false
-      description: MxTunnels statistics
-      properties:
-        ap:
-          readOnly: true
-          type: string
-        for_site:
-          readOnly: true
-          type: boolean
-        fwupdate:
-          $ref: '#/components/schemas/fwupdate_stat'
-        last_seen:
-          $ref: '#/components/schemas/last_seen'
-        mtu:
-          readOnly: true
-          type: integer
-        mxcluster_id:
-          format: uuid
-          readOnly: true
-          type: string
-        mxedge_id:
-          format: uuid
-          readOnly: true
-          type: string
-        mxtunnel_id:
-          format: uuid
-          readOnly: true
-          type: string
-        org_id:
-          $ref: '#/components/schemas/org_id'
-        peer_mxedge_id:
-          description: MxEdge ID of the peer(mist edge to mist edge tunnel)
-          format: uuid
-          readOnly: true
-          type: string
-        remote_ip:
-          readOnly: true
-          type: string
-        remote_port:
-          readOnly: true
-          type: integer
-        rx_control_pkts:
-          readOnly: true
-          type: integer
-        sessions:
-          $ref: '#/components/schemas/stats_mxtunnel_sessions'
-        site_id:
-          $ref: '#/components/schemas/site_id'
-        state:
-          $ref: '#/components/schemas/stats_mxtunnel_state'
-        tx_control_pkts:
-          readOnly: true
-          type: integer
-        uptime:
-          readOnly: true
-          type: integer
-      required:
-      - remote_ip
-      type: object
-    fwupdate_stat:
-      additionalProperties: false
-      properties:
-        progress:
+  responses:
+    HTTP429:
+      content:
+        application/json:
           examples:
-          - 10
-          maximum: 100
-          minimum: 0
-          readOnly: true
-          type:
-          - integer
-          - 'null'
-        status:
-          $ref: '#/components/schemas/fwupdate_stat_status'
-        status_id:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
           examples:
-          - 5
-          readOnly: true
-          type:
-          - integer
-          - 'null'
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-        will_retry:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP403:
+      content:
+        application/json:
           examples:
-          - false
-          readOnly: true
-          type:
-          - boolean
-          - 'null'
-      type: object
-    wan_tunnel_protocol:
-      description: 'enum: `gre`, `ipsec`'
-      enum:
-      - gre
-      - ipsec
-      type: string
-    response_tunnel_search_item:
-      oneOf:
-      - $ref: '#/components/schemas/stats_mxtunnel'
-      - $ref: '#/components/schemas/stats_wan_tunnel'
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    TunnelsSearch:
+      content:
+        application/json:
+          examples:
+            Type Wan:
+              $ref: '#/components/examples/TunnelsSearchTypeWan'
+            Type Wxtunnel:
+              $ref: '#/components/examples/TunnelsSearchTypeWxtunnel'
+          schema:
+            $ref: '#/components/schemas/response_tunnel_search'
+        application/vnd.api+json:
+          examples:
+            Type Wan:
+              $ref: '#/components/examples/TunnelsSearchTypeWan'
+            Type Wxtunnel:
+              $ref: '#/components/examples/TunnelsSearchTypeWxtunnel'
+          schema:
+            $ref: '#/components/schemas/response_tunnel_search'
+      description: OK
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
   examples:
-    TunnelsSearchTypeWxtunnel:
-      value:
-        end: 1531862583
-        limit: 10
-        results:
-        - ap: 5c5b35000010
-          last_seen: 1547437078
-          mxcluster_id: 572586b7-f97b-a22b-526c-8b97a3f609c4
-          mxedge_id: 387804a7-3474-85ce-15a2-f9a9684c9c90
-          mxtunnel_id: 7dae216d-7c98-a51b-e068-dd7d477b7216
-          org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
-          peer_mxedge_id: 09320a5c-bc23-441e-80a0-b96c632d45f5
-          remote_ip: 172.16.1.2
-          remote_port: 13535
-          rx_control_pkts: 7571
-          sessions:
-          - local_sid: 31
-            remote_id: mxtunnel
-            remote_sid: 13
-            state: established
-          site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
-          state: established_with_sessions
-          tx_control_pkts: 14862
-          uptime: 135
-        start: 1531776183
-        total: 1
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
     TunnelsSearchTypeWan:
       value:
         end: 1531862583
@@ -895,9 +797,107 @@ components:
           wan_name: wan
         start: 1531776183
         total: 1
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    TunnelsSearchTypeWxtunnel:
+      value:
+        end: 1531862583
+        limit: 10
+        results:
+        - ap: 5c5b35000010
+          last_seen: 1547437078
+          mxcluster_id: 572586b7-f97b-a22b-526c-8b97a3f609c4
+          mxedge_id: 387804a7-3474-85ce-15a2-f9a9684c9c90
+          mxtunnel_id: 7dae216d-7c98-a51b-e068-dd7d477b7216
+          org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
+          peer_mxedge_id: 09320a5c-bc23-441e-80a0-b96c632d45f5
+          remote_ip: 172.16.1.2
+          remote_port: 13535
+          rx_control_pkts: 7571
+          sessions:
+          - local_sid: 31
+            remote_id: mxtunnel
+            remote_sid: 13
+            state: established
+          site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
+          state: established_with_sessions
+          tx_control_pkts: 14862
+          uptime: 135
+        start: 1531776183
+        total: 1
+  parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    sort:
+      description: On which field the list should be sorted, -prefix represents DESC order
+      in: query
+      name: sort
+      schema:
+        default: timestamp
+        examples:
+        - -site_id
+        type: string
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+      in: query
+      name: search_after
+      schema:
+        type: string
+    duration_5m:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 5m
+        examples:
+        - 10m
+        type: string
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

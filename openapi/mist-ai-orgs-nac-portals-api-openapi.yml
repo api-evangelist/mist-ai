@@ -344,60 +344,6 @@ paths:
       tags:
       - Orgs NAC Portals
 components:
-  parameters:
-    nacportal_id:
-      in: path
-      name: nacportal_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    page:
-      in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
   schemas:
     response_http400:
       additionalProperties: false
@@ -407,6 +353,21 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
+    portal_template_alignment:
+      default: center
+      description: 'defines alignment on portal. enum: `center`, `left`, `right`'
+      enum:
+      - center
+      - left
+      - right
+      type: string
+    nac_portal_additional_cacerts:
+      description: Optional list of additional CA certificates to be used
+      examples:
+      - - '-----BEGIN CERTIFICATE-----\nMIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
+      items:
+        type: string
+      type: array
     nac_portal_sso_idp_sign_algo:
       default: sha256
       description: 'Signing algorithm for SAML Assertion. enum: `sha1`, `sha256`, `sha384`, `sha512`.'
@@ -424,32 +385,6 @@ components:
       required:
       - results
       type: object
-    nac_portal_guest_portal_auth:
-      description: 'Guest portal authentication type. enum: `external`, `multi`, `none`'
-      enum:
-      - external
-      - multi
-      - none
-      type: string
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
     nac_portal_access_type:
       default: wireless
       description: 'if `type`==`marvis_client`. enum: `wireless`, `wireless+wired`'
@@ -457,32 +392,37 @@ components:
       - wireless
       - wireless+wired
       type: string
-    response_http429:
+    nac_portal_sso:
       additionalProperties: false
       properties:
-        detail:
+        idp_cert:
           examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          - '-----BEGIN CERTIFICATE-----\nMIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
           type: string
+        idp_sign_algo:
+          $ref: '#/components/schemas/nac_portal_sso_idp_sign_algo'
+        idp_sso_url:
+          examples:
+          - https://yourorg.onelogin.com/trust/saml2/http-post/sso/138130
+          type: string
+        issuer:
+          examples:
+          - https://app.onelogin.com/saml/metadata/138130
+          type: string
+        nameid_format:
+          examples:
+          - email
+          type: string
+        sso_role_matching:
+          $ref: '#/components/schemas/nac_portal_sso_role_matchings'
+        use_sso_role_for_cert:
+          description: If it's desired to inject a role into Cert's Subject (so it can be used later on in policy)
+          type: boolean
       type: object
-    portal_template_alignment:
-      default: center
-      description: 'defines alignment on portal. enum: `center`, `left`, `right`'
-      enum:
-      - center
-      - left
-      - right
-      type: string
-    nac_portal_sso_role_matching:
+    response_http404:
       additionalProperties: false
       properties:
-        assigned:
-          examples:
-          - user
-          type: string
-        match:
-          examples:
-          - Student
+        id:
           type: string
       type: object
     nac_portal_template:
@@ -500,15 +440,70 @@ components:
           description: Whether to hide "Powered by Juniper Mist" and email footers
           type: boolean
       type: object
-    response_sso_failure_search_results:
-      items:
-        $ref: '#/components/schemas/response_sso_failure_search_item'
-      type: array
-      uniqueItems: true
     nac_portal_sso_role_matchings:
       items:
         $ref: '#/components/schemas/nac_portal_sso_role_matching'
       type: array
+    nac_portal_guest_portal_auth:
+      description: 'Guest portal authentication type. enum: `external`, `multi`, `none`'
+      enum:
+      - external
+      - multi
+      - none
+      type: string
+    saml_metadata:
+      additionalProperties: false
+      properties:
+        acs_url:
+          description: If `idp_type`==`saml`
+          examples:
+          - https://api.mist.com/api/v1/saml/llDfa13f/login
+          readOnly: true
+          type: string
+        entity_id:
+          description: If `idp_type`==`saml`
+          examples:
+          - https://api.mist.com/api/v1/saml/llDfa13f/login
+          readOnly: true
+          type: string
+        logout_url:
+          description: If `idp_type`==`saml`
+          examples:
+          - https://api.mist.com/api/v1/saml/llDfa13f/logout
+          readOnly: true
+          type: string
+        metadata:
+          description: If `idp_type`==`saml`
+          examples:
+          - <?xml version="1.0" encoding="UTF-8"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://api.mist.com/api/v1/saml/llDfa13f/login" validUntil="2027-10-12T21:59:01Z" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat><md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://api.mist.com/api/v1/saml/llDfa13f/login" index="0" isDefault="true"/></md:SPSSODescriptor></md:EntityDescriptor>
+          readOnly: true
+          type: string
+        scim_base_url:
+          description: If `idp_type`==`oauth` and `scim_enabled`==`true`
+          examples:
+          - https://scim.nac-staging.mistsys.com/S_41b2525a-e8b8-4809-8168-f1d8dcbe9735/azure/4d72b1dc-7503-4717-81ea-80d0125b886e
+          type: string
+      type: object
+    nac_portal_sso_role_matching:
+      additionalProperties: false
+      properties:
+        assigned:
+          examples:
+          - user
+          type: string
+        match:
+          examples:
+          - Student
+          type: string
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
     psk_portal_image:
       additionalProperties: false
       properties:
@@ -520,21 +515,6 @@ components:
           description: JSON string describing the upload
           type: string
       type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    nac_portal_type:
-      description: "enum: \n  * `guest_admin`: NAC-Based Portal Admin for Pre Created Guest Authentication\n  * `guest_portal`: NAC-Based Guest Portal\n  * `marvis_client`\n"
-      enum:
-      - guest_admin
-      - guest_portal
-      - marvis_client
-      type: string
     nac_portal_guest_portal:
       additionalProperties: false
       description: "Guest portal configuration when `type`==`guest_portal`. If \n  * `auth`==`none`, the user is presented with a terms of service and can click and continue.\n  * `auth`==`external`, the user is redirected to an external URL for authentication.\n  * `auth`==`multi`, the user is presented with a choice of authentication methods:\n    - social logins: facebook / google / amazon / microsoft / azure\n    - sponsor\n    - sms: supported provider: twillio\n    - email\n    - sso\n    - userpass: pre created guest list\n"
@@ -578,64 +558,36 @@ components:
           - true
           type: boolean
       type: object
-    nac_portal_sso:
+    response_sso_failure_search_item:
       additionalProperties: false
       properties:
-        idp_cert:
-          examples:
-          - '-----BEGIN CERTIFICATE-----\nMIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
+        detail:
           type: string
-        idp_sign_algo:
-          $ref: '#/components/schemas/nac_portal_sso_idp_sign_algo'
-        idp_sso_url:
-          examples:
-          - https://yourorg.onelogin.com/trust/saml2/http-post/sso/138130
+        saml_assertion_xml:
           type: string
-        issuer:
-          examples:
-          - https://app.onelogin.com/saml/metadata/138130
-          type: string
-        nameid_format:
-          examples:
-          - email
-          type: string
-        sso_role_matching:
-          $ref: '#/components/schemas/nac_portal_sso_role_matchings'
-        use_sso_role_for_cert:
-          description: If it's desired to inject a role into Cert's Subject (so it can be used later on in policy)
-          type: boolean
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - timestamp
+      - detail
+      - saml_assertion_xml
       type: object
-    saml_metadata:
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    response_sso_failure_search_results:
+      items:
+        $ref: '#/components/schemas/response_sso_failure_search_item'
+      type: array
+      uniqueItems: true
+    response_http429:
       additionalProperties: false
       properties:
-        acs_url:
-          description: If `idp_type`==`saml`
+        detail:
           examples:
-          - https://api.mist.com/api/v1/saml/llDfa13f/login
-          readOnly: true
-          type: string
-        entity_id:
-          description: If `idp_type`==`saml`
-          examples:
-          - https://api.mist.com/api/v1/saml/llDfa13f/login
-          readOnly: true
-          type: string
-        logout_url:
-          description: If `idp_type`==`saml`
-          examples:
-          - https://api.mist.com/api/v1/saml/llDfa13f/logout
-          readOnly: true
-          type: string
-        metadata:
-          description: If `idp_type`==`saml`
-          examples:
-          - <?xml version="1.0" encoding="UTF-8"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://api.mist.com/api/v1/saml/llDfa13f/login" validUntil="2027-10-12T21:59:01Z" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat><md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://api.mist.com/api/v1/saml/llDfa13f/login" index="0" isDefault="true"/></md:SPSSODescriptor></md:EntityDescriptor>
-          readOnly: true
-          type: string
-        scim_base_url:
-          description: If `idp_type`==`oauth` and `scim_enabled`==`true`
-          examples:
-          - https://scim.nac-staging.mistsys.com/S_41b2525a-e8b8-4809-8168-f1d8dcbe9735/azure/4d72b1dc-7503-4717-81ea-80d0125b886e
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     nac_portal_eap_type:
@@ -724,71 +676,26 @@ components:
           readOnly: true
           type: string
       type: object
+    nac_portal_type:
+      description: "enum: \n  * `guest_admin`: NAC-Based Portal Admin for Pre Created Guest Authentication\n  * `guest_portal`: NAC-Based Guest Portal\n  * `marvis_client`\n"
+      enum:
+      - guest_admin
+      - guest_portal
+      - marvis_client
+      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
     nac_portals:
       items:
         $ref: '#/components/schemas/nac_portal'
       type: array
-    response_sso_failure_search_item:
-      additionalProperties: false
-      properties:
-        detail:
-          type: string
-        saml_assertion_xml:
-          type: string
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-      required:
-      - timestamp
-      - detail
-      - saml_assertion_xml
-      type: object
-    nac_portal_additional_cacerts:
-      description: Optional list of additional CA certificates to be used
-      examples:
-      - - '-----BEGIN CERTIFICATE-----\nMIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
-      items:
-        type: string
-      type: array
   responses:
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -804,50 +711,20 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403:
+    SamlMetadata:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/SamlMetadataExample'
           schema:
-            $ref: '#/components/schemas/response_http403'
+            $ref: '#/components/schemas/saml_metadata'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/SamlMetadataExample'
           schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    NacPortalArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/NacPortalArrayExample'
-          schema:
-            $ref: '#/components/schemas/nac_portals'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/NacPortalArrayExample'
-          schema:
-            $ref: '#/components/schemas/nac_portals'
-      description: OK
-    NacPortal:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/NacPortalExample'
-          schema:
-            $ref: '#/components/schemas/nac_portal'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/NacPortalExample'
-          schema:
-            $ref: '#/components/schemas/nac_portal'
+            $ref: '#/components/schemas/saml_metadata'
       description: OK
     SsoLatestFailures:
       content:
@@ -864,23 +741,15 @@ components:
           schema:
             $ref: '#/components/schemas/response_sso_failure_search'
       description: OK
-    OK:
-      description: OK
-    SamlMetadata:
+    HTTP404:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SamlMetadataExample'
           schema:
-            $ref: '#/components/schemas/saml_metadata'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SamlMetadataExample'
           schema:
-            $ref: '#/components/schemas/saml_metadata'
-      description: OK
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     File:
       content:
         application/json:
@@ -894,19 +763,87 @@ components:
             description: File
             type: string
       description: OK
+    NacPortalArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/NacPortalArrayExample'
+          schema:
+            $ref: '#/components/schemas/nac_portals'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/NacPortalArrayExample'
+          schema:
+            $ref: '#/components/schemas/nac_portals'
+      description: OK
+    OK:
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    NacPortal:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/NacPortalExample'
+          schema:
+            $ref: '#/components/schemas/nac_portal'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/NacPortalExample'
+          schema:
+            $ref: '#/components/schemas/nac_portal'
+      description: OK
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
   examples:
-    HTTP400Example:
+    HTTP429Example:
       value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    SamlMetadataExample:
-      value:
-        acs_url: https://api.mist.com/api/v1/saml/llDfa13f/login
-        entity_id: https://api.mist.com/api/v1/saml/llDfa13f/login
-        logout_url: https://api.mist.com/api/v1/saml/llDfa13f/logout
-        metadata: <?xml version="1.0" encoding="UTF-8"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://api.mist.com/api/v1/saml/llDfa13f/login" validUntil="2027-10-12T21:59:01Z" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat><md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://api.mist.com/api/v1/saml/llDfa13f/login" index="0" isDefault="true"/></md:SPSSODescriptor></md:EntityDescriptor>
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     NacPortalArrayExample:
       value:
       - access_type: wireless
@@ -936,12 +873,27 @@ components:
           - assigned: user
             match: Student
           use_sso_role_for_cert: true
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    SsoLatestFailuresExample:
+      value:
+        results:
+        - detail: string
+          saml_assertion_xml: string
+          timestamp: 0
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    SamlMetadataExample:
+      value:
+        acs_url: https://api.mist.com/api/v1/saml/llDfa13f/login
+        entity_id: https://api.mist.com/api/v1/saml/llDfa13f/login
+        logout_url: https://api.mist.com/api/v1/saml/llDfa13f/logout
+        metadata: <?xml version="1.0" encoding="UTF-8"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://api.mist.com/api/v1/saml/llDfa13f/login" validUntil="2027-10-12T21:59:01Z" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat><md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://api.mist.com/api/v1/saml/llDfa13f/login" index="0" isDefault="true"/></md:SPSSODescriptor></md:EntityDescriptor>
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     NacPortalExample:
       value:
         access_type: wireless
@@ -965,12 +917,60 @@ components:
           - assigned: user
             match: Student
           use_sso_role_for_cert: true
-    SsoLatestFailuresExample:
-      value:
-        results:
-        - detail: string
-          saml_assertion_xml: string
-          timestamp: 0
+  parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
+    nacportal_id:
+      in: path
+      name: nacportal_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    page:
+      in: query
+      name: page
+      schema:
+        default: 1
+        minimum: 1
+        type: integer
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

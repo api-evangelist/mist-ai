@@ -234,146 +234,6 @@ paths:
       tags:
       - Orgs Guests
 components:
-  responses:
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    Guest:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/GuestExample'
-            Example2:
-              $ref: '#/components/examples/GuestExample2'
-          schema:
-            $ref: '#/components/schemas/guest'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/GuestExample'
-            Example2:
-              $ref: '#/components/examples/GuestExample2'
-          schema:
-            $ref: '#/components/schemas/guest'
-      description: OK
-    GuestsArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/GuestsArrayExample'
-            Example2:
-              $ref: '#/components/examples/GuestsArrayExample2'
-          schema:
-            $ref: '#/components/schemas/guests'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/GuestsArrayExample'
-            Example2:
-              $ref: '#/components/examples/GuestsArrayExample2'
-          schema:
-            $ref: '#/components/schemas/guests'
-      description: OK
-    OK:
-      description: OK
-    GuestsSearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/GuestsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_guest_search'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/GuestsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_guest_search'
-      description: OK
   schemas:
     response_http400:
       additionalProperties: false
@@ -381,46 +241,6 @@ components:
         detail:
           examples:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    guests:
-      items:
-        $ref: '#/components/schemas/guest'
-      type: array
-    count_result:
-      additionalProperties:
-        type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     response_count:
@@ -446,19 +266,25 @@ components:
       - start
       - total
       type: object
-    response_http403:
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    response_http401:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - You do not have permission to perform this action.
+          - Authentication credentials were not provided.
           type: string
       type: object
-    response_guest_search_results:
-      items:
-        $ref: '#/components/schemas/guest'
-      type: array
-      uniqueItems: true
     response_guest_search:
       additionalProperties: false
       properties:
@@ -481,14 +307,27 @@ components:
       - start
       - total
       type: object
-    org_guests_count_distinct:
-      default: auth_method
-      description: 'enum: `auth_method`, `company`, `ssid`'
-      enum:
-      - auth_method
-      - company
-      - ssid
-      type: string
+    guests:
+      items:
+        $ref: '#/components/schemas/guest'
+      type: array
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
     guest:
       description: Guest
       properties:
@@ -574,6 +413,14 @@ components:
           readOnly: true
           type: string
       type: object
+    org_guests_count_distinct:
+      default: auth_method
+      description: 'enum: `auth_method`, `company`, `ssid`'
+      enum:
+      - auth_method
+      - company
+      - ssid
+      type: string
     guest_org:
       description: Guest
       properties:
@@ -666,60 +513,20 @@ components:
       required:
       - wlan_id
       type: object
+    response_guest_search_results:
+      items:
+        $ref: '#/components/schemas/guest'
+      type: array
+      uniqueItems: true
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
   examples:
-    GuestsArrayExample:
-      value:
-      - authorized: true
-        authorized_expiring_time: 0
-        authorized_time: 0
-        company: string
-        email: user@example.com
-        field1: string
-        field2: string
-        field3: string
-        field4: string
-        mac: string
-        minutes: 0
-        name: string
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-    GuestExample2:
-      value:
-        authorized: true
-        authorized_expiring_time: 1480704955
-        authorized_time: 1480704355
-        company: abc
-        email: john@abc.com
-        field1: xxx
-        mac: 5684dae9ac8b
-        name: John Smith
-    GuestsArrayExample2:
-      value:
-      - authorized: true
-        authorized_expiring_time: 1480704955
-        authorized_time: 1480704355
-        company: abc
-        email: john@abc.com
-        field1: xxx
-        mac: 5684dae9ac8b
-        name: John Smith
     GuestsSearchExample:
       value:
         end: 1531862583
@@ -746,6 +553,45 @@ components:
           timestamp: 1531782632
         start: 1531776183
         total: 14
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    GuestExample2:
+      value:
+        authorized: true
+        authorized_expiring_time: 1480704955
+        authorized_time: 1480704355
+        company: abc
+        email: john@abc.com
+        field1: xxx
+        mac: 5684dae9ac8b
+        name: John Smith
+    GuestsArrayExample2:
+      value:
+      - authorized: true
+        authorized_expiring_time: 1480704955
+        authorized_time: 1480704355
+        company: abc
+        email: john@abc.com
+        field1: xxx
+        mac: 5684dae9ac8b
+        name: John Smith
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
     GuestExample:
       value:
         authorized: true
@@ -760,10 +606,177 @@ components:
         mac: string
         minutes: 0
         name: string
-    HTTP403Example:
+    HTTP401Example:
       value:
-        detail: You do not have permission to perform this action.
+        detail: Authentication credentials were not provided.
+    GuestsArrayExample:
+      value:
+      - authorized: true
+        authorized_expiring_time: 0
+        authorized_time: 0
+        company: string
+        email: user@example.com
+        field1: string
+        field2: string
+        field3: string
+        field4: string
+        mac: string
+        minutes: 0
+        name: string
+  responses:
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    Guest:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/GuestExample'
+            Example2:
+              $ref: '#/components/examples/GuestExample2'
+          schema:
+            $ref: '#/components/schemas/guest'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/GuestExample'
+            Example2:
+              $ref: '#/components/examples/GuestExample2'
+          schema:
+            $ref: '#/components/schemas/guest'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    GuestsSearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/GuestsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_guest_search'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/GuestsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_guest_search'
+      description: OK
+    OK:
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    GuestsArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/GuestsArrayExample'
+            Example2:
+              $ref: '#/components/examples/GuestsArrayExample2'
+          schema:
+            $ref: '#/components/schemas/guests'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/GuestsArrayExample'
+            Example2:
+              $ref: '#/components/examples/GuestsArrayExample2'
+          schema:
+            $ref: '#/components/schemas/guests'
+      description: OK
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
   parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
     org_id:
       in: path
       name: org_id
@@ -772,37 +785,6 @@ components:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
-        type: string
-    guest_mac:
-      in: path
-      name: guest_mac
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
-        type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
         type: string
     sort:
       description: On which field the list should be sorted, -prefix represents DESC order
@@ -813,11 +795,29 @@ components:
         examples:
         - -site_id
         type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
     end:
       description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
       in: query
       name: end
       schema:
+        type: string
+    guest_mac:
+      in: path
+      name: guest_mac
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
         type: string
   securitySchemes:
     apiToken:

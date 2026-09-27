@@ -326,6 +326,194 @@ paths:
       - Orgs Setting
 components:
   schemas:
+    org_setting_jcloud_ra:
+      additionalProperties: false
+      description: JCloud Routing Assurance connexion
+      properties:
+        org_apitoken:
+          description: JCloud Routing Assurance Org Token
+          type: string
+        org_apitoken_name:
+          description: JCloud Routing Assurance Org Token Name
+          type: string
+        org_id:
+          description: JCloud Routing Assurance Org ID
+          type: string
+      type: object
+    radsec_certs_ap:
+      description: RADSec certificates for AP
+      items:
+        examples:
+        - '-----BEGIN CERTIFICATE-----\nMIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
+        type: string
+      type: array
+    juniper_srx_auto_upgrade:
+      additionalProperties: false
+      description: auto_upgrade device first time it is onboarded
+      properties:
+        custom_versions:
+          $ref: '#/components/schemas/juniper_srx_auto_upgrade_custom_versions'
+        enabled:
+          default: false
+          type: boolean
+        snapshot:
+          default: false
+          type: boolean
+        version:
+          description: Firmware version to deploy (e.g. 23.4R2-S5.5). Optional, used when custom_versions not specified
+          examples:
+          - 23.4R2-S5.5
+          type: string
+      type: object
+    org_setting_installer_extra_site_ids:
+      items:
+        examples:
+        - 4ac1dcf4-9d8b-7211-65c4-057819f0862b
+        format: uuid
+        type: string
+      type: array
+    simple_alert:
+      additionalProperties: false
+      description: Set of heuristic rules will be enabled when marvis subscription is not available. It triggers when, in a Z minute window, there are more than Y distinct client encountering over X failures
+      properties:
+        arp_failure:
+          $ref: '#/components/schemas/simple_alert_arp_failure'
+        dhcp_failure:
+          $ref: '#/components/schemas/simple_alert_dhcp_failure'
+        dns_failure:
+          $ref: '#/components/schemas/simple_alert_dns_failure'
+      type: object
+    org_setting_celona:
+      additionalProperties: false
+      properties:
+        api_key:
+          examples:
+          - $2a$04$OkaLCoJn6rDjR8ha.oduQVDST3.kJNIrte
+          type: string
+        api_prefix:
+          examples:
+          - cc3273fcb016470e
+          type: string
+      type: object
+    marvis_self_driving_domain:
+      additionalProperties: false
+      properties:
+        enabled:
+          default: false
+          type: boolean
+      type: object
+    synthetictest_config_vlans:
+      deprecated: true
+      items:
+        $ref: '#/components/schemas/synthetictest_config_vlan'
+      type: array
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    cacerts:
+      description: List of PEM-encoded ca certs
+      items:
+        examples:
+        - '-----BEGIN CERTIFICATE-----\nMIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
+        type: string
+      type: array
+    optic_port_config_port:
+      additionalProperties: false
+      properties:
+        channelized:
+          default: false
+          description: Enable channelization
+          type: boolean
+        speed:
+          description: Interface speed (e.g. `25g`, `50g`), use the chassis speed by default
+          examples:
+          - 25g
+          type: string
+      type: object
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
+    gateway_mgmt_host_out_policy_syslog_server:
+      additionalProperties: false
+      description: Allows to define the host_out_policy per Syslog Server. The Property key is the Syslog name
+      properties:
+        host:
+          examples:
+          - 103.35.3.5
+          type: string
+        path_preference:
+          examples:
+          - dc_only
+          type: string
+        server_name:
+          examples:
+          - dc_syslog_server
+          type: string
+      type: object
+    msp_id:
+      examples:
+      - b9d42c2e-88ee-41f8-b798-f009ce7fe909
+      format: uuid
+      readOnly: true
+      type: string
+    org_setting_mist_nac_idp_exclude_realms:
+      description: When the IDP of mxedge_proxy type, exclude the following realms from proxying in addition to other valid home realms in this org
+      items:
+        type: string
+      type: array
+    juniper_srx_auto_upgrade_custom_versions:
+      additionalProperties:
+        description: Firmware version to deploy on the specified SRX hardware
+        examples:
+        - 23.4R2-S2.1
+        type: string
+      description: Property key is the SRX Hardware model (e.g. "SRX4600")
+      type: object
+    org_setting_vpn_options:
+      additionalProperties: false
+      properties:
+        as_base:
+          maximum: 2147483647
+          minimum: 1
+          type: integer
+        enable_ipv6:
+          default: false
+          type: boolean
+        st_subnet:
+          default: 10.224.0.0/12
+          description: requiring /12 or bigger to support 16 private IPs for 65535 gateways
+          type: string
+      type: object
+    synthetictest_config_custom_probe_type:
+      default: icmp
+      description: 'enum: `application`, `curl`, `icmp`, `reachability`, `tcp`'
+      enum:
+      - application
+      - curl
+      - icmp
+      - reachability
+      - tcp
+      type: string
+    org_setting_switch_mgmt:
+      additionalProperties: false
+      properties:
+        ap_affinity_threshold:
+          default: 12
+          description: If the field is set in both site/setting and org/setting, the value from site/setting will be used.
+          examples:
+          - 10
+          type: integer
+      type: object
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
     org_setting_junos_shell_access_write:
       default: admin
       description: 'enum: `admin`, `viewer`, `none`'
@@ -334,19 +522,93 @@ components:
       - none
       - viewer
       type: string
-    org_setting_junos_shell_access_admin:
-      default: admin
-      description: 'enum: `admin`, `viewer`, `none`'
+    switch_auto_upgrade:
+      additionalProperties: false
+      properties:
+        custom_versions:
+          $ref: '#/components/schemas/switch_auto_upgrade_custom_versions'
+        enabled:
+          description: Enable auto upgrade for the switch
+          type: boolean
+        snapshot:
+          default: false
+          description: Enable snapshot during the upgrade process
+          type: boolean
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    org_setting_mist_nac_idp_user_realms:
+      description: "Which realm should trigger this IDP. User Realm is extracted from:\n  * Username-AVP (`mist.com` from john@mist.com)\n  * Cert CN"
+      items:
+        examples:
+        - abc
+        type: string
+      type: array
+    idp_user_cert_lookup_field:
+      default: automatic
+      description: 'allow customer to choose the EAP-TLS client certificate''s field. To use for IDP User Groups lookup. enum: `automatic`, `cn`, `email`, `upn`'
       enum:
-      - admin
-      - none
-      - viewer
+      - automatic
+      - cn
+      - email
+      - upn
       type: string
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
+    org_setting_juniper_srx:
+      additionalProperties: false
+      properties:
+        auto_upgrade:
+          $ref: '#/components/schemas/juniper_srx_auto_upgrade'
+      type: object
+    org_setting_auto_site_assignment_src:
+      description: 'enum: `ext_ip`, `dns_suffix`, `geoip`, `lldp_port_desc`, `lldp_system_name`, `model`, `name`, `subnet`'
+      enum:
+      - ext_ip
+      - dns_suffix
+      - geoip
+      - lldp_port_desc
+      - lldp_system_name
+      - model
+      - name
+      - subnet
+      type: string
+    synthetictest_config_vlan_vlan_ids:
+      examples:
+      - - 10
+        - 20
+        - '{{vlan}}'
+      items:
+        $ref: '#/components/schemas/vlan_id_with_variable'
+      type: array
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
       readOnly: true
-      type: number
+      type: string
+    synthetictest_config:
+      additionalProperties: false
+      properties:
+        aggressiveness:
+          $ref: '#/components/schemas/synthetictest_config_aggressiveness'
+        custom_probes:
+          $ref: '#/components/schemas/synthetictest_config_custom_probes'
+        disabled:
+          default: false
+          type: boolean
+        lan_networks:
+          $ref: '#/components/schemas/synthetictest_config_lan_networks'
+        vlans:
+          $ref: '#/components/schemas/synthetictest_config_vlans'
+        wan_speedtest:
+          $ref: '#/components/schemas/synthetictest_config_wan_speedtest'
+      type: object
     org_setting_mist_nac_fingerprinting:
       additionalProperties: false
       description: Allows customer to enable client fingerprinting for policy enforcement
@@ -366,47 +628,14 @@ components:
         wireless_coa_type:
           $ref: '#/components/schemas/org_setting_mist_nac_fingerprinting_wireless_coa'
       type: object
-    org_setting_auto_device_naming:
+    synthetictest_config_wan_speedtest:
       additionalProperties: false
       properties:
-        enable:
+        enabled:
           type: boolean
-        rules:
-          $ref: '#/components/schemas/org_setting_auto_device_naming_rules'
+        time_of_day:
+          $ref: '#/components/schemas/time_of_day'
       type: object
-    simple_alert:
-      additionalProperties: false
-      description: Set of heuristic rules will be enabled when marvis subscription is not available. It triggers when, in a Z minute window, there are more than Y distinct client encountering over X failures
-      properties:
-        arp_failure:
-          $ref: '#/components/schemas/simple_alert_arp_failure'
-        dhcp_failure:
-          $ref: '#/components/schemas/simple_alert_dhcp_failure'
-        dns_failure:
-          $ref: '#/components/schemas/simple_alert_dns_failure'
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    gateway_mgmt_host_out_policy:
-      additionalProperties: false
-      properties:
-        path_preference:
-          type: string
-      type: object
-    synthetictest_config_vlan_custom_test_urls:
-      deprecated: true
-      examples:
-      - - https://www.abc.com/
-        - https://10.3.5.1:8080/about
-      items:
-        type: string
-      type: array
     org_setting_pcap:
       additionalProperties: false
       properties:
@@ -422,14 +651,27 @@ components:
           maximum: 128
           type: integer
       type: object
-    idp_machine_cert_lookup_field:
-      default: automatic
-      description: 'allow customer to choose the EAP-TLS client certificate''s field to use for IDP Machine Groups lookup. enum: `automatic`, `cn`, `dns`'
-      enum:
-      - automatic
-      - cn
-      - dns
-      type: string
+    app_probing_apps:
+      description: APp-keys from [List Applications](/#operations/listApplications)
+      examples:
+      - - facebook
+      items:
+        type: string
+      type: array
+    ssr_proxy:
+      additionalProperties: false
+      description: SSR proxy configuration to talk to Mist
+      properties:
+        disabled:
+          default: false
+          examples:
+          - true
+          type: boolean
+        url:
+          examples:
+          - https://proxy.corp.com:8080/
+          type: string
+      type: object
     synthetictest_config_lan_network:
       additionalProperties: false
       description: configure minis probes to be tested on lan networks of gateways
@@ -439,137 +681,68 @@ components:
         probes:
           $ref: '#/components/schemas/synthetictest_config_probes'
       type: object
-    account_juniper_info:
+    marvis_self_driving:
+      additionalProperties: false
+      description: Self-driving network automation settings per domain
       properties:
-        accounts:
-          $ref: '#/components/schemas/juniper_accounts'
+        wan:
+          $ref: '#/components/schemas/marvis_self_driving_domain'
+        wired:
+          $ref: '#/components/schemas/marvis_self_driving_domain'
+        wireless:
+          $ref: '#/components/schemas/marvis_self_driving_domain'
       type: object
-    juniper_account:
+    org_setting_security:
       additionalProperties: false
       properties:
-        linked_by:
+        disable_local_ssh:
+          description: Whether to disable local SSH (by default, local SSH is enabled with allow_mist in Org is enabled
+          type: boolean
+        fips_zeroize_password:
+          description: password required to zeroize devices (FIPS) on site level
           examples:
-          - John Smith (john@abccorp.com)
-          readOnly: true
+          - NUKETHESITE
           type: string
-        name:
-          examples:
-          - ABC Corp
-          readOnly: true
-          type: string
-      type: object
-    gateway_mgmt_host_out_policy_syslog:
-      additionalProperties: false
-      properties:
-        path_preference:
-          examples:
-          - broadband_wans
-          type: string
-        servers:
-          $ref: '#/components/schemas/gateway_mgmt_host_out_policy_syslog_servers'
-      type: object
-    org_setting_api_policy:
-      additionalProperties: false
-      properties:
-        no_reveal:
+        limit_ssh_access:
           default: false
-          description: "By default, API hides password/secrets when the user doesn't have write access\n  * `true`: API will hide passwords/secrets for all users\n  * `false`: API will hide passwords/secrets for read-only users"
+          description: Whether to allow certain SSH keys to SSH into the AP (see Site:Setting)
           type: boolean
       type: object
-    org_setting_junos_shell_access:
-      additionalProperties: false
-      description: "junos_shell_access: Manages role-based web-shell access.  \nWhen junos_shell access is not defined (Default) - No additional users are configured and web-shell uses default `mist` user to login.  \nWhen junos_shell_access is defined - Additional users mist-web-admin (admin permission), mist-web-viewer(viewer permission) are configured on the device and web-shell logs in with the mist-web-admin/mist-web-viewer user depending upon the shell access level. Setting the shell access level to \"none\", disables web-shell access for that specific role.\n"
-      properties:
-        admin:
-          $ref: '#/components/schemas/org_setting_junos_shell_access_admin'
-        helpdesk:
-          $ref: '#/components/schemas/org_setting_junos_shell_access_helpdesk'
-        read:
-          $ref: '#/components/schemas/org_setting_junos_shell_access_read'
-        write:
-          $ref: '#/components/schemas/org_setting_junos_shell_access_write'
-      type: object
-    cacerts:
-      description: List of PEM-encoded ca certs
-      items:
-        examples:
-        - '-----BEGIN CERTIFICATE-----\nMIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
-        type: string
-      type: array
-    org_setting_gateway_mgmt_overlay_ip:
-      additionalProperties: false
-      properties:
-        ip:
-          description: When it's going overlay, a routable IP to overlay will be required
-          type: string
-        node1_ip:
-          description: For SSR HA cluster, another IP for node1 will be required, too
-          type: string
-      type: object
-    org_setting_installer:
-      additionalProperties: false
-      properties:
-        allow_all_devices:
-          type: boolean
-        allow_all_sites:
-          type: boolean
-        extra_site_ids:
-          $ref: '#/components/schemas/org_setting_installer_extra_site_ids'
-        grace_period:
-          type: integer
-      type: object
-    synthetictest_config_vlan_vlan_ids:
-      examples:
-      - - 10
-        - 20
-        - '{{vlan}}'
-      items:
-        $ref: '#/components/schemas/vlan_id_with_variable'
-      type: array
-    ssr_upgrade_channel:
-      default: stable
-      description: 'upgrade channel to follow. enum: `alpha`, `beta`, `stable`'
+    mxedge_mgmt_oob_ip_type6:
+      default: autoconf
+      description: 'enum: `autoconf`, `dhcp`, `disabled`, `static`'
       enum:
-      - alpha
-      - beta
-      - stable
+      - autoconf
+      - dhcp
+      - disabled
+      - static
       type: string
-    synthetictest_config_lan_networks:
-      description: List of networks to be used for synthetic tests
-      items:
-        $ref: '#/components/schemas/synthetictest_config_lan_network'
-      type: array
-    synthetictest_config_lan_networks_networks:
-      description: List of networks to be used for synthetic tests
-      examples:
-      - - pos-stations
-        - pos-machines
-      items:
-        type: string
-      type: array
-    simple_alert_dhcp_failure:
+    org_setting_junos_shell_access_helpdesk:
+      default: none
+      description: 'enum: `admin`, `viewer`, `none`'
+      enum:
+      - admin
+      - none
+      - viewer
+      type: string
+    org_setting_switch:
       additionalProperties: false
       properties:
-        client_count:
-          default: 10
-          type: integer
-        duration:
-          default: 10
-          description: failing within minutes
-          maximum: 60
-          minimum: 5
-          type: integer
-        incident_count:
-          default: 20
-          type: integer
+        auto_upgrade:
+          $ref: '#/components/schemas/switch_auto_upgrade'
       type: object
-    response_http400:
+    synthetictest_config_custom_probes:
+      additionalProperties:
+        $ref: '#/components/schemas/synthetictest_config_custom_probe'
+      description: Custom probes to be used for synthetic tests
+      type: object
+    org_setting_auto_device_naming:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
+        enable:
+          type: boolean
+        rules:
+          $ref: '#/components/schemas/org_setting_auto_device_naming_rules'
       type: object
     org_setting:
       description: Org Settings
@@ -731,136 +904,6 @@ components:
         wireless_pma:
           $ref: '#/components/schemas/org_setting_wireless_pma'
       type: object
-    org_setting_mgmt_mxtunnel_ids:
-      description: List of Mist Tunnels
-      items:
-        examples:
-        - 08cd7499-5841-51c8-e663-fb16b6f3b45e
-        format: uuid
-        type: string
-      type: array
-    pcap_bucket_verify:
-      properties:
-        bucket:
-          examples:
-          - company-private-pcap
-          type: string
-        verify_token:
-          examples:
-          - eyJhbGciOiJIUzI1J9.eyJzdWIiOiIxMjM0joiMjgxOG5MDIyfQ.2rzcRvMA3Eg09NnjCAC-1EWMRtxAnFDM
-          type: string
-      required:
-      - bucket
-      - verify_token
-      type: object
-    pcap_bucket:
-      properties:
-        bucket:
-          examples:
-          - company-private-pcap
-          type: string
-      required:
-      - bucket
-      type: object
-    org_setting_gateway_mgmt_host_in_policies:
-      additionalProperties: false
-      properties:
-        icmp:
-          $ref: '#/components/schemas/org_setting_gateway_mgmt_host_in_policy'
-        snmp:
-          $ref: '#/components/schemas/org_setting_gateway_mgmt_host_in_policy'
-      type: object
-    org_setting_junos_shell_access_read:
-      default: none
-      description: 'enum: `admin`, `viewer`, `none`'
-      enum:
-      - admin
-      - none
-      - viewer
-      type: string
-    synthetictest_config_custom_probe:
-      additionalProperties: false
-      properties:
-        aggressiveness:
-          $ref: '#/components/schemas/synthetictest_config_aggressiveness'
-        target:
-          description: Can be URL (e.g. http://x.com, https://x.com:8080/path/to/resource), IP address, or IP:port combination
-          examples:
-          - 10.3.5.3:8080
-          type: string
-        threshold:
-          description: In milliseconds
-          examples:
-          - 100
-          type: integer
-        type:
-          $ref: '#/components/schemas/synthetictest_config_custom_probe_type'
-      type: object
-    org_setting_marvis:
-      additionalProperties: false
-      properties:
-        self_driving:
-          $ref: '#/components/schemas/marvis_self_driving'
-      type: object
-    synthetictest_config:
-      additionalProperties: false
-      properties:
-        aggressiveness:
-          $ref: '#/components/schemas/synthetictest_config_aggressiveness'
-        custom_probes:
-          $ref: '#/components/schemas/synthetictest_config_custom_probes'
-        disabled:
-          default: false
-          type: boolean
-        lan_networks:
-          $ref: '#/components/schemas/synthetictest_config_lan_networks'
-        vlans:
-          $ref: '#/components/schemas/synthetictest_config_vlans'
-        wan_speedtest:
-          $ref: '#/components/schemas/synthetictest_config_wan_speedtest'
-      type: object
-    org_setting_junos_shell_access_helpdesk:
-      default: none
-      description: 'enum: `admin`, `viewer`, `none`'
-      enum:
-      - admin
-      - none
-      - viewer
-      type: string
-    mxedge_mgmt_oob_ip_type6:
-      default: autoconf
-      description: 'enum: `autoconf`, `dhcp`, `disabled`, `static`'
-      enum:
-      - autoconf
-      - dhcp
-      - disabled
-      - static
-      type: string
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    org_setting_wireless_pma:
-      additionalProperties: false
-      properties:
-        enabled:
-          default: true
-          type: boolean
-      type: object
-    org_setting_auto_deviceprofile_assignment_rules:
-      items:
-        $ref: '#/components/schemas/org_setting_auto_assignment_rule'
-      type:
-      - array
-      - 'null'
-    org_setting_mist_nac_idp_exclude_realms:
-      description: When the IDP of mxedge_proxy type, exclude the following realms from proxying in addition to other valid home realms in this org
-      items:
-        type: string
-      type: array
     org_setting_mist_nac_server_cert:
       additionalProperties: false
       description: radius server cert to be presented in EAP TLS
@@ -877,187 +920,75 @@ components:
           description: private key password (optional)
           type: string
       type: object
-    gateway_mgmt_host_out_policy_syslog_servers:
-      items:
-        $ref: '#/components/schemas/gateway_mgmt_host_out_policy_syslog_server'
-      type: array
-    mxedge_mgmt:
-      additionalProperties: false
-      properties:
-        config_auto_revert:
-          default: false
-          type: boolean
-        fips_enabled:
-          default: false
-          type: boolean
-        mist_password:
-          examples:
-          - MIST_PASSWORD
-          type: string
-        oob_ip_type:
-          $ref: '#/components/schemas/mxedge_mgmt_oob_ip_type'
-        oob_ip_type6:
-          $ref: '#/components/schemas/mxedge_mgmt_oob_ip_type6'
-        root_password:
-          examples:
-          - ROOT_PASSWORD
-          format: password
-          type: string
-      type: object
-    synthetictest_config_probes:
-      description: app name comes from `custom_probes` above or /const/synthetic_test_probes
-      items:
-        type: string
-      type: array
-    switch_auto_upgrade_custom_versions:
-      additionalProperties:
-        type: string
-      description: Custom version to be used. The Property Key is the switch hardware and the property value is the firmware version
-      examples:
-      - QFX5120-32C: 23.4R2-S2.1
-        QFX5130-32CD: 23.4R2-S2.3
-      type: object
-    org_setting_auto_device_naming_rule:
-      additionalProperties: false
-      properties:
-        expression:
-          description: "\"[0:3]\"            // \"abcdef\" -> \"abc\"  \n      \"split(.)[1]\"      // \"a.b.c\" -> \"b\"  \n      \"split(-)[1][0:3]\" // \"a1234-b5678-c90\" -> \"b56\"'"
-          examples:
-          - split(.)[1]
-          type: string
-        match_device:
-          $ref: '#/components/schemas/device_type_default_ap'
-        prefix:
-          description: Prefix to append to the device name
-          type: string
-        src:
-          $ref: '#/components/schemas/org_setting_auto_device_naming_rule_src'
-        suffix:
-          description: Suffix to append to the device name
-          type: string
-      type: object
-    juniper_srx_auto_upgrade:
-      additionalProperties: false
-      description: auto_upgrade device first time it is onboarded
-      properties:
-        custom_versions:
-          $ref: '#/components/schemas/juniper_srx_auto_upgrade_custom_versions'
-        enabled:
-          default: false
-          type: boolean
-        snapshot:
-          default: false
-          type: boolean
-        version:
-          description: Firmware version to deploy (e.g. 23.4R2-S5.5). Optional, used when custom_versions not specified
-          examples:
-          - 23.4R2-S5.5
-          type: string
-      type: object
-    org_setting_security:
-      additionalProperties: false
-      properties:
-        disable_local_ssh:
-          description: Whether to disable local SSH (by default, local SSH is enabled with allow_mist in Org is enabled
-          type: boolean
-        fips_zeroize_password:
-          description: password required to zeroize devices (FIPS) on site level
-          examples:
-          - NUKETHESITE
-          type: string
-        limit_ssh_access:
-          default: false
-          description: Whether to allow certain SSH keys to SSH into the AP (see Site:Setting)
-          type: boolean
-      type: object
     org_setting_auto_device_naming_rules:
       items:
         $ref: '#/components/schemas/org_setting_auto_device_naming_rule'
       type:
       - array
       - 'null'
-    org_setting_jcloud:
-      additionalProperties: false
-      properties:
-        org_apitoken:
-          description: JCloud Org Token
-          type: string
-        org_apitoken_name:
-          description: JCloud Org Token Name
-          type: string
-        org_id:
-          description: JCloud Org ID
-          type: string
-      type: object
-    switch_auto_upgrade:
-      additionalProperties: false
-      properties:
-        custom_versions:
-          $ref: '#/components/schemas/switch_auto_upgrade_custom_versions'
-        enabled:
-          description: Enable auto upgrade for the switch
-          type: boolean
-        snapshot:
-          default: false
-          description: Enable snapshot during the upgrade process
-          type: boolean
-      type: object
-    org_setting_jcloud_ra:
-      additionalProperties: false
-      description: JCloud Routing Assurance connexion
-      properties:
-        org_apitoken:
-          description: JCloud Routing Assurance Org Token
-          type: string
-        org_apitoken_name:
-          description: JCloud Routing Assurance Org Token Name
-          type: string
-        org_id:
-          description: JCloud Routing Assurance Org ID
-          type: string
-      type: object
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
-    org_setting_auto_site_assignment:
+    org_setting_auto_deviceprofile_assignment:
       additionalProperties: false
       properties:
         enable:
           type: boolean
         rules:
-          $ref: '#/components/schemas/org_setting_auto_site_assignment_rules'
+          $ref: '#/components/schemas/org_setting_auto_deviceprofile_assignment_rules'
       type: object
-    org_setting_mist_nac_fingerprinting_wireless_coa:
-      description: 'enum: `reauth`, `disconnect`'
-      enum:
-      - reauth
-      - disconnect
+    time_of_day:
+      default: any
+      description: '`any` / HH:MM (24-hour format)'
+      examples:
+      - '12:00'
       type: string
-    org_setting_wan_pma:
+    org_setting_tags:
+      description: List of tags
+      items:
+        type: string
+      type: array
+    idp_machine_cert_lookup_field:
+      default: automatic
+      description: 'allow customer to choose the EAP-TLS client certificate''s field to use for IDP Machine Groups lookup. enum: `automatic`, `cn`, `dns`'
+      enum:
+      - automatic
+      - cn
+      - dns
+      type: string
+    setting_ssr_auto_upgrade_custom_versions:
+      additionalProperties:
+        description: Firmware version to deploy on the specified SSR model
+        examples:
+        - 6.3.0-107.r1
+        type: string
+      description: Property key is the SSR model (e.g. "SSR130").
+      type: object
+    pcap_bucket:
+      properties:
+        bucket:
+          examples:
+          - company-private-pcap
+          type: string
+      required:
+      - bucket
+      type: object
+    org_setting_installer:
       additionalProperties: false
       properties:
-        enabled:
-          default: false
+        allow_all_devices:
           type: boolean
+        allow_all_sites:
+          type: boolean
+        extra_site_ids:
+          $ref: '#/components/schemas/org_setting_installer_extra_site_ids'
+        grace_period:
+          type: integer
       type: object
-    org_setting_juniper_srx:
+    org_setting_gateway_mgmt_host_in_policies:
       additionalProperties: false
       properties:
-        auto_upgrade:
-          $ref: '#/components/schemas/juniper_srx_auto_upgrade'
-      type: object
-    org_setting_gateway_mgmt_host_out_policies:
-      additionalProperties: false
-      description: 'optional, for some of the host-out traffic, the path preference can be specified by default, ECMP will be used from all available route/path available services: dns/mist/ntp/pim'
-      properties:
-        dns:
-          $ref: '#/components/schemas/gateway_mgmt_host_out_policy'
-        ntp:
-          $ref: '#/components/schemas/gateway_mgmt_host_out_policy'
-        syslog:
-          $ref: '#/components/schemas/gateway_mgmt_host_out_policy_syslog'
+        icmp:
+          $ref: '#/components/schemas/org_setting_gateway_mgmt_host_in_policy'
+        snmp:
+          $ref: '#/components/schemas/org_setting_gateway_mgmt_host_in_policy'
       type: object
     org_setting_auto_assignment_rule:
       additionalProperties: false
@@ -1113,93 +1044,135 @@ components:
       required:
       - src
       type: object
-    msp_id:
-      examples:
-      - b9d42c2e-88ee-41f8-b798-f009ce7fe909
-      format: uuid
-      readOnly: true
-      type: string
-    org_setting_mist_nac_ip_version:
-      default: v4
-      description: 'by default, NAS devices(switches/aps) and proxies(mxedge) are configured to reach mist-nac via IPv4. enum: `v4`, `v6`'
+    nac_coa_type:
+      default: reauth
+      description: 'CoA type to send. enum: `reauth`, `disconnect`'
       enum:
-      - v4
-      - v6
+      - reauth
+      - disconnect
       type: string
-    org_setting_auto_deviceprofile_assignment:
+    org_setting_auto_device_naming_rule:
       additionalProperties: false
       properties:
-        enable:
-          type: boolean
-        rules:
-          $ref: '#/components/schemas/org_setting_auto_deviceprofile_assignment_rules'
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
+        expression:
+          description: "\"[0:3]\"            // \"abcdef\" -> \"abc\"  \n      \"split(.)[1]\"      // \"a.b.c\" -> \"b\"  \n      \"split(-)[1][0:3]\" // \"a1234-b5678-c90\" -> \"b56\"'"
+          examples:
+          - split(.)[1]
+          type: string
+        match_device:
+          $ref: '#/components/schemas/device_type_default_ap'
+        prefix:
+          description: Prefix to append to the device name
+          type: string
+        src:
+          $ref: '#/components/schemas/org_setting_auto_device_naming_rule_src'
+        suffix:
+          description: Suffix to append to the device name
           type: string
       type: object
-    simple_alert_arp_failure:
+    response_http403:
       additionalProperties: false
       properties:
-        client_count:
-          default: 10
-          type: integer
-        duration:
-          default: 20
-          description: failing within minutes
-          maximum: 60
-          minimum: 5
-          type: integer
-        incident_count:
-          default: 10
-          type: integer
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
       type: object
-    synthetictest_config_vlan:
+    org_setting_gateway_mgmt_overlay_ip:
       additionalProperties: false
       properties:
-        custom_test_urls:
-          $ref: '#/components/schemas/synthetictest_config_vlan_custom_test_urls'
-        disabled:
-          default: false
-          description: For some vlans where we don't want this to run
-          type: boolean
-        probes:
-          $ref: '#/components/schemas/synthetictest_config_probes'
-        vlan_ids:
-          $ref: '#/components/schemas/synthetictest_config_vlan_vlan_ids'
+        ip:
+          description: When it's going overlay, a routable IP to overlay will be required
+          type: string
+        node1_ip:
+          description: For SSR HA cluster, another IP for node1 will be required, too
+          type: string
       type: object
-    idp_user_cert_lookup_field:
-      default: automatic
-      description: 'allow customer to choose the EAP-TLS client certificate''s field. To use for IDP User Groups lookup. enum: `automatic`, `cn`, `email`, `upn`'
+    setting_ssr_conductor_hosts:
+      description: List of Conductor IP Addresses or Hosts to be used by the SSR Devices
+      items:
+        type: string
+      type: array
+    org_setting_marvis:
+      additionalProperties: false
+      properties:
+        self_driving:
+          $ref: '#/components/schemas/marvis_self_driving'
+      type: object
+    mxedge_mgmt_oob_ip_type:
+      default: dhcp
+      description: 'enum: `dhcp`, `disabled`, `static`'
       enum:
-      - automatic
-      - cn
-      - email
-      - upn
+      - dhcp
+      - disabled
+      - static
       type: string
-    org_setting_gateway_mgmt_host_in_policy:
+    synthetictest_config_vlan_custom_test_urls:
+      deprecated: true
+      examples:
+      - - https://www.abc.com/
+        - https://10.3.5.1:8080/about
+      items:
+        type: string
+      type: array
+    account_juniper_info:
+      properties:
+        accounts:
+          $ref: '#/components/schemas/juniper_accounts'
+      type: object
+    mxedge_mgmt:
       additionalProperties: false
       properties:
-        tenants:
-          $ref: '#/components/schemas/strings'
+        config_auto_revert:
+          default: false
+          type: boolean
+        fips_enabled:
+          default: false
+          type: boolean
+        mist_password:
+          examples:
+          - MIST_PASSWORD
+          type: string
+        oob_ip_type:
+          $ref: '#/components/schemas/mxedge_mgmt_oob_ip_type'
+        oob_ip_type6:
+          $ref: '#/components/schemas/mxedge_mgmt_oob_ip_type6'
+        root_password:
+          examples:
+          - ROOT_PASSWORD
+          format: password
+          type: string
       type: object
-    org_setting_mgmt:
+    org_setting_mist_nac_fingerprinting_wireless_coa:
+      description: 'enum: `reauth`, `disconnect`'
+      enum:
+      - reauth
+      - disconnect
+      type: string
+    synthetictest_config_custom_probe:
       additionalProperties: false
-      description: management-related properties
       properties:
-        mxtunnel_ids:
-          $ref: '#/components/schemas/org_setting_mgmt_mxtunnel_ids'
-        use_mxtunnel:
-          default: false
-          description: Whether to use Mist Tunnel for mgmt connectivity, this takes precedence over use_wxtunnel
-          type: boolean
-        use_wxtunnel:
-          default: false
-          description: Whether to use wxtunnel for mgmt connectivity
-          type: boolean
+        aggressiveness:
+          $ref: '#/components/schemas/synthetictest_config_aggressiveness'
+        target:
+          description: Can be URL (e.g. http://x.com, https://x.com:8080/path/to/resource), IP address, or IP:port combination
+          examples:
+          - 10.3.5.3:8080
+          type: string
+        threshold:
+          description: In milliseconds
+          examples:
+          - 100
+          type: integer
+        type:
+          $ref: '#/components/schemas/synthetictest_config_custom_probe_type'
       type: object
+    org_setting_auto_site_assignment_rules:
+      items:
+        $ref: '#/components/schemas/org_setting_auto_assignment_rule'
+      type:
+      - array
+      - 'null'
     org_setting_password_policy:
       additionalProperties: false
       description: password policy
@@ -1228,50 +1201,21 @@ components:
           description: Whether to require two-factor auth
           type: boolean
       type: object
-    response_pcap_bucket_config:
-      additionalProperties: false
-      properties:
-        bucket:
-          type: string
-        detail:
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    org_setting_switch_mgmt:
-      additionalProperties: false
-      properties:
-        ap_affinity_threshold:
-          default: 12
-          description: If the field is set in both site/setting and org/setting, the value from site/setting will be used.
-          examples:
-          - 10
-          type: integer
-      type: object
-    org_setting_device_cert:
-      additionalProperties: false
-      description: common device cert, optional
-      properties:
-        cert:
-          examples:
-          - '-----BEGIN CERTIFICATE-----\nMIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
-          type: string
-        key:
-          examples:
-          - '-----BEGIN PRI...'
-          type: string
-      type: object
-    org_id:
+    mac_addresses_macs:
       examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
+      - - 683b679ac024
+      items:
+        type: string
+      minItems: 1
+      type: array
+      uniqueItems: true
+    org_setting_junos_shell_access_admin:
+      default: admin
+      description: 'enum: `admin`, `viewer`, `none`'
+      enum:
+      - admin
+      - none
+      - viewer
       type: string
     simple_alert_dns_failure:
       additionalProperties: false
@@ -1289,100 +1233,83 @@ components:
           default: 30
           type: integer
       type: object
-    marvis_self_driving:
-      additionalProperties: false
-      description: Self-driving network automation settings per domain
+    pcap_bucket_verify:
       properties:
-        wan:
-          $ref: '#/components/schemas/marvis_self_driving_domain'
-        wired:
-          $ref: '#/components/schemas/marvis_self_driving_domain'
-        wireless:
-          $ref: '#/components/schemas/marvis_self_driving_domain'
+        bucket:
+          examples:
+          - company-private-pcap
+          type: string
+        verify_token:
+          examples:
+          - eyJhbGciOiJIUzI1J9.eyJzdWIiOiIxMjM0joiMjgxOG5MDIyfQ.2rzcRvMA3Eg09NnjCAC-1EWMRtxAnFDM
+          type: string
+      required:
+      - bucket
+      - verify_token
       type: object
-    setting_ssr:
+    org_setting_mgmt:
       additionalProperties: false
+      description: management-related properties
       properties:
-        auto_upgrade:
-          $ref: '#/components/schemas/setting_ssr_auto_upgrade'
-        conductor_hosts:
-          $ref: '#/components/schemas/setting_ssr_conductor_hosts'
-        conductor_token:
-          description: Token to be used by the SSR Devices to connect to the Conductor
-          type: string
-        disable_stats:
-          description: Disable stats collection on SSR devices
-          type: boolean
-        proxy:
-          $ref: '#/components/schemas/ssr_proxy'
-      type: object
-    org_setting_gateway_mgmt_app_probing:
-      additionalProperties: false
-      properties:
-        apps:
-          $ref: '#/components/schemas/app_probing_apps'
-      type: object
-    nac_coa_type:
-      default: reauth
-      description: 'CoA type to send. enum: `reauth`, `disconnect`'
-      enum:
-      - reauth
-      - disconnect
-      type: string
-    org_setting_celona:
-      additionalProperties: false
-      properties:
-        api_key:
-          examples:
-          - $2a$04$OkaLCoJn6rDjR8ha.oduQVDST3.kJNIrte
-          type: string
-        api_prefix:
-          examples:
-          - cc3273fcb016470e
-          type: string
-      type: object
-    org_setting_cradlepoint:
-      additionalProperties: false
-      properties:
-        cp_api_id:
-          examples:
-          - 84446d61-2206-4ea5-855a-0043f980be54
-          readOnly: true
-          type: string
-        cp_api_key:
-          examples:
-          - 79c329da9893e34099c7d8ad5cb9c941
-          readOnly: true
-          type: string
-        ecm_api_id:
-          examples:
-          - 73446d61-2206-4ea5-855a-0043f980be62
-          readOnly: true
-          type: string
-        ecm_api_key:
-          examples:
-          - 68b329da9893e34099c7d8ad5cb9c940
-          readOnly: true
-          type: string
-        enable_lldp:
-          readOnly: true
-          type: boolean
-      readOnly: true
-      type: object
-    ssr_proxy:
-      additionalProperties: false
-      description: SSR proxy configuration to talk to Mist
-      properties:
-        disabled:
+        mxtunnel_ids:
+          $ref: '#/components/schemas/org_setting_mgmt_mxtunnel_ids'
+        use_mxtunnel:
           default: false
-          examples:
-          - true
+          description: Whether to use Mist Tunnel for mgmt connectivity, this takes precedence over use_wxtunnel
           type: boolean
-        url:
+        use_wxtunnel:
+          default: false
+          description: Whether to use wxtunnel for mgmt connectivity
+          type: boolean
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
           examples:
-          - https://proxy.corp.com:8080/
+          - Authentication credentials were not provided.
           type: string
       type: object
+    gateway_mgmt_host_out_policy_syslog:
+      additionalProperties: false
+      properties:
+        path_preference:
+          examples:
+          - broadband_wans
+          type: string
+        servers:
+          $ref: '#/components/schemas/gateway_mgmt_host_out_policy_syslog_servers'
+      type: object
+    org_setting_gateway_mgmt_host_in_policy:
+      additionalProperties: false
+      properties:
+        tenants:
+          $ref: '#/components/schemas/strings'
+      type: object
+    org_setting_mist_nac_idps:
+      items:
+        $ref: '#/components/schemas/org_setting_mist_nac_idp'
+      type: array
+    org_setting_mgmt_mxtunnel_ids:
+      description: List of Mist Tunnels
+      items:
+        examples:
+        - 08cd7499-5841-51c8-e663-fb16b6f3b45e
+        format: uuid
+        type: string
+      type: array
+    org_setting_junos_shell_access_read:
+      default: none
+      description: 'enum: `admin`, `viewer`, `none`'
+      enum:
+      - admin
+      - none
+      - viewer
+      type: string
+    gateway_mgmt_host_out_policy_syslog_servers:
+      items:
+        $ref: '#/components/schemas/gateway_mgmt_host_out_policy_syslog_server'
+      type: array
     mac_addresses:
       properties:
         macs:
@@ -1390,238 +1317,33 @@ components:
       required:
       - macs
       type: object
-    mxedge_mgmt_oob_ip_type:
-      default: dhcp
-      description: 'enum: `dhcp`, `disabled`, `static`'
-      enum:
-      - dhcp
-      - disabled
-      - static
-      type: string
-    setting_ssr_auto_upgrade:
-      additionalProperties: false
-      description: auto_upgrade device first time it is onboarded
-      properties:
-        channel:
-          $ref: '#/components/schemas/ssr_upgrade_channel'
-        custom_versions:
-          $ref: '#/components/schemas/setting_ssr_auto_upgrade_custom_versions'
-        enabled:
-          default: false
-          type: boolean
-        version:
-          description: Firmware version to deploy (e.g. 6.3.0-107.r1). Optional, used when custom_versions not specified
-          examples:
-          - 6.3.0-107.r1
-          type: string
-      type: object
-    org_setting_auto_site_assignment_rules:
+    synthetictest_config_lan_networks:
+      description: List of networks to be used for synthetic tests
       items:
-        $ref: '#/components/schemas/org_setting_auto_assignment_rule'
-      type:
-      - array
-      - 'null'
-    org_setting_auto_site_assignment_src:
-      description: 'enum: `ext_ip`, `dns_suffix`, `geoip`, `lldp_port_desc`, `lldp_system_name`, `model`, `name`, `subnet`'
-      enum:
-      - ext_ip
-      - dns_suffix
-      - geoip
-      - lldp_port_desc
-      - lldp_system_name
-      - model
-      - name
-      - subnet
-      type: string
-    vlan_id_with_variable:
-      oneOf:
-      - type: string
-      - maximum: 4094
-        minimum: 1
-        type: integer
-    radsec_certs_ap:
-      description: RADSec certificates for AP
-      items:
-        examples:
-        - '-----BEGIN CERTIFICATE-----\nMIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
-        type: string
+        $ref: '#/components/schemas/synthetictest_config_lan_network'
       type: array
-    synthetictest_config_wan_speedtest:
-      additionalProperties: false
-      properties:
-        enabled:
-          type: boolean
-        time_of_day:
-          $ref: '#/components/schemas/time_of_day'
-      type: object
-    optic_port_config_port:
-      additionalProperties: false
-      properties:
-        channelized:
-          default: false
-          description: Enable channelization
-          type: boolean
-        speed:
-          description: Interface speed (e.g. `25g`, `50g`), use the chassis speed by default
-          examples:
-          - 25g
-          type: string
-      type: object
-    time_of_day:
-      default: any
-      description: '`any` / HH:MM (24-hour format)'
+    switch_auto_upgrade_custom_versions:
+      additionalProperties:
+        type: string
+      description: Custom version to be used. The Property Key is the switch hardware and the property value is the firmware version
       examples:
-      - '12:00'
-      type: string
-    org_setting_installer_extra_site_ids:
-      items:
-        examples:
-        - 4ac1dcf4-9d8b-7211-65c4-057819f0862b
-        format: uuid
-        type: string
-      type: array
-    setting_ssr_conductor_hosts:
-      description: List of Conductor IP Addresses or Hosts to be used by the SSR Devices
-      items:
-        type: string
-      type: array
-    device_type_default_ap:
-      default: ap
-      description: 'enum: `ap`, `gateway`, `switch`'
-      enum:
-      - ap
-      - gateway
-      - switch
-      type: string
-    org_setting_wired_pma:
+      - QFX5120-32C: 23.4R2-S2.1
+        QFX5130-32CD: 23.4R2-S2.3
+      type: object
+    synthetictest_config_vlan:
       additionalProperties: false
       properties:
-        enabled:
+        custom_test_urls:
+          $ref: '#/components/schemas/synthetictest_config_vlan_custom_test_urls'
+        disabled:
           default: false
+          description: For some vlans where we don't want this to run
           type: boolean
+        probes:
+          $ref: '#/components/schemas/synthetictest_config_probes'
+        vlan_ids:
+          $ref: '#/components/schemas/synthetictest_config_vlan_vlan_ids'
       type: object
-    org_setting_switch:
-      additionalProperties: false
-      properties:
-        auto_upgrade:
-          $ref: '#/components/schemas/switch_auto_upgrade'
-      type: object
-    juniper_accounts:
-      items:
-        $ref: '#/components/schemas/juniper_account'
-      type: array
-    synthetictest_config_aggressiveness:
-      default: auto
-      description: 'enum: `auto`, `high`, `low`'
-      enum:
-      - auto
-      - high
-      - med
-      - low
-      type: string
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    org_setting_auto_device_naming_rule_src:
-      description: 'enum: `lldp_port_desc`, `mac`'
-      enum:
-      - lldp_port_desc
-      - mac
-      type: string
-    org_setting_mist_nac_idp:
-      additionalProperties: false
-      properties:
-        exclude_realms:
-          $ref: '#/components/schemas/org_setting_mist_nac_idp_exclude_realms'
-        id:
-          $ref: '#/components/schemas/id'
-        user_realms:
-          $ref: '#/components/schemas/org_setting_mist_nac_idp_user_realms'
-      type: object
-    marvis_self_driving_domain:
-      additionalProperties: false
-      properties:
-        enabled:
-          default: false
-          type: boolean
-      type: object
-    synthetictest_config_custom_probe_type:
-      default: icmp
-      description: 'enum: `application`, `curl`, `icmp`, `reachability`, `tcp`'
-      enum:
-      - application
-      - curl
-      - icmp
-      - reachability
-      - tcp
-      type: string
-    org_setting_cloudshark:
-      additionalProperties: false
-      properties:
-        apitoken:
-          examples:
-          - accbd6f10c6d05c3
-          type: string
-        url:
-          description: If using CS Enterprise
-          examples:
-          - https://cloudshark.hosted.domain
-          type: string
-      type: object
-    org_setting_mist_nac_idp_user_realms:
-      description: "Which realm should trigger this IDP. User Realm is extracted from:\n  * Username-AVP (`mist.com` from john@mist.com)\n  * Cert CN"
-      items:
-        examples:
-        - abc
-        type: string
-      type: array
-    org_setting_vpn_options:
-      additionalProperties: false
-      properties:
-        as_base:
-          maximum: 2147483647
-          minimum: 1
-          type: integer
-        enable_ipv6:
-          default: false
-          type: boolean
-        st_subnet:
-          default: 10.224.0.0/12
-          description: requiring /12 or bigger to support 16 private IPs for 65535 gateways
-          type: string
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    synthetictest_config_vlans:
-      deprecated: true
-      items:
-        $ref: '#/components/schemas/synthetictest_config_vlan'
-      type: array
-    org_setting_mist_nac_idps:
-      items:
-        $ref: '#/components/schemas/org_setting_mist_nac_idp'
-      type: array
-    org_setting_tags:
-      description: List of tags
-      items:
-        type: string
-      type: array
-    mac_addresses_macs:
-      examples:
-      - - 683b679ac024
-      items:
-        type: string
-      minItems: 1
-      type: array
-      uniqueItems: true
     org_setting_gateway_mgmt:
       additionalProperties: false
       properties:
@@ -1640,49 +1362,30 @@ components:
         overlay_ip:
           $ref: '#/components/schemas/org_setting_gateway_mgmt_overlay_ip'
       type: object
-    org_setting_mist_nac_mdm:
+    org_setting_gateway_mgmt_host_out_policies:
       additionalProperties: false
-      description: MDM (Mobile Device Management) CoA configuration
+      description: 'optional, for some of the host-out traffic, the path preference can be specified by default, ECMP will be used from all available route/path available services: dns/mist/ntp/pim'
       properties:
-        coa_type:
-          $ref: '#/components/schemas/nac_coa_type'
+        dns:
+          $ref: '#/components/schemas/gateway_mgmt_host_out_policy'
+        ntp:
+          $ref: '#/components/schemas/gateway_mgmt_host_out_policy'
+        syslog:
+          $ref: '#/components/schemas/gateway_mgmt_host_out_policy_syslog'
       type: object
-    gateway_mgmt_host_out_policy_syslog_server:
-      additionalProperties: false
-      description: Allows to define the host_out_policy per Syslog Server. The Property key is the Syslog name
-      properties:
-        host:
-          examples:
-          - 103.35.3.5
-          type: string
-        path_preference:
-          examples:
-          - dc_only
-          type: string
-        server_name:
-          examples:
-          - dc_syslog_server
-          type: string
-      type: object
-    synthetictest_config_custom_probes:
-      additionalProperties:
-        $ref: '#/components/schemas/synthetictest_config_custom_probe'
-      description: Custom probes to be used for synthetic tests
-      type: object
-    app_probing_apps:
-      description: APp-keys from [List Applications](/#operations/listApplications)
-      examples:
-      - - facebook
+    org_setting_auto_deviceprofile_assignment_rules:
       items:
-        type: string
-      type: array
-    juniper_srx_auto_upgrade_custom_versions:
-      additionalProperties:
-        description: Firmware version to deploy on the specified SRX hardware
-        examples:
-        - 23.4R2-S2.1
-        type: string
-      description: Property key is the SRX Hardware model (e.g. "SRX4600")
+        $ref: '#/components/schemas/org_setting_auto_assignment_rule'
+      type:
+      - array
+      - 'null'
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
       type: object
     org_setting_mist_nac:
       additionalProperties: false
@@ -1737,46 +1440,317 @@ components:
           minimum: 0
           type: integer
       type: object
-    setting_ssr_auto_upgrade_custom_versions:
-      additionalProperties:
-        description: Firmware version to deploy on the specified SSR model
-        examples:
-        - 6.3.0-107.r1
+    org_setting_wireless_pma:
+      additionalProperties: false
+      properties:
+        enabled:
+          default: true
+          type: boolean
+      type: object
+    vlan_id_with_variable:
+      oneOf:
+      - type: string
+      - maximum: 4094
+        minimum: 1
+        type: integer
+    gateway_mgmt_host_out_policy:
+      additionalProperties: false
+      properties:
+        path_preference:
+          type: string
+      type: object
+    org_setting_mist_nac_ip_version:
+      default: v4
+      description: 'by default, NAS devices(switches/aps) and proxies(mxedge) are configured to reach mist-nac via IPv4. enum: `v4`, `v6`'
+      enum:
+      - v4
+      - v6
+      type: string
+    org_setting_mist_nac_idp:
+      additionalProperties: false
+      properties:
+        exclude_realms:
+          $ref: '#/components/schemas/org_setting_mist_nac_idp_exclude_realms'
+        id:
+          $ref: '#/components/schemas/id'
+        user_realms:
+          $ref: '#/components/schemas/org_setting_mist_nac_idp_user_realms'
+      type: object
+    org_setting_cloudshark:
+      additionalProperties: false
+      properties:
+        apitoken:
+          examples:
+          - accbd6f10c6d05c3
+          type: string
+        url:
+          description: If using CS Enterprise
+          examples:
+          - https://cloudshark.hosted.domain
+          type: string
+      type: object
+    org_setting_gateway_mgmt_app_probing:
+      additionalProperties: false
+      properties:
+        apps:
+          $ref: '#/components/schemas/app_probing_apps'
+      type: object
+    device_type_default_ap:
+      default: ap
+      description: 'enum: `ap`, `gateway`, `switch`'
+      enum:
+      - ap
+      - gateway
+      - switch
+      type: string
+    org_setting_api_policy:
+      additionalProperties: false
+      properties:
+        no_reveal:
+          default: false
+          description: "By default, API hides password/secrets when the user doesn't have write access\n  * `true`: API will hide passwords/secrets for all users\n  * `false`: API will hide passwords/secrets for read-only users"
+          type: boolean
+      type: object
+    synthetictest_config_lan_networks_networks:
+      description: List of networks to be used for synthetic tests
+      examples:
+      - - pos-stations
+        - pos-machines
+      items:
         type: string
-      description: Property key is the SSR model (e.g. "SSR130").
+      type: array
+    org_setting_wan_pma:
+      additionalProperties: false
+      properties:
+        enabled:
+          default: false
+          type: boolean
+      type: object
+    simple_alert_dhcp_failure:
+      additionalProperties: false
+      properties:
+        client_count:
+          default: 10
+          type: integer
+        duration:
+          default: 10
+          description: failing within minutes
+          maximum: 60
+          minimum: 5
+          type: integer
+        incident_count:
+          default: 20
+          type: integer
+      type: object
+    juniper_account:
+      additionalProperties: false
+      properties:
+        linked_by:
+          examples:
+          - John Smith (john@abccorp.com)
+          readOnly: true
+          type: string
+        name:
+          examples:
+          - ABC Corp
+          readOnly: true
+          type: string
+      type: object
+    org_setting_wired_pma:
+      additionalProperties: false
+      properties:
+        enabled:
+          default: false
+          type: boolean
       type: object
     optic_port_config:
       additionalProperties:
         $ref: '#/components/schemas/optic_port_config_port'
       description: Property key is the interface name or range (e.g. `et-0/0/47`, `et-0/0/48-49`)
       type: object
+    synthetictest_config_aggressiveness:
+      default: auto
+      description: 'enum: `auto`, `high`, `low`'
+      enum:
+      - auto
+      - high
+      - med
+      - low
+      type: string
+    org_setting_auto_device_naming_rule_src:
+      description: 'enum: `lldp_port_desc`, `mac`'
+      enum:
+      - lldp_port_desc
+      - mac
+      type: string
+    synthetictest_config_probes:
+      description: app name comes from `custom_probes` above or /const/synthetic_test_probes
+      items:
+        type: string
+      type: array
+    setting_ssr:
+      additionalProperties: false
+      properties:
+        auto_upgrade:
+          $ref: '#/components/schemas/setting_ssr_auto_upgrade'
+        conductor_hosts:
+          $ref: '#/components/schemas/setting_ssr_conductor_hosts'
+        conductor_token:
+          description: Token to be used by the SSR Devices to connect to the Conductor
+          type: string
+        disable_stats:
+          description: Disable stats collection on SSR devices
+          type: boolean
+        proxy:
+          $ref: '#/components/schemas/ssr_proxy'
+      type: object
+    org_setting_auto_site_assignment:
+      additionalProperties: false
+      properties:
+        enable:
+          type: boolean
+        rules:
+          $ref: '#/components/schemas/org_setting_auto_site_assignment_rules'
+      type: object
+    response_pcap_bucket_config:
+      additionalProperties: false
+      properties:
+        bucket:
+          type: string
+        detail:
+          type: string
+      type: object
+    ssr_upgrade_channel:
+      default: stable
+      description: 'upgrade channel to follow. enum: `alpha`, `beta`, `stable`'
+      enum:
+      - alpha
+      - beta
+      - stable
+      type: string
+    org_setting_jcloud:
+      additionalProperties: false
+      properties:
+        org_apitoken:
+          description: JCloud Org Token
+          type: string
+        org_apitoken_name:
+          description: JCloud Org Token Name
+          type: string
+        org_id:
+          description: JCloud Org ID
+          type: string
+      type: object
+    org_setting_mist_nac_mdm:
+      additionalProperties: false
+      description: MDM (Mobile Device Management) CoA configuration
+      properties:
+        coa_type:
+          $ref: '#/components/schemas/nac_coa_type'
+      type: object
+    org_setting_junos_shell_access:
+      additionalProperties: false
+      description: "junos_shell_access: Manages role-based web-shell access.  \nWhen junos_shell access is not defined (Default) - No additional users are configured and web-shell uses default `mist` user to login.  \nWhen junos_shell_access is defined - Additional users mist-web-admin (admin permission), mist-web-viewer(viewer permission) are configured on the device and web-shell logs in with the mist-web-admin/mist-web-viewer user depending upon the shell access level. Setting the shell access level to \"none\", disables web-shell access for that specific role.\n"
+      properties:
+        admin:
+          $ref: '#/components/schemas/org_setting_junos_shell_access_admin'
+        helpdesk:
+          $ref: '#/components/schemas/org_setting_junos_shell_access_helpdesk'
+        read:
+          $ref: '#/components/schemas/org_setting_junos_shell_access_read'
+        write:
+          $ref: '#/components/schemas/org_setting_junos_shell_access_write'
+      type: object
+    juniper_accounts:
+      items:
+        $ref: '#/components/schemas/juniper_account'
+      type: array
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    org_setting_cradlepoint:
+      additionalProperties: false
+      properties:
+        cp_api_id:
+          examples:
+          - 84446d61-2206-4ea5-855a-0043f980be54
+          readOnly: true
+          type: string
+        cp_api_key:
+          examples:
+          - 79c329da9893e34099c7d8ad5cb9c941
+          readOnly: true
+          type: string
+        ecm_api_id:
+          examples:
+          - 73446d61-2206-4ea5-855a-0043f980be62
+          readOnly: true
+          type: string
+        ecm_api_key:
+          examples:
+          - 68b329da9893e34099c7d8ad5cb9c940
+          readOnly: true
+          type: string
+        enable_lldp:
+          readOnly: true
+          type: boolean
+      readOnly: true
+      type: object
+    simple_alert_arp_failure:
+      additionalProperties: false
+      properties:
+        client_count:
+          default: 10
+          type: integer
+        duration:
+          default: 20
+          description: failing within minutes
+          maximum: 60
+          minimum: 5
+          type: integer
+        incident_count:
+          default: 10
+          type: integer
+      type: object
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
+    org_setting_device_cert:
+      additionalProperties: false
+      description: common device cert, optional
+      properties:
+        cert:
+          examples:
+          - '-----BEGIN CERTIFICATE-----\nMIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
+          type: string
+        key:
+          examples:
+          - '-----BEGIN PRI...'
+          type: string
+      type: object
+    setting_ssr_auto_upgrade:
+      additionalProperties: false
+      description: auto_upgrade device first time it is onboarded
+      properties:
+        channel:
+          $ref: '#/components/schemas/ssr_upgrade_channel'
+        custom_versions:
+          $ref: '#/components/schemas/setting_ssr_auto_upgrade_custom_versions'
+        enabled:
+          default: false
+          type: boolean
+        version:
+          description: Firmware version to deploy (e.g. 6.3.0-107.r1). Optional, used when custom_versions not specified
+          examples:
+          - 6.3.0-107.r1
+          type: string
+      type: object
   responses:
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    OK:
-      description: OK
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -1792,21 +1766,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP400:
+    MacsArray:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP400Example'
+              $ref: '#/components/examples/MacsArrayExample'
           schema:
-            $ref: '#/components/schemas/response_http400'
+            $ref: '#/components/schemas/mac_addresses'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP400Example'
+              $ref: '#/components/examples/MacsArrayExample'
           schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
+            $ref: '#/components/schemas/mac_addresses'
+      description: OK
     OrgSetting:
       content:
         application/json:
@@ -1825,36 +1799,6 @@ components:
               $ref: '#/components/examples/OrgSettingExample2'
           schema:
             $ref: '#/components/schemas/org_setting'
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    MacsArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MacsArrayExample'
-          schema:
-            $ref: '#/components/schemas/mac_addresses'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MacsArrayExample'
-          schema:
-            $ref: '#/components/schemas/mac_addresses'
       description: OK
     PcapBucketConfig:
       content:
@@ -1875,13 +1819,160 @@ components:
           schema:
             $ref: '#/components/schemas/response_pcap_bucket_config'
       description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    OK:
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
   examples:
-    HTTP400Example:
+    OrgSettingExample2:
       value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+        auto_device_naming:
+          enable: true
+          rules:
+          - expression: '...'
+            src: lldp_port_desc
+        auto_deviceprofile_assignment:
+          enable: true
+        auto_site_assignment:
+          enable: true
+          rules:
+          - expression: '[0:3]'
+            prefix: XX-
+            src: name
+            suffix: -YY
+          - src: subnet
+            subnet: 10.1.2.0/18
+            value: s1351
+          - expression: '...'
+            src: lldp_system_name
+          - expression: '...'
+            src: dns_suffix
+          - model: AP41
+            src: model
+            value: s1351
+        cacerts:
+        - '-----BEGIN CERTIFICATE-----
+
+          MIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE
+
+          -----END CERTIFICATE-----'
+        - '-----BEGIN CERTIFICATE-----
+
+          BhMCRVMxFDASBgNVBAoMC1N0YXJ0Q29tIENBMSwwKgYDVn-----END CERTIFICATE-----'
+        cloudshark:
+          apitoken: accbd6f10c6d05c3
+          url: https://cloudshark.hosted.domain
+        device_cert:
+          cert: '-----BEGIN CERTIFICATE-----
+
+            MIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE
+
+            -----END CERTIFICATE-----'
+          key: '-----BEGIN PRI...'
+        device_updown_threshold: 0
+        disable_pcap: false
+        installer:
+          allow_all_sites: false
+          extra_site_ids:
+          - 4ac1dcf4-9d8b-7211-65c4-057819f0862b
+          - 52f4347e-3e4b-186c-21ca-ad5b70eb23d6
+          grace_period: 14
+        mgmt:
+          mxtunnel_ids:
+          - 08cd7499-5841-51c8-e663-fb16b6f3b45e
+          use_mxtunnel: true
+          use_wxtunnel: false
+        password_policy:
+          enabled: true
+          expiry_in_days: 60
+          min_length: 8
+          requires_special_char: false
+          requires_two_factor_auth: true
+        pcap:
+          bucket: myorg_pcap
+          max_pkt_len: 128
+        pcap_bucket_verified: true
+        remote_syslog:
+          enabled: true
+          send_to_all_servers: true
+          servers:
+          - facility: any
+            host: syslogd.internal
+            port: 514
+            protocol: udp
+            severity: info
+            tag: ''
+        security:
+          disable_local_ssh: false
+          fips_zeroize_password: NUKETHESITE
+          limit_ssh_access: false
+        tags:
+        - beta
+        ui_idle_timeout: 10
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    PcapBucketConfigSuccess:
+      value: {}
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
+    PcapBucketConfigFailed:
+      value:
+        bucket: company-private-pcap
+        detail: failed to write bucket - 403 AccessDenied
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
@@ -1970,100 +2061,9 @@ components:
         macs:
         - 18-65-90-de-f4-c6
         - 84-89-ad-5d-69-0d
-    OrgSettingExample2:
+    HTTP400Example:
       value:
-        auto_device_naming:
-          enable: true
-          rules:
-          - expression: '...'
-            src: lldp_port_desc
-        auto_deviceprofile_assignment:
-          enable: true
-        auto_site_assignment:
-          enable: true
-          rules:
-          - expression: '[0:3]'
-            prefix: XX-
-            src: name
-            suffix: -YY
-          - src: subnet
-            subnet: 10.1.2.0/18
-            value: s1351
-          - expression: '...'
-            src: lldp_system_name
-          - expression: '...'
-            src: dns_suffix
-          - model: AP41
-            src: model
-            value: s1351
-        cacerts:
-        - '-----BEGIN CERTIFICATE-----
-
-          MIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE
-
-          -----END CERTIFICATE-----'
-        - '-----BEGIN CERTIFICATE-----
-
-          BhMCRVMxFDASBgNVBAoMC1N0YXJ0Q29tIENBMSwwKgYDVn-----END CERTIFICATE-----'
-        cloudshark:
-          apitoken: accbd6f10c6d05c3
-          url: https://cloudshark.hosted.domain
-        device_cert:
-          cert: '-----BEGIN CERTIFICATE-----
-
-            MIIFZjCCA06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE
-
-            -----END CERTIFICATE-----'
-          key: '-----BEGIN PRI...'
-        device_updown_threshold: 0
-        disable_pcap: false
-        installer:
-          allow_all_sites: false
-          extra_site_ids:
-          - 4ac1dcf4-9d8b-7211-65c4-057819f0862b
-          - 52f4347e-3e4b-186c-21ca-ad5b70eb23d6
-          grace_period: 14
-        mgmt:
-          mxtunnel_ids:
-          - 08cd7499-5841-51c8-e663-fb16b6f3b45e
-          use_mxtunnel: true
-          use_wxtunnel: false
-        password_policy:
-          enabled: true
-          expiry_in_days: 60
-          min_length: 8
-          requires_special_char: false
-          requires_two_factor_auth: true
-        pcap:
-          bucket: myorg_pcap
-          max_pkt_len: 128
-        pcap_bucket_verified: true
-        remote_syslog:
-          enabled: true
-          send_to_all_servers: true
-          servers:
-          - facility: any
-            host: syslogd.internal
-            port: 514
-            protocol: udp
-            severity: info
-            tag: ''
-        security:
-          disable_local_ssh: false
-          fips_zeroize_password: NUKETHESITE
-          limit_ssh_access: false
-        tags:
-        - beta
-        ui_idle_timeout: 10
-    PcapBucketConfigSuccess:
-      value: {}
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    PcapBucketConfigFailed:
-      value:
-        bucket: company-private-pcap
-        detail: failed to write bucket - 403 AccessDenied
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
   parameters:
     org_id:
       in: path

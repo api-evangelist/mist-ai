@@ -926,40 +926,7 @@ paths:
       tags:
       - Utilities WAN
 components:
-  parameters:
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    device_id:
-      in: path
-      name: device_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
   schemas:
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    ha_cluster_node_enum:
-      description: 'only for HA. enum: `node0`, `node1`'
-      enum:
-      - node0
-      - node1
-      type: string
     utils_clear_session:
       description: To use five tuples to lookup the session to be cleared, all must be provided
       properties:
@@ -973,6 +940,20 @@ components:
         session_ids:
           $ref: '#/components/schemas/utils_clear_session_session_ids'
       type: object
+    ha_cluster_node_enum:
+      description: 'only for HA. enum: `node0`, `node1`'
+      enum:
+      - node0
+      - node1
+      type: string
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
     websocket_session:
       additionalProperties: false
       properties:
@@ -982,16 +963,6 @@ components:
           type: string
       required:
       - session
-      type: object
-    utils_show_service_path:
-      description: The exact service name for which to display the service path
-      properties:
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        service_name:
-          examples:
-          - any
-          type: string
       type: object
     websocket_session_with_url:
       additionalProperties: false
@@ -1008,12 +979,54 @@ components:
       - session
       - url
       type: object
+    utils_show_session:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        service_name:
+          description: The exact service name for which to display the active sessions
+          examples:
+          - any
+          type: string
+        session_id:
+          description: Show session details by session_id
+          type: string
+      type: object
+    ha_cluster_node:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+      type: object
     response_http404:
       additionalProperties: false
       properties:
         id:
           type: string
       type: object
+    utils_release_dhcp:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        port_id:
+          description: The network interface on which to release the current DHCP release
+          examples:
+          - ge-0/0/1.10
+          minLength: 1
+          type: string
+      required:
+      - port_id
+      type: object
+    utils_show_route_protocol:
+      default: bgp
+      description: 'enum: `any`, `bgp`, `direct`, `evpn`, `ospf`, `static`'
+      enum:
+      - any
+      - bgp
+      - direct
+      - evpn
+      - ospf
+      - static
+      type: string
     utils_show_ospf_database:
       properties:
         node:
@@ -1026,74 +1039,6 @@ components:
           description: VRF name
           examples:
           - lan
-          type: string
-      type: object
-    utils_show_ospf_summary:
-      properties:
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        vrf:
-          description: VRF name
-          examples:
-          - lan
-          type: string
-      type: object
-    utils_clear_bgp:
-      properties:
-        neighbor:
-          default: all
-          description: can be ip, ipv6, all
-          type: string
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        type:
-          $ref: '#/components/schemas/utils_clear_bgp_type'
-        vrf:
-          description: VRF name
-          type: string
-      required:
-      - neighbor
-      - type
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    utils_service_ping:
-      properties:
-        count:
-          default: 10
-          type: integer
-        host:
-          format: ipv4
-          type: string
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        service:
-          description: Ping packet takes the same path as the service
-          type: string
-        size:
-          default: 56
-          maximum: 65535
-          minimum: 56
-          type: integer
-        tenant:
-          description: Tenant context in which the packet is sent
-          type: string
-      required:
-      - host
-      - service
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     utils_show_ospf_interfaces:
@@ -1111,12 +1056,24 @@ components:
           - lan
           type: string
       type: object
-    response_http403:
-      additionalProperties: false
+    utils_show_ospf_neighbors:
       properties:
-        detail:
+        neighbor:
+          description: Neighbor IP Address
           examples:
-          - You do not have permission to perform this action.
+          - 10.1.1.1
+          type: string
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        port_id:
+          description: Network interface
+          examples:
+          - ge-0/0/3
+          type: string
+        vrf:
+          description: VRF name
+          examples:
+          - lan
           type: string
       type: object
     utils_show_route:
@@ -1159,6 +1116,14 @@ components:
           - default
           type: string
       type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
     utils_clear_bgp_type:
       default: hard
       description: 'enum: `hard`, `in`, `out`, `soft`'
@@ -1168,63 +1133,92 @@ components:
       - out
       - soft
       type: string
-    utils_show_session:
-      properties:
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-        service_name:
-          description: The exact service name for which to display the active sessions
-          examples:
-          - any
-          type: string
-        session_id:
-          description: Show session details by session_id
-          type: string
-      type: object
-    utils_show_ospf_neighbors:
+    utils_clear_bgp:
       properties:
         neighbor:
-          description: Neighbor IP Address
-          examples:
-          - 10.1.1.1
+          default: all
+          description: can be ip, ipv6, all
           type: string
         node:
           $ref: '#/components/schemas/ha_cluster_node_enum'
-        port_id:
-          description: Network interface
-          examples:
-          - ge-0/0/3
+        type:
+          $ref: '#/components/schemas/utils_clear_bgp_type'
+        vrf:
+          description: VRF name
           type: string
+      required:
+      - neighbor
+      - type
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    utils_show_ospf_summary:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
         vrf:
           description: VRF name
           examples:
           - lan
           type: string
       type: object
-    utils_release_dhcp:
+    utils_clear_session_session_ids:
+      description: List of id of the sessions to be cleared
+      examples:
+      - - 88776655-0123-4567-890a-112233445566
+      items:
+        format: uuid
+        type: string
+      type: array
+    utils_service_ping:
+      properties:
+        count:
+          default: 10
+          type: integer
+        host:
+          format: ipv4
+          type: string
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+        service:
+          description: Ping packet takes the same path as the service
+          type: string
+        size:
+          default: 56
+          maximum: 65535
+          minimum: 56
+          type: integer
+        tenant:
+          description: Tenant context in which the packet is sent
+          type: string
+      required:
+      - host
+      - service
+      type: object
+    utils_show_service_path:
+      description: The exact service name for which to display the service path
       properties:
         node:
           $ref: '#/components/schemas/ha_cluster_node_enum'
-        port_id:
-          description: The network interface on which to release the current DHCP release
+        service_name:
           examples:
-          - ge-0/0/1.10
-          minLength: 1
+          - any
           type: string
-      required:
-      - port_id
       type: object
-    utils_show_route_protocol:
-      default: bgp
-      description: 'enum: `any`, `bgp`, `direct`, `evpn`, `ospf`, `static`'
-      enum:
-      - any
-      - bgp
-      - direct
-      - evpn
-      - ospf
-      - static
-      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
     utils_clear_arp:
       properties:
         ip:
@@ -1250,59 +1244,7 @@ components:
           - guest
           type: string
       type: object
-    utils_clear_session_session_ids:
-      description: List of id of the sessions to be cleared
-      examples:
-      - - 88776655-0123-4567-890a-112233445566
-      items:
-        format: uuid
-        type: string
-      type: array
-    ha_cluster_node:
-      properties:
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-      type: object
   responses:
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -1318,6 +1260,26 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    WebsocketSession:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/websocket_session'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/websocket_session'
+      description: OK
+    OK:
+      description: OK
     HTTP403:
       content:
         application/json:
@@ -1333,6 +1295,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
     WebsocketSessionWithUrl:
       content:
         application/json:
@@ -1342,30 +1319,53 @@ components:
           schema:
             $ref: '#/components/schemas/websocket_session_with_url'
       description: OK
-    OK:
-      description: OK
-    WebsocketSession:
+    HTTP401:
       content:
         application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/websocket_session'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/websocket_session'
-      description: OK
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
   examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+  parameters:
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    device_id:
+      in: path
+      name: device_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

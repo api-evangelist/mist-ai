@@ -140,22 +140,6 @@ paths:
       tags:
       - Orgs Maps
 components:
-  parameters:
-    site_name:
-      in: path
-      name: site_name
-      required: true
-      schema:
-        type: string
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
   schemas:
     response_http400:
       additionalProperties: false
@@ -165,97 +149,39 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    map_import_json:
-      additionalProperties: false
-      properties:
-        import_all_floorplans:
-          default: false
-          type: boolean
-        import_height:
-          default: true
-          type: boolean
-        import_orientation:
-          default: true
-          type: boolean
-        vendor_name:
-          $ref: '#/components/schemas/map_import_json_vendor_name'
-      required:
-      - vendor_name
-      type: object
-    response_map_import_ap_action:
-      description: 'enum: `assigned-named-placed`, `assigned-placed`, `ignored`, `named-placed`, `placed`'
+    map_import_json_vendor_name:
+      description: 'enum: `ekahau`, `ibwave`'
       enum:
-      - assigned-named-placed
-      - assigned-placed
-      - ignored
-      - named-placed
-      - placed
+      - ekahau
+      - ibwave
+      examples:
+      - ekahau
       type: string
-    response_map_import_summary:
+    response_map_import_floorplan:
       additionalProperties: false
       properties:
-        num_ap_assigned:
-          type: integer
-        num_inv_assigned:
-          type: integer
-        num_map_assigned:
-          type: integer
+        action:
+          type: string
+        id:
+          $ref: '#/components/schemas/id'
+        map_id:
+          format: uuid
+          type: string
+        name:
+          type: string
+        reason:
+          type: string
       required:
-      - num_ap_assigned
-      - num_map_assigned
-      - num_inv_assigned
+      - id
+      - name
+      - action
+      - map_id
       type: object
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    response_map_import_floorplans:
+    response_map_import_aps:
       items:
-        $ref: '#/components/schemas/response_map_import_floorplan'
+        $ref: '#/components/schemas/response_map_import_ap'
       type: array
       uniqueItems: true
-    map_site_import_file:
-      additionalProperties: false
-      properties:
-        auto_deviceprofile_assignment:
-          description: Whether to auto assign device to deviceprofile by name
-          examples:
-          - true
-          type: boolean
-        csv:
-          contentMediaType: application/octet-stream
-          description: CSV file for ap name mapping, optional
-          type: string
-        file:
-          contentMediaType: application/octet-stream
-          description: Ekahau or ibwave file
-          type: string
-        json:
-          $ref: '#/components/schemas/map_import_json'
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
     response_map_import_ap:
       additionalProperties: false
       properties:
@@ -283,72 +209,10 @@ components:
       - floorplan_id
       - orientation
       type: object
-    response_http429:
+    response_http404:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    map_org_import_file_json_vendor_name:
-      description: 'enum: `ekahau`, `ibwave`'
-      enum:
-      - ekahau
-      - ibwave
-      examples:
-      - ekahau
-      type: string
-    response_map_import_aps:
-      items:
-        $ref: '#/components/schemas/response_map_import_ap'
-      type: array
-      uniqueItems: true
-    response_map_import_floorplan:
-      additionalProperties: false
-      properties:
-        action:
-          type: string
         id:
-          $ref: '#/components/schemas/id'
-        map_id:
-          format: uuid
-          type: string
-        name:
-          type: string
-        reason:
-          type: string
-      required:
-      - id
-      - name
-      - action
-      - map_id
-      type: object
-    map_org_import_file_json:
-      additionalProperties: false
-      properties:
-        import_all_floorplans:
-          default: false
-          type: boolean
-        import_height:
-          default: true
-          type: boolean
-        import_orientation:
-          default: true
-          type: boolean
-        site_id:
-          $ref: '#/components/schemas/site_id'
-        vendor_name:
-          $ref: '#/components/schemas/map_org_import_file_json_vendor_name'
-      required:
-      - vendor_name
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
           type: string
       type: object
     map_org_import_file:
@@ -370,6 +234,81 @@ components:
         json:
           $ref: '#/components/schemas/map_org_import_file_json'
       type: object
+    map_import_json:
+      additionalProperties: false
+      properties:
+        import_all_floorplans:
+          default: false
+          type: boolean
+        import_height:
+          default: true
+          type: boolean
+        import_orientation:
+          default: true
+          type: boolean
+        vendor_name:
+          $ref: '#/components/schemas/map_import_json_vendor_name'
+      required:
+      - vendor_name
+      type: object
+    response_map_import_summary:
+      additionalProperties: false
+      properties:
+        num_ap_assigned:
+          type: integer
+        num_inv_assigned:
+          type: integer
+        num_map_assigned:
+          type: integer
+      required:
+      - num_ap_assigned
+      - num_map_assigned
+      - num_inv_assigned
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_map_import_ap_action:
+      description: 'enum: `assigned-named-placed`, `assigned-placed`, `ignored`, `named-placed`, `placed`'
+      enum:
+      - assigned-named-placed
+      - assigned-placed
+      - ignored
+      - named-placed
+      - placed
+      type: string
+    map_org_import_file_json:
+      additionalProperties: false
+      properties:
+        import_all_floorplans:
+          default: false
+          type: boolean
+        import_height:
+          default: true
+          type: boolean
+        import_orientation:
+          default: true
+          type: boolean
+        site_id:
+          $ref: '#/components/schemas/site_id'
+        vendor_name:
+          $ref: '#/components/schemas/map_org_import_file_json_vendor_name'
+      required:
+      - vendor_name
+      type: object
+    map_org_import_file_json_vendor_name:
+      description: 'enum: `ekahau`, `ibwave`'
+      enum:
+      - ekahau
+      - ibwave
+      examples:
+      - ekahau
+      type: string
     response_map_import:
       additionalProperties: false
       properties:
@@ -390,54 +329,60 @@ components:
       - floorplans
       - summary
       type: object
-    map_import_json_vendor_name:
-      description: 'enum: `ekahau`, `ibwave`'
-      enum:
-      - ekahau
-      - ibwave
+    site_id:
       examples:
-      - ekahau
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    map_site_import_file:
+      additionalProperties: false
+      properties:
+        auto_deviceprofile_assignment:
+          description: Whether to auto assign device to deviceprofile by name
+          examples:
+          - true
+          type: boolean
+        csv:
+          contentMediaType: application/octet-stream
+          description: CSV file for ap name mapping, optional
+          type: string
+        file:
+          contentMediaType: application/octet-stream
+          description: Ekahau or ibwave file
+          type: string
+        json:
+          $ref: '#/components/schemas/map_import_json'
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    response_map_import_floorplans:
+      items:
+        $ref: '#/components/schemas/response_map_import_floorplan'
+      type: array
+      uniqueItems: true
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
       type: string
   responses:
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -453,21 +398,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
     MapImport:
       content:
         application/json:
@@ -491,6 +421,60 @@ components:
           schema:
             $ref: '#/components/schemas/response_map_import'
       description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
   examples:
     MapImportAssignedAndPlaced:
       value:
@@ -511,6 +495,15 @@ components:
           num_ap_assigned: 1
           num_inv_assigned: 1
           num_map_assigned: 1
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     MapImportAssignedNamedAndPlaced:
       value:
         aps:
@@ -529,15 +522,9 @@ components:
           num_ap_assigned: 1
           num_inv_assigned: 1
           num_map_assigned: 1
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     MapImportPlaced:
       value:
         aps:
@@ -557,9 +544,22 @@ components:
           num_ap_assigned: 1
           num_inv_assigned: 1
           num_map_assigned: 1
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
+  parameters:
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    site_name:
+      in: path
+      name: site_name
+      required: true
+      schema:
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

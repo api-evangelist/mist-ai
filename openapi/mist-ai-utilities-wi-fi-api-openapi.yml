@@ -461,49 +461,7 @@ paths:
       tags:
       - Utilities Wi-Fi
 components:
-  parameters:
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    rogue_bssid:
-      in: path
-      name: rogue_bssid
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
-        type: string
-    client_mac:
-      in: path
-      name: client_mac
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
-        type: string
   schemas:
-    utils_reset_radio_config_bands:
-      description: List of bands
-      items:
-        type: string
-      type: array
     response_http400:
       additionalProperties: false
       properties:
@@ -512,6 +470,85 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
+    utils_rrm_optimize:
+      properties:
+        bands:
+          $ref: '#/components/schemas/utils_rrm_optimize_bands'
+        macs:
+          $ref: '#/components/schemas/utils_rrm_optimize_macs'
+        txpower_only:
+          default: false
+          description: Only changing TX Power (will not disconnect clients)
+          type: boolean
+      required:
+      - bands
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    utils_reset_radio_config:
+      properties:
+        bands:
+          $ref: '#/components/schemas/utils_reset_radio_config_bands'
+        force:
+          default: false
+          description: Whether to reset those with radio disabled. default is false (i.e. if user intentionally disables a radio, honor it)
+          type: boolean
+      required:
+      - bands
+      type: object
+    mac_addresses_macs:
+      examples:
+      - - 683b679ac024
+      items:
+        type: string
+      minItems: 1
+      type: array
+      uniqueItems: true
+    test_sms_global:
+      properties:
+        smsglobal_api_key:
+          description: SMSGlobal api key
+          examples:
+          - '123456'
+          type: string
+        smsglobal_api_secret:
+          description: SMSGlobal api secret
+          examples:
+          - abcdef
+          format: password
+          type: string
+        to:
+          description: Phone number of the recipient of SMS with country code
+          examples:
+          - '+911122334455'
+          type: string
+      required:
+      - smsglobal_api_key
+      - smsglobal_api_secret
+      - to
+      type: object
+    utils_reset_radio_config_bands:
+      description: List of bands
+      items:
+        type: string
+      type: array
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    utils_rrm_optimize_bands:
+      description: List of bands
+      items:
+        type: string
+      type: array
     test_twilio:
       properties:
         from:
@@ -540,6 +577,42 @@ components:
       - from
       - to
       type: object
+    mac_addresses:
+      properties:
+        macs:
+          $ref: '#/components/schemas/mac_addresses_macs'
+      required:
+      - macs
+      type: object
+    utils_zeroize_fips:
+      properties:
+        password:
+          description: FIPS zeroize password
+          format: password
+          type: string
+      required:
+      - password
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    utils_rrm_optimize_macs:
+      description: Targeting AP (neighbor APs may get changed, too), default is empty for ALL APs
+      items:
+        examples:
+        - 5c5b35000001
+        type: string
+      type: array
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
     test_telstra:
       properties:
         telstra_client_id:
@@ -563,66 +636,6 @@ components:
       - telstra_client_secret
       - to
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    utils_rrm_optimize:
-      properties:
-        bands:
-          $ref: '#/components/schemas/utils_rrm_optimize_bands'
-        macs:
-          $ref: '#/components/schemas/utils_rrm_optimize_macs'
-        txpower_only:
-          default: false
-          description: Only changing TX Power (will not disconnect clients)
-          type: boolean
-      required:
-      - bands
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    utils_zeroize_fips:
-      properties:
-        password:
-          description: FIPS zeroize password
-          format: password
-          type: string
-      required:
-      - password
-      type: object
-    utils_reset_radio_config:
-      properties:
-        bands:
-          $ref: '#/components/schemas/utils_reset_radio_config_bands'
-        force:
-          default: false
-          description: Whether to reset those with radio disabled. default is false (i.e. if user intentionally disables a radio, honor it)
-          type: boolean
-      required:
-      - bands
-      type: object
-    utils_rrm_optimize_bands:
-      description: List of bands
-      items:
-        type: string
-      type: array
     response_http403:
       additionalProperties: false
       properties:
@@ -631,96 +644,7 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
-    mac_addresses_macs:
-      examples:
-      - - 683b679ac024
-      items:
-        type: string
-      minItems: 1
-      type: array
-      uniqueItems: true
-    mac_addresses:
-      properties:
-        macs:
-          $ref: '#/components/schemas/mac_addresses_macs'
-      required:
-      - macs
-      type: object
-    utils_rrm_optimize_macs:
-      description: Targeting AP (neighbor APs may get changed, too), default is empty for ALL APs
-      items:
-        examples:
-        - 5c5b35000001
-        type: string
-      type: array
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
-    test_sms_global:
-      properties:
-        smsglobal_api_key:
-          description: SMSGlobal api key
-          examples:
-          - '123456'
-          type: string
-        smsglobal_api_secret:
-          description: SMSGlobal api secret
-          examples:
-          - abcdef
-          format: password
-          type: string
-        to:
-          description: Phone number of the recipient of SMS with country code
-          examples:
-          - '+911122334455'
-          type: string
-      required:
-      - smsglobal_api_key
-      - smsglobal_api_secret
-      - to
-      type: object
   responses:
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -736,6 +660,15 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP403:
       content:
         application/json:
@@ -753,19 +686,86 @@ components:
       description: Permission Denied
     OK:
       description: OK
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
   examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+  parameters:
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    rogue_bssid:
+      in: path
+      name: rogue_bssid
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
+        type: string
+    client_mac:
+      in: path
+      name: client_mac
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

@@ -204,112 +204,6 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    client_cert_serial_numbers:
-      examples:
-      - serial_numbers:
-        - 13 00 13 03 23 EE D5 84 01
-      properties:
-        serial_numbers:
-          $ref: '#/components/schemas/strings'
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    org_setting_scep:
-      properties:
-        cert_providers:
-          $ref: '#/components/schemas/org_setting_scep_cert_providers'
-        enable:
-          description: Whether SCEP is enabled for this org
-          type: boolean
-        suspended:
-          default: false
-          description: Whether SCEP is suspended for this org
-          type: boolean
-      type: object
-    org_setting_scep_cert_provider:
-      description: 'enum: `intune`, `jamf`, `byod`'
-      enum:
-      - intune
-      - jamf
-      - byod
-      type: string
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    org_setting_scep_cert_providers:
-      description: List of SCEP cert providers, e.g. `intune`, `jamf`, `byod`
-      items:
-        $ref: '#/components/schemas/org_setting_scep_cert_provider'
-      type: array
-    issued_client_certificates:
-      items:
-        $ref: '#/components/schemas/issued_client_certificate'
-      type: array
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    issued_client_certificates_results:
-      additionalProperties: false
-      properties:
-        results:
-          $ref: '#/components/schemas/issued_client_certificates'
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    device_id:
-      examples:
-      - 00000000-0000-0000-1000-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    issued_client_certificate:
-      additionalProperties: false
-      properties:
-        cert_provider:
-          examples:
-          - byod
-          type: string
-        common_name:
-          examples:
-          - john@corp.com
-          type: string
-        created_time:
-          description: When the certificate has been created
-          examples:
-          - '2025-08-18 10:10:30.949165+00:00'
-          type: string
-        device_id:
-          $ref: '#/components/schemas/device_id'
-        expire_time:
-          description: When the certificate will expire
-          examples:
-          - '2026-08-18 10:06:00+00:00'
-          type: string
-        serial_number:
-          examples:
-          - 91984382552102771A2B3C4E5F224719956718003374658
-          type: string
-      type: object
     org_setting_scep_response:
       additionalProperties: false
       properties:
@@ -343,51 +237,118 @@ components:
           description: Whether SCEP is suspended for this org
           type: boolean
       type: object
+    issued_client_certificates:
+      items:
+        $ref: '#/components/schemas/issued_client_certificate'
+      type: array
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    org_setting_scep_cert_providers:
+      description: List of SCEP cert providers, e.g. `intune`, `jamf`, `byod`
+      items:
+        $ref: '#/components/schemas/org_setting_scep_cert_provider'
+      type: array
+    client_cert_serial_numbers:
+      examples:
+      - serial_numbers:
+        - 13 00 13 03 23 EE D5 84 01
+      properties:
+        serial_numbers:
+          $ref: '#/components/schemas/strings'
+      type: object
+    issued_client_certificate:
+      additionalProperties: false
+      properties:
+        cert_provider:
+          examples:
+          - byod
+          type: string
+        common_name:
+          examples:
+          - john@corp.com
+          type: string
+        created_time:
+          description: When the certificate has been created
+          examples:
+          - '2025-08-18 10:10:30.949165+00:00'
+          type: string
+        device_id:
+          $ref: '#/components/schemas/device_id'
+        expire_time:
+          description: When the certificate will expire
+          examples:
+          - '2026-08-18 10:06:00+00:00'
+          type: string
+        serial_number:
+          examples:
+          - 91984382552102771A2B3C4E5F224719956718003374658
+          type: string
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    org_setting_scep:
+      properties:
+        cert_providers:
+          $ref: '#/components/schemas/org_setting_scep_cert_providers'
+        enable:
+          description: Whether SCEP is enabled for this org
+          type: boolean
+        suspended:
+          default: false
+          description: Whether SCEP is suspended for this org
+          type: boolean
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    issued_client_certificates_results:
+      additionalProperties: false
+      properties:
+        results:
+          $ref: '#/components/schemas/issued_client_certificates'
+      type: object
+    device_id:
+      examples:
+      - 00000000-0000-0000-1000-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    org_setting_scep_cert_provider:
+      description: 'enum: `intune`, `jamf`, `byod`'
+      enum:
+      - intune
+      - jamf
+      - byod
+      type: string
     strings:
       items:
         type: string
       type: array
       uniqueItems: true
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
   responses:
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -403,20 +364,16 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    IssuedClientCertificates:
+    HTTP404:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/IssuedClientCertificatesExample'
           schema:
-            $ref: '#/components/schemas/issued_client_certificates_results'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/IssuedClientCertificatesExample'
           schema:
-            $ref: '#/components/schemas/issued_client_certificates_results'
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    OK:
       description: OK
     HTTP403:
       content:
@@ -433,6 +390,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
     OrgScep:
       content:
         application/json:
@@ -448,39 +420,43 @@ components:
           schema:
             $ref: '#/components/schemas/org_setting_scep_response'
       description: OK
-    OK:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    IssuedClientCertificates:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/IssuedClientCertificatesExample'
+          schema:
+            $ref: '#/components/schemas/issued_client_certificates_results'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/IssuedClientCertificatesExample'
+          schema:
+            $ref: '#/components/schemas/issued_client_certificates_results'
       description: OK
-  parameters:
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
   examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    IssuedClientCertificatesExample:
+    HTTP403Example:
       value:
-        results:
-        - common_name: john@corp.com
-          created_time: '2025-08-18 10:10:30.949165+00:00'
-          device_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          expire_time: '2026-08-18 10:06:00+00:00'
-          serial_number: 91984382552102771A2B3C4E5F224719956718003374658
+        detail: You do not have permission to perform this action.
     OrgScepExample:
       value:
         cert_providers:
@@ -492,6 +468,30 @@ components:
         jamf_access_token: 1Z4QqEnCt05Jjt3TV5LgPJ4V_WL_RWnJ7dqVMLYHj81=
         jamf_scep_url: https://scep.mistsys.com/api/v1/incoming/intune/:org_id/scep
         jamf_webhook_url: https://scep.mistsys.com/api/v1/webhook/jamf/:org_id/scep
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    IssuedClientCertificatesExample:
+      value:
+        results:
+        - common_name: john@corp.com
+          created_time: '2025-08-18 10:10:30.949165+00:00'
+          device_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          expire_time: '2026-08-18 10:06:00+00:00'
+          serial_number: 91984382552102771A2B3C4E5F224719956718003374658
+  parameters:
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

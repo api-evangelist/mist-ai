@@ -211,44 +211,6 @@ paths:
       tags:
       - Sites Spectrum Analysis
 components:
-  parameters:
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
   schemas:
     response_http400:
       additionalProperties: false
@@ -257,55 +219,6 @@ components:
           examples:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
-      type: object
-    response_past_spectrum_analysis:
-      additionalProperties: false
-      properties:
-        end:
-          description: End time of the spectrum analysis in epoch seconds
-          type: integer
-        limit:
-          description: Limit of the number of results returned
-          type: integer
-        page:
-          description: Page number of the results returned
-          type: integer
-        results:
-          $ref: '#/components/schemas/response_past_spectrum_analysis_results'
-        start:
-          description: Start time of the spectrum analysis in epoch seconds
-          type: integer
-        total:
-          description: Total number of results available for the given time range
-          type: integer
-      type: object
-    response_past_spectrum_analysis_results:
-      items:
-        $ref: '#/components/schemas/response_past_spectrum_analysis_result'
-      type: array
-    response_past_spectrum_analysis_channel_usages:
-      items:
-        $ref: '#/components/schemas/response_past_spectrum_analysis_channel_usage'
-      type: array
-    response_past_spectrum_analysis_fft_sample:
-      additionalProperties: false
-      description: FFT sample data for a specific frequency
-      properties:
-        frequency:
-          description: Frequency in MHz
-          examples:
-          - 2437.0
-          type: number
-        rssi:
-          description: RSSI in dBm
-          examples:
-          - -70.0
-          type: number
-        signal7:
-          description: RSSI in dBm
-          examples:
-          - -70.0
-          type: number
       type: object
     websocket_session:
       additionalProperties: false
@@ -316,6 +229,32 @@ components:
           type: string
       required:
       - session
+      type: object
+    response_past_spectrum_analysis_result:
+      additionalProperties: false
+      description: Result of a past spectrum analysis
+      properties:
+        band:
+          description: Band on which the spectrum analysis was run (e.g., 24, 5, 6)
+          type: string
+        channel_usage:
+          $ref: '#/components/schemas/response_past_spectrum_analysis_channel_usages'
+        fft_samples:
+          $ref: '#/components/schemas/response_past_spectrum_analysis_fft_samples'
+        mac:
+          description: MAC Address of the AP that ran the spectrum analysis
+          type: string
+        org_id:
+          $ref: '#/components/schemas/org_id'
+        timestamp:
+          description: Timestamp when the spectrum analysis was run in epoch seconds
+          type: integer
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
       type: object
     response_running_spectrum_analysis:
       additionalProperties: false
@@ -337,74 +276,25 @@ components:
           description: Time when the spectrum analysis was started
           type: integer
       type: object
-    response_http404:
+    response_past_spectrum_analysis:
       additionalProperties: false
       properties:
-        id:
-          type: string
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    spectrum_analysis_band:
-      description: 'Band for spectrum analysis. enum: `24`, `5`, `6`'
-      enum:
-      - '24'
-      - '5'
-      - '6'
-      type: string
-    spectrum_analysis_format:
-      default: json
-      description: 'Format of the spectrum analysis data. enum: `json`, `stream`'
-      enum:
-      - json
-      - stream
-      type: string
-    response_past_spectrum_analysis_result:
-      additionalProperties: false
-      description: Result of a past spectrum analysis
-      properties:
-        band:
-          description: Band on which the spectrum analysis was run (e.g., 24, 5, 6)
-          type: string
-        channel_usage:
-          $ref: '#/components/schemas/response_past_spectrum_analysis_channel_usages'
-        fft_samples:
-          $ref: '#/components/schemas/response_past_spectrum_analysis_fft_samples'
-        mac:
-          description: MAC Address of the AP that ran the spectrum analysis
-          type: string
-        org_id:
-          $ref: '#/components/schemas/org_id'
-        timestamp:
-          description: Timestamp when the spectrum analysis was run in epoch seconds
+        end:
+          description: End time of the spectrum analysis in epoch seconds
+          type: integer
+        limit:
+          description: Limit of the number of results returned
+          type: integer
+        page:
+          description: Page number of the results returned
+          type: integer
+        results:
+          $ref: '#/components/schemas/response_past_spectrum_analysis_results'
+        start:
+          description: Start time of the spectrum analysis in epoch seconds
+          type: integer
+        total:
+          description: Total number of results available for the given time range
           type: integer
       type: object
     spectrum_analysis:
@@ -436,6 +326,18 @@ components:
       required:
       - band
       type: object
+    response_past_spectrum_analysis_channel_usages:
+      items:
+        $ref: '#/components/schemas/response_past_spectrum_analysis_channel_usage'
+      type: array
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
     response_past_spectrum_analysis_channel_usage:
       additionalProperties: false
       description: Channel usage data for a specific channel
@@ -461,12 +363,190 @@ components:
           - 0.13
           type: number
       type: object
+    spectrum_analysis_band:
+      description: 'Band for spectrum analysis. enum: `24`, `5`, `6`'
+      enum:
+      - '24'
+      - '5'
+      - '6'
+      type: string
+    response_past_spectrum_analysis_fft_sample:
+      additionalProperties: false
+      description: FFT sample data for a specific frequency
+      properties:
+        frequency:
+          description: Frequency in MHz
+          examples:
+          - 2437.0
+          type: number
+        rssi:
+          description: RSSI in dBm
+          examples:
+          - -70.0
+          type: number
+        signal7:
+          description: RSSI in dBm
+          examples:
+          - -70.0
+          type: number
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
     response_past_spectrum_analysis_fft_samples:
       description: List of FFT samples for the spectrum analysis
       items:
         $ref: '#/components/schemas/response_past_spectrum_analysis_fft_sample'
       type: array
+    response_past_spectrum_analysis_results:
+      items:
+        $ref: '#/components/schemas/response_past_spectrum_analysis_result'
+      type: array
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    spectrum_analysis_format:
+      default: json
+      description: 'Format of the spectrum analysis data. enum: `json`, `stream`'
+      enum:
+      - json
+      - stream
+      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+  responses:
+    RunningSpectrumAnalysis:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RunningSpectrumAnalysis'
+          schema:
+            $ref: '#/components/schemas/response_running_spectrum_analysis'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RunningSpectrumAnalysis'
+          schema:
+            $ref: '#/components/schemas/response_running_spectrum_analysis'
+      description: OK
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    PastSpectrumAnalysis:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/PastSpectrumAnalysis'
+          schema:
+            $ref: '#/components/schemas/response_past_spectrum_analysis'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/PastSpectrumAnalysis'
+          schema:
+            $ref: '#/components/schemas/response_past_spectrum_analysis'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    WebsocketSession:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/websocket_session'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/websocket_session'
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
   examples:
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     RunningSpectrumAnalysis:
       value:
         band: '5'
@@ -474,15 +554,9 @@ components:
         duration: 600
         format: stream
         started_time: 1435080709
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     PastSpectrumAnalysis:
       value:
         end: 1694708579
@@ -503,118 +577,44 @@ components:
           timestamp: 1694098696
         start: 1694622179
         total: 4
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-  responses:
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    PastSpectrumAnalysis:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/PastSpectrumAnalysis'
-          schema:
-            $ref: '#/components/schemas/response_past_spectrum_analysis'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/PastSpectrumAnalysis'
-          schema:
-            $ref: '#/components/schemas/response_past_spectrum_analysis'
-      description: OK
-    WebsocketSession:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/websocket_session'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/websocket_session'
-      description: OK
-    RunningSpectrumAnalysis:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/RunningSpectrumAnalysis'
-          schema:
-            $ref: '#/components/schemas/response_running_spectrum_analysis'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/RunningSpectrumAnalysis'
-          schema:
-            $ref: '#/components/schemas/response_running_spectrum_analysis'
-      description: OK
+  parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

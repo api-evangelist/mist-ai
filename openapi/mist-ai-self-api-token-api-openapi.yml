@@ -188,33 +188,6 @@ paths:
       tags:
       - Self API Token
 components:
-  examples:
-    ApitokenUserExample:
-      value:
-        created_time: 1626875902
-        id: 864f351a-1377-4ad9-83f8-72f3fe6199ba
-        key: 1qkb...QQCL
-        last_used: 1690115110
-        name: org_token_xyz
-    ApitokensUserArrayExample:
-      value:
-      - created_time: 1626875902
-        id: 864f351a-1377-4ad9-83f8-72f3fe6199ba
-        key: 1qkb...QQCL
-        last_used: 1690115110
-        name: org_token_xyz
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
   schemas:
     response_http400:
       additionalProperties: false
@@ -224,22 +197,40 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
     created_time:
       description: When the object has been created, in epoch
       format: double
       readOnly: true
       type: number
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    response_http404:
-      additionalProperties: false
+    user_apitoken:
+      description: User API Token
       properties:
+        created_time:
+          $ref: '#/components/schemas/created_time'
         id:
+          $ref: '#/components/schemas/id'
+        key:
+          examples:
+          - 1qkb...QQCL
+          readOnly: true
+          type: string
+        last_used:
+          examples:
+          - 1690115110
+          readOnly: true
+          type:
+          - integer
+          - 'null'
+        name:
+          description: Name of the token
+          examples:
+          - org_token_xyz
           type: string
       type: object
     response_http401:
@@ -270,86 +261,14 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
-    user_apitoken:
-      description: User API Token
-      properties:
-        created_time:
-          $ref: '#/components/schemas/created_time'
-        id:
-          $ref: '#/components/schemas/id'
-        key:
-          examples:
-          - 1qkb...QQCL
-          readOnly: true
-          type: string
-        last_used:
-          examples:
-          - 1690115110
-          readOnly: true
-          type:
-          - integer
-          - 'null'
-        name:
-          description: Name of the token
-          examples:
-          - org_token_xyz
-          type: string
-      type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
   responses:
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    ApitokenUser:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ApitokenUserExample'
-          schema:
-            $ref: '#/components/schemas/user_apitoken'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ApitokenUserExample'
-          schema:
-            $ref: '#/components/schemas/user_apitoken'
-      description: OK
     HTTP429:
       content:
         application/json:
@@ -365,6 +284,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    ApitokenUser:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ApitokenUserExample'
+          schema:
+            $ref: '#/components/schemas/user_apitoken'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ApitokenUserExample'
+          schema:
+            $ref: '#/components/schemas/user_apitoken'
+      description: OK
     ApitokensUserArray:
       content:
         application/json:
@@ -379,6 +313,17 @@ components:
               $ref: '#/components/examples/ApitokensUserArrayExample'
           schema:
             $ref: '#/components/schemas/user_apitokens'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    OK:
       description: OK
     HTTP403:
       content:
@@ -395,8 +340,63 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    OK:
-      description: OK
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+  examples:
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    ApitokensUserArrayExample:
+      value:
+      - created_time: 1626875902
+        id: 864f351a-1377-4ad9-83f8-72f3fe6199ba
+        key: 1qkb...QQCL
+        last_used: 1690115110
+        name: org_token_xyz
+    ApitokenUserExample:
+      value:
+        created_time: 1626875902
+        id: 864f351a-1377-4ad9-83f8-72f3fe6199ba
+        key: 1qkb...QQCL
+        last_used: 1690115110
+        name: org_token_xyz
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
   parameters:
     apitoken_id:
       in: path
