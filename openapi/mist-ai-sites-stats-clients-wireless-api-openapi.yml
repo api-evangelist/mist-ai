@@ -189,28 +189,6 @@ paths:
       - Sites Stats - Clients Wireless
 components:
   schemas:
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    stats_client_any_of:
-      items:
-        $ref: '#/components/schemas/stats_client'
-      type: array
-    stats_wireless_clients:
-      items:
-        $ref: '#/components/schemas/stats_wireless_client'
-      type: array
-    rx_retries:
-      description: Amount of rx retries
-      readOnly: true
-      type:
-      - integer
-      - 'null'
     rx_bytes:
       description: Amount of traffic received since connection
       examples:
@@ -220,6 +198,27 @@ components:
       type:
       - integer
       - 'null'
+    rx_retries:
+      description: Amount of rx retries
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    dot11_band:
+      description: 'enum: `24`, `5`, `5-dedicated`, `5-selectable`, `6`, `6-dedicated`, `6-selectable`'
+      enum:
+      - '24'
+      - '5'
+      - 5-dedicated
+      - 5-selectable
+      - '6'
+      - 6-dedicated
+      - 6-selectable
+      type: string
+    stats_client:
+      oneOf:
+      - $ref: '#/components/schemas/stats_wireless_client'
+      - $ref: '#/components/schemas/stats_wired_client'
     rx_pkts:
       description: Amount of packets received since connection
       examples:
@@ -229,11 +228,221 @@ components:
       type:
       - integer
       - 'null'
-    stats_wireless_client_rssi_zones:
-      description: List of rssizone_id’s where client is in and since when (if known)
+    stats_wireless_client_vbeacons:
+      description: List of beacon_id’s where the client is in and since when (if known)
       items:
-        $ref: '#/components/schemas/stats_wireless_client_rssi_zone'
+        $ref: '#/components/schemas/stats_wireless_client_vbeacon'
       type: array
+    tx_pkts:
+      description: Amount of packets sent since connection
+      examples:
+      - 812204062
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    stats_unconnected_clients:
+      items:
+        $ref: '#/components/schemas/stats_unconnected_client'
+      type: array
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    stats_client_any_of:
+      items:
+        $ref: '#/components/schemas/stats_client'
+      type: array
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    last_seen:
+      description: Last seen timestamp
+      examples:
+      - 1470417522
+      format: double
+      readOnly: true
+      type:
+      - number
+      - 'null'
+    tx_bps:
+      description: Rate of transmitting traffic, bits/seconds, last known
+      examples:
+      - 634301
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    tx_retries:
+      description: Amount of tx retries
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    stats_wireless_client_rssi_zone:
+      additionalProperties: false
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        since:
+          type: number
+      type: object
+    rx_bps:
+      description: Rate of receiving traffic, bits/seconds, last known
+      examples:
+      - 60003
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    guest:
+      description: Guest
+      properties:
+        access_code_email:
+          description: If `auth_method`==`email`, the email address where the authorization code has been sent to
+          readOnly: true
+          type: string
+        ap_mac:
+          description: MAC Address of the AP the guest was connected to during the registration process
+          readOnly: true
+          type: string
+        auth_method:
+          description: Type of guest authorization
+          readOnly: true
+          type: string
+        authorized:
+          default: true
+          description: Whether the guest is current authorized
+          type: boolean
+        authorized_expiring_time:
+          description: When the authorization would expire
+          examples:
+          - 1480704955
+          readOnly: true
+          type: number
+        authorized_time:
+          description: When the guest was authorized
+          examples:
+          - 1480704355
+          readOnly: true
+          type: number
+        company:
+          description: Optional, the info provided by user
+          examples:
+          - abc
+          type: string
+        email:
+          description: Optional, the info provided by user
+          examples:
+          - john@abc.com
+          format: email
+          type: string
+        field1:
+          description: Optional, the info provided by user
+          type: string
+        field2:
+          type: string
+        field3:
+          type: string
+        field4:
+          type: string
+        mac:
+          description: MAC Address
+          readOnly: true
+          type: string
+        minutes:
+          default: 1440
+          description: Authorization duration, in minutes. Default is 1440 minutes (1 day), maximum is 259200 (180 days)
+          maximum: 259200
+          minimum: 0
+          type: integer
+        name:
+          description: Optional, the info provided by user
+          examples:
+          - John Smith
+          readOnly: true
+          type: string
+        random_mac:
+          description: If the client is using a randomized MAC Address to connect the SSID
+          readOnly: true
+          type: boolean
+        ssid:
+          description: Name of the SSID
+          examples:
+          - Guest-SSID
+          readOnly: true
+          type: string
+        wlan_id:
+          description: ID of the SSID
+          examples:
+          - 6748cfa6-4e12-11e6-9188-0242ac110007
+          format: uuid
+          readOnly: true
+          type: string
+      type: object
+    dot11_proto:
+      description: 'enum: `a`, `ac`, `ax`, `b`, `be`, `g`, `n`'
+      enum:
+      - a
+      - ac
+      - ax
+      - b
+      - be
+      - g
+      - n
+      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    stats_wireless_client_vbeacon:
+      additionalProperties: false
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        since:
+          type: number
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    stats_wireless_client_wxrule_usage:
+      additionalProperties: false
+      properties:
+        tag_id:
+          format: uuid
+          type: string
+        usage:
+          type: integer
+      type: object
     stats_wireless_client_zone:
       additionalProperties: false
       properties:
@@ -241,6 +450,112 @@ components:
           $ref: '#/components/schemas/id'
         since:
           type: number
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    stats_wired_client:
+      additionalProperties: false
+      properties:
+        auth_state:
+          description: Client authorization status
+          minLength: 1
+          type: string
+        device_id:
+          description: Device ID the client is connected to
+          minLength: 1
+          type: string
+        eth_port:
+          description: Port on AP where the wired client is connected
+          minLength: 1
+          type: string
+        last_seen:
+          description: Time when last Tx/Rx observed
+          type: number
+        mac:
+          description: Client mac
+          minLength: 1
+          type: string
+        rx_bytes:
+          $ref: '#/components/schemas/rx_bytes'
+        rx_pkts:
+          $ref: '#/components/schemas/rx_pkts'
+        site_id:
+          $ref: '#/components/schemas/site_id'
+        tx_bytes:
+          $ref: '#/components/schemas/tx_bytes'
+        tx_pkts:
+          $ref: '#/components/schemas/tx_pkts'
+        uptime:
+          description: How long, in seconds, has the client been connected
+          type: number
+        vlan_id:
+          description: VLAN id, could be empty
+          type: number
+      required:
+      - mac
+      type: object
+      uniqueItems: true
+    stats_wireless_client_zones:
+      description: List of zone_id’s where client is in and since when (if known)
+      items:
+        $ref: '#/components/schemas/stats_wireless_client_zone'
+      type: array
+    stats_wireless_client_airwatch:
+      additionalProperties: false
+      description: Information if airwatch enabled
+      properties:
+        authorized:
+          type: boolean
+      required:
+      - authorized
+      type: object
+    stats_wireless_client_wxrule_usages:
+      description: Current WxlanRule usage per tag_id
+      items:
+        $ref: '#/components/schemas/stats_wireless_client_wxrule_usage'
+      type: array
+    stats_unconnected_client:
+      additionalProperties: false
+      description: Unconnected clients statistics
+      properties:
+        ap_mac:
+          description: MAC address of the AP that heard the client
+          type: string
+        last_seen:
+          $ref: '#/components/schemas/last_seen'
+        mac:
+          description: MAC address of the (unconnected) client
+          type: string
+        manufacture:
+          description: Device manufacture, through fingerprinting or OUI
+          type: string
+        map_id:
+          description: Map_id of the client (if known), or null
+          format: uuid
+          type:
+          - string
+          - 'null'
+        rssi:
+          description: Client RSSI observed by the AP that heard the client (in dBm)
+          type: integer
+        x:
+          description: X (in pixels) of user location on the map (if known)
+          format: double
+          type: number
+        y:
+          description: Y (in pixels) of user location on the map (if known)
+          format: double
+          type: number
+      required:
+      - mac
+      - ap_mac
+      - y
+      - rssi
+      - manufacture
       type: object
     stats_wireless_client:
       additionalProperties: false
@@ -414,40 +729,12 @@ components:
       - ssid
       - wlan_id
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    tx_bps:
-      description: Rate of transmitting traffic, bits/seconds, last known
+    site_id:
       examples:
-      - 634301
-      format: int64
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
       readOnly: true
-      type:
-      - integer
-      - 'null'
-    stats_wireless_client_vbeacons:
-      description: List of beacon_id’s where the client is in and since when (if known)
-      items:
-        $ref: '#/components/schemas/stats_wireless_client_vbeacon'
-      type: array
-    stats_wireless_client_zones:
-      description: List of zone_id’s where client is in and since when (if known)
-      items:
-        $ref: '#/components/schemas/stats_wireless_client_zone'
-      type: array
-    tx_pkts:
-      description: Amount of packets sent since connection
-      examples:
-      - 812204062
-      format: int64
-      readOnly: true
-      type:
-      - integer
-      - 'null'
+      type: string
     rx_rate:
       description: RX Rate, Mbps
       format: float
@@ -455,113 +742,6 @@ components:
       type:
       - number
       - 'null'
-    rx_bps:
-      description: Rate of receiving traffic, bits/seconds, last known
-      examples:
-      - 60003
-      format: int64
-      readOnly: true
-      type:
-      - integer
-      - 'null'
-    stats_wireless_client_wxrule_usage:
-      additionalProperties: false
-      properties:
-        tag_id:
-          format: uuid
-          type: string
-        usage:
-          type: integer
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    dot11_proto:
-      description: 'enum: `a`, `ac`, `ax`, `b`, `be`, `g`, `n`'
-      enum:
-      - a
-      - ac
-      - ax
-      - b
-      - be
-      - g
-      - n
-      type: string
-    stats_wireless_client_rssi_zone:
-      additionalProperties: false
-      properties:
-        id:
-          $ref: '#/components/schemas/id'
-        since:
-          type: number
-      type: object
-    dot11_band:
-      description: 'enum: `24`, `5`, `5-dedicated`, `5-selectable`, `6`, `6-dedicated`, `6-selectable`'
-      enum:
-      - '24'
-      - '5'
-      - 5-dedicated
-      - 5-selectable
-      - '6'
-      - 6-dedicated
-      - 6-selectable
-      type: string
-    stats_wired_client:
-      additionalProperties: false
-      properties:
-        auth_state:
-          description: Client authorization status
-          minLength: 1
-          type: string
-        device_id:
-          description: Device ID the client is connected to
-          minLength: 1
-          type: string
-        eth_port:
-          description: Port on AP where the wired client is connected
-          minLength: 1
-          type: string
-        last_seen:
-          description: Time when last Tx/Rx observed
-          type: number
-        mac:
-          description: Client mac
-          minLength: 1
-          type: string
-        rx_bytes:
-          $ref: '#/components/schemas/rx_bytes'
-        rx_pkts:
-          $ref: '#/components/schemas/rx_pkts'
-        site_id:
-          $ref: '#/components/schemas/site_id'
-        tx_bytes:
-          $ref: '#/components/schemas/tx_bytes'
-        tx_pkts:
-          $ref: '#/components/schemas/tx_pkts'
-        uptime:
-          description: How long, in seconds, has the client been connected
-          type: number
-        vlan_id:
-          description: VLAN id, could be empty
-          type: number
-      required:
-      - mac
-      type: object
-      uniqueItems: true
-    stats_wireless_client_airwatch:
-      additionalProperties: false
-      description: Information if airwatch enabled
-      properties:
-        authorized:
-          type: boolean
-      required:
-      - authorized
-      type: object
     tx_bytes:
       description: Amount of traffic sent since connection
       examples:
@@ -571,180 +751,15 @@ components:
       type:
       - integer
       - 'null'
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    stats_client:
-      oneOf:
-      - $ref: '#/components/schemas/stats_wireless_client'
-      - $ref: '#/components/schemas/stats_wired_client'
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    guest:
-      description: Guest
-      properties:
-        access_code_email:
-          description: If `auth_method`==`email`, the email address where the authorization code has been sent to
-          readOnly: true
-          type: string
-        ap_mac:
-          description: MAC Address of the AP the guest was connected to during the registration process
-          readOnly: true
-          type: string
-        auth_method:
-          description: Type of guest authorization
-          readOnly: true
-          type: string
-        authorized:
-          default: true
-          description: Whether the guest is current authorized
-          type: boolean
-        authorized_expiring_time:
-          description: When the authorization would expire
-          examples:
-          - 1480704955
-          readOnly: true
-          type: number
-        authorized_time:
-          description: When the guest was authorized
-          examples:
-          - 1480704355
-          readOnly: true
-          type: number
-        company:
-          description: Optional, the info provided by user
-          examples:
-          - abc
-          type: string
-        email:
-          description: Optional, the info provided by user
-          examples:
-          - john@abc.com
-          format: email
-          type: string
-        field1:
-          description: Optional, the info provided by user
-          type: string
-        field2:
-          type: string
-        field3:
-          type: string
-        field4:
-          type: string
-        mac:
-          description: MAC Address
-          readOnly: true
-          type: string
-        minutes:
-          default: 1440
-          description: Authorization duration, in minutes. Default is 1440 minutes (1 day), maximum is 259200 (180 days)
-          maximum: 259200
-          minimum: 0
-          type: integer
-        name:
-          description: Optional, the info provided by user
-          examples:
-          - John Smith
-          readOnly: true
-          type: string
-        random_mac:
-          description: If the client is using a randomized MAC Address to connect the SSID
-          readOnly: true
-          type: boolean
-        ssid:
-          description: Name of the SSID
-          examples:
-          - Guest-SSID
-          readOnly: true
-          type: string
-        wlan_id:
-          description: ID of the SSID
-          examples:
-          - 6748cfa6-4e12-11e6-9188-0242ac110007
-          format: uuid
-          readOnly: true
-          type: string
-      type: object
-    stats_unconnected_client:
-      additionalProperties: false
-      description: Unconnected clients statistics
-      properties:
-        ap_mac:
-          description: MAC address of the AP that heard the client
-          type: string
-        last_seen:
-          $ref: '#/components/schemas/last_seen'
-        mac:
-          description: MAC address of the (unconnected) client
-          type: string
-        manufacture:
-          description: Device manufacture, through fingerprinting or OUI
-          type: string
-        map_id:
-          description: Map_id of the client (if known), or null
-          format: uuid
-          type:
-          - string
-          - 'null'
-        rssi:
-          description: Client RSSI observed by the AP that heard the client (in dBm)
-          type: integer
-        x:
-          description: X (in pixels) of user location on the map (if known)
-          format: double
-          type: number
-        y:
-          description: Y (in pixels) of user location on the map (if known)
-          format: double
-          type: number
-      required:
-      - mac
-      - ap_mac
-      - y
-      - rssi
-      - manufacture
-      type: object
-    stats_wireless_client_vbeacon:
-      additionalProperties: false
-      properties:
-        id:
-          $ref: '#/components/schemas/id'
-        since:
-          type: number
-      type: object
-    stats_wireless_client_wxrule_usages:
-      description: Current WxlanRule usage per tag_id
+    stats_wireless_client_rssi_zones:
+      description: List of rssizone_id’s where client is in and since when (if known)
       items:
-        $ref: '#/components/schemas/stats_wireless_client_wxrule_usage'
+        $ref: '#/components/schemas/stats_wireless_client_rssi_zone'
       type: array
-    last_seen:
-      description: Last seen timestamp
-      examples:
-      - 1470417522
-      format: double
-      readOnly: true
-      type:
-      - number
-      - 'null'
-    stats_unconnected_clients:
+    stats_wireless_clients:
       items:
-        $ref: '#/components/schemas/stats_unconnected_client'
+        $ref: '#/components/schemas/stats_wireless_client'
       type: array
-    tx_retries:
-      description: Amount of tx retries
-      readOnly: true
-      type:
-      - integer
-      - 'null'
     tx_rate:
       description: TX Rate, Mbps
       format: float
@@ -752,137 +767,10 @@ components:
       type:
       - number
       - 'null'
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-  responses:
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    ClientWirelessStatsArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ClientWirelessStatsArrayExample'
-          schema:
-            $ref: '#/components/schemas/stats_wireless_clients'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ClientWirelessStatsArrayExample'
-          schema:
-            $ref: '#/components/schemas/stats_wireless_clients'
-      description: Example response
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    ClientStatsArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ClientStatsArrayExample'
-          schema:
-            $ref: '#/components/schemas/stats_client_any_of'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ClientStatsArrayExample'
-          schema:
-            $ref: '#/components/schemas/stats_client_any_of'
-      description: Example response
-    ClientStats:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ClientStatsExample'
-          schema:
-            $ref: '#/components/schemas/stats_client'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ClientStatsExample'
-          schema:
-            $ref: '#/components/schemas/stats_client'
-      description: Example response
   examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     ClientWirelessStatsArrayExample:
       value:
       - annotation: unknown
@@ -932,9 +820,9 @@ components:
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
+    HTTP401Example:
       value:
-        detail: You do not have permission to perform this action.
+        detail: Authentication credentials were not provided.
     ClientStatsArrayExample:
       value:
       - annotation: unknown
@@ -981,12 +869,9 @@ components:
         x_m: 24.086588
         y: 760.6746524247893
         y_m: 26.349943
-    HTTP400Example:
+    HTTP403Example:
       value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+        detail: You do not have permission to perform this action.
     ClientStatsExample:
       value:
         annotation: unknown
@@ -1033,7 +918,140 @@ components:
         x_m: 24.086588
         y: 760.6746524247893
         y_m: 26.349943
+  responses:
+    ClientWirelessStatsArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ClientWirelessStatsArrayExample'
+          schema:
+            $ref: '#/components/schemas/stats_wireless_clients'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ClientWirelessStatsArrayExample'
+          schema:
+            $ref: '#/components/schemas/stats_wireless_clients'
+      description: Example response
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    ClientStatsArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ClientStatsArrayExample'
+          schema:
+            $ref: '#/components/schemas/stats_client_any_of'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ClientStatsArrayExample'
+          schema:
+            $ref: '#/components/schemas/stats_client_any_of'
+      description: Example response
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    ClientStats:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ClientStatsExample'
+          schema:
+            $ref: '#/components/schemas/stats_client'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ClientStatsExample'
+          schema:
+            $ref: '#/components/schemas/stats_client'
+      description: Example response
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
+    map_id:
+      in: path
+      name: map_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    client_mac:
+      in: path
+      name: client_mac
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
+        type: string
     limit:
       in: query
       name: limit
@@ -1041,9 +1059,9 @@ components:
         default: 100
         minimum: 0
         type: integer
-    map_id:
+    site_id:
       in: path
-      name: map_id
+      name: site_id
       required: true
       schema:
         examples:
@@ -1065,14 +1083,11 @@ components:
         examples:
         - 10m
         type: string
-    site_id:
-      in: path
-      name: site_id
-      required: true
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
       schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
         type: string
     page:
       in: query
@@ -1081,21 +1096,6 @@ components:
         default: 1
         minimum: 1
         type: integer
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
-    client_mac:
-      in: path
-      name: client_mac
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
-        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

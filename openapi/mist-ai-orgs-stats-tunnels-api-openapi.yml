@@ -243,37 +243,6 @@ paths:
       - Orgs Stats - Tunnels
 components:
   schemas:
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_count:
-      additionalProperties: false
-      properties:
-        distinct:
-          type: string
-        end:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/count_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
     rx_bytes:
       description: Amount of traffic received since connection
       examples:
@@ -292,85 +261,6 @@ components:
       type:
       - integer
       - 'null'
-    org_tunnel_count_distinct:
-      default: wxtunnel_id
-      description: 'enum: `ap`, `auth_algo`, `encrypt_algo`, `ike_version`, `ip`, `last_event`, `mac`, `mxcluster_id`, `mxedge_id`, `node`, `peer_host`, `peer_ip`, `peer_mxedge_id`, `protocol`, `remote_ip`, `remote_port`, `site_id`, `state`, `tunnel_name`, `up`, `wxtunnel_id`'
-      enum:
-      - ap
-      - auth_algo
-      - encrypt_algo
-      - ike_version
-      - ip
-      - last_event
-      - mac
-      - mxcluster_id
-      - mxedge_id
-      - node
-      - peer_host
-      - peer_ip
-      - peer_mxedge_id
-      - protocol
-      - remote_ip
-      - remote_port
-      - site_id
-      - state
-      - tunnel_name
-      - up
-      - wxtunnel_id
-      type: string
-    wan_tunnel_protocol:
-      description: 'enum: `gre`, `ipsec`'
-      enum:
-      - gre
-      - ipsec
-      type: string
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    tunnel_priority:
-      description: 'enum: `primary`, `secondary`'
-      enum:
-      - primary
-      - secondary
-      type: string
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    stats_mxtunnel_session:
-      additionalProperties: false
-      properties:
-        local_sid:
-          description: Remote sessions id (dynamically unless Tunnel is said to be static)
-          type: integer
-        remote_id:
-          description: WxlanTunnel Remote ID
-          type: string
-        remote_sid:
-          description: Remote sessions id (dynamically unless Tunnel is said to be static)
-          type: integer
-        state:
-          type: string
-      required:
-      - local_sid
-      - remote_id
-      - remote_sid
-      - state
-      type: object
-    stats_mxtunnel_state:
-      description: 'enum: `established`, `established_with_sessions`, `idle`, `wait-ctrl-conn`, `wait-ctrl-reply`'
-      enum:
-      - established
-      - established_with_sessions
-      - idle
-      - wait-ctrl-conn
-      - wait-ctrl-reply
-      readOnly: true
-      type: string
     stats_mxtunnel:
       additionalProperties: false
       description: MxTunnels statistics
@@ -440,13 +330,33 @@ components:
       type:
       - integer
       - 'null'
-    tunnel_type:
-      default: wxtunnel
-      description: 'enum: `wan`, `wxtunnel`'
-      enum:
-      - wan
-      - wxtunnel
-      type: string
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    last_seen:
+      description: Last seen timestamp
+      examples:
+      - 1470417522
+      format: double
+      readOnly: true
+      type:
+      - number
+      - 'null'
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
     response_http401:
       additionalProperties: false
       properties:
@@ -455,23 +365,6 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    fwupdate_stat_status:
-      description: 'enum: `inprogress`, `failed`, `upgraded`, `success`, `scheduled`, `error`'
-      enum:
-      - inprogress
-      - failed
-      - upgraded
-      - success
-      - scheduled
-      - error
-      readOnly: true
-      type:
-      - string
-      - 'null'
-    response_tunnel_search_item:
-      oneOf:
-      - $ref: '#/components/schemas/stats_mxtunnel'
-      - $ref: '#/components/schemas/stats_wan_tunnel'
     fwupdate_stat:
       additionalProperties: false
       properties:
@@ -503,6 +396,19 @@ components:
           - boolean
           - 'null'
       type: object
+    fwupdate_stat_status:
+      description: 'enum: `inprogress`, `failed`, `upgraded`, `success`, `scheduled`, `error`'
+      enum:
+      - inprogress
+      - failed
+      - upgraded
+      - success
+      - scheduled
+      - error
+      readOnly: true
+      type:
+      - string
+      - 'null'
     stats_mxtunnel_sessions:
       description: List of sessions
       items:
@@ -510,50 +416,6 @@ components:
       readOnly: true
       type: array
       uniqueItems: true
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    tx_bytes:
-      description: Amount of traffic sent since connection
-      examples:
-      - 211217389682
-      format: int64
-      readOnly: true
-      type:
-      - integer
-      - 'null'
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    count_result:
-      additionalProperties:
-        type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    org_tunnel_type_count:
-      default: wxtunnel
-      description: 'enum: `wan`, `wxtunnel`'
-      enum:
-      - wan
-      - wxtunnel
-      type: string
     stats_wan_tunnel:
       additionalProperties: false
       properties:
@@ -616,6 +478,21 @@ components:
       required:
       - peer_ip
       type: object
+    org_tunnel_type_count:
+      default: wxtunnel
+      description: 'enum: `wan`, `wxtunnel`'
+      enum:
+      - wan
+      - wxtunnel
+      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
     response_tunnel_search:
       additionalProperties: false
       properties:
@@ -638,34 +515,248 @@ components:
       - start
       - total
       type: object
-    last_seen:
-      description: Last seen timestamp
-      examples:
-      - 1470417522
-      format: double
-      readOnly: true
-      type:
-      - number
-      - 'null'
+    tunnel_priority:
+      description: 'enum: `primary`, `secondary`'
+      enum:
+      - primary
+      - secondary
+      type: string
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    response_tunnel_search_item:
+      oneOf:
+      - $ref: '#/components/schemas/stats_mxtunnel'
+      - $ref: '#/components/schemas/stats_wan_tunnel'
+    tunnel_type:
+      default: wxtunnel
+      description: 'enum: `wan`, `wxtunnel`'
+      enum:
+      - wan
+      - wxtunnel
+      type: string
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_count:
+      additionalProperties: false
+      properties:
+        distinct:
+          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
     org_id:
       examples:
       - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
       format: uuid
       readOnly: true
       type: string
-    response_http403:
+    stats_mxtunnel_session:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
+        local_sid:
+          description: Remote sessions id (dynamically unless Tunnel is said to be static)
+          type: integer
+        remote_id:
+          description: WxlanTunnel Remote ID
           type: string
+        remote_sid:
+          description: Remote sessions id (dynamically unless Tunnel is said to be static)
+          type: integer
+        state:
+          type: string
+      required:
+      - local_sid
+      - remote_id
+      - remote_sid
+      - state
       type: object
+    org_tunnel_count_distinct:
+      default: wxtunnel_id
+      description: 'enum: `ap`, `auth_algo`, `encrypt_algo`, `ike_version`, `ip`, `last_event`, `mac`, `mxcluster_id`, `mxedge_id`, `node`, `peer_host`, `peer_ip`, `peer_mxedge_id`, `protocol`, `remote_ip`, `remote_port`, `site_id`, `state`, `tunnel_name`, `up`, `wxtunnel_id`'
+      enum:
+      - ap
+      - auth_algo
+      - encrypt_algo
+      - ike_version
+      - ip
+      - last_event
+      - mac
+      - mxcluster_id
+      - mxedge_id
+      - node
+      - peer_host
+      - peer_ip
+      - peer_mxedge_id
+      - protocol
+      - remote_ip
+      - remote_port
+      - site_id
+      - state
+      - tunnel_name
+      - up
+      - wxtunnel_id
+      type: string
+    wan_tunnel_protocol:
+      description: 'enum: `gre`, `ipsec`'
+      enum:
+      - gre
+      - ipsec
+      type: string
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    stats_mxtunnel_state:
+      description: 'enum: `established`, `established_with_sessions`, `idle`, `wait-ctrl-conn`, `wait-ctrl-reply`'
+      enum:
+      - established
+      - established_with_sessions
+      - idle
+      - wait-ctrl-conn
+      - wait-ctrl-reply
+      readOnly: true
+      type: string
     response_tunnel_search_results:
       items:
         $ref: '#/components/schemas/response_tunnel_search_item'
       type: array
+    tx_bytes:
+      description: Amount of traffic sent since connection
+      examples:
+      - 211217389682
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    TunnelsSearchTypeWxtunnel:
+      value:
+        end: 1531862583
+        limit: 10
+        results:
+        - ap: 5c5b35000010
+          last_seen: 1547437078
+          mxcluster_id: 572586b7-f97b-a22b-526c-8b97a3f609c4
+          mxedge_id: 387804a7-3474-85ce-15a2-f9a9684c9c90
+          mxtunnel_id: 7dae216d-7c98-a51b-e068-dd7d477b7216
+          org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
+          peer_mxedge_id: 09320a5c-bc23-441e-80a0-b96c632d45f5
+          remote_ip: 172.16.1.2
+          remote_port: 13535
+          rx_control_pkts: 7571
+          sessions:
+          - local_sid: 31
+            remote_id: mxtunnel
+            remote_sid: 13
+            state: established
+          site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
+          state: established_with_sessions
+          tx_control_pkts: 14862
+          uptime: 135
+        start: 1531776183
+        total: 1
+    TunnelsSearchTypeWan:
+      value:
+        end: 1531862583
+        limit: 10
+        results:
+        - auth_algo: hmac-md5-96
+          encrypt_algo: aes-256-cbc
+          ike_version: '2'
+          ip: 192.168.233.0
+          last_event: down reason
+          mac: 020001ae9dd5
+          node: node0
+          org_id: 78c11da8-f984-4425-bedb-a7ddd7d0f6da
+          peer_host: sunnyvale1-vpn.zscalerbeta.net
+          peer_ip: 10.224.8.16
+          protocol: ipsec
+          rx_bytes: 150
+          rx_pkts: 75
+          site_id: e83e7928-eda1-4e93-82db-df3dd42ab726
+          tunnel_name: Device-ipsec-1
+          tx_bytes: 100
+          tx_pkts: 50
+          up: true
+          uptime: 10
+          wan_name: wan
+        start: 1531776183
+        total: 1
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
   responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -681,15 +772,40 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
+    TunnelsSearch:
       content:
         application/json:
+          examples:
+            Type Wan:
+              $ref: '#/components/examples/TunnelsSearchTypeWan'
+            Type Wxtunnel:
+              $ref: '#/components/examples/TunnelsSearchTypeWxtunnel'
           schema:
-            $ref: '#/components/schemas/response_http404'
+            $ref: '#/components/schemas/response_tunnel_search'
         application/vnd.api+json:
+          examples:
+            Type Wan:
+              $ref: '#/components/examples/TunnelsSearchTypeWan'
+            Type Wxtunnel:
+              $ref: '#/components/examples/TunnelsSearchTypeWxtunnel'
           schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+            $ref: '#/components/schemas/response_tunnel_search'
+      description: OK
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
     HTTP403:
       content:
         application/json:
@@ -720,145 +836,16 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    Count:
+    HTTP404:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
           schema:
-            $ref: '#/components/schemas/response_count'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
           schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    TunnelsSearch:
-      content:
-        application/json:
-          examples:
-            Type Wan:
-              $ref: '#/components/examples/TunnelsSearchTypeWan'
-            Type Wxtunnel:
-              $ref: '#/components/examples/TunnelsSearchTypeWxtunnel'
-          schema:
-            $ref: '#/components/schemas/response_tunnel_search'
-        application/vnd.api+json:
-          examples:
-            Type Wan:
-              $ref: '#/components/examples/TunnelsSearchTypeWan'
-            Type Wxtunnel:
-              $ref: '#/components/examples/TunnelsSearchTypeWxtunnel'
-          schema:
-            $ref: '#/components/schemas/response_tunnel_search'
-      description: OK
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-  examples:
-    TunnelsSearchTypeWan:
-      value:
-        end: 1531862583
-        limit: 10
-        results:
-        - auth_algo: hmac-md5-96
-          encrypt_algo: aes-256-cbc
-          ike_version: '2'
-          ip: 192.168.233.0
-          last_event: down reason
-          mac: 020001ae9dd5
-          node: node0
-          org_id: 78c11da8-f984-4425-bedb-a7ddd7d0f6da
-          peer_host: sunnyvale1-vpn.zscalerbeta.net
-          peer_ip: 10.224.8.16
-          protocol: ipsec
-          rx_bytes: 150
-          rx_pkts: 75
-          site_id: e83e7928-eda1-4e93-82db-df3dd42ab726
-          tunnel_name: Device-ipsec-1
-          tx_bytes: 100
-          tx_pkts: 50
-          up: true
-          uptime: 10
-          wan_name: wan
-        start: 1531776183
-        total: 1
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    TunnelsSearchTypeWxtunnel:
-      value:
-        end: 1531862583
-        limit: 10
-        results:
-        - ap: 5c5b35000010
-          last_seen: 1547437078
-          mxcluster_id: 572586b7-f97b-a22b-526c-8b97a3f609c4
-          mxedge_id: 387804a7-3474-85ce-15a2-f9a9684c9c90
-          mxtunnel_id: 7dae216d-7c98-a51b-e068-dd7d477b7216
-          org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
-          peer_mxedge_id: 09320a5c-bc23-441e-80a0-b96c632d45f5
-          remote_ip: 172.16.1.2
-          remote_port: 13535
-          rx_control_pkts: 7571
-          sessions:
-          - local_sid: 31
-            remote_id: mxtunnel
-            remote_sid: 13
-            state: established
-          site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
-          state: established_with_sessions
-          tx_control_pkts: 14862
-          uptime: 135
-        start: 1531776183
-        total: 1
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
     org_id:
       in: path
       name: org_id
@@ -881,6 +868,19 @@ components:
       description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
       in: query
       name: search_after
+      schema:
+        type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
       schema:
         type: string
     duration_5m:

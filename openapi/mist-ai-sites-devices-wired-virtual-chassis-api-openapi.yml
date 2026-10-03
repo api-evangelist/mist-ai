@@ -477,72 +477,181 @@ paths:
       tags:
       - Sites Devices - Wired - Virtual Chassis
 components:
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    VirtualChassisExample:
+      value:
+        config_type: nonprovisioned
+        id: 00000000-0000-0000-1000-52d9107af289
+        mac: 52d9107af289
+        members:
+        - boot_partition: junos
+          cpld_version: '6'
+          cpu_stat:
+            idle: 69
+            interrupt: 1
+            load_avg:
+            - 0.8
+            - 1.09
+            - 1.07
+            system: 11
+            user: 19
+          fans:
+          - airflow: out
+            name: Fan Tray 0 Fan 0
+            rpm: 0
+            status: ok
+          - airflow: out
+            name: Fan Tray 1 Fan 0
+            rpm: 0
+            status: ok
+          fpc_idx: 0
+          mac: 52d9107af289
+          memory_stat:
+            usage: 42
+          model: EX2300-48P
+          pics:
+          - index: 0
+            model_number: EX2300-48P
+            port_groups:
+            - count: 48
+              type: GE
+          - index: 1
+            model_number: EX2300-48P
+            port_groups:
+            - count: 4
+              type: SFP/SFP+
+          poe:
+            max_power: 750
+            power_draw: 40.4
+            status: AT_MODE
+          poe_version: 2.1.1.19.3 (type1)
+          psus:
+          - name: Power Supply 0
+            status: ok
+          recovery_version: 21.4R3-S4.18
+          serial: JW0000000000
+          temperatures:
+          - celsius: 33
+            name: CPU Sensor
+            status: ok
+          - celsius: 29
+            name: PSU Sensor
+            status: ok
+          type: fpc
+          uboot_version: U-Boot 2016.01-rc1 (Nov 11 2016 - 14:26:00 -0800)  1.3.2
+          uptime: 27636720
+          vc_links:
+          - neighbor_module_idx: 1
+            neighbor_port_id: vcp-1/1/0
+            port_id: vcp-0/1/0
+          vc_mode: HiGiG
+          vc_role: master
+          vc_state: present
+          version: 21.4R3-S4.18
+        - boot_partition: junos
+          cpld_version: '6'
+          cpu_stat:
+            idle: 76
+            interrupt: 0
+            load_avg:
+            - 0.96
+            - 0.87
+            - 0.76
+            system: 6
+            user: 17
+          fans:
+          - airflow: out
+            name: Fan Tray 0 Fan 0
+            rpm: 0
+            status: ok
+          - airflow: out
+            name: Fan Tray 1 Fan 0
+            rpm: 0
+            status: ok
+          fpc_idx: 1
+          mac: d0dd4991652d
+          memory_stat:
+            usage: 18
+          model: EX2300-48P
+          pics:
+          - index: 0
+            model_number: EX2300-48P
+            port_groups:
+            - count: 48
+              type: GE
+          - index: 1
+            model_number: EX2300-48P
+            port_groups:
+            - count: 4
+              type: SFP/SFP+
+          poe:
+            max_power: 750
+            power_draw: 21.2
+            status: AT_MODE
+          poe_version: 2.1.1.19.3 (type1)
+          psus:
+          - name: Power Supply 0
+            status: ok
+          recovery_version: 21.4R3-S4.18
+          serial: JW3619300922
+          temperatures:
+          - celsius: 32
+            name: CPU Sensor
+            status: ok
+          - celsius: 29
+            name: PSU Sensor
+            status: ok
+          type: fpc
+          uboot_version: U-Boot 2016.01-rc1 (Nov 11 2016 - 14:26:00 -0800)  1.3.2
+          uptime: 27636720
+          vc_links:
+          - neighbor_module_idx: 0
+            neighbor_port_id: vcp-0/1/0
+            port_id: vcp-1/1/0
+          vc_mode: HiGiG
+          vc_role: backup
+          vc_state: present
+          version: 21.4R3-S4.18
+        model: EX2300-48P
+        num_routing_engines: 1
+        org_id: 1e9a61a9-bc42-42ca-bf67-1ad87443d9b8
+        serial: JW3619300157
+        site_id: ab0aca7a-d45c-469b-b3bb-4fe240642d0b
+        status: connected
+        type: switch
+        vc_mac: 52d9107af289
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
   schemas:
-    virtual_chassis_update_members:
+    module_stat_item_errors:
+      description: Used to report all error states the device node is running into. An error should always have `type` and `since` fields, and could have some other fields specific to that type.
       items:
-        $ref: '#/components/schemas/virtual_chassis_member_update'
+        $ref: '#/components/schemas/module_stat_item_errors_items'
       type: array
-    virtual_chassis_config_member_vc_role:
-      description: 'enum: `backup`, `linecard`, `master`'
-      enum:
-      - backup
-      - linecard
-      - master
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
       type: string
-    module_stat_item_pics_item_port_groups_item:
-      additionalProperties: false
-      properties:
-        count:
-          type: integer
-        type:
-          type: string
-      type: object
-    response_http400:
+    response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
-      type: object
-    virtual_chassis_update:
-      description: Virtual Chassis
-      properties:
-        member:
-          description: Only if `op`==`renumber`
-          type: integer
-        members:
-          $ref: '#/components/schemas/virtual_chassis_update_members'
-        new-member:
-          description: Only if `op`==`renumber`
-          type: integer
-        op:
-          $ref: '#/components/schemas/virtual_chassis_update_op'
-        remove_inventory:
-          default: false
-          description: Only if `op`==`preprovision`. When removing members from a pre-provisioned VC, set to `true` to delete the inventory records for removed members (e.g. for RMA). Members being removed must be in "not-present" state.
-          type: boolean
-      type: object
-    module_stat_item_psus_item:
-      additionalProperties: false
-      properties:
-        name:
-          examples:
-          - Power Supply 0
-          type: string
-        status:
-          examples:
-          - ok
-          type: string
-      type: object
-    memory_stat:
-      additionalProperties: false
-      description: Memory usage stat (for virtual chassis, memory usage of master RE)
-      properties:
-        usage:
-          type: number
-      required:
-      - usage
       type: object
     module_stat_item_pics_item:
       additionalProperties: false
@@ -554,118 +663,91 @@ components:
         port_groups:
           $ref: '#/components/schemas/module_stat_item_pics_item_port_groups'
       type: object
-    module_stat_item_vc_links:
-      items:
-        $ref: '#/components/schemas/module_stat_item_vc_links_item'
-      type: array
-      uniqueItems: true
-    config_vc_port_member:
-      additionalProperties: false
+    last_seen:
+      description: Last seen timestamp
+      examples:
+      - 1470417522
+      format: double
+      readOnly: true
+      type:
+      - number
+      - 'null'
+    virtual_chassis_config:
+      description: Virtual Chassis
       properties:
-        member:
-          type: number
-        vc_ports:
-          $ref: '#/components/schemas/strings'
-      required:
-      - member
-      type: object
-    module_stat_item_fans_items:
-      additionalProperties: false
-      properties:
-        airflow:
-          examples:
-          - out
-          type: string
-        name:
-          examples:
-          - Fan 0
-          type: string
-        rpm:
-          type: integer
-        status:
-          examples:
-          - ok
-          type: string
-      type: object
-    virtual_chassis_port_operation:
-      description: 'enum: `delete`, `set`'
-      enum:
-      - delete
-      - set
-      minLength: 1
-      type: string
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    virtual_chassis_update_op:
-      description: 'enum: `add`, `preprovision`, `remove`, `renumber`'
-      enum:
-      - add
-      - preprovision
-      - remove
-      - renumber
-      type: string
-    module_stat_item_poe:
-      additionalProperties: false
-      properties:
-        max_power:
-          examples:
-          - 250
-          type: number
-        power_draw:
-          examples:
-          - 120.3
-          type: number
-        status:
-          type: string
-      type: object
-    cpu_stat_load_avg:
-      description: Load averages for the last 1, 5, and 15 minutes
-      items:
-        type: number
-      type: array
-    module_stat_item_pics:
-      items:
-        $ref: '#/components/schemas/module_stat_item_pics_item'
-      type: array
-    module_stat_item_pics_item_port_groups:
-      items:
-        $ref: '#/components/schemas/module_stat_item_pics_item_port_groups_item'
-      type: array
-    module_stat_item_errors:
-      description: Used to report all error states the device node is running into. An error should always have `type` and `since` fields, and could have some other fields specific to that type.
-      items:
-        $ref: '#/components/schemas/module_stat_item_errors_items'
-      type: array
-    virtual_chassis_port:
-      properties:
+        locating:
+          readOnly: true
+          type: boolean
         members:
-          $ref: '#/components/schemas/virtual_chassis_port_members'
-        op:
-          $ref: '#/components/schemas/virtual_chassis_port_operation'
-      required:
-      - op
-      - members
+          $ref: '#/components/schemas/virtual_chassis_config_members'
+        preprovisioned:
+          default: false
+          description: To create the Virtual Chassis in Pre-Provisioned mode
+          type: boolean
       type: object
-    virtual_chassis_member_update_vc_role:
-      description: 'Required if `op`==`add` or `op`==`preprovision`. enum: `backup`, `linecard`, `master`'
-      enum:
-      - backup
-      - linecard
-      - master
-      type: string
     virtual_chassis_port_members:
       items:
         $ref: '#/components/schemas/config_vc_port_member'
       type: array
       uniqueItems: true
-    vc_port:
+    virtual_chassis_update_members:
+      items:
+        $ref: '#/components/schemas/virtual_chassis_member_update'
+      type: array
+    module_stat_item_psus:
+      items:
+        $ref: '#/components/schemas/module_stat_item_psus_item'
+      type: array
+      uniqueItems: true
+    vc_port_mode:
+      description: 'enum: `network`, `vcp-higig`, `vcp-hgoe`'
+      enum:
+      - network
+      - vcp-higig
+      - vcp-hgoe
+      type: string
+    virtual_chassis_member_update:
+      additionalProperties: false
       properties:
-        mode:
-          $ref: '#/components/schemas/vc_port_mode'
+        mac:
+          description: Required if `op`==`add` or `op`==`preprovision`.
+          type: string
+        member:
+          description: Required if `op`==`remove`
+          type: integer
+        member_id:
+          description: Required if `op`==`preprovision`. Optional if `op`==`add`
+          type: integer
+        vc_ports:
+          $ref: '#/components/schemas/virtual_chassis_member_update_vc_ports'
+        vc_role:
+          $ref: '#/components/schemas/virtual_chassis_member_update_vc_role'
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    stats_switch_module_stat:
+      items:
+        $ref: '#/components/schemas/stats_switch_module_stat_item'
+      minItems: 1
+      type: array
+      uniqueItems: true
+    module_stat_item_psus_item:
+      additionalProperties: false
+      properties:
+        name:
+          examples:
+          - Power Supply 0
+          type: string
+        status:
+          examples:
+          - ok
+          type: string
       type: object
     module_stat_item_vc_links_item:
       additionalProperties: false
@@ -683,65 +765,28 @@ components:
           - vcp-255/1/0
           type: string
       type: object
-    module_stat_item_temperatures:
+    virtual_chassis_member_update_vc_ports:
+      description: Required if `op`==`add` or `op`==`preprovision`
       items:
-        $ref: '#/components/schemas/module_stat_item_temperatures_item'
+        type: string
       type: array
-      uniqueItems: true
-    module_stat_item_temperatures_item:
-      additionalProperties: false
+    virtual_chassis_port:
       properties:
-        celsius:
-          examples:
-          - 45
-          type: number
-        name:
-          examples:
-          - CPU
-          type: string
-        status:
-          examples:
-          - ok
-          type: string
+        members:
+          $ref: '#/components/schemas/virtual_chassis_port_members'
+        op:
+          $ref: '#/components/schemas/virtual_chassis_port_operation'
+      required:
+      - op
+      - members
       type: object
-    response_http401:
+    response_http403:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - Authentication credentials were not provided.
+          - You do not have permission to perform this action.
           type: string
-      type: object
-    stats_switch_module_stat:
-      items:
-        $ref: '#/components/schemas/stats_switch_module_stat_item'
-      minItems: 1
-      type: array
-      uniqueItems: true
-    module_stat_item_errors_items:
-      additionalProperties: false
-      properties:
-        feature:
-          examples:
-          - Mist-Management
-          type: string
-        minimum_version:
-          examples:
-          - 128T-6.0.0-1
-          type: string
-        reason:
-          type: string
-        since:
-          examples:
-          - 1657497600
-          type: integer
-        type:
-          examples:
-          - FW_UPGRADE_REQUIRED_BY_FEATURE
-          type: string
-      required:
-      - since
-      - type
       type: object
     response_virtual_chassis_config:
       additionalProperties: false
@@ -782,65 +827,230 @@ components:
           readOnly: true
           type: string
       type: object
-    module_stat_item_fans:
+    vc_port:
+      properties:
+        mode:
+          $ref: '#/components/schemas/vc_port_mode'
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    virtual_chassis_update_op:
+      description: 'enum: `add`, `preprovision`, `remove`, `renumber`'
+      enum:
+      - add
+      - preprovision
+      - remove
+      - renumber
+      type: string
+    cpu_stat:
+      additionalProperties: false
+      properties:
+        idle:
+          description: Percentage of CPU time that is idle
+          readOnly: true
+          type:
+          - number
+          - 'null'
+        interrupt:
+          description: Percentage of CPU time being used by interrupts
+          readOnly: true
+          type:
+          - number
+          - 'null'
+        load_avg:
+          $ref: '#/components/schemas/cpu_stat_load_avg'
+        system:
+          description: Percentage of CPU time being used by system processes
+          readOnly: true
+          type:
+          - number
+          - 'null'
+        usage:
+          description: CPU usage
+          readOnly: true
+          type:
+          - number
+          - 'null'
+        user:
+          description: Percentage of CPU time being used by user processes
+          readOnly: true
+          type:
+          - number
+          - 'null'
+      type: object
+    module_stat_item_pics_item_port_groups:
       items:
-        $ref: '#/components/schemas/module_stat_item_fans_items'
+        $ref: '#/components/schemas/module_stat_item_pics_item_port_groups_item'
       type: array
-      uniqueItems: true
-    virtual_chassis_member_update_vc_ports:
-      description: Required if `op`==`add` or `op`==`preprovision`
-      items:
-        type: string
-      type: array
-    id:
-      description: Unique ID of the object instance in the Mist Organization
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    org_id:
       examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
       format: uuid
       readOnly: true
       type: string
+    virtual_chassis_update:
+      description: Virtual Chassis
+      properties:
+        member:
+          description: Only if `op`==`renumber`
+          type: integer
+        members:
+          $ref: '#/components/schemas/virtual_chassis_update_members'
+        new-member:
+          description: Only if `op`==`renumber`
+          type: integer
+        op:
+          $ref: '#/components/schemas/virtual_chassis_update_op'
+        remove_inventory:
+          default: false
+          description: Only if `op`==`preprovision`. When removing members from a pre-provisioned VC, set to `true` to delete the inventory records for removed members (e.g. for RMA). Members being removed must be in "not-present" state.
+          type: boolean
+      type: object
+    module_stat_item_poe:
+      additionalProperties: false
+      properties:
+        max_power:
+          examples:
+          - 250
+          type: number
+        power_draw:
+          examples:
+          - 120.3
+          type: number
+        status:
+          type: string
+      type: object
+    virtual_chassis_member_update_vc_role:
+      description: 'Required if `op`==`add` or `op`==`preprovision`. enum: `backup`, `linecard`, `master`'
+      enum:
+      - backup
+      - linecard
+      - master
+      type: string
+    module_stat_item_fans_items:
+      additionalProperties: false
+      properties:
+        airflow:
+          examples:
+          - out
+          type: string
+        name:
+          examples:
+          - Fan 0
+          type: string
+        rpm:
+          type: integer
+        status:
+          examples:
+          - ok
+          type: string
+      type: object
+    module_stat_item_temperatures:
+      items:
+        $ref: '#/components/schemas/module_stat_item_temperatures_item'
+      type: array
+      uniqueItems: true
+    module_stat_item_pics:
+      items:
+        $ref: '#/components/schemas/module_stat_item_pics_item'
+      type: array
+    module_stat_item_pics_item_port_groups_item:
+      additionalProperties: false
+      properties:
+        count:
+          type: integer
+        type:
+          type: string
+      type: object
+    module_stat_item_errors_items:
+      additionalProperties: false
+      properties:
+        feature:
+          examples:
+          - Mist-Management
+          type: string
+        minimum_version:
+          examples:
+          - 128T-6.0.0-1
+          type: string
+        reason:
+          type: string
+        since:
+          examples:
+          - 1657497600
+          type: integer
+        type:
+          examples:
+          - FW_UPGRADE_REQUIRED_BY_FEATURE
+          type: string
+      required:
+      - since
+      - type
+      type: object
+    cpu_stat_load_avg:
+      description: Load averages for the last 1, 5, and 15 minutes
+      items:
+        type: number
+      type: array
     site_id:
       examples:
       - 441a1214-6928-442a-8e92-e1d34b8ec6a6
       format: uuid
       readOnly: true
       type: string
+    memory_stat:
+      additionalProperties: false
+      description: Memory usage stat (for virtual chassis, memory usage of master RE)
+      properties:
+        usage:
+          type: number
+      required:
+      - usage
+      type: object
+    virtual_chassis_config_member_vc_role:
+      description: 'enum: `backup`, `linecard`, `master`'
+      enum:
+      - backup
+      - linecard
+      - master
+      type: string
+    module_stat_item_temperatures_item:
+      additionalProperties: false
+      properties:
+        celsius:
+          examples:
+          - 45
+          type: number
+        name:
+          examples:
+          - CPU
+          type: string
+        status:
+          examples:
+          - ok
+          type: string
+      type: object
+    module_stat_item_vc_links:
+      items:
+        $ref: '#/components/schemas/module_stat_item_vc_links_item'
+      type: array
+      uniqueItems: true
     virtual_chassis_config_members:
       items:
         $ref: '#/components/schemas/virtual_chassis_config_member'
       type: array
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    virtual_chassis_member_update:
-      additionalProperties: false
-      properties:
-        mac:
-          description: Required if `op`==`add` or `op`==`preprovision`.
-          type: string
-        member:
-          description: Required if `op`==`remove`
-          type: integer
-        member_id:
-          description: Required if `op`==`preprovision`. Optional if `op`==`add`
-          type: integer
-        vc_ports:
-          $ref: '#/components/schemas/virtual_chassis_member_update_vc_ports'
-        vc_role:
-          $ref: '#/components/schemas/virtual_chassis_member_update_vc_role'
-      type: object
-    vc_port_mode:
-      description: 'enum: `network`, `vcp-higig`, `vcp-hgoe`'
-      enum:
-      - network
-      - vcp-higig
-      - vcp-hgoe
-      type: string
     virtual_chassis_config_member:
       additionalProperties: false
       properties:
@@ -861,6 +1071,11 @@ components:
       - mac
       - vc_role
       type: object
+    module_stat_item_fans:
+      items:
+        $ref: '#/components/schemas/module_stat_item_fans_items'
+      type: array
+      uniqueItems: true
     stats_switch_module_stat_item:
       additionalProperties: false
       properties:
@@ -1008,89 +1223,44 @@ components:
           - string
           - 'null'
       type: object
-    last_seen:
-      description: Last seen timestamp
-      examples:
-      - 1470417522
-      format: double
-      readOnly: true
-      type:
-      - number
-      - 'null'
-    virtual_chassis_config:
-      description: Virtual Chassis
-      properties:
-        locating:
-          readOnly: true
-          type: boolean
-        members:
-          $ref: '#/components/schemas/virtual_chassis_config_members'
-        preprovisioned:
-          default: false
-          description: To create the Virtual Chassis in Pre-Provisioned mode
-          type: boolean
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    cpu_stat:
-      additionalProperties: false
-      properties:
-        idle:
-          description: Percentage of CPU time that is idle
-          readOnly: true
-          type:
-          - number
-          - 'null'
-        interrupt:
-          description: Percentage of CPU time being used by interrupts
-          readOnly: true
-          type:
-          - number
-          - 'null'
-        load_avg:
-          $ref: '#/components/schemas/cpu_stat_load_avg'
-        system:
-          description: Percentage of CPU time being used by system processes
-          readOnly: true
-          type:
-          - number
-          - 'null'
-        usage:
-          description: CPU usage
-          readOnly: true
-          type:
-          - number
-          - 'null'
-        user:
-          description: Percentage of CPU time being used by user processes
-          readOnly: true
-          type:
-          - number
-          - 'null'
-      type: object
     strings:
       items:
         type: string
       type: array
       uniqueItems: true
-    response_http403:
+    virtual_chassis_port_operation:
+      description: 'enum: `delete`, `set`'
+      enum:
+      - delete
+      - set
+      minLength: 1
+      type: string
+    config_vc_port_member:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
+        member:
+          type: number
+        vc_ports:
+          $ref: '#/components/schemas/strings'
+      required:
+      - member
       type: object
-    module_stat_item_psus:
-      items:
-        $ref: '#/components/schemas/module_stat_item_psus_item'
-      type: array
-      uniqueItems: true
   responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -1106,6 +1276,38 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    OK:
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
     VirtualChassis:
       content:
         application/json:
@@ -1130,221 +1332,19 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    OK:
-      description: OK
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    VirtualChassisExample:
-      value:
-        config_type: nonprovisioned
-        id: 00000000-0000-0000-1000-52d9107af289
-        mac: 52d9107af289
-        members:
-        - boot_partition: junos
-          cpld_version: '6'
-          cpu_stat:
-            idle: 69
-            interrupt: 1
-            load_avg:
-            - 0.8
-            - 1.09
-            - 1.07
-            system: 11
-            user: 19
-          fans:
-          - airflow: out
-            name: Fan Tray 0 Fan 0
-            rpm: 0
-            status: ok
-          - airflow: out
-            name: Fan Tray 1 Fan 0
-            rpm: 0
-            status: ok
-          fpc_idx: 0
-          mac: 52d9107af289
-          memory_stat:
-            usage: 42
-          model: EX2300-48P
-          pics:
-          - index: 0
-            model_number: EX2300-48P
-            port_groups:
-            - count: 48
-              type: GE
-          - index: 1
-            model_number: EX2300-48P
-            port_groups:
-            - count: 4
-              type: SFP/SFP+
-          poe:
-            max_power: 750
-            power_draw: 40.4
-            status: AT_MODE
-          poe_version: 2.1.1.19.3 (type1)
-          psus:
-          - name: Power Supply 0
-            status: ok
-          recovery_version: 21.4R3-S4.18
-          serial: JW0000000000
-          temperatures:
-          - celsius: 33
-            name: CPU Sensor
-            status: ok
-          - celsius: 29
-            name: PSU Sensor
-            status: ok
-          type: fpc
-          uboot_version: U-Boot 2016.01-rc1 (Nov 11 2016 - 14:26:00 -0800)  1.3.2
-          uptime: 27636720
-          vc_links:
-          - neighbor_module_idx: 1
-            neighbor_port_id: vcp-1/1/0
-            port_id: vcp-0/1/0
-          vc_mode: HiGiG
-          vc_role: master
-          vc_state: present
-          version: 21.4R3-S4.18
-        - boot_partition: junos
-          cpld_version: '6'
-          cpu_stat:
-            idle: 76
-            interrupt: 0
-            load_avg:
-            - 0.96
-            - 0.87
-            - 0.76
-            system: 6
-            user: 17
-          fans:
-          - airflow: out
-            name: Fan Tray 0 Fan 0
-            rpm: 0
-            status: ok
-          - airflow: out
-            name: Fan Tray 1 Fan 0
-            rpm: 0
-            status: ok
-          fpc_idx: 1
-          mac: d0dd4991652d
-          memory_stat:
-            usage: 18
-          model: EX2300-48P
-          pics:
-          - index: 0
-            model_number: EX2300-48P
-            port_groups:
-            - count: 48
-              type: GE
-          - index: 1
-            model_number: EX2300-48P
-            port_groups:
-            - count: 4
-              type: SFP/SFP+
-          poe:
-            max_power: 750
-            power_draw: 21.2
-            status: AT_MODE
-          poe_version: 2.1.1.19.3 (type1)
-          psus:
-          - name: Power Supply 0
-            status: ok
-          recovery_version: 21.4R3-S4.18
-          serial: JW3619300922
-          temperatures:
-          - celsius: 32
-            name: CPU Sensor
-            status: ok
-          - celsius: 29
-            name: PSU Sensor
-            status: ok
-          type: fpc
-          uboot_version: U-Boot 2016.01-rc1 (Nov 11 2016 - 14:26:00 -0800)  1.3.2
-          uptime: 27636720
-          vc_links:
-          - neighbor_module_idx: 0
-            neighbor_port_id: vcp-0/1/0
-            port_id: vcp-1/1/0
-          vc_mode: HiGiG
-          vc_role: backup
-          vc_state: present
-          version: 21.4R3-S4.18
-        model: EX2300-48P
-        num_routing_engines: 1
-        org_id: 1e9a61a9-bc42-42ca-bf67-1ad87443d9b8
-        serial: JW3619300157
-        site_id: ab0aca7a-d45c-469b-b3bb-4fe240642d0b
-        status: connected
-        type: switch
-        vc_mac: 52d9107af289
   parameters:
-    site_id:
+    device_id:
       in: path
-      name: site_id
+      name: device_id
       required: true
       schema:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
-    device_id:
+    site_id:
       in: path
-      name: device_id
+      name: site_id
       required: true
       schema:
         examples:

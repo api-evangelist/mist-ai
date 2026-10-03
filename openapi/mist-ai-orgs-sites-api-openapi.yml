@@ -266,29 +266,9 @@ paths:
       - Orgs Sites
 components:
   examples:
-    SitesSearchExample:
+    HTTP400Example:
       value:
-        end: 0
-        limit: 0
-        next: string
-        results:
-        - auto_upgrade_enabled: true
-          auto_upgrade_version: string
-          country_code: string
-          honeypot_enabled: true
-          id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          name: string
-          org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          timestamp: 0
-          timezone: string
-          vna_enabled: true
-          wifi_enabled: true
-        start: 0
-        total: 0
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     SitesArrayExample:
       value:
       - address: 1601 S. Deanza Blvd., Cupertino, CA, 95014
@@ -311,25 +291,32 @@ components:
         sitegroup_ids:
         - 497f6eca-6276-5008-bfeb-53cbbbba6f1a
         timezone: America/Los_Angeles
-    HTTP403Example:
+    HTTP429Example:
       value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
+    SitesSearchExample:
+      value:
+        end: 0
+        limit: 0
+        next: string
+        results:
+        - auto_upgrade_enabled: true
+          auto_upgrade_version: string
+          country_code: string
+          honeypot_enabled: true
+          id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          name: string
+          org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          timestamp: 0
+          timezone: string
+          vna_enabled: true
+          wifi_enabled: true
+        start: 0
+        total: 0
     SiteExample:
       value:
         address: 1601 S. Deanza Blvd., Cupertino, CA, 95014
@@ -352,7 +339,138 @@ components:
         sitegroup_ids:
         - 497f6eca-6276-5006-bfeb-53cbbbba6f18
         timezone: America/Los_Angeles
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
   schemas:
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    response_site_search_results:
+      items:
+        $ref: '#/components/schemas/response_site_search_item'
+      type: array
+      uniqueItems: true
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_site_search_item:
+      additionalProperties: false
+      properties:
+        auto_upgrade_enabled:
+          type: boolean
+        auto_upgrade_version:
+          readOnly: true
+          type: string
+        country_code:
+          readOnly: true
+          type:
+          - string
+          - 'null'
+        honeypot_enabled:
+          type: boolean
+        id:
+          $ref: '#/components/schemas/id'
+        name:
+          readOnly: true
+          type: string
+        org_id:
+          $ref: '#/components/schemas/org_id'
+        site_id:
+          $ref: '#/components/schemas/site_id'
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+        timezone:
+          readOnly: true
+          type: string
+        vna_enabled:
+          type: boolean
+        wifi_enabled:
+          type: boolean
+      required:
+      - honeypot_enabled
+      - wifi_enabled
+      - vna_enabled
+      - timezone
+      - timestamp
+      - org_id
+      - site_id
+      - name
+      - id
+      - auto_upgrade_version
+      - auto_upgrade_enabled
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    sites:
+      items:
+        $ref: '#/components/schemas/site'
+      type: array
+    response_site_search:
+      additionalProperties: false
+      properties:
+        end:
+          type: integer
+        limit:
+          type: integer
+        next:
+          type: string
+        results:
+          $ref: '#/components/schemas/response_site_search_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - results
+      - start
+      - end
+      - limit
+      - total
+      type: object
     response_http400:
       additionalProperties: false
       properties:
@@ -361,6 +479,70 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
+    lat_lng:
+      additionalProperties: false
+      properties:
+        lat:
+          examples:
+          - 37.295833
+          format: double
+          type: number
+        lng:
+          examples:
+          - -122.032946
+          format: double
+          type: number
+      required:
+      - lat
+      - lng
+      type: object
+    org_sites_count_distinct:
+      default: id
+      description: 'enum: `analytic_enabled`, `app_waking`, `asset_enabled`, `auto_upgrade_enabled`, `auto_upgrade_version`, `country_code`, `honeypot_enabled`, `id`, `locate_unconnected`, `mesh_enabled`, `name`, `remote_syslog_enabled`, `rogue_enabled`, `rtsa_enabled`, `vna_enabled`, `wifi_enabled`'
+      enum:
+      - analytic_enabled
+      - app_waking
+      - asset_enabled
+      - auto_upgrade_enabled
+      - auto_upgrade_version
+      - country_code
+      - honeypot_enabled
+      - id
+      - locate_unconnected
+      - mesh_enabled
+      - name
+      - remote_syslog_enabled
+      - rogue_enabled
+      - rtsa_enabled
+      - vna_enabled
+      - wifi_enabled
+      type: string
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
     response_count:
       additionalProperties: false
       properties:
@@ -384,100 +566,6 @@ components:
       - start
       - total
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
-    lat_lng:
-      additionalProperties: false
-      properties:
-        lat:
-          examples:
-          - 37.295833
-          format: double
-          type: number
-        lng:
-          examples:
-          - -122.032946
-          format: double
-          type: number
-      required:
-      - lat
-      - lng
-      type: object
-    sites:
-      items:
-        $ref: '#/components/schemas/site'
-      type: array
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_site_search:
-      additionalProperties: false
-      properties:
-        end:
-          type: integer
-        limit:
-          type: integer
-        next:
-          type: string
-        results:
-          $ref: '#/components/schemas/response_site_search_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - results
-      - start
-      - end
-      - limit
-      - total
-      type: object
-    site_sitegroup_ids:
-      description: Sitegroups this site belongs to
-      items:
-        format: uuid
-        type: string
-      type: array
-    org_sites_count_distinct:
-      default: id
-      description: 'enum: `analytic_enabled`, `app_waking`, `asset_enabled`, `auto_upgrade_enabled`, `auto_upgrade_version`, `country_code`, `honeypot_enabled`, `id`, `locate_unconnected`, `mesh_enabled`, `name`, `remote_syslog_enabled`, `rogue_enabled`, `rtsa_enabled`, `vna_enabled`, `wifi_enabled`'
-      enum:
-      - analytic_enabled
-      - app_waking
-      - asset_enabled
-      - auto_upgrade_enabled
-      - auto_upgrade_version
-      - country_code
-      - honeypot_enabled
-      - id
-      - locate_unconnected
-      - mesh_enabled
-      - name
-      - remote_syslog_enabled
-      - rogue_enabled
-      - rtsa_enabled
-      - vna_enabled
-      - wifi_enabled
-      type: string
     site:
       description: Site
       properties:
@@ -588,112 +676,39 @@ components:
       required:
       - name
       type: object
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    response_site_search_results:
-      items:
-        $ref: '#/components/schemas/response_site_search_item'
-      type: array
-      uniqueItems: true
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
     site_id:
       examples:
       - 441a1214-6928-442a-8e92-e1d34b8ec6a6
       format: uuid
       readOnly: true
       type: string
-    response_site_search_item:
-      additionalProperties: false
-      properties:
-        auto_upgrade_enabled:
-          type: boolean
-        auto_upgrade_version:
-          readOnly: true
-          type: string
-        country_code:
-          readOnly: true
-          type:
-          - string
-          - 'null'
-        honeypot_enabled:
-          type: boolean
-        id:
-          $ref: '#/components/schemas/id'
-        name:
-          readOnly: true
-          type: string
-        org_id:
-          $ref: '#/components/schemas/org_id'
-        site_id:
-          $ref: '#/components/schemas/site_id'
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-        timezone:
-          readOnly: true
-          type: string
-        vna_enabled:
-          type: boolean
-        wifi_enabled:
-          type: boolean
-      required:
-      - honeypot_enabled
-      - wifi_enabled
-      - vna_enabled
-      - timezone
-      - timestamp
-      - org_id
-      - site_id
-      - name
-      - id
-      - auto_upgrade_version
-      - auto_upgrade_enabled
-      type: object
-    count_result:
-      additionalProperties:
+    site_sitegroup_ids:
+      description: Sitegroups this site belongs to
+      items:
+        format: uuid
         type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
+      type: array
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
       readOnly: true
-      type: string
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
+      type: number
   responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -709,15 +724,36 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
+    Count:
       content:
         application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
           schema:
-            $ref: '#/components/schemas/response_http404'
+            $ref: '#/components/schemas/response_count'
         application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
           schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    SitesSearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SitesSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_site_search'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SitesSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_site_search'
+      description: OK
     HTTP403:
       content:
         application/json:
@@ -763,21 +799,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
     SitesArray:
       content:
         application/json:
@@ -793,50 +814,16 @@ components:
           schema:
             $ref: '#/components/schemas/sites'
       description: OK
-    HTTP401:
+    HTTP404:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http401'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    SitesSearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SitesSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_site_search'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SitesSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_site_search'
-      description: OK
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
     org_id:
       in: path
       name: org_id
@@ -855,21 +842,6 @@ components:
         examples:
         - -site_id
         type: string
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
-      schema:
-        type: string
     partial_filter_name_site:
       description: Partial / full Site name. Case insensitive. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `my-site*` and `*site*` match `my-site-01`). Suffix-only wildcards (e.g. `*site-01`) are not supported
       in: query
@@ -880,6 +852,40 @@ components:
         - my-site*
         - '*site*'
         type: string
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+      in: query
+      name: search_after
+      schema:
+        type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
     page:
       in: query
       name: page
@@ -887,12 +893,6 @@ components:
         default: 1
         minimum: 1
         type: integer
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

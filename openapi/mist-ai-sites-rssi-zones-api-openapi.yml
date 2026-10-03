@@ -204,60 +204,46 @@ paths:
       tags:
       - Sites RSSI Zones
 components:
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    RssizonesArrayExample:
+      value:
+      - created_time: 0
+        devices:
+        - device_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          rssi: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        modified_time: 0
+        name: string
+        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+    RssizoneExample:
+      value:
+        created_time: 0
+        devices:
+        - device_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          rssi: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        modified_time: 0
+        name: string
+        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
   schemas:
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    rssi_zone_device:
-      additionalProperties: false
-      properties:
-        device_id:
-          $ref: '#/components/schemas/device_id'
-        rssi:
-          description: RSSI threshold
-          examples:
-          - 0
-          type: integer
-      required:
-      - device_id
-      - rssi
-      type: object
-    rssi_zones:
-      items:
-        $ref: '#/components/schemas/rssi_zone'
-      type: array
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    site_id:
+    id:
+      description: Unique ID of the object instance in the Mist Organization
       examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
       format: uuid
       readOnly: true
       type: string
@@ -269,15 +255,17 @@ components:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
     device_id:
       examples:
       - 00000000-0000-0000-1000-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
       format: uuid
       readOnly: true
       type: string
@@ -289,6 +277,31 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
     rssi_zone:
       description: RSSI Zone
       properties:
@@ -321,151 +334,45 @@ components:
         $ref: '#/components/schemas/rssi_zone_device'
       type: array
       uniqueItems: true
-    id:
-      description: Unique ID of the object instance in the Mist Organization
+    rssi_zones:
+      items:
+        $ref: '#/components/schemas/rssi_zone'
+      type: array
+    site_id:
       examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
       format: uuid
       readOnly: true
       type: string
-  responses:
-    HTTP429:
-      content:
-        application/json:
+    rssi_zone_device:
+      additionalProperties: false
+      properties:
+        device_id:
+          $ref: '#/components/schemas/device_id'
+        rssi:
+          description: RSSI threshold
           examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    OK:
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    RssizonesArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/RssizonesArrayExample'
-          schema:
-            $ref: '#/components/schemas/rssi_zones'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/RssizonesArrayExample'
-          schema:
-            $ref: '#/components/schemas/rssi_zones'
-      description: OK
-    Rssizone:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/RssizoneExample'
-          schema:
-            $ref: '#/components/schemas/rssi_zone'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/RssizoneExample'
-          schema:
-            $ref: '#/components/schemas/rssi_zone'
-      description: OK
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    RssizonesArrayExample:
-      value:
-      - created_time: 0
-        devices:
-        - device_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          rssi: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        modified_time: 0
-        name: string
-        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    RssizoneExample:
-      value:
-        created_time: 0
-        devices:
-        - device_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          rssi: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        modified_time: 0
-        name: string
-        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+          - 0
+          type: integer
+      required:
+      - device_id
+      - rssi
+      type: object
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
   parameters:
+    rssizone_id:
+      in: path
+      name: rssizone_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
     limit:
       in: query
       name: limit
@@ -489,15 +396,108 @@ components:
         default: 1
         minimum: 1
         type: integer
-    rssizone_id:
-      in: path
-      name: rssizone_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
+  responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    Rssizone:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RssizoneExample'
+          schema:
+            $ref: '#/components/schemas/rssi_zone'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RssizoneExample'
+          schema:
+            $ref: '#/components/schemas/rssi_zone'
+      description: OK
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    OK:
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    RssizonesArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RssizonesArrayExample'
+          schema:
+            $ref: '#/components/schemas/rssi_zones'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RssizonesArrayExample'
+          schema:
+            $ref: '#/components/schemas/rssi_zones'
+      description: OK
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

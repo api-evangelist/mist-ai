@@ -188,21 +188,36 @@ paths:
       - Orgs NAC Tags
 components:
   schemas:
-    nac_tag_username_attr:
-      description: 'enum: `automatic`, `cn`, `dns`, `email`, `upn`'
-      enum:
-      - automatic
-      - cn
-      - dns
-      - email
-      - upn
+    nac_tag_egress_vlan_names:
+      description: If `type`==`egress_vlan_names`, list of egress vlans to return
+      examples:
+      - - 1vlan-30
+        - 1vlan-20
+        - 2-vlan10
+      items:
+        type: string
+      type: array
+    nac_tag_radius_attrs:
+      description: "If `type`==`radius_attrs`, user can specify a list of one or more standard attributes in the field \"radius_attrs\". \nIt is the responsibility of the user to provide a syntactically correct string, otherwise it may not work as expected.\nNote that it is allowed to have more than one radius_attrs in the result of a given rule."
+      examples:
+      - - Idle-Timeout=600
+        - Termination-Action=RADIUS-Request
+      items:
+        type: string
+      type: array
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
       type: string
-    response_http400:
+    response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     nac_tag_type:
@@ -220,30 +235,14 @@ components:
       - vlan
       minLength: 1
       type: string
-    nac_tag_values:
-      description: If `type`==`match`
-      items:
-        type: string
-      type: array
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    nac_tag_radius_attrs:
-      description: "If `type`==`radius_attrs`, user can specify a list of one or more standard attributes in the field \"radius_attrs\". \nIt is the responsibility of the user to provide a syntactically correct string, otherwise it may not work as expected.\nNote that it is allowed to have more than one radius_attrs in the result of a given rule."
+    nac_tag_radius_vendor_attrs:
+      description: "If `type`==`radius_vendor_attrs`, user can specify a list of one or more vendor-specific attributes in the field \"radius_vendor_attrs\". \nIt is the responsibility of the user to provide a syntactically correct string, otherwise it may not work as expected.\nNote that it is allowed to have more than one radius_vendor_attrs in the result of a given rule."
       examples:
-      - - Idle-Timeout=600
-        - Termination-Action=RADIUS-Request
+      - - PaloAlto-Admin-Role=superuser
+        - PaloAlto-Panorama-Admin-Role=administrator
       items:
         type: string
       type: array
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
     response_http401:
       additionalProperties: false
       properties:
@@ -252,6 +251,100 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
+    nac_tags:
+      items:
+        $ref: '#/components/schemas/nac_tag'
+      type: array
+    redirect_nacportal_id:
+      description: If `type`==`redirect_nacportal_id`, the ID of the NAC portal to redirect to
+      examples:
+      - 1e970fec-0a7a-4d73-a472-3ef3b6a456aa
+      format: uuid
+      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    nac_tag_values:
+      description: If `type`==`match`
+      items:
+        type: string
+      type: array
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    nac_tag_username_attr:
+      description: 'enum: `automatic`, `cn`, `dns`, `email`, `upn`'
+      enum:
+      - automatic
+      - cn
+      - dns
+      - email
+      - upn
+      type: string
+    nac_tag_gbp_tag:
+      anyOf:
+      - maximum: 65535
+        minimum: 1
+        type: integer
+      - type: string
+      description: If `type`==`gbp_tag`
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    nac_tag_match:
+      description: 'if `type`==`match`. enum: `cert_cn`, `cert_eku`, `cert_issuer`, `cert_san`, `cert_serial`, `cert_sub`, `cert_template`, `client_mac`, `edr_status`, `gbp_tag`, `hostname`, `idp_role`, `ingress_vlan`, `mdm_status`, `nas_ip`, `radius_group`, `realm`, `ssid`, `user_name`, `usermac_label`'
+      enum:
+      - cert_cn
+      - cert_eku
+      - cert_issuer
+      - cert_san
+      - cert_serial
+      - cert_sub
+      - cert_template
+      - client_mac
+      - edr_status
+      - gbp_tag
+      - hostname
+      - idp_role
+      - ingress_vlan
+      - mdm_status
+      - nas_ip
+      - radius_group
+      - realm
+      - ssid
+      - user_name
+      - usermac_label
+      minLength: 1
+      type: string
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
     nac_tag:
       properties:
         allow_usermac_override:
@@ -306,127 +399,36 @@ components:
       - name
       - type
       type: object
-    nac_tag_match:
-      description: 'if `type`==`match`. enum: `cert_cn`, `cert_eku`, `cert_issuer`, `cert_san`, `cert_serial`, `cert_sub`, `cert_template`, `client_mac`, `edr_status`, `gbp_tag`, `hostname`, `idp_role`, `ingress_vlan`, `mdm_status`, `nas_ip`, `radius_group`, `realm`, `ssid`, `user_name`, `usermac_label`'
-      enum:
-      - cert_cn
-      - cert_eku
-      - cert_issuer
-      - cert_san
-      - cert_serial
-      - cert_sub
-      - cert_template
-      - client_mac
-      - edr_status
-      - gbp_tag
-      - hostname
-      - idp_role
-      - ingress_vlan
-      - mdm_status
-      - nas_ip
-      - radius_group
-      - realm
-      - ssid
-      - user_name
-      - usermac_label
-      minLength: 1
-      type: string
-    nac_tag_egress_vlan_names:
-      description: If `type`==`egress_vlan_names`, list of egress vlans to return
-      examples:
-      - - 1vlan-30
-        - 1vlan-20
-        - 2-vlan10
-      items:
-        type: string
-      type: array
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    redirect_nacportal_id:
-      description: If `type`==`redirect_nacportal_id`, the ID of the NAC portal to redirect to
-      examples:
-      - 1e970fec-0a7a-4d73-a472-3ef3b6a456aa
-      format: uuid
-      type: string
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    nac_tags:
-      items:
-        $ref: '#/components/schemas/nac_tag'
-      type: array
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    nac_tag_gbp_tag:
-      anyOf:
-      - maximum: 65535
-        minimum: 1
-        type: integer
-      - type: string
-      description: If `type`==`gbp_tag`
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    nac_tag_radius_vendor_attrs:
-      description: "If `type`==`radius_vendor_attrs`, user can specify a list of one or more vendor-specific attributes in the field \"radius_vendor_attrs\". \nIt is the responsibility of the user to provide a syntactically correct string, otherwise it may not work as expected.\nNote that it is allowed to have more than one radius_vendor_attrs in the result of a given rule."
-      examples:
-      - - PaloAlto-Admin-Role=superuser
-        - PaloAlto-Panorama-Admin-Role=administrator
-      items:
-        type: string
-      type: array
   examples:
-    NacTagMatchesClientMac:
+    HTTP400Example:
       value:
-        match: client_mac
-        name: cameras
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    NacTagMatchesHostname:
+      value:
+        match: hostname
+        name: hostname1
         type: match
         values:
-        - '010203040506'
-        - abcdef*
-    NacTagEgressVlanNames:
+        - CP*
+        - USR*
+    NacTagMatchesVlan:
       value:
-        egress_vlan_names:
-        - 1vlan-30
-        - 1vlan-20
-        - 2vlan10
-        name: trunk_ap
-        type: egress_vlan_names
-    HTTP429Example:
+        name: guest_vlan
+        type: vlan
+        vlan: '30'
+    NacTagUsernameAttr:
       value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    NacTagMatchesCertCN:
+        allow_usermac_override: true
+        name: username_attr
+        type: username_attr
+        username_attr: automatic
+    NacTagRadiusVendorAttrs:
       value:
-        match: cert_cn
-        name: staff
-        type: match
-        values:
-        - john
-        - staff*
+        name: custom_radius_vendor_attrs
+        radius_vendor_attrs:
+        - PaloAlto-Admin-Role=superuser
+        - PaloAlto-Panorama-Admin-Role=administrator
+        type: radius_vendor_attrs
     NacTagMatchesCertIssuer:
       value:
         match: cert_issuer
@@ -434,30 +436,6 @@ components:
         type: match
         values:
         - /C=CN/ST=defy/L=defy/O=defy/OU=defy/CN=defy
-    NacTagMatchesCertSub:
-      value:
-        match: cert_sub
-        name: subject1
-        type: match
-        values:
-        - /C=CN/ST=defy/O=defy/OU=defy/CN=steve
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    NacTagMatchesCertSerial:
-      value:
-        match: cert_serial
-        name: serial1
-        type: match
-        values:
-        - 6a524ab782fb468c00c59f51cff00268d95533b8
-    NacTagMatchesRealm:
-      value:
-        match: realm
-        name: defy
-        type: match
-        values:
-        - defy.com
     NacTagMatchesEdrStatus:
       value:
         match: edr_status
@@ -473,51 +451,44 @@ components:
         - crowdstrike_critical
         - crowdstrike_informational
         - unknown
-    HTTP400Example:
+    NacTagMatchesRealm:
       value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    NacTagUsernameAttr:
-      value:
-        allow_usermac_override: true
-        name: username_attr
-        type: username_attr
-        username_attr: automatic
-    NacTagRadiusVendorAttrs:
-      value:
-        name: custom_radius_vendor_attrs
-        radius_vendor_attrs:
-        - PaloAlto-Admin-Role=superuser
-        - PaloAlto-Panorama-Admin-Role=administrator
-        type: radius_vendor_attrs
-    NacTagSessionTimeout:
-      value:
-        name: timeout
-        session_timeout: 86400
-        type: session_timeout
-    NacTagMatchesVlan:
-      value:
-        name: guest_vlan
-        type: vlan
-        vlan: '30'
-    NacTagMatchesHostname:
-      value:
-        match: hostname
-        name: hostname1
+        match: realm
+        name: defy
         type: match
         values:
-        - CP*
-        - USR*
-    HTTP401Example:
+        - defy.com
+    NacTagRadiusAttrs:
       value:
-        detail: Authentication credentials were not provided.
-    NacTagMatchesUsername:
+        name: custom_attrs
+        radius_attrs:
+        - Idle-Timeout=600
+        - Termination-Action=RADIUS-Request
+        type: radius_attrs
+    NacTagEgressVlanNames:
       value:
-        match: user_name
-        name: admins
+        egress_vlan_names:
+        - 1vlan-30
+        - 1vlan-20
+        - 2vlan10
+        name: trunk_ap
+        type: egress_vlan_names
+    NacTagMatchesClientMac:
+      value:
+        match: client_mac
+        name: cameras
         type: match
         values:
-        - bob
-        - steve
+        - '010203040506'
+        - abcdef*
+    NacTagMatchesCertCN:
+      value:
+        match: cert_cn
+        name: staff
+        type: match
+        values:
+        - john
+        - staff*
     NacTagMatchesCertTemplate:
       value:
         match: cert_template
@@ -526,32 +497,29 @@ components:
         values:
         - 1.3.6.1.4.1.311.21.8.4200806.605933.871088.11229391.9863893.29.13545645.4807979
         - 1.3.6.1.4.1.311.21.8.3285427.4093958.2707341.9961608.11572555.6.4903431.2258457
-    NacTagRadiusAttrs:
+    NacTagMatchesCertSerial:
       value:
-        name: custom_attrs
-        radius_attrs:
-        - Idle-Timeout=600
-        - Termination-Action=RADIUS-Request
-        type: radius_attrs
-    NacTagMatchesRole:
-      value:
-        match: idp_role
-        name: VIP
+        match: cert_serial
+        name: serial1
         type: match
         values:
-        - vip
-    NacTagMatchesCertSAN:
-      value:
-        match: cert_san
-        name: san1
-        type: match
-        values:
-        - henry1@defy.com
+        - 6a524ab782fb468c00c59f51cff00268d95533b8
     NacTagMatchesRadiusGroup:
       value:
         name: VIP_group
         radius_group: VIP
         type: radius_group
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    NacTagSessionTimeout:
+      value:
+        name: timeout
+        session_timeout: 86400
+        type: session_timeout
     NacTagMatchesCertEku:
       value:
         match: cert_eku
@@ -560,7 +528,54 @@ components:
         values:
         - 1.3.6.1.4.1.54321.10.1
         - 1.3.6.1.4.1.54321.20.2
+    NacTagMatchesUsername:
+      value:
+        match: user_name
+        name: admins
+        type: match
+        values:
+        - bob
+        - steve
+    NacTagMatchesCertSub:
+      value:
+        match: cert_sub
+        name: subject1
+        type: match
+        values:
+        - /C=CN/ST=defy/O=defy/OU=defy/CN=steve
+    NacTagMatchesRole:
+      value:
+        match: idp_role
+        name: VIP
+        type: match
+        values:
+        - vip
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    NacTagMatchesCertSAN:
+      value:
+        match: cert_san
+        name: san1
+        type: match
+        values:
+        - henry1@defy.com
   responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -576,17 +591,17 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
+    OK:
+      description: OK
+    NacTagsArray:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/response_http404'
+            $ref: '#/components/schemas/nac_tags'
         application/vnd.api+json:
           schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    OK:
-      description: OK
+            $ref: '#/components/schemas/nac_tags'
+      description: Example response
     HTTP403:
       content:
         application/json:
@@ -617,30 +632,15 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    NacTagsArray:
+    HTTP404:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/nac_tags'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
           schema:
-            $ref: '#/components/schemas/nac_tags'
-      description: Example response
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     NacTag:
       content:
         application/json:
@@ -729,13 +729,6 @@ components:
             $ref: '#/components/schemas/nac_tag'
       description: Example response
   parameters:
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
     org_id:
       in: path
       name: org_id
@@ -745,6 +738,13 @@ components:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
     nactag_id:
       in: path
       name: nactag_id

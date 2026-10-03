@@ -116,40 +116,28 @@ paths:
       tags:
       - Sites Map Stacks
 components:
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    MapstacksArrayExample:
+      value:
+      - created_time: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        modified_time: 0
+        name: Board Room
+        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
   schemas:
-    mapstacks:
-      items:
-        $ref: '#/components/schemas/mapstack_response'
-      type: array
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    mapstack:
-      additionalProperties: false
-      description: Map Stack filter or creation payload
-      properties:
-        name:
-          description: The name of the map stack
-          examples:
-          - Board Room
-          type: string
-      type: object
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
     mapstack_response:
       additionalProperties: false
       description: Map Stack response object
@@ -170,22 +158,10 @@ components:
         site_id:
           $ref: '#/components/schemas/site_id'
       type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    site_id:
+    id:
+      description: Unique ID of the object instance in the Mist Organization
       examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
       format: uuid
       readOnly: true
       type: string
@@ -197,12 +173,24 @@ components:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    mapstack:
+      additionalProperties: false
+      description: Map Stack filter or creation payload
+      properties:
+        name:
+          description: The name of the map stack
+          examples:
+          - Board Room
+          type: string
+      type: object
     response_http403:
       additionalProperties: false
       properties:
@@ -211,14 +199,62 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    org_id:
       examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
       format: uuid
       readOnly: true
       type: string
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    mapstacks:
+      items:
+        $ref: '#/components/schemas/mapstack_response'
+      type: array
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
   responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -234,15 +270,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    Mapstack:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/mapstack_response'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/mapstack_response'
-      description: OK
     MapstacksArray:
       content:
         application/json:
@@ -258,15 +285,6 @@ components:
           schema:
             $ref: '#/components/schemas/mapstacks'
       description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP403:
       content:
         application/json:
@@ -297,42 +315,24 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    HTTP401:
+    Mapstack:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http401'
+            $ref: '#/components/schemas/mapstack_response'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    MapstacksArrayExample:
-      value:
-      - created_time: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        modified_time: 0
-        name: Board Room
-        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+            $ref: '#/components/schemas/mapstack_response'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
     limit:
       in: query

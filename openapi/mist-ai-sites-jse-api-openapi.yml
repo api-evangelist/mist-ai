@@ -82,27 +82,32 @@ paths:
       tags:
       - Sites JSE
 components:
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    JseInfoExample:
+      value:
+        cloud_name: devcentral.juniperclouds.net
+        org_names:
+        - Mist-Sys
+        - Mist-Eng
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
   schemas:
-    response_http400:
+    response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     account_jse_info:
@@ -119,19 +124,14 @@ components:
           - john@abc.com
           type: string
       type: object
-    response_http429:
+    response_http401:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          - Authentication credentials were not provided.
           type: string
       type: object
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
     response_http403:
       additionalProperties: false
       properties:
@@ -140,7 +140,41 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
   responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -156,15 +190,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
+    JseInfo:
       content:
         application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JseInfoExample'
           schema:
-            $ref: '#/components/schemas/response_http404'
+            $ref: '#/components/schemas/account_jse_info'
         application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JseInfoExample'
           schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+            $ref: '#/components/schemas/account_jse_info'
+      description: Example response
     HTTP403:
       content:
         application/json:
@@ -195,55 +235,15 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    HTTP401:
+    HTTP404:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http401'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    JseInfo:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JseInfoExample'
-          schema:
-            $ref: '#/components/schemas/account_jse_info'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JseInfoExample'
-          schema:
-            $ref: '#/components/schemas/account_jse_info'
-      description: Example response
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    JseInfoExample:
-      value:
-        cloud_name: devcentral.juniperclouds.net
-        org_names:
-        - Mist-Sys
-        - Mist-Eng
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
     site_id:
       in: path

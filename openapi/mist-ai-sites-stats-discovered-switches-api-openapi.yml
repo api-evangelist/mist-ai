@@ -230,41 +230,137 @@ paths:
       - Sites Stats - Discovered Switches
 components:
   schemas:
-    response_http400:
+    discovered_switches_metric_scope:
+      default: site
+      description: 'enum: `site`, `switch`'
+      enum:
+      - site
+      - switch
+      type: string
+    dswitches_metrics_poe_compliance:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
+        details:
+          $ref: '#/components/schemas/dswitches_metrics_poe_compliance_details'
+        score:
+          type: number
+      required:
+      - score
+      - details
       type: object
-    ap_redundancy_modules:
-      additionalProperties:
-        $ref: '#/components/schemas/ap_redundancy_module'
-      description: Property key is the node id
-      type: object
-    response_count:
+    response_discovered_switches:
       additionalProperties: false
       properties:
-        distinct:
-          type: string
         end:
-          type: integer
+          type: number
         limit:
           type: integer
+        next:
+          type: string
         results:
-          $ref: '#/components/schemas/count_results'
+          $ref: '#/components/schemas/response_discovered_switches_results'
         start:
-          type: integer
+          type: number
         total:
           type: integer
       required:
-      - distinct
       - end
       - limit
       - results
       - start
       - total
+      type: object
+    dswitches_metrics_inactive_wired_vlans:
+      additionalProperties: false
+      properties:
+        details:
+          additionalProperties: true
+          type: object
+        score:
+          type: number
+      required:
+      - score
+      - details
+      type: object
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    dswitches_metrics_switch_ap_affinity:
+      additionalProperties: false
+      properties:
+        details:
+          $ref: '#/components/schemas/dswitches_metrics_switch_ap_affinity_details'
+        score:
+          type: number
+      required:
+      - score
+      - details
+      type: object
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    dswitches_compliance_major_version:
+      additionalProperties: false
+      properties:
+        major_count:
+          type: number
+        model:
+          type: string
+        system_names:
+          $ref: '#/components/schemas/strings'
+      required:
+      - model
+      - major_count
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    discovered_switch_metric_ap:
+      additionalProperties: false
+      properties:
+        hostname:
+          type: string
+        mac:
+          type: string
+        poe_status:
+          type: boolean
+        port:
+          type: string
+        port_id:
+          type: string
+        power_draw:
+          type: integer
+        when:
+          type: string
+      type: object
+    ap_redundancy_module:
+      additionalProperties: false
+      properties:
+        num_aps:
+          examples:
+          - 15
+          type: integer
+        num_aps_with_switch_redundancy:
+          examples:
+          - 8
+          type: integer
       type: object
     discovered_switch_metric:
       additionalProperties: false
@@ -316,24 +412,6 @@ components:
         version:
           type: string
       type: object
-    discovered_switch_metric_aps:
-      items:
-        $ref: '#/components/schemas/discovered_switch_metric_ap'
-      type: array
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    discovered_switch_metric_type:
-      description: 'enum: `inactive_wired_vlans`, `poe_compliance`, `switch_ap_affinity`, `version_compliance`'
-      enum:
-      - inactive_wired_vlans
-      - poe_compliance
-      - switch_ap_affinity
-      - version_compliance
-      type: string
     response_discovered_switch_metrics:
       additionalProperties: false
       properties:
@@ -356,71 +434,62 @@ components:
       - limit
       - total
       type: object
-    discovered_switch_metric_ap:
+    response_http403:
       additionalProperties: false
       properties:
-        hostname:
-          type: string
-        mac:
-          type: string
-        poe_status:
-          type: boolean
-        port:
-          type: string
-        port_id:
-          type: string
-        power_draw:
-          type: integer
-        when:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
           type: string
       type: object
-    count_results:
+    dswitches_compliance_major_versions:
       items:
-        $ref: '#/components/schemas/count_result'
+        $ref: '#/components/schemas/dswitches_compliance_major_version'
       type: array
       uniqueItems: true
-    dswitches_metrics_switch_ap_affinity_details:
+    discovered_switch_aps:
+      items:
+        $ref: '#/components/schemas/discovered_switch_ap'
+      type: array
+      uniqueItems: true
+    response_http400:
       additionalProperties: false
       properties:
-        system_name:
-          $ref: '#/components/schemas/strings'
-        threshold:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    integers:
+      items:
+        type: integer
+      type: array
+    dswitches_metrics_poe_compliance_details:
+      additionalProperties: false
+      properties:
+        total_aps:
+          type: integer
+        total_power:
           type: number
       required:
-      - threshold
-      - system_name
+      - total_power
+      - total_aps
       type: object
-    dswitches_metrics_version_compliance_details:
-      additionalProperties: false
+    count_result:
+      additionalProperties:
+        type: string
       properties:
-        major_versions:
-          $ref: '#/components/schemas/dswitches_compliance_major_versions'
-        total_switch_count:
+        count:
           type: integer
       required:
-      - major_versions
-      - total_switch_count
+      - count
       type: object
-    dswitches_metrics_inactive_wired_vlans:
+    response_http404:
       additionalProperties: false
       properties:
-        details:
-          additionalProperties: true
-          type: object
-        score:
-          type: number
-      required:
-      - score
-      - details
+        id:
+          type: string
       type: object
-    discovered_switch_metric_chassis_id:
-      items:
-        type: string
-      type: array
-    response_discovered_switch_metrics_results:
-      items:
-        $ref: '#/components/schemas/discovered_switch_metric'
-      type: array
     discovered_switch:
       additionalProperties: false
       properties:
@@ -454,45 +523,76 @@ components:
         version:
           type: string
       type: object
-    dswitches_metrics_poe_compliance:
-      additionalProperties: false
-      properties:
-        details:
-          $ref: '#/components/schemas/dswitches_metrics_poe_compliance_details'
-        score:
-          type: number
-      required:
-      - score
-      - details
-      type: object
-    discovered_switches_metric_scope:
-      default: site
-      description: 'enum: `site`, `switch`'
-      enum:
-      - site
-      - switch
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
       type: string
-    integers:
-      items:
-        type: integer
-      type: array
-    dswitches_metrics_switch_ap_affinity:
+    discovered_switch_metric_type:
+      description: 'enum: `inactive_wired_vlans`, `poe_compliance`, `switch_ap_affinity`, `version_compliance`'
+      enum:
+      - inactive_wired_vlans
+      - poe_compliance
+      - switch_ap_affinity
+      - version_compliance
+      type: string
+    dswitches_metrics_switch_ap_affinity_details:
       additionalProperties: false
       properties:
-        details:
-          $ref: '#/components/schemas/dswitches_metrics_switch_ap_affinity_details'
-        score:
+        system_name:
+          $ref: '#/components/schemas/strings'
+        threshold:
           type: number
       required:
-      - score
-      - details
+      - threshold
+      - system_name
       type: object
-    response_http401:
+    response_discovered_switch_metrics_results:
+      items:
+        $ref: '#/components/schemas/discovered_switch_metric'
+      type: array
+    response_count:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
+        distinct:
+          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    discovered_switch_ap:
+      additionalProperties: false
+      properties:
+        hostname:
+          type: string
+        inactive_wired_vlans:
+          $ref: '#/components/schemas/integers'
+        mac:
+          type: string
+        poe_status:
+          type: boolean
+        port:
+          type: string
+        port_id:
+          type: string
+        power_draw:
+          type: number
+        when:
           type: string
       type: object
     dswitches_metrics_version_compliance:
@@ -505,81 +605,6 @@ components:
       required:
       - score
       - details
-      type: object
-    dswitches_compliance_major_version:
-      additionalProperties: false
-      properties:
-        major_count:
-          type: number
-        model:
-          type: string
-        system_names:
-          $ref: '#/components/schemas/strings'
-      required:
-      - model
-      - major_count
-      type: object
-    ap_redundancy_module:
-      additionalProperties: false
-      properties:
-        num_aps:
-          examples:
-          - 15
-          type: integer
-        num_aps_with_switch_redundancy:
-          examples:
-          - 8
-          type: integer
-      type: object
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    response_discovered_switches_results:
-      items:
-        $ref: '#/components/schemas/discovered_switch'
-      type: array
-      uniqueItems: true
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    count_result:
-      additionalProperties:
-        type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    response_dswitches_metrics:
-      additionalProperties: false
-      properties:
-        inactive_wired_vlans:
-          $ref: '#/components/schemas/dswitches_metrics_inactive_wired_vlans'
-        poe_compliance:
-          $ref: '#/components/schemas/dswitches_metrics_poe_compliance'
-        switch_ap_affinity:
-          $ref: '#/components/schemas/dswitches_metrics_switch_ap_affinity'
-        version_compliance:
-          $ref: '#/components/schemas/dswitches_metrics_version_compliance'
-      required:
-      - version_compliance
-      - switch_ap_affinity
-      - inactive_wired_vlans
-      - poe_compliance
       type: object
     ap_redundancy:
       additionalProperties: false
@@ -604,219 +629,81 @@ components:
       - system_name
       - version
       type: string
-    org_id:
+    site_id:
       examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
       format: uuid
       readOnly: true
       type: string
-    discovered_switch_aps:
+    ap_redundancy_modules:
+      additionalProperties:
+        $ref: '#/components/schemas/ap_redundancy_module'
+      description: Property key is the node id
+      type: object
+    discovered_switch_metric_aps:
       items:
-        $ref: '#/components/schemas/discovered_switch_ap'
+        $ref: '#/components/schemas/discovered_switch_metric_ap'
+      type: array
+    response_discovered_switches_results:
+      items:
+        $ref: '#/components/schemas/discovered_switch'
       type: array
       uniqueItems: true
-    dswitches_compliance_major_versions:
-      items:
-        $ref: '#/components/schemas/dswitches_compliance_major_version'
-      type: array
-      uniqueItems: true
+    dswitches_metrics_version_compliance_details:
+      additionalProperties: false
+      properties:
+        major_versions:
+          $ref: '#/components/schemas/dswitches_compliance_major_versions'
+        total_switch_count:
+          type: integer
+      required:
+      - major_versions
+      - total_switch_count
+      type: object
     strings:
       items:
         type: string
       type: array
       uniqueItems: true
-    response_http403:
+    discovered_switch_metric_chassis_id:
+      items:
+        type: string
+      type: array
+    response_dswitches_metrics:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    discovered_switch_ap:
-      additionalProperties: false
-      properties:
-        hostname:
-          type: string
         inactive_wired_vlans:
-          $ref: '#/components/schemas/integers'
-        mac:
-          type: string
-        poe_status:
-          type: boolean
-        port:
-          type: string
-        port_id:
-          type: string
-        power_draw:
-          type: number
-        when:
-          type: string
-      type: object
-    response_discovered_switches:
-      additionalProperties: false
-      properties:
-        end:
-          type: number
-        limit:
-          type: integer
-        next:
-          type: string
-        results:
-          $ref: '#/components/schemas/response_discovered_switches_results'
-        start:
-          type: number
-        total:
-          type: integer
+          $ref: '#/components/schemas/dswitches_metrics_inactive_wired_vlans'
+        poe_compliance:
+          $ref: '#/components/schemas/dswitches_metrics_poe_compliance'
+        switch_ap_affinity:
+          $ref: '#/components/schemas/dswitches_metrics_switch_ap_affinity'
+        version_compliance:
+          $ref: '#/components/schemas/dswitches_metrics_version_compliance'
       required:
-      - end
-      - limit
-      - results
-      - start
-      - total
+      - version_compliance
+      - switch_ap_affinity
+      - inactive_wired_vlans
+      - poe_compliance
       type: object
-    dswitches_metrics_poe_compliance_details:
-      additionalProperties: false
-      properties:
-        total_aps:
-          type: integer
-        total_power:
-          type: number
-      required:
-      - total_power
-      - total_aps
-      type: object
-  responses:
-    DiscoveredSwitchesMetrics:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DiscoveredSwitchesMetricsExample'
-          schema:
-            $ref: '#/components/schemas/response_dswitches_metrics'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DiscoveredSwitchesMetricsExample'
-          schema:
-            $ref: '#/components/schemas/response_dswitches_metrics'
-      description: OK
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    DiscoveredSwitches:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DiscoveredSwitchesExample'
-          schema:
-            $ref: '#/components/schemas/response_discovered_switches'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DiscoveredSwitchesExample'
-          schema:
-            $ref: '#/components/schemas/response_discovered_switches'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    DiscoveredSwitchMetrics:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DiscoveredSwitchMetricsExample'
-          schema:
-            $ref: '#/components/schemas/response_discovered_switch_metrics'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DiscoveredSwitchMetricsExample'
-          schema:
-            $ref: '#/components/schemas/response_discovered_switch_metrics'
-      description: OK
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
   examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    DiscoveredSwitchMetricsExample:
+      value:
+        end: 1675193686.0191767
+        limit: 1
+        next: /api/v1/sites/f5fcbee5-fbca-45b3-8bf1-1619ede87879/stats/discovered_switch_metrics/search?end=1675193686.0191767&limit=1&search_after=%5B1675193400000%5D&start=1675107286.0191767
+        results:
+        - org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
+          scope: site
+          score: 100
+          site_id: f5fcbee5-fbca-45b3-8bf1-1619ede87879
+          timestamp: 1675193400
+          type: inactive_wired_vlans
+        start: 1675107286.0191767
+        total: 3
     DiscoveredSwitchesMetricsExample:
       value:
         inactive_wired_vlans:
@@ -850,6 +737,9 @@ components:
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
     DiscoveredSwitchesExample:
       value:
         end: 1604496474.8978634
@@ -875,9 +765,6 @@ components:
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     CountExample:
       value:
         distinct: string
@@ -888,37 +775,137 @@ components:
           property: string
         start: 0
         total: 0
-    DiscoveredSwitchMetricsExample:
-      value:
-        end: 1675193686.0191767
-        limit: 1
-        next: /api/v1/sites/f5fcbee5-fbca-45b3-8bf1-1619ede87879/stats/discovered_switch_metrics/search?end=1675193686.0191767&limit=1&search_after=%5B1675193400000%5D&start=1675107286.0191767
-        results:
-        - org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
-          scope: site
-          score: 100
-          site_id: f5fcbee5-fbca-45b3-8bf1-1619ede87879
-          timestamp: 1675193400
-          type: inactive_wired_vlans
-        start: 1675107286.0191767
-        total: 3
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+  responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    DiscoveredSwitchMetrics:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DiscoveredSwitchMetricsExample'
+          schema:
+            $ref: '#/components/schemas/response_discovered_switch_metrics'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DiscoveredSwitchMetricsExample'
+          schema:
+            $ref: '#/components/schemas/response_discovered_switch_metrics'
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    DiscoveredSwitches:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DiscoveredSwitchesExample'
+          schema:
+            $ref: '#/components/schemas/response_discovered_switches'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DiscoveredSwitchesExample'
+          schema:
+            $ref: '#/components/schemas/response_discovered_switches'
+      description: OK
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    DiscoveredSwitchesMetrics:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DiscoveredSwitchesMetricsExample'
+          schema:
+            $ref: '#/components/schemas/response_dswitches_metrics'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DiscoveredSwitchesMetricsExample'
+          schema:
+            $ref: '#/components/schemas/response_dswitches_metrics'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
     sort:
       description: On which field the list should be sorted, -prefix represents DESC order
       in: query
@@ -928,21 +915,19 @@ components:
         examples:
         - -site_id
         type: string
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
     search_after:
       description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
       in: query
       name: search_after
       schema:
         type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
     site_id:
       in: path
       name: site_id
@@ -951,6 +936,21 @@ components:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
+        type: string
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
         type: string
     end:
       description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")

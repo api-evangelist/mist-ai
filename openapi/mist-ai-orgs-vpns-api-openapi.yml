@@ -203,33 +203,57 @@ paths:
       tags:
       - Orgs VPNs
 components:
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    VpnsArrayExample:
+      value:
+      - name: string
+        paths:
+          property1:
+            bfd_profile: broadband
+            ip: string
+          property2:
+            bfd_profile: lte
+            ip: string
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    VpnExample:
+      value:
+        created_time: 0
+        id: 497f6eca-6276-5009-bfeb-53cbbbba6f1b
+        modified_time: 0
+        name: string
+        org_id: a40f5d1f-d889-42e9-94ea-b9b33585fc6b
+        paths:
+          property1:
+            bfd_profile: broadband
+            ip: string
+          property2:
+            bfd_profile: broadband
+            ip: string
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
   schemas:
-    response_http400:
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    vpn_path_peer_paths:
-      additionalProperties:
-        $ref: '#/components/schemas/vpn_path_peer_paths_peer'
-      description: If `type`==`mesh`, Property key is the Peer Interface name
-      type: object
-    vpns:
-      items:
-        $ref: '#/components/schemas/vpn'
-      type: array
-    vpn_paths:
-      additionalProperties:
-        $ref: '#/components/schemas/vpn_path'
-      description: For `type`==`hub_spoke`, Property key is the VPN name. For `type`==`mesh`, Property key is the Interface name
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     vpn_path_selection:
@@ -239,24 +263,39 @@ components:
         strategy:
           $ref: '#/components/schemas/vpn_path_selection_strategy'
       type: object
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
-    vpn_path_peer_paths_peer:
-      additionalProperties: false
-      description: Preference indicates which outgoing wan should be preferred
-      properties:
-        preference:
-          type: integer
-      type: object
+    vpn_mode:
+      default: hub_spoke
+      description: 'enum: `hub_spoke`, `mesh`'
+      enum:
+      - hub_spoke
+      - mesh
+      type: string
     response_http401:
       additionalProperties: false
       properties:
         detail:
           examples:
           - Authentication credentials were not provided.
+          type: string
+      type: object
+    vpn_path_traffic_shaping:
+      additionalProperties: false
+      properties:
+        class_percentage:
+          $ref: '#/components/schemas/vpn_path_traffic_shaping_class_percentage'
+        enabled:
+          type: boolean
+        max_tx_kbps:
+          type:
+          - integer
+          - 'null'
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
           type: string
       type: object
     vpn:
@@ -313,46 +352,26 @@ components:
       - broadband
       - lte
       type: string
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    vpn_path_traffic_shaping:
+    vpn_path_peer_paths_peer:
       additionalProperties: false
+      description: Preference indicates which outgoing wan should be preferred
       properties:
-        class_percentage:
-          $ref: '#/components/schemas/vpn_path_traffic_shaping_class_percentage'
-        enabled:
-          type: boolean
-        max_tx_kbps:
-          type:
-          - integer
-          - 'null'
+        preference:
+          type: integer
       type: object
-    vpn_mode:
-      default: hub_spoke
-      description: 'enum: `hub_spoke`, `mesh`'
-      enum:
-      - hub_spoke
-      - mesh
-      type: string
-    response_http429:
+    response_http400:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    vpn_path_selection_strategy:
-      default: disabled
-      description: 'enum: `disabled`, `simple`, `manual`'
-      enum:
-      - disabled
-      - simple
-      - manual
-      type: string
+    vpn_paths:
+      additionalProperties:
+        $ref: '#/components/schemas/vpn_path'
+      description: For `type`==`hub_spoke`, Property key is the VPN name. For `type`==`mesh`, Property key is the Interface name
+      type: object
     vpn_path_traffic_shaping_class_percentage:
       default:
       - 80
@@ -365,52 +384,46 @@ components:
       maxItems: 4
       minItems: 4
       type: array
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
     org_id:
       examples:
       - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
       format: uuid
       readOnly: true
       type: string
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
+    vpns:
+      items:
+        $ref: '#/components/schemas/vpn'
+      type: array
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
       readOnly: true
+      type: number
+    vpn_path_peer_paths:
+      additionalProperties:
+        $ref: '#/components/schemas/vpn_path_peer_paths_peer'
+      description: If `type`==`mesh`, Property key is the Peer Interface name
+      type: object
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
+    vpn_path_selection_strategy:
+      default: disabled
+      description: 'enum: `disabled`, `simple`, `manual`'
+      enum:
+      - disabled
+      - simple
+      - manual
       type: string
   responses:
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     VpnsArray:
       content:
         application/json:
@@ -426,6 +439,36 @@ components:
           schema:
             $ref: '#/components/schemas/vpns'
       description: Example response
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     OK:
       description: OK
     HTTP403:
@@ -458,6 +501,15 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     Vpn:
       content:
         application/json:
@@ -473,62 +525,10 @@ components:
           schema:
             $ref: '#/components/schemas/vpn'
       description: Example response
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    VpnExample:
-      value:
-        created_time: 0
-        id: 497f6eca-6276-5009-bfeb-53cbbbba6f1b
-        modified_time: 0
-        name: string
-        org_id: a40f5d1f-d889-42e9-94ea-b9b33585fc6b
-        paths:
-          property1:
-            bfd_profile: broadband
-            ip: string
-          property2:
-            bfd_profile: broadband
-            ip: string
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    VpnsArrayExample:
-      value:
-      - name: string
-        paths:
-          property1:
-            bfd_profile: broadband
-            ip: string
-          property2:
-            bfd_profile: lte
-            ip: string
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
   parameters:
-    vpn_id:
+    org_id:
       in: path
-      name: vpn_id
+      name: org_id
       required: true
       schema:
         examples:
@@ -542,9 +542,9 @@ components:
         default: 100
         minimum: 0
         type: integer
-    org_id:
+    vpn_id:
       in: path
-      name: org_id
+      name: vpn_id
       required: true
       schema:
         examples:

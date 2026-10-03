@@ -362,13 +362,83 @@ paths:
       tags:
       - Orgs Alarms
 components:
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
   schemas:
-    response_http400:
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    alarm_severity:
+      description: 'Severity of the alarm. enum: `critical`, `info`, `warn`'
+      enum:
+      - critical
+      - info
+      - warn
+      type: string
+    alarm_switches:
+      description: 'additional information: List of MACs of the switches'
+      examples:
+      - - ffeeddccbbaa
+        - ffeeddccbbab
+      items:
+        type: string
+      type: array
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    alarm_bssids:
+      description: List of BSSIDs
+      items:
+        examples:
+        - Corp SSID
+        type: string
+      type: array
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
           type: string
       type: object
     alarm:
@@ -464,11 +534,55 @@ components:
       - severity
       - count
       type: object
-    alarm_ids:
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    alarm_search_results:
       items:
-        format: uuid
+        $ref: '#/components/schemas/alarm'
+      type: array
+    alarm_status:
+      description: 'enum: `open`, `resolved`'
+      enum:
+      - open
+      - resolved
+      type: string
+    alarm_gateways:
+      description: 'additional information: List of MACs of the gateways'
+      examples:
+      - - ffeeddccbbaa
+        - ffeeddccbbab
+      items:
         type: string
       type: array
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
     response_count:
       additionalProperties: false
       properties:
@@ -492,34 +606,14 @@ components:
       - start
       - total
       type: object
-    alarm_bssids:
-      description: List of BSSIDs
-      items:
-        examples:
-        - Corp SSID
-        type: string
-      type: array
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    alarm_hostnames:
-      description: 'additional information: List of Hostnames of the devices (AP/Switch/Gateway)'
+    org_id:
       examples:
-      - - MC_DavidL
-        - MCM_AP_33_Nishant
-      items:
-        type: string
-      type: array
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    alarm_gateways:
-      description: 'additional information: List of MACs of the gateways'
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    alarm_aps:
+      description: 'additional information: List of MACs of the APs'
       examples:
       - - ffeeddccbbaa
         - ffeeddccbbab
@@ -565,14 +659,6 @@ components:
       - total
       - results
       type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
     note_string:
       properties:
         note:
@@ -581,10 +667,6 @@ components:
           - maintenance window
           type: string
       type: object
-    alarm_search_results:
-      items:
-        $ref: '#/components/schemas/alarm'
-      type: array
     alarms:
       properties:
         alarm_ids:
@@ -595,49 +677,25 @@ components:
       required:
       - alarm_ids
       type: object
-    alarm_aps:
-      description: 'additional information: List of MACs of the APs'
-      examples:
-      - - ffeeddccbbaa
-        - ffeeddccbbab
+    alarm_ssids:
+      description: List of SSIDs
       items:
         type: string
       type: array
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
     site_id:
       examples:
       - 441a1214-6928-442a-8e92-e1d34b8ec6a6
       format: uuid
       readOnly: true
       type: string
-    count_result:
-      additionalProperties:
+    alarm_hostnames:
+      description: 'additional information: List of Hostnames of the devices (AP/Switch/Gateway)'
+      examples:
+      - - MC_DavidL
+        - MCM_AP_33_Nishant
+      items:
         type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    alarm_severity:
-      description: 'Severity of the alarm. enum: `critical`, `info`, `warn`'
-      enum:
-      - critical
-      - info
-      - warn
-      type: string
+      type: array
     alarm_group:
       description: 'Alarm group. enum: `infrastructure`, `marvis`, `security`'
       enum:
@@ -645,127 +703,12 @@ components:
       - marvis
       - security
       type: string
-    alarm_switches:
-      description: 'additional information: List of MACs of the switches'
-      examples:
-      - - ffeeddccbbaa
-        - ffeeddccbbab
+    alarm_ids:
       items:
-        type: string
-      type: array
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    alarm_status:
-      description: 'enum: `open`, `resolved`'
-      enum:
-      - open
-      - resolved
-      type: string
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    alarm_ssids:
-      description: List of SSIDs
-      items:
+        format: uuid
         type: string
       type: array
   responses:
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    OK:
-      description: OK
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    AlarmsSearch:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/alarm_search_result'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/alarm_search_result'
-      description: OK
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
     HTTP401:
       content:
         application/json:
@@ -781,46 +724,105 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+    AlarmsSearch:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/alarm_search_result'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/alarm_search_result'
+      description: OK
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    OK:
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
     org_id:
       in: path
       name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    alarm_severity:
+      description: 'Severity of the alarm. enum: `critical`, `info`, `warn`'
+      in: query
+      name: severity
+      schema:
+        $ref: '#/components/schemas/alarm_severity'
+    alarm_id:
+      in: path
+      name: alarm_id
       required: true
       schema:
         examples:
@@ -836,21 +838,6 @@ components:
         examples:
         - -site_id
         type: string
-    alarm_severity:
-      description: 'Severity of the alarm. enum: `critical`, `info`, `warn`'
-      in: query
-      name: severity
-      schema:
-        $ref: '#/components/schemas/alarm_severity'
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
     search_after:
       description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
       in: query
@@ -863,14 +850,27 @@ components:
       name: group
       schema:
         $ref: '#/components/schemas/alarm_group'
-    alarm_id:
-      in: path
-      name: alarm_id
-      required: true
+    limit:
+      in: query
+      name: limit
       schema:
+        default: 100
+        minimum: 0
+        type: integer
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
         examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
+        - 10m
         type: string
     end:
       description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")

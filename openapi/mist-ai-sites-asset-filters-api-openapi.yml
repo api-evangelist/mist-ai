@@ -180,13 +180,52 @@ paths:
       tags:
       - Sites Asset Filters
 components:
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    AssetfilterExample:
+      value:
+        created_time: 0
+        disabled: true
+        eddystone_uid_namespace: string
+        eddystone_url: string
+        for_site: true
+        ibeacon_major: 1
+        ibeacon_uuid: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        mfg_company_id: 0
+        modified_time: 0
+        name: string
+        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
   schemas:
-    response_http400:
+    asset_filters:
+      items:
+        $ref: '#/components/schemas/asset_filter'
+      type: array
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     asset_filter:
@@ -247,19 +286,12 @@ components:
       required:
       - name
       type: object
-    ibeacon_major:
-      description: Major number for iBeacon
-      examples:
-      - 1234
-      maximum: 65535
-      minimum: 1
-      type:
-      - integer
-      - 'null'
-    response_http404:
+    response_http401:
       additionalProperties: false
       properties:
-        id:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
           type: string
       type: object
     ibeacon_uuid:
@@ -269,19 +301,34 @@ components:
       type:
       - string
       - 'null'
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
-    response_http401:
+    response_http403:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - Authentication credentials were not provided.
+          - You do not have permission to perform this action.
           type: string
       type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
     modified_time:
       description: When the object has been modified for the last time, in epoch
       format: double
@@ -293,39 +340,116 @@ components:
       format: uuid
       readOnly: true
       type: string
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
       readOnly: true
-      type: string
-    asset_filters:
-      items:
-        $ref: '#/components/schemas/asset_filter'
-      type: array
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
+      type: number
+    ibeacon_major:
+      description: Major number for iBeacon
       examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
+      - 1234
+      maximum: 65535
+      minimum: 1
+      type:
+      - integer
+      - 'null'
+  responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    OK:
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    AssetfiltersArray:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/asset_filters'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/asset_filters'
+      description: OK
+    Assetfilter:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/AssetfilterExample'
+          schema:
+            $ref: '#/components/schemas/asset_filter'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/AssetfilterExample'
+          schema:
+            $ref: '#/components/schemas/asset_filter'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
     assetfilter_id:
       in: path
@@ -359,130 +483,6 @@ components:
         default: 1
         minimum: 1
         type: integer
-  responses:
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    Assetfilter:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/AssetfilterExample'
-          schema:
-            $ref: '#/components/schemas/asset_filter'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/AssetfilterExample'
-          schema:
-            $ref: '#/components/schemas/asset_filter'
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    OK:
-      description: OK
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    AssetfiltersArray:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/asset_filters'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/asset_filters'
-      description: OK
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    AssetfilterExample:
-      value:
-        created_time: 0
-        disabled: true
-        eddystone_uid_namespace: string
-        eddystone_url: string
-        for_site: true
-        ibeacon_major: 1
-        ibeacon_uuid: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        mfg_company_id: 0
-        modified_time: 0
-        name: string
-        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

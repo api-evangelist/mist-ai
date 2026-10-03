@@ -293,147 +293,77 @@ paths:
       tags:
       - Orgs Tickets
 components:
-  responses:
-    TicketAttachment:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/TicketAttachmentExample'
-          schema:
-            $ref: '#/components/schemas/ticket_attachment'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/TicketAttachmentExample'
-          schema:
-            $ref: '#/components/schemas/ticket_attachment'
-      description: OK
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    Ticket:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/TicketExample'
-          schema:
-            $ref: '#/components/schemas/ticket'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/TicketExample'
-          schema:
-            $ref: '#/components/schemas/ticket'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    OK:
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    TicketsArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/TicketsArrayExample'
-          schema:
-            $ref: '#/components/schemas/tickets'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/TicketsArrayExample'
-          schema:
-            $ref: '#/components/schemas/tickets'
-      description: OK
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    TicketExample:
+      value:
+        comments:
+        - attachments:
+          - content_type: string
+            content_url: string
+          author: string
+          comment: string
+          created_at: 0
+        created_at: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        requester: string
+        status: open
+        subject: string
+        type: string
+        updated_at: 0
+    TicketsArrayExample:
+      value:
+      - comments:
+        - attachments:
+          - content_type: string
+            content_url: string
+          author: string
+          comment: string
+          created_at: 0
+        created_at: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        requester: string
+        status: open
+        subject: string
+        type: string
+        updated_at: 0
+    TicketAttachmentExample:
+      value:
+        content_url: https://api.mist.com/api/v1/forward/download?jwt=...
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
   schemas:
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
     ticket:
       description: Support Ticket
       properties:
@@ -468,46 +398,60 @@ components:
       - subject
       - type
       type: object
-    ticket_upload_attachments_file:
+    response_http429:
       additionalProperties: false
       properties:
-        file:
-          contentMediaType: application/octet-stream
-          description: Ekahau or ibwave file
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    response_count:
+    ticket_attachment:
       additionalProperties: false
       properties:
-        distinct:
+        content_url:
+          examples:
+          - https://api.mist.com/api/v1/forward/download?jwt=...
+          format: url
           type: string
-        end:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/count_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
       type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    org_tickets_count_distinct:
+      default: status
+      description: 'enum: `status`, `type`'
+      enum:
+      - status
+      - type
+      type: string
     ticket_comments_attachments:
       items:
         $ref: '#/components/schemas/ticket_comments_attachment'
       readOnly: true
       type: array
-    response_http404:
+    response_http403:
       additionalProperties: false
       properties:
-        id:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    ticket_comment_import_file:
+      additionalProperties: false
+      properties:
+        comment:
+          examples:
+          - this is urgent
+          type: string
+        file:
+          contentMediaType: application/octet-stream
           type: string
       type: object
     ticket_comments_attachment:
@@ -537,6 +481,14 @@ components:
           - 1943
           type: integer
       type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
     ticket_comment:
       properties:
         attachment_ids:
@@ -556,62 +508,6 @@ components:
       - comment
       - created_at
       type: object
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    ticket_comments_attachment_id:
-      examples:
-      - 00000000-0000-0000-0000-15231a659c13
-      format: uuid
-      readOnly: true
-      type: string
-    ticket_comment_import_file:
-      additionalProperties: false
-      properties:
-        comment:
-          examples:
-          - this is urgent
-          type: string
-        file:
-          contentMediaType: application/octet-stream
-          type: string
-      type: object
-    tickets:
-      items:
-        $ref: '#/components/schemas/ticket'
-      type: array
-    org_tickets_count_distinct:
-      default: status
-      description: 'enum: `status`, `type`'
-      enum:
-      - status
-      - type
-      type: string
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    ticket_status:
-      description: "Ticket status. enum: \n  * open: ticket is open, Mist is working on it\n  * pending: ticket is open and Requester attention is needed (e.g. Mist is asking for some more information)\n  * solved: ticket is marked as solved / considered by Mist (requester can update it, causing it to re-open; or rate it)\n  * closed: ticket is archived and cannot be changed."
-      enum:
-      - closed
-      - open
-      - pending
-      - solved
-      type: string
-    ticket_comments_attachment_ids:
-      examples:
-      - - 00000000-0000-0000-0000-15231a659c78
-      items:
-        $ref: '#/components/schemas/ticket_comments_attachment_id'
-      readOnly: true
-      type: array
     count_result:
       additionalProperties:
         type: string
@@ -621,43 +517,223 @@ components:
       required:
       - count
       type: object
-    response_http429:
+    ticket_comments_attachment_ids:
+      examples:
+      - - 00000000-0000-0000-0000-15231a659c78
+      items:
+        $ref: '#/components/schemas/ticket_comments_attachment_id'
+      readOnly: true
+      type: array
+    ticket_upload_attachments_file:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+        file:
+          contentMediaType: application/octet-stream
+          description: Ekahau or ibwave file
           type: string
       type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_count:
+      additionalProperties: false
+      properties:
+        distinct:
+          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    ticket_comments_attachment_id:
+      examples:
+      - 00000000-0000-0000-0000-15231a659c13
+      format: uuid
+      readOnly: true
+      type: string
     ticket_comments:
       items:
         $ref: '#/components/schemas/ticket_comment'
       type: array
-    ticket_attachment:
-      additionalProperties: false
-      properties:
-        content_url:
-          examples:
-          - https://api.mist.com/api/v1/forward/download?jwt=...
-          format: url
-          type: string
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
+    ticket_status:
+      description: "Ticket status. enum: \n  * open: ticket is open, Mist is working on it\n  * pending: ticket is open and Requester attention is needed (e.g. Mist is asking for some more information)\n  * solved: ticket is marked as solved / considered by Mist (requester can update it, causing it to re-open; or rate it)\n  * closed: ticket is archived and cannot be changed."
+      enum:
+      - closed
+      - open
+      - pending
+      - solved
       type: string
+    tickets:
+      items:
+        $ref: '#/components/schemas/ticket'
+      type: array
+  responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    TicketsArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/TicketsArrayExample'
+          schema:
+            $ref: '#/components/schemas/tickets'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/TicketsArrayExample'
+          schema:
+            $ref: '#/components/schemas/tickets'
+      description: OK
+    OK:
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    TicketAttachment:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/TicketAttachmentExample'
+          schema:
+            $ref: '#/components/schemas/ticket_attachment'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/TicketAttachmentExample'
+          schema:
+            $ref: '#/components/schemas/ticket_attachment'
+      description: OK
+    Ticket:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/TicketExample'
+          schema:
+            $ref: '#/components/schemas/ticket'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/TicketExample'
+          schema:
+            $ref: '#/components/schemas/ticket'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    ticket_id:
+      in: path
+      name: ticket_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
     attachment_id:
       in: path
       name: attachment_id
@@ -680,15 +756,6 @@ components:
       name: start
       schema:
         type: string
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
     duration:
       description: Duration like 7d, 2w
       in: query
@@ -698,79 +765,12 @@ components:
         examples:
         - 10m
         type: string
-    ticket_id:
-      in: path
-      name: ticket_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
     end:
       description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
       in: query
       name: end
       schema:
         type: string
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    TicketAttachmentExample:
-      value:
-        content_url: https://api.mist.com/api/v1/forward/download?jwt=...
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-    TicketExample:
-      value:
-        comments:
-        - attachments:
-          - content_type: string
-            content_url: string
-          author: string
-          comment: string
-          created_at: 0
-        created_at: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        requester: string
-        status: open
-        subject: string
-        type: string
-        updated_at: 0
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    TicketsArrayExample:
-      value:
-      - comments:
-        - attachments:
-          - content_type: string
-            content_url: string
-          author: string
-          comment: string
-          created_at: 0
-        created_at: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        requester: string
-        status: open
-        subject: string
-        type: string
-        updated_at: 0
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

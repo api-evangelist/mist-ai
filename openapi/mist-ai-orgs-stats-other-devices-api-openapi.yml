@@ -80,38 +80,76 @@ paths:
       tags:
       - Orgs Stats - Other Devices
 components:
-  schemas:
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    stats_device_other_vendor_specific:
-      additionalProperties: false
-      description: When `vendor`==`cradlepoint`
-      properties:
-        interfaces:
-          additionalProperties:
-            $ref: '#/components/schemas/stats_device_other_vendor_specific_port'
-          examples:
-          - mdm-4d0e073b:
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    DeviceOtherStatsOtherdeviceStats:
+      value:
+        cached_stats: true
+        connected_devices:
+          0200010edbca:
+            mac: 020001abcdef
+            name: DNT-NTR-GWE
+            port_id: ge-0/0/1
+            type: gateway
+        last_seen: 1740996902
+        lldp_enabled: true
+        mac: 00304498a1e8
+        uptime: 622828
+        vendor: cradlepoint
+        vendor_specific:
+          interfaces:
+            ethernet-IPPT:
+              bytes_in: 331068567
+              bytes_out: 6763536255
+              display_name: Primary LAN
+              ip: 192.168.0.1
+              link: true
+              mode: lan
+              port_parent: Primary LAN
+              service_mode: Ethernet
+              type: ethernet
+              uptime: 0
+            ethernet-lan:
+              bytes_in: 13072566048
+              bytes_out: 5617915438
+              display_name: Secondary LAN
+              ip: 192.168.0.1
+              link: false
+              mode: lan
+              port_parent: Secondary LAN
+              service_mode: Ethernet
+              type: ethernet
+              uptime: 0
+            mdm-8a1084c9:
+              bytes_in: 0
+              bytes_out: 0
+              carrier: Unknown Service
+              imei: '866401234567894'
+              imsi: ''
+              ip: ''
+              link: false
+              mode: wan
+              mtu: 1400
+              rsrp: 0
+              rsrq: 0
+              rssi: 0
+              service_mode: Not Available
+              sinr: 0
+              state: NOSIM
+              type: mdm
+              uptime: 0
+            mdm-8a1fc70c:
               bytes_in: 5623096929
               bytes_out: 12372750366
-              carrier: Orange
+              carrier: AT&T
               imei: '866401234567893'
-              imsi: '2080101234567893'
-              ip: 10.134.237.57
+              imsi: '208001234567893'
+              ip: 12.68.86.17
               link: true
               mode: wan
+              mtu: 1400
               rsrp: -108
               rsrq: -14
               rssi: -74
@@ -120,16 +158,53 @@ components:
               state: READY
               type: mdm
               uptime: 2095779
-          type: object
-        target_version:
+        version: 7.24.80
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+  schemas:
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
           examples:
-          - 7.23.40
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    stats_device_other_interfaces:
-      additionalProperties:
-        $ref: '#/components/schemas/stats_device_other_interface'
-      description: Property key is the interface name
+    last_seen:
+      description: Last seen timestamp
+      examples:
+      - 1470417522
+      format: double
+      readOnly: true
+      type:
+      - number
+      - 'null'
+    stats_device_other_connected_device:
+      additionalProperties: false
+      properties:
+        mac:
+          examples:
+          - 020001abcdef
+          type: string
+        name:
+          examples:
+          - DNT-NTR-GWE
+          type: string
+        port_id:
+          examples:
+          - ge-0/0/1
+          type: string
+        type:
+          examples:
+          - gateway
+          type: string
       type: object
     response_http401:
       additionalProperties: false
@@ -139,10 +214,54 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    stats_device_other_connected_devices:
+    stats_device_other_interfaces:
       additionalProperties:
-        $ref: '#/components/schemas/stats_device_other_connected_device'
-      description: Property key is the connected device MAC Address
+        $ref: '#/components/schemas/stats_device_other_interface'
+      description: Property key is the interface name
+      type: object
+    stats_device_other:
+      additionalProperties: false
+      properties:
+        cached_stats:
+          type: boolean
+        config_status:
+          examples:
+          - synced
+          type: string
+        connected_devices:
+          $ref: '#/components/schemas/stats_device_other_connected_devices'
+        interfaces:
+          $ref: '#/components/schemas/stats_device_other_interfaces'
+        last_config:
+          examples:
+          - 1675392788
+          type: integer
+        last_seen:
+          $ref: '#/components/schemas/last_seen'
+        lldp_enabled:
+          type: boolean
+        mac:
+          examples:
+          - 5c5b35000018
+          type: string
+        status:
+          examples:
+          - online
+          type: string
+        uptime:
+          examples:
+          - 20296
+          type: integer
+        vendor:
+          examples:
+          - cradlepoint
+          type: string
+        vendor_specific:
+          $ref: '#/components/schemas/stats_device_other_vendor_specific'
+        version:
+          examples:
+          - 7.22.70
+          type: string
       type: object
     stats_device_other_vendor_specific_port:
       additionalProperties: false
@@ -224,56 +343,57 @@ components:
           - 2095779
           type: integer
       type: object
-    response_http429:
+    response_http403:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          - You do not have permission to perform this action.
           type: string
       type: object
-    stats_device_other:
+    response_http400:
       additionalProperties: false
       properties:
-        cached_stats:
-          type: boolean
-        config_status:
+        detail:
           examples:
-          - synced
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
-        connected_devices:
-          $ref: '#/components/schemas/stats_device_other_connected_devices'
+      type: object
+    stats_device_other_vendor_specific:
+      additionalProperties: false
+      description: When `vendor`==`cradlepoint`
+      properties:
         interfaces:
-          $ref: '#/components/schemas/stats_device_other_interfaces'
-        last_config:
+          additionalProperties:
+            $ref: '#/components/schemas/stats_device_other_vendor_specific_port'
           examples:
-          - 1675392788
-          type: integer
-        last_seen:
-          $ref: '#/components/schemas/last_seen'
-        lldp_enabled:
-          type: boolean
-        mac:
+          - mdm-4d0e073b:
+              bytes_in: 5623096929
+              bytes_out: 12372750366
+              carrier: Orange
+              imei: '866401234567893'
+              imsi: '2080101234567893'
+              ip: 10.134.237.57
+              link: true
+              mode: wan
+              rsrp: -108
+              rsrq: -14
+              rssi: -74
+              service_mode: 5G NSA
+              sinr: -1.2
+              state: READY
+              type: mdm
+              uptime: 2095779
+          type: object
+        target_version:
           examples:
-          - 5c5b35000018
+          - 7.23.40
           type: string
-        status:
-          examples:
-          - online
-          type: string
-        uptime:
-          examples:
-          - 20296
-          type: integer
-        vendor:
-          examples:
-          - cradlepoint
-          type: string
-        vendor_specific:
-          $ref: '#/components/schemas/stats_device_other_vendor_specific'
-        version:
-          examples:
-          - 7.22.70
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
           type: string
       type: object
     stats_device_other_interface:
@@ -348,113 +468,12 @@ components:
           - 2095779
           type: integer
       type: object
-    last_seen:
-      description: Last seen timestamp
-      examples:
-      - 1470417522
-      format: double
-      readOnly: true
-      type:
-      - number
-      - 'null'
-    stats_device_other_connected_device:
-      additionalProperties: false
-      properties:
-        mac:
-          examples:
-          - 020001abcdef
-          type: string
-        name:
-          examples:
-          - DNT-NTR-GWE
-          type: string
-        port_id:
-          examples:
-          - ge-0/0/1
-          type: string
-        type:
-          examples:
-          - gateway
-          type: string
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
+    stats_device_other_connected_devices:
+      additionalProperties:
+        $ref: '#/components/schemas/stats_device_other_connected_device'
+      description: Property key is the connected device MAC Address
       type: object
   responses:
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    DeviceOtherStats:
-      content:
-        application/json:
-          examples:
-            Otherdevice Stats:
-              $ref: '#/components/examples/DeviceOtherStatsOtherdeviceStats'
-          schema:
-            $ref: '#/components/schemas/stats_device_other'
-        application/vnd.api+json:
-          examples:
-            Otherdevice Stats:
-              $ref: '#/components/examples/DeviceOtherStatsOtherdeviceStats'
-          schema:
-            $ref: '#/components/schemas/stats_device_other'
-      description: Example response
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
     HTTP401:
       content:
         application/json:
@@ -470,104 +489,76 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    DeviceOtherStatsOtherdeviceStats:
-      value:
-        cached_stats: true
-        connected_devices:
-          0200010edbca:
-            mac: 020001abcdef
-            name: DNT-NTR-GWE
-            port_id: ge-0/0/1
-            type: gateway
-        last_seen: 1740996902
-        lldp_enabled: true
-        mac: 00304498a1e8
-        uptime: 622828
-        vendor: cradlepoint
-        vendor_specific:
-          interfaces:
-            ethernet-IPPT:
-              bytes_in: 331068567
-              bytes_out: 6763536255
-              display_name: Primary LAN
-              ip: 192.168.0.1
-              link: true
-              mode: lan
-              port_parent: Primary LAN
-              service_mode: Ethernet
-              type: ethernet
-              uptime: 0
-            ethernet-lan:
-              bytes_in: 13072566048
-              bytes_out: 5617915438
-              display_name: Secondary LAN
-              ip: 192.168.0.1
-              link: false
-              mode: lan
-              port_parent: Secondary LAN
-              service_mode: Ethernet
-              type: ethernet
-              uptime: 0
-            mdm-8a1084c9:
-              bytes_in: 0
-              bytes_out: 0
-              carrier: Unknown Service
-              imei: '866401234567894'
-              imsi: ''
-              ip: ''
-              link: false
-              mode: wan
-              mtu: 1400
-              rsrp: 0
-              rsrq: 0
-              rssi: 0
-              service_mode: Not Available
-              sinr: 0
-              state: NOSIM
-              type: mdm
-              uptime: 0
-            mdm-8a1fc70c:
-              bytes_in: 5623096929
-              bytes_out: 12372750366
-              carrier: AT&T
-              imei: '866401234567893'
-              imsi: '208001234567893'
-              ip: 12.68.86.17
-              link: true
-              mode: wan
-              mtu: 1400
-              rsrp: -108
-              rsrq: -14
-              rssi: -74
-              service_mode: 5G NSA
-              sinr: -1.2
-              state: READY
-              type: mdm
-              uptime: 2095779
-        version: 7.24.80
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    DeviceOtherStats:
+      content:
+        application/json:
+          examples:
+            Otherdevice Stats:
+              $ref: '#/components/examples/DeviceOtherStatsOtherdeviceStats'
+          schema:
+            $ref: '#/components/schemas/stats_device_other'
+        application/vnd.api+json:
+          examples:
+            Otherdevice Stats:
+              $ref: '#/components/examples/DeviceOtherStatsOtherdeviceStats'
+          schema:
+            $ref: '#/components/schemas/stats_device_other'
+      description: Example response
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
-    device_mac:
-      in: path
-      name: device_mac
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
-        type: string
     org_id:
       in: path
       name: org_id
@@ -576,6 +567,15 @@ components:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
+        type: string
+    device_mac:
+      in: path
+      name: device_mac
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
         type: string
   securitySchemes:
     apiToken:

@@ -859,7 +859,237 @@ paths:
       tags:
       - Orgs MxEdges
 components:
+  responses:
+    ClaimMxedge:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ClaimMxedgeExample'
+          schema:
+            $ref: '#/components/schemas/response_claim_mx_edge'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ClaimMxedgeExample'
+          schema:
+            $ref: '#/components/schemas/response_claim_mx_edge'
+      description: OK
+    OK:
+      description: OK
+    MxedgeUpgradeInfo:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxedgeUpgradeInfoExample'
+          schema:
+            $ref: '#/components/schemas/mxedge_upgrade_info'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxedgeUpgradeInfoExample'
+          schema:
+            $ref: '#/components/schemas/mxedge_upgrade_info'
+      description: OK
+    MxEdgeSearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxEdgeSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_mxedge_search'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxEdgeSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_mxedge_search'
+      description: Example response
+    MxEdgeEventsSearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxEdgeEventsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_mxedge_events_search'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxEdgeEventsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_mxedge_events_search'
+      description: Example response
+    AssignSuccess:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/AssignSuccessExample'
+          schema:
+            $ref: '#/components/schemas/response_assign_success'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/AssignSuccessExample'
+          schema:
+            $ref: '#/components/schemas/response_assign_success'
+      description: OK - list only devices that has deviceprofile_id changed
+    MxedgesArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxedgesArrayExample'
+          schema:
+            $ref: '#/components/schemas/mxedges'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxedgesArrayExample'
+          schema:
+            $ref: '#/components/schemas/mxedges'
+      description: OK
+    Mxedge:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxedgeExample'
+          schema:
+            $ref: '#/components/schemas/mxedge'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxedgeExample'
+          schema:
+            $ref: '#/components/schemas/mxedge'
+      description: OK
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    MxEdgeVmParams:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/mxedge_vm_params'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/mxedge_vm_params'
+      description: Mist Edge VM Parameters
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
   schemas:
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    response_claim_mx_edge:
+      additionalProperties: false
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        magic:
+          type: string
+      required:
+      - id
+      - magic
+      type: object
+    mxedge_events:
+      items:
+        $ref: '#/components/schemas/mxedge_event'
+      minItems: 1
+      type: array
+      uniqueItems: true
+    event_severity:
+      enum:
+      - normal
+      - critical
+      - high
+      - warning
+      type: string
     mxedge_event_sys_info:
       additionalProperties: false
       properties:
@@ -868,160 +1098,40 @@ components:
         severity:
           $ref: '#/components/schemas/event_severity'
       type: object
-    mxedge_tunterm_extra_route:
-      additionalProperties: false
-      properties:
-        via:
-          type: string
-      type: object
-    mxedge_tunterm_switch_config_vlan_ids:
-      items:
-        $ref: '#/components/schemas/vlan_id_with_variable'
-      type: array
-    response_count:
-      additionalProperties: false
-      properties:
-        distinct:
-          type: string
-        end:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/count_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    tunterm_port_config_downstream_ports:
-      description: List of ports to be used for downstream (to AP) purpose
+    tunterm_port_config_upstream_ports:
+      description: List of ports to be used for upstream purpose (to LAN)
       examples:
-      - - '2'
-        - '3'
+      - - '0'
+        - '1'
       items:
         type: string
       type: array
-    search_mxedge:
-      additionalProperties: false
+    mac_addresses:
       properties:
-        distro:
-          type: string
-        last_seen:
-          type: number
-        model:
-          examples:
-          - ME-VM
-          type: string
-        mxcluster_id:
-          $ref: '#/components/schemas/id'
-        mxedge_id:
-          $ref: '#/components/schemas/id'
-        name:
-          description: The name of the tunnel
-          examples:
-          - me-vm-1
-          type: string
-        org_id:
-          $ref: '#/components/schemas/org_id'
-        site_id:
-          $ref: '#/components/schemas/site_id'
-        tunterm_version:
-          type: string
-        uptime:
-          type: integer
+        macs:
+          $ref: '#/components/schemas/mac_addresses_macs'
+      required:
+      - macs
       type: object
-    mxedge_tunterm_multicast_mdns:
-      additionalProperties: false
-      properties:
-        enabled:
-          type: boolean
-        vlan_ids:
-          $ref: '#/components/schemas/strings'
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    mxedge_services:
-      description: List of services to run, tunterm only for now
-      items:
-        default: tunterm
-        type: string
-      type: array
-    response_mxedge_search:
-      additionalProperties: false
-      properties:
-        end:
-          examples:
-          - 1694708579
-          type: integer
-        limit:
-          examples:
-          - 10
-          type: integer
-        next:
-          type: string
-        results:
-          $ref: '#/components/schemas/response_mxedge_search_results'
-        start:
-          examples:
-          - 1694622179
-          type: integer
-        total:
-          examples:
-          - 2
-          type: integer
-      type: object
-    tunterm_monitoring_item:
-      additionalProperties: false
-      properties:
-        host:
-          description: Can be ip, ipv6, hostname
-          examples:
-          - 10.2.8.15
-          minLength: 1
-          type: string
-        port:
-          description: When `protocol`==`tcp`
-          examples:
-          - 80
-          type: integer
-        protocol:
-          $ref: '#/components/schemas/tunterm_monitoring_protocol'
-        src_vlan_id:
-          description: Optional source for the monitoring check, vlan_id configured in tunterm_other_ip_configs
-          examples:
-          - 5
-          type: integer
-        timeout:
-          default: 300
-          examples:
-          - 300
-          type: integer
-      type: object
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
-    mxedge_for_site:
-      default: any
-      description: 'enum: `any`, `false`, `true`'
+    mxedge_tunterm_dhcpd_config_type:
+      default: relay
+      description: 'enum: `relay`'
       enum:
-      - any
-      - 'false'
-      - 'true'
+      - relay
       type: string
+    mxedge_tunterm_switch_config:
+      additionalProperties: false
+      properties:
+        port_vlan_id:
+          type: integer
+        vlan_ids:
+          $ref: '#/components/schemas/mxedge_tunterm_switch_config_vlan_ids'
+      type: object
+    utils_tunterm_bounce_port_ports:
+      description: List of ports to bounce
+      items:
+        type: string
+      type: array
     mxedge_service_action:
       description: 'enum: `restart`, `start`, `stop`'
       enum:
@@ -1029,181 +1139,6 @@ components:
       - start
       - stop
       type: string
-    utils_tunterm_bounce_port:
-      properties:
-        hold_time:
-          description: In milli seconds, hold time between multiple port bounces
-          type: integer
-        ports:
-          $ref: '#/components/schemas/utils_tunterm_bounce_port_ports'
-      required:
-      - ports
-      type: object
-    mxedge_upgrade_info:
-      items:
-        $ref: '#/components/schemas/mxedge_upgrade_info_items'
-      type: array
-      uniqueItems: true
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    image_import:
-      additionalProperties: false
-      properties:
-        file:
-          contentMediaType: application/octet-stream
-          description: Binary file
-          type: string
-        json:
-          type: string
-      required:
-      - file
-      type: object
-    org_mxedge_count_distinct:
-      default: model
-      description: 'enum: `distro`, `model`, `mxcluster_id`, `site_id`, `tunterm_version`'
-      enum:
-      - distro
-      - model
-      - mxcluster_id
-      - site_id
-      - tunterm_version
-      type: string
-    mxedge_tunterm_dhcpd_config_property:
-      additionalProperties: false
-      properties:
-        enabled:
-          default: false
-          type: boolean
-        servers:
-          $ref: '#/components/schemas/mxedge_tunterm_dhcpd_config_servers'
-        type:
-          $ref: '#/components/schemas/mxedge_tunterm_dhcpd_config_type'
-      type: object
-    mxedge_event:
-      additionalProperties: false
-      properties:
-        audit_id:
-          $ref: '#/components/schemas/id'
-        component:
-          examples:
-          - PS1
-          - Fan1
-          type:
-          - string
-          - 'null'
-        device_id:
-          description: Device id
-          format: uuid
-          readOnly: true
-          type:
-          - string
-          - 'null'
-        device_type:
-          type: string
-        from_version:
-          type: string
-        mac:
-          type: string
-        mxcluster_id:
-          examples:
-          - 2815c917-58e7-472f-a190-bfd44fb58d05
-          type: string
-        mxedge_id:
-          examples:
-          - 00000000-0000-0000-1000-020000dc585c
-          type: string
-        mxedge_name:
-          type: string
-        org_id:
-          $ref: '#/components/schemas/org_id'
-        package:
-          type: string
-        service:
-          examples:
-          - tunterm
-          type: string
-        severity:
-          $ref: '#/components/schemas/event_severity'
-        sys_info.usage:
-          $ref: '#/components/schemas/mxedge_event_sys_info'
-        text:
-          type: string
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-        to_version:
-          type: string
-        type:
-          examples:
-          - ME_SERVICE_STOPPED
-          type: string
-      type: object
-    mxedge_tunterm_ip_config:
-      additionalProperties: false
-      description: IPconfiguration of the Mist Tunnel interface
-      properties:
-        gateway:
-          examples:
-          - 10.2.1.254
-          type: string
-        gateway6:
-          examples:
-          - 2001:1010:1010:1010::1
-          type: string
-        ip:
-          description: Untagged VLAN
-          examples:
-          - 10.2.1.1
-          type: string
-        ip6:
-          examples:
-          - 2001:1010:1010:1010::2
-          type: string
-        netmask:
-          examples:
-          - 255.255.255.0
-          type: string
-        netmask6:
-          examples:
-          - /64
-          type: string
-      required:
-      - gateway
-      - ip
-      - netmask
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    mxedge_tunterm_monitoring:
-      items:
-        $ref: '#/components/schemas/tunterm_monitoring'
-      type: array
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    mxedge_tunterm_igmp_snooping_config_vlan_ids:
-      anyOf:
-      - items:
-          examples:
-          - 2
-          maximum: 4096
-          minimum: 0
-          type: integer
-        type: array
-      - type: string
-      description: List of vlans on which tunterm performs IGMP snooping
     mxedge_oob_ip_config:
       additionalProperties: false
       description: IPconfiguration of the Mist Edge out-of_band management interface
@@ -1248,43 +1183,32 @@ components:
         type6:
           $ref: '#/components/schemas/ip_type'
       type: object
-    count_results:
+    mxedge_tunterm_monitoring:
       items:
-        $ref: '#/components/schemas/count_result'
+        $ref: '#/components/schemas/tunterm_monitoring'
       type: array
-      uniqueItems: true
-    mxedge_mgmt_oob_ip_type6:
-      default: autoconf
-      description: 'enum: `autoconf`, `dhcp`, `disabled`, `static`'
-      enum:
-      - autoconf
-      - dhcp
-      - disabled
-      - static
-      type: string
-    response_mxedge_events_search:
+    response_count:
       additionalProperties: false
       properties:
+        distinct:
+          type: string
         end:
-          examples:
-          - 1694708579
           type: integer
         limit:
-          examples:
-          - 10
-          type: integer
-        next:
-          type: string
-        page:
-          examples:
-          - 3
           type: integer
         results:
-          $ref: '#/components/schemas/mxedge_events'
+          $ref: '#/components/schemas/count_results'
         start:
-          examples:
-          - 1694622179
           type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
       type: object
     mxedge_versions:
       additionalProperties: false
@@ -1297,20 +1221,261 @@ components:
           type: string
       readOnly: true
       type: object
-    proxy:
+    mxedge_upgrade_info:
+      items:
+        $ref: '#/components/schemas/mxedge_upgrade_info_items'
+      type: array
+      uniqueItems: true
+    mxedge_tunterm_dhcpd_config_property:
       additionalProperties: false
-      description: Proxy Configuration to talk to Mist
       properties:
-        disabled:
+        enabled:
           default: false
-          examples:
-          - true
           type: boolean
-        url:
+        servers:
+          $ref: '#/components/schemas/mxedge_tunterm_dhcpd_config_servers'
+        type:
+          $ref: '#/components/schemas/mxedge_tunterm_dhcpd_config_type'
+      type: object
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
+    mxedge_for_site:
+      default: any
+      description: 'enum: `any`, `false`, `true`'
+      enum:
+      - any
+      - 'false'
+      - 'true'
+      type: string
+    mxedge_vm_params:
+      additionalProperties: false
+      description: Mist Edge VM parameters
+      properties:
+        model:
+          description: SKU
           examples:
-          - https://proxy.corp.com:8080/
+          - ME-VM
+          type: string
+        name:
+          description: User given name (optional)
+          type: string
+        user_data:
+          description: Base64 encoded user data
           type: string
       type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    response_mxedge_search:
+      additionalProperties: false
+      properties:
+        end:
+          examples:
+          - 1694708579
+          type: integer
+        limit:
+          examples:
+          - 10
+          type: integer
+        next:
+          type: string
+        results:
+          $ref: '#/components/schemas/response_mxedge_search_results'
+        start:
+          examples:
+          - 1694622179
+          type: integer
+        total:
+          examples:
+          - 2
+          type: integer
+      type: object
+    mxedge_tunterm_extra_route:
+      additionalProperties: false
+      properties:
+        via:
+          type: string
+      type: object
+    search_mxedge:
+      additionalProperties: false
+      properties:
+        distro:
+          type: string
+        last_seen:
+          type: number
+        model:
+          examples:
+          - ME-VM
+          type: string
+        mxcluster_id:
+          $ref: '#/components/schemas/id'
+        mxedge_id:
+          $ref: '#/components/schemas/id'
+        name:
+          description: The name of the tunnel
+          examples:
+          - me-vm-1
+          type: string
+        org_id:
+          $ref: '#/components/schemas/org_id'
+        site_id:
+          $ref: '#/components/schemas/site_id'
+        tunterm_version:
+          type: string
+        uptime:
+          type: integer
+      type: object
+    mxedge_tunterm_other_ip_config:
+      additionalProperties: false
+      properties:
+        ip:
+          type: string
+        netmask:
+          type: string
+      required:
+      - ip
+      - netmask
+      type: object
+    tunterm_monitoring:
+      items:
+        $ref: '#/components/schemas/tunterm_monitoring_item'
+      type: array
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    mxedges_assign:
+      properties:
+        mxedge_ids:
+          $ref: '#/components/schemas/mxedges_assign_mxedge_ids'
+        site_id:
+          examples:
+          - 43e9c864-a7e4-4310-8031-d9817d2c5a43
+          format: uuid
+          type: string
+      required:
+      - site_id
+      - mxedge_ids
+      type: object
+    org_mxedge_events_count_distinct:
+      default: mxedge_id
+      description: 'enum: `mxcluster_id`, `mxedge_id`, `package`, `type`'
+      enum:
+      - mxcluster_id
+      - mxedge_id
+      - package
+      - type
+      type: string
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    mxedges_unassign_mxedge_ids:
+      items:
+        format: uuid
+        type: string
+      type: array
+    vlan_id_with_variable:
+      oneOf:
+      - type: string
+      - maximum: 4094
+        minimum: 1
+        type: integer
+    mxedge_tunterm_dhcpd_config_servers:
+      description: List of DHCP servers; required if `type`==`relay`
+      items:
+        type: string
+      type: array
+    mxedge_service_name:
+      description: 'enum: `mxagent`, `mxdas`, `mxocproxy`, `radsecproxy`, `tunterm`'
+      enum:
+      - mxagent
+      - mxdas
+      - mxnacedge
+      - mxocproxy
+      - radsecproxy
+      - tunterm
+      type: string
+    tunterm_monitoring_protocol:
+      description: 'enum: `arp`, `ping`, `tcp`'
+      enum:
+      - arp
+      - ping
+      - tcp
+      examples:
+      - tcp
+      minLength: 1
+      type: string
+    mxedge_mgmt:
+      additionalProperties: false
+      properties:
+        config_auto_revert:
+          default: false
+          type: boolean
+        fips_enabled:
+          default: false
+          type: boolean
+        mist_password:
+          examples:
+          - MIST_PASSWORD
+          type: string
+        oob_ip_type:
+          $ref: '#/components/schemas/mxedge_mgmt_oob_ip_type'
+        oob_ip_type6:
+          $ref: '#/components/schemas/mxedge_mgmt_oob_ip_type6'
+        root_password:
+          examples:
+          - ROOT_PASSWORD
+          format: password
+          type: string
+      type: object
+    mxedge_tunterm_multicast_ssdp:
+      additionalProperties: false
+      properties:
+        enabled:
+          type: boolean
+        vlan_ids:
+          $ref: '#/components/schemas/strings'
+      type: object
+    mxedge_tunterm_dhcpd_type:
+      default: relay
+      description: 'enum: `relay`'
+      enum:
+      - relay
+      type: string
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    mxedge_tunterm_switch_config_vlan_ids:
+      items:
+        $ref: '#/components/schemas/vlan_id_with_variable'
+      type: array
+    mxedge_tunterm_igmp_snooping_config_vlan_ids:
+      anyOf:
+      - items:
+          examples:
+          - 2
+          maximum: 4096
+          minimum: 0
+          type: integer
+        type: array
+      - type: string
+      description: List of vlans on which tunterm performs IGMP snooping
     tunterm_port_config_upstream_port_vlan_id:
       description: Native VLAN id for upstream ports
       oneOf:
@@ -1318,6 +1483,43 @@ components:
       - maximum: 4094
         minimum: 1
         type: integer
+    claim_codes:
+      description: List of Claim Codes
+      examples:
+      - - 6JG8E-PTFV2-A9Z2N
+        - DVH4V-SNMSZ-PDXBR
+      items:
+        description: Claim code
+        type: string
+      type: array
+      uniqueItems: true
+    tunterm_monitoring_item:
+      additionalProperties: false
+      properties:
+        host:
+          description: Can be ip, ipv6, hostname
+          examples:
+          - 10.2.8.15
+          minLength: 1
+          type: string
+        port:
+          description: When `protocol`==`tcp`
+          examples:
+          - 80
+          type: integer
+        protocol:
+          $ref: '#/components/schemas/tunterm_monitoring_protocol'
+        src_vlan_id:
+          description: Optional source for the monitoring check, vlan_id configured in tunterm_other_ip_configs
+          examples:
+          - 5
+          type: integer
+        timeout:
+          default: 300
+          examples:
+          - 300
+          type: integer
+      type: object
     mxedge_upgrade_info_items:
       additionalProperties: false
       properties:
@@ -1333,18 +1535,59 @@ components:
       - package
       - version
       type: object
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    response_assign_success:
+    mxedge_tunterm_dhcpd_config:
+      additionalProperties:
+        $ref: '#/components/schemas/mxedge_tunterm_dhcpd_config_property'
+      description: Global and per-VLAN. Property key is the VLAN ID
+      properties:
+        enabled:
+          default: false
+          type: boolean
+        servers:
+          $ref: '#/components/schemas/mxedge_tunterm_dhcpd_config_servers'
+        type:
+          $ref: '#/components/schemas/mxedge_tunterm_dhcpd_type'
+      type: object
+    response_http403:
       additionalProperties: false
       properties:
-        success:
-          $ref: '#/components/schemas/strings'
-      required:
-      - success
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    proxy:
+      additionalProperties: false
+      description: Proxy Configuration to talk to Mist
+      properties:
+        disabled:
+          default: false
+          examples:
+          - true
+          type: boolean
+        url:
+          examples:
+          - https://proxy.corp.com:8080/
+          type: string
+      type: object
+    mxedge_services:
+      description: List of services to run, tunterm only for now
+      items:
+        default: tunterm
+        type: string
+      type: array
+    mxedge_tunterm_igmp_snooping_config:
+      additionalProperties: false
+      properties:
+        enabled:
+          anyOf:
+          - type: boolean
+          - type: string
+          default: false
+        querier:
+          $ref: '#/components/schemas/mxedge_tunterm_igmp_snooping_querier'
+        vlan_ids:
+          $ref: '#/components/schemas/mxedge_tunterm_igmp_snooping_config_vlan_ids'
       type: object
     mxedge:
       description: MxEdge
@@ -1436,7 +1679,48 @@ components:
       - model
       - name
       type: object
-    mxedge_tunterm_multicast_ssdp:
+    image_import:
+      additionalProperties: false
+      properties:
+        file:
+          contentMediaType: application/octet-stream
+          description: Binary file
+          type: string
+        json:
+          type: string
+      required:
+      - file
+      type: object
+    mxedges_assign_mxedge_ids:
+      items:
+        format: uuid
+        type: string
+      type: array
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    mxedge_oob_ip_config_dns:
+      default:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 2001:4860:4860::8888
+      - 2001:4860:4860::8844
+      description: IPv4 ignored if `type`!=`static`, IPv6 ignored if `type6`!=`static`
+      examples:
+      - - 8.8.8.8
+        - 4.4.4.4
+        - 2001:4860:4860::8888
+        - 2001:4860:4860::8844
+      items:
+        type: string
+      type: array
+    response_mxedge_search_results:
+      items:
+        $ref: '#/components/schemas/search_mxedge'
+      type: array
+    mxedge_tunterm_multicast_mdns:
       additionalProperties: false
       properties:
         enabled:
@@ -1444,36 +1728,65 @@ components:
         vlan_ids:
           $ref: '#/components/schemas/strings'
       type: object
-    claim_codes:
-      description: List of Claim Codes
+    site_id:
       examples:
-      - - 6JG8E-PTFV2-A9Z2N
-        - DVH4V-SNMSZ-PDXBR
-      items:
-        description: Claim code
-        type: string
-      type: array
-      uniqueItems: true
-    response_http403:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    response_assign_success:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
+        success:
+          $ref: '#/components/schemas/strings'
+      required:
+      - success
       type: object
-    response_mxedge_search_results:
-      items:
-        $ref: '#/components/schemas/search_mxedge'
-      type: array
-    mxedge_mgmt_oob_ip_type:
-      default: dhcp
-      description: 'enum: `dhcp`, `disabled`, `static`'
-      enum:
-      - dhcp
-      - disabled
-      - static
-      type: string
+    response_mxedge_events_search:
+      additionalProperties: false
+      properties:
+        end:
+          examples:
+          - 1694708579
+          type: integer
+        limit:
+          examples:
+          - 10
+          type: integer
+        next:
+          type: string
+        page:
+          examples:
+          - 3
+          type: integer
+        results:
+          $ref: '#/components/schemas/mxedge_events'
+        start:
+          examples:
+          - 1694622179
+          type: integer
+      type: object
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
+    mxedge_tunterm_switch_configs:
+      additionalProperties:
+        $ref: '#/components/schemas/mxedge_tunterm_switch_config'
+      description: If custom vlan settings are desired
+      properties:
+        enabled:
+          type: boolean
+      type: object
+    mxedge_tunterm_multicast_config:
+      additionalProperties: false
+      properties:
+        mdns:
+          $ref: '#/components/schemas/mxedge_tunterm_multicast_mdns'
+        ssdp:
+          $ref: '#/components/schemas/mxedge_tunterm_multicast_ssdp'
+      type: object
     tunterm_port_config:
       additionalProperties: false
       description: Ethernet port configurations
@@ -1489,106 +1802,124 @@ components:
         upstream_ports:
           $ref: '#/components/schemas/tunterm_port_config_upstream_ports'
       type: object
-    mxedges:
-      items:
-        $ref: '#/components/schemas/mxedge'
-      type: array
-    mxedge_mgmt:
+    mxedge_mgmt_oob_ip_type6:
+      default: autoconf
+      description: 'enum: `autoconf`, `dhcp`, `disabled`, `static`'
+      enum:
+      - autoconf
+      - dhcp
+      - disabled
+      - static
+      type: string
+    utils_tunterm_bounce_port:
+      properties:
+        hold_time:
+          description: In milli seconds, hold time between multiple port bounces
+          type: integer
+        ports:
+          $ref: '#/components/schemas/utils_tunterm_bounce_port_ports'
+      required:
+      - ports
+      type: object
+    mxedge_event:
       additionalProperties: false
       properties:
-        config_auto_revert:
-          default: false
-          type: boolean
-        fips_enabled:
-          default: false
-          type: boolean
-        mist_password:
+        audit_id:
+          $ref: '#/components/schemas/id'
+        component:
           examples:
-          - MIST_PASSWORD
+          - PS1
+          - Fan1
+          type:
+          - string
+          - 'null'
+        device_id:
+          description: Device id
+          format: uuid
+          readOnly: true
+          type:
+          - string
+          - 'null'
+        device_type:
           type: string
-        oob_ip_type:
-          $ref: '#/components/schemas/mxedge_mgmt_oob_ip_type'
-        oob_ip_type6:
-          $ref: '#/components/schemas/mxedge_mgmt_oob_ip_type6'
-        root_password:
+        from_version:
+          type: string
+        mac:
+          type: string
+        mxcluster_id:
           examples:
-          - ROOT_PASSWORD
-          format: password
+          - 2815c917-58e7-472f-a190-bfd44fb58d05
+          type: string
+        mxedge_id:
+          examples:
+          - 00000000-0000-0000-1000-020000dc585c
+          type: string
+        mxedge_name:
+          type: string
+        org_id:
+          $ref: '#/components/schemas/org_id'
+        package:
+          type: string
+        service:
+          examples:
+          - tunterm
+          type: string
+        severity:
+          $ref: '#/components/schemas/event_severity'
+        sys_info.usage:
+          $ref: '#/components/schemas/mxedge_event_sys_info'
+        text:
+          type: string
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+        to_version:
+          type: string
+        type:
+          examples:
+          - ME_SERVICE_STOPPED
           type: string
       type: object
-    tunterm_port_config_upstream_ports:
-      description: List of ports to be used for upstream purpose (to LAN)
-      examples:
-      - - '0'
-        - '1'
-      items:
-        type: string
-      type: array
-    mxedges_assign_mxedge_ids:
-      items:
-        format: uuid
-        type: string
-      type: array
-    mxedge_tunterm_dhcpd_type:
-      default: relay
-      description: 'enum: `relay`'
-      enum:
-      - relay
-      type: string
-    mac_addresses_macs:
-      examples:
-      - - 683b679ac024
-      items:
-        type: string
-      minItems: 1
-      type: array
-      uniqueItems: true
-    mxedges_assign:
+    response_http429:
+      additionalProperties: false
       properties:
-        mxedge_ids:
-          $ref: '#/components/schemas/mxedges_assign_mxedge_ids'
-        site_id:
+        detail:
           examples:
-          - 43e9c864-a7e4-4310-8031-d9817d2c5a43
-          format: uuid
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    mxedge_tunterm_ip_config:
+      additionalProperties: false
+      description: IPconfiguration of the Mist Tunnel interface
+      properties:
+        gateway:
+          examples:
+          - 10.2.1.254
+          type: string
+        gateway6:
+          examples:
+          - 2001:1010:1010:1010::1
+          type: string
+        ip:
+          description: Untagged VLAN
+          examples:
+          - 10.2.1.1
+          type: string
+        ip6:
+          examples:
+          - 2001:1010:1010:1010::2
+          type: string
+        netmask:
+          examples:
+          - 255.255.255.0
+          type: string
+        netmask6:
+          examples:
+          - /64
           type: string
       required:
-      - site_id
-      - mxedge_ids
-      type: object
-    mxedge_tunterm_igmp_snooping_config:
-      additionalProperties: false
-      properties:
-        enabled:
-          anyOf:
-          - type: boolean
-          - type: string
-          default: false
-        querier:
-          $ref: '#/components/schemas/mxedge_tunterm_igmp_snooping_querier'
-        vlan_ids:
-          $ref: '#/components/schemas/mxedge_tunterm_igmp_snooping_config_vlan_ids'
-      type: object
-    get_org_mxedge_upgrade_info_channel:
-      default: stable
-      description: 'enum: `alpha`, `beta`, `stable`'
-      enum:
-      - alpha
-      - beta
-      - stable
-      type: string
-    mxedge_tunterm_dhcpd_config:
-      additionalProperties:
-        $ref: '#/components/schemas/mxedge_tunterm_dhcpd_config_property'
-      description: Global and per-VLAN. Property key is the VLAN ID
-      properties:
-        enabled:
-          default: false
-          type: boolean
-        servers:
-          $ref: '#/components/schemas/mxedge_tunterm_dhcpd_config_servers'
-        type:
-          $ref: '#/components/schemas/mxedge_tunterm_dhcpd_type'
+      - gateway
+      - ip
+      - netmask
       type: object
     response_http401:
       additionalProperties: false
@@ -1598,66 +1929,21 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    response_claim_mx_edge:
-      additionalProperties: false
+    get_org_mxedge_upgrade_info_channel:
+      default: stable
+      description: 'enum: `alpha`, `beta`, `stable`'
+      enum:
+      - alpha
+      - beta
+      - stable
+      type: string
+    mxedges_unassign:
       properties:
-        id:
-          $ref: '#/components/schemas/id'
-        magic:
-          type: string
+        mxedge_ids:
+          $ref: '#/components/schemas/mxedges_unassign_mxedge_ids'
       required:
-      - id
-      - magic
+      - mxedge_ids
       type: object
-    mxedge_tunterm_multicast_config:
-      additionalProperties: false
-      properties:
-        mdns:
-          $ref: '#/components/schemas/mxedge_tunterm_multicast_mdns'
-        ssdp:
-          $ref: '#/components/schemas/mxedge_tunterm_multicast_ssdp'
-      type: object
-    mxedge_service_name:
-      description: 'enum: `mxagent`, `mxdas`, `mxocproxy`, `radsecproxy`, `tunterm`'
-      enum:
-      - mxagent
-      - mxdas
-      - mxnacedge
-      - mxocproxy
-      - radsecproxy
-      - tunterm
-      type: string
-    mxedge_tunterm_dhcpd_config_type:
-      default: relay
-      description: 'enum: `relay`'
-      enum:
-      - relay
-      type: string
-    utils_tunterm_bounce_port_ports:
-      description: List of ports to bounce
-      items:
-        type: string
-      type: array
-    tunterm_monitoring_protocol:
-      description: 'enum: `arp`, `ping`, `tcp`'
-      enum:
-      - arp
-      - ping
-      - tcp
-      examples:
-      - tcp
-      minLength: 1
-      type: string
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    tunterm_monitoring:
-      items:
-        $ref: '#/components/schemas/tunterm_monitoring_item'
-      type: array
     mxedge_tunterm_igmp_snooping_querier:
       additionalProperties: false
       properties:
@@ -1687,13 +1973,16 @@ components:
           - 3
           type: integer
       type: object
-    mac_addresses:
-      properties:
-        macs:
-          $ref: '#/components/schemas/mac_addresses_macs'
-      required:
-      - macs
-      type: object
+    org_mxedge_count_distinct:
+      default: model
+      description: 'enum: `distro`, `model`, `mxcluster_id`, `site_id`, `tunterm_version`'
+      enum:
+      - distro
+      - model
+      - mxcluster_id
+      - site_id
+      - tunterm_version
+      type: string
     count_result:
       additionalProperties:
         type: string
@@ -1703,87 +1992,32 @@ components:
       required:
       - count
       type: object
-    mxedge_tunterm_dhcpd_config_servers:
-      description: List of DHCP servers; required if `type`==`relay`
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    mxedges:
+      items:
+        $ref: '#/components/schemas/mxedge'
+      type: array
+    mxedge_mgmt_oob_ip_type:
+      default: dhcp
+      description: 'enum: `dhcp`, `disabled`, `static`'
+      enum:
+      - dhcp
+      - disabled
+      - static
+      type: string
+    mac_addresses_macs:
+      examples:
+      - - 683b679ac024
       items:
         type: string
-      type: array
-    mxedge_tunterm_switch_config:
-      additionalProperties: false
-      properties:
-        port_vlan_id:
-          type: integer
-        vlan_ids:
-          $ref: '#/components/schemas/mxedge_tunterm_switch_config_vlan_ids'
-      type: object
-    mxedges_unassign:
-      properties:
-        mxedge_ids:
-          $ref: '#/components/schemas/mxedges_unassign_mxedge_ids'
-      required:
-      - mxedge_ids
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    mxedge_events:
-      items:
-        $ref: '#/components/schemas/mxedge_event'
       minItems: 1
       type: array
       uniqueItems: true
-    mxedge_tunterm_other_ip_config:
-      additionalProperties: false
-      properties:
-        ip:
-          type: string
-        netmask:
-          type: string
-      required:
-      - ip
-      - netmask
-      type: object
-    vlan_id_with_variable:
-      oneOf:
-      - type: string
-      - maximum: 4094
-        minimum: 1
-        type: integer
-    mxedge_vm_params:
-      additionalProperties: false
-      description: Mist Edge VM parameters
-      properties:
-        model:
-          description: SKU
-          examples:
-          - ME-VM
-          type: string
-        name:
-          description: User given name (optional)
-          type: string
-        user_data:
-          description: Base64 encoded user data
-          type: string
-      type: object
-    org_mxedge_events_count_distinct:
-      default: mxedge_id
-      description: 'enum: `mxcluster_id`, `mxedge_id`, `package`, `type`'
-      enum:
-      - mxcluster_id
-      - mxedge_id
-      - package
-      - type
-      type: string
-    mxedges_unassign_mxedge_ids:
-      items:
-        format: uuid
-        type: string
-      type: array
     ip_type:
       default: dhcp
       description: 'enum: `dhcp`, `static`'
@@ -1793,275 +2027,34 @@ components:
       examples:
       - static
       type: string
-    event_severity:
-      enum:
-      - normal
-      - critical
-      - high
-      - warning
-      type: string
-    mxedge_tunterm_switch_configs:
-      additionalProperties:
-        $ref: '#/components/schemas/mxedge_tunterm_switch_config'
-      description: If custom vlan settings are desired
-      properties:
-        enabled:
-          type: boolean
-      type: object
-    org_id:
+    tunterm_port_config_downstream_ports:
+      description: List of ports to be used for downstream (to AP) purpose
       examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    mxedge_oob_ip_config_dns:
-      default:
-      - 8.8.8.8
-      - 8.8.4.4
-      - 2001:4860:4860::8888
-      - 2001:4860:4860::8844
-      description: IPv4 ignored if `type`!=`static`, IPv6 ignored if `type6`!=`static`
-      examples:
-      - - 8.8.8.8
-        - 4.4.4.4
-        - 2001:4860:4860::8888
-        - 2001:4860:4860::8844
+      - - '2'
+        - '3'
       items:
         type: string
       type: array
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
-  responses:
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    Mxedge:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxedgeExample'
-          schema:
-            $ref: '#/components/schemas/mxedge'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxedgeExample'
-          schema:
-            $ref: '#/components/schemas/mxedge'
-      description: OK
-    MxEdgeVmParams:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/mxedge_vm_params'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/mxedge_vm_params'
-      description: Mist Edge VM Parameters
-    ClaimMxedge:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ClaimMxedgeExample'
-          schema:
-            $ref: '#/components/schemas/response_claim_mx_edge'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ClaimMxedgeExample'
-          schema:
-            $ref: '#/components/schemas/response_claim_mx_edge'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    OK:
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    MxEdgeEventsSearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxEdgeEventsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_mxedge_events_search'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxEdgeEventsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_mxedge_events_search'
-      description: Example response
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    AssignSuccess:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/AssignSuccessExample'
-          schema:
-            $ref: '#/components/schemas/response_assign_success'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/AssignSuccessExample'
-          schema:
-            $ref: '#/components/schemas/response_assign_success'
-      description: OK - list only devices that has deviceprofile_id changed
-    MxEdgeSearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxEdgeSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_mxedge_search'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxEdgeSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_mxedge_search'
-      description: Example response
-    MxedgeUpgradeInfo:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxedgeUpgradeInfoExample'
-          schema:
-            $ref: '#/components/schemas/mxedge_upgrade_info'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxedgeUpgradeInfoExample'
-          schema:
-            $ref: '#/components/schemas/mxedge_upgrade_info'
-      description: OK
-    MxedgesArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxedgesArrayExample'
-          schema:
-            $ref: '#/components/schemas/mxedges'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxedgesArrayExample'
-          schema:
-            $ref: '#/components/schemas/mxedges'
-      description: OK
   parameters:
-    sort_last_seen_reverse:
-      description: On which field the list should be sorted, -prefix represents DESC order
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
       in: query
-      name: sort
+      name: search_after
       schema:
-        default: timestamp
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
         examples:
-        - -site_id
+        - 10m
         type: string
-    page:
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
       in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
-    mxedge_event_type:
-      description: See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
-      in: query
-      name: type
-      schema:
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
+      name: start
       schema:
         type: string
     mxedge_id:
@@ -2073,25 +2066,21 @@ components:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    mxedge_event_type:
+      description: See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
       in: query
-      name: start
+      name: type
       schema:
         type: string
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
-      schema:
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
     partial_filter_hostname_device:
       description: Partial / full Device hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `my-london*` and `*london*` match `my-london-1`). Suffix-only wildcards (e.g. `*london-1`) are not supported
       in: query
@@ -2102,24 +2091,29 @@ components:
         - my-london*
         - '*london*'
         type: string
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    duration:
-      description: Duration like 7d, 2w
+    page:
       in: query
-      name: duration
+      name: page
       schema:
-        default: 1d
+        default: 1
+        minimum: 1
+        type: integer
+    sort_last_seen_reverse:
+      description: On which field the list should be sorted, -prefix represents DESC order
+      in: query
+      name: sort
+      schema:
+        default: timestamp
         examples:
-        - 10m
+        - -site_id
         type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
     partial_filter_model:
       description: Partial / full Device model. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `AP4*` and `*P4*` match `AP43`). Suffix-only wildcards (e.g. `*43`) are not supported
       in: query
@@ -2130,7 +2124,114 @@ components:
         - AP4*
         - '*P4*'
         type: string
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
   examples:
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    MxedgeExample:
+      value:
+        id: 95ddd29a-6a3c-929e-a431-51a5b09f36a6
+        magic: L-NpT5gi-ADR8WTFd4EiQPY3cP5WdSoD
+        model: ME-100
+        mxagent_registered: true
+        mxcluster_id: 572586b7-f97b-a22b-526c-8b97a3f609c4
+        mxedge_mgmt:
+          mist_password: MIST_PASSWORD
+          root_password: ROOT_PASSWORD
+        name: Guest
+        ntp_servers: []
+        oob_ip_config:
+          dns:
+          - 8.8.8.8
+          - 4.4.4.4
+          gateway: 10.2.1.254
+          ip: 10.2.1.10
+          netmask: 255.255.255.0
+          type: static
+        tunterm_dhcpd_config:
+          '2':
+            enabled: true
+            servers:
+            - 11.2.3.44
+          enabled: false
+          servers:
+          - 11.2.3.4
+        tunterm_extra_routes:
+          11.0.0.0/8:
+            via: 10.3.3.1
+        tunterm_ip_config:
+          gateway: 10.2.1.254
+          ip: 10.2.1.1
+          netmask: 255.255.255.0
+    ClaimMxedgeExample:
+      value:
+        id: 95ddd29a-6a3c-929e-a431-51a5b09f36a6
+        magic: ExNpT5gi-ADR8WTFd4EiQPY3cP5WdSoD
+    MxEdgeSearchExample:
+      value:
+        end: 1694708579
+        limit: 10
+        results:
+        - distro: buster
+          last_seen: 1695151551.833
+          model: ME-X5
+          mxedge_id: 00000000-0000-0000-1000-d420b0f0025d
+          org_id: 35d96b1a-1a13-4ba8-90f5-1e78dd2a10c5
+          tunterm_version: 0.1.2813
+          uptime: 5662632
+        start: 1694622179
+        total: 2
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    AssignSuccessExample:
+      value:
+        success:
+        - 5c5b350e0001
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    MxEdgeEventsSearchExample:
+      value:
+        end: 1694708579
+        limit: 10
+        page: 3
+        results:
+        - mxcluster_id: 2815c917-58e7-472f-a190-bfd44fb58d05
+          mxedge_id: 00000000-0000-0000-1000-020000dc585c
+          org_id: f2695c32-0e83-4936-b1b2-96fc88051213
+          service: tunterm
+          timestamp: 1694678225.927
+          type: ME_SERVICE_STOPPED
+        start: 1694622179
+    MxedgeUpgradeInfoExample:
+      value:
+      - default: true
+        distro: bullseye
+        package: mxagent
+        version: 2.4.100
+      - distro: bullseye
+        package: tunterm
+        version: 1.0.0
     MxedgesArrayExample:
       value:
       - cpu_stat:
@@ -2209,107 +2310,6 @@ components:
         uptime: 884221
         version: 0.1.2
         virtualization_type: VirtualizationVMware
-    MxedgeExample:
-      value:
-        id: 95ddd29a-6a3c-929e-a431-51a5b09f36a6
-        magic: L-NpT5gi-ADR8WTFd4EiQPY3cP5WdSoD
-        model: ME-100
-        mxagent_registered: true
-        mxcluster_id: 572586b7-f97b-a22b-526c-8b97a3f609c4
-        mxedge_mgmt:
-          mist_password: MIST_PASSWORD
-          root_password: ROOT_PASSWORD
-        name: Guest
-        ntp_servers: []
-        oob_ip_config:
-          dns:
-          - 8.8.8.8
-          - 4.4.4.4
-          gateway: 10.2.1.254
-          ip: 10.2.1.10
-          netmask: 255.255.255.0
-          type: static
-        tunterm_dhcpd_config:
-          '2':
-            enabled: true
-            servers:
-            - 11.2.3.44
-          enabled: false
-          servers:
-          - 11.2.3.4
-        tunterm_extra_routes:
-          11.0.0.0/8:
-            via: 10.3.3.1
-        tunterm_ip_config:
-          gateway: 10.2.1.254
-          ip: 10.2.1.1
-          netmask: 255.255.255.0
-    MxEdgeSearchExample:
-      value:
-        end: 1694708579
-        limit: 10
-        results:
-        - distro: buster
-          last_seen: 1695151551.833
-          model: ME-X5
-          mxedge_id: 00000000-0000-0000-1000-d420b0f0025d
-          org_id: 35d96b1a-1a13-4ba8-90f5-1e78dd2a10c5
-          tunterm_version: 0.1.2813
-          uptime: 5662632
-        start: 1694622179
-        total: 2
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    MxedgeUpgradeInfoExample:
-      value:
-      - default: true
-        distro: bullseye
-        package: mxagent
-        version: 2.4.100
-      - distro: bullseye
-        package: tunterm
-        version: 1.0.0
-    AssignSuccessExample:
-      value:
-        success:
-        - 5c5b350e0001
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    MxEdgeEventsSearchExample:
-      value:
-        end: 1694708579
-        limit: 10
-        page: 3
-        results:
-        - mxcluster_id: 2815c917-58e7-472f-a190-bfd44fb58d05
-          mxedge_id: 00000000-0000-0000-1000-020000dc585c
-          org_id: f2695c32-0e83-4936-b1b2-96fc88051213
-          service: tunterm
-          timestamp: 1694678225.927
-          type: ME_SERVICE_STOPPED
-        start: 1694622179
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    ClaimMxedgeExample:
-      value:
-        id: 95ddd29a-6a3c-929e-a431-51a5b09f36a6
-        magic: ExNpT5gi-ADR8WTFd4EiQPY3cP5WdSoD
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

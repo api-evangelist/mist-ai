@@ -79,15 +79,45 @@ paths:
       tags:
       - Sites Stats - WxRules
 components:
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    WxruleStatsArrayExample:
+      value:
+      - action: allow
+        client_mac:
+        - 3bbbf819bb6f
+        - bd96cbc4910f
+        dst_allow_wxtags:
+        - fff34466-eec0-3756-6765-381c728a6037
+        - eee2c7b0-d1d0-5a30-f349-e35fa43dc3b3
+        dst_deny_wxtags:
+        - aaa34466-eec0-3756-6765-381c728a6037
+        - bbb2c7b0-d1d0-5a30-f349-e35fa43dc3b3
+        dst_wxtags:
+        - d4134466-eec0-3756-6765-381c728a6037
+        - 1a42c7b0-d1d0-5a30-f349-e35fa43dc3b3
+        name: Guest
+        order: 1
+        src_wxtags:
+        - 8bfc2490-d726-3587-038d-cb2e71bd2330
+        - 3aa8e73f-9f46-d827-8d6a-567bb7e67fc9
+        usage:
+          1a42c7b0-d1d0-5a30-f349-e35fa43dc3b3:
+            num_flows: 60
+          d4134466-eec0-3756-6765-381c728a6037:
+            num_flows: 60
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
   schemas:
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
     stats_wxrule_dst_wxtags:
       examples:
       - - d4134466-eec0-3756-6765-381c728a6037
@@ -96,6 +126,69 @@ components:
         format: uuid
         type: string
       type: array
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    stats_wxrule_dst_allow_wxtags:
+      examples:
+      - - fff34466-eec0-3756-6765-381c728a6037
+        - eee2c7b0-d1d0-5a30-f349-e35fa43dc3b3
+      items:
+        format: uuid
+        type: string
+      type: array
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    stats_wxrule_usage_properties:
+      additionalProperties: false
+      properties:
+        num_flows:
+          type: integer
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    stats_wxrule_client_mac:
+      examples:
+      - - 3bbbf819bb6f
+        - bd96cbc4910f
+      items:
+        type: string
+      type: array
+    stats_wxrules:
+      items:
+        $ref: '#/components/schemas/stats_wxrule'
+      type: array
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
     stats_wxrule_action:
       description: 'enum: `allow`, `block`'
       enum:
@@ -104,6 +197,22 @@ components:
       examples:
       - allow
       type: string
+    stats_wxrule_src_wxtags:
+      examples:
+      - - 8bfc2490-d726-3587-038d-cb2e71bd2330
+        - 3aa8e73f-9f46-d827-8d6a-567bb7e67fc9
+      items:
+        format: uuid
+        type: string
+      type: array
+    stats_wxrule_dst_deny_wxtags:
+      examples:
+      - - aaa34466-eec0-3756-6765-381c728a6037
+        - bbb2c7b0-d1d0-5a30-f349-e35fa43dc3b3
+      items:
+        format: uuid
+        type: string
+      type: array
     stats_wxrule:
       additionalProperties: false
       description: Wxrule statistics
@@ -148,78 +257,37 @@ components:
       - usage
       - action
       type: object
-    stats_wxrule_client_mac:
-      examples:
-      - - 3bbbf819bb6f
-        - bd96cbc4910f
-      items:
-        type: string
-      type: array
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    stats_wxrule_src_wxtags:
-      examples:
-      - - 8bfc2490-d726-3587-038d-cb2e71bd2330
-        - 3aa8e73f-9f46-d827-8d6a-567bb7e67fc9
-      items:
-        format: uuid
-        type: string
-      type: array
-    stats_wxrule_usage_properties:
-      additionalProperties: false
-      properties:
-        num_flows:
-          type: integer
-      type: object
-    stats_wxrule_dst_deny_wxtags:
-      examples:
-      - - aaa34466-eec0-3756-6765-381c728a6037
-        - bbb2c7b0-d1d0-5a30-f349-e35fa43dc3b3
-      items:
-        format: uuid
-        type: string
-      type: array
-    stats_wxrules:
-      items:
-        $ref: '#/components/schemas/stats_wxrule'
-      type: array
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    stats_wxrule_dst_allow_wxtags:
-      examples:
-      - - fff34466-eec0-3756-6765-381c728a6037
-        - eee2c7b0-d1d0-5a30-f349-e35fa43dc3b3
-      items:
-        format: uuid
-        type: string
-      type: array
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
   responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    WxruleStatsArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/WxruleStatsArrayExample'
+          schema:
+            $ref: '#/components/schemas/stats_wxrules'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/WxruleStatsArrayExample'
+          schema:
+            $ref: '#/components/schemas/stats_wxrules'
+      description: WxRule Stats
     HTTP429:
       content:
         application/json:
@@ -235,15 +303,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP403:
       content:
         application/json:
@@ -274,74 +333,15 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    WxruleStatsArray:
+    HTTP404:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/WxruleStatsArrayExample'
           schema:
-            $ref: '#/components/schemas/stats_wxrules'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/WxruleStatsArrayExample'
           schema:
-            $ref: '#/components/schemas/stats_wxrules'
-      description: WxRule Stats
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    WxruleStatsArrayExample:
-      value:
-      - action: allow
-        client_mac:
-        - 3bbbf819bb6f
-        - bd96cbc4910f
-        dst_allow_wxtags:
-        - fff34466-eec0-3756-6765-381c728a6037
-        - eee2c7b0-d1d0-5a30-f349-e35fa43dc3b3
-        dst_deny_wxtags:
-        - aaa34466-eec0-3756-6765-381c728a6037
-        - bbb2c7b0-d1d0-5a30-f349-e35fa43dc3b3
-        dst_wxtags:
-        - d4134466-eec0-3756-6765-381c728a6037
-        - 1a42c7b0-d1d0-5a30-f349-e35fa43dc3b3
-        name: Guest
-        order: 1
-        src_wxtags:
-        - 8bfc2490-d726-3587-038d-cb2e71bd2330
-        - 3aa8e73f-9f46-d827-8d6a-567bb7e67fc9
-        usage:
-          1a42c7b0-d1d0-5a30-f349-e35fa43dc3b3:
-            num_flows: 60
-          d4134466-eec0-3756-6765-381c728a6037:
-            num_flows: 60
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
     site_id:
       in: path

@@ -714,181 +714,6 @@ paths:
       - Orgs Devices
 components:
   schemas:
-    ha_cluster_node_enum:
-      description: 'only for HA. enum: `node0`, `node1`'
-      enum:
-      - node0
-      - node1
-      type: string
-    response_count:
-      additionalProperties: false
-      properties:
-        distinct:
-          type: string
-        end:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/count_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    device_type:
-      description: 'enum: `ap`, `gateway`, `switch`'
-      enum:
-      - ap
-      - gateway
-      - switch
-      type: string
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    org_device:
-      additionalProperties: false
-      properties:
-        mac:
-          type: string
-        name:
-          type: string
-      required:
-      - mac
-      - name
-      type: object
-    ap_search_wlans:
-      items:
-        $ref: '#/components/schemas/ap_search_wlan'
-      type: array
-    org_devices_events_count_distinct:
-      default: model
-      description: 'enum: `ap`, `apfw`, `model`, `org_id`, `site_id`, `text`, `timestamp`, `type`'
-      enum:
-      - ap
-      - apfw
-      - model
-      - org_id
-      - site_id
-      - text
-      - timestamp
-      - type
-      type: string
-    response_device_search_results:
-      items:
-        $ref: '#/components/schemas/response_device_search_results_items'
-      type: array
-      uniqueItems: true
-    response_org_devices_summary:
-      additionalProperties: false
-      properties:
-        num_aps:
-          readOnly: true
-          type: integer
-        num_gateways:
-          readOnly: true
-          type: integer
-        num_mxedges:
-          readOnly: true
-          type: integer
-        num_switches:
-          readOnly: true
-          type: integer
-        num_unassigned_aps:
-          readOnly: true
-          type: integer
-        num_unassigned_gateways:
-          readOnly: true
-          type: integer
-        num_unassigned_switches:
-          readOnly: true
-          type: integer
-      type: object
-    ap_search_hostnames:
-      description: List of hostnames detected for the AP
-      items:
-        type: string
-      type: array
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    device_events:
-      items:
-        $ref: '#/components/schemas/device_event'
-      type: array
-      uniqueItems: true
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    device_search_radius_filter_status:
-      description: 'Status of the device search radius filter. enum: `up`, `down`, `unreachable`'
-      enum:
-      - up
-      - down
-      - unreachable
-      type: string
-    response_device_search_results_items:
-      oneOf:
-      - $ref: '#/components/schemas/ap_search'
-      - $ref: '#/components/schemas/switch_search'
-      - $ref: '#/components/schemas/gateway_search'
-    device_type_gateway:
-      description: 'Device Type. enum: `gateway`'
-      enum:
-      - gateway
-      type: string
-    ap_radio_mac_radio_macs:
-      examples:
-      - - 5c5b350001a0
-        - 5c5b350001a1
-      items:
-        type: string
-      type: array
-    org_devices_last_configs_count_distinct:
-      description: 'enum: `mac`, `name`, `site_id`, `version`'
-      enum:
-      - mac
-      - name
-      - site_id
-      - version
-      type: string
-    ap_search_wlan:
-      additionalProperties: false
-      properties:
-        id:
-          format: uuid
-          type: string
-        ssid:
-          type: string
-      type: object
-    device_type_with_all:
-      default: ap
-      description: ap, switch, gateway, router, all, default is ap. Supports comma-separated values for multiple types (e.g., type=switch,gateway)
-      type: string
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
     response_config_history_search_item:
       additionalProperties: false
       properties:
@@ -921,31 +746,28 @@ components:
       - timestamp
       - version
       type: object
-    device_search_radius_stat:
-      additionalProperties: false
-      properties:
-        auth_accepts:
-          description: Number of accepted authentication requests
-          type: integer
-        auth_rejects:
-          description: Number of rejected authentication requests
-          type: integer
-        auth_server_status:
-          $ref: '#/components/schemas/device_search_radius_filter_status'
-        auth_timeouts:
-          description: Number of authentication timeouts
-          type: integer
-      type: object
-    ap_search_inactive_wired_vlans:
+    device_type:
+      description: 'enum: `ap`, `gateway`, `switch`'
+      enum:
+      - ap
+      - gateway
+      - switch
+      type: string
+    device_type_switch:
+      description: 'Device Type. enum: `switch`'
+      enum:
+      - switch
+      type: string
+    response_device_search_results:
       items:
-        type: integer
-      type: array
-    ap_radio_macs:
-      items:
-        $ref: '#/components/schemas/ap_radio_mac'
-      minItems: 1
+        $ref: '#/components/schemas/response_device_search_results_items'
       type: array
       uniqueItems: true
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
     ap_search:
       additionalProperties: false
       properties:
@@ -1043,6 +865,73 @@ components:
       - mxtunnel_status
       - wlans
       type: object
+    last_config_device_type:
+      default: ap
+      description: 'enum: `ap`, `gateway`, `mxedge`, `switch`'
+      enum:
+      - ap
+      - gateway
+      - switch
+      - mxedge
+      type: string
+    ap_search_hostnames:
+      description: List of hostnames detected for the AP
+      items:
+        type: string
+      type: array
+    device_type_default_ap:
+      default: ap
+      description: 'enum: `ap`, `gateway`, `switch`'
+      enum:
+      - ap
+      - gateway
+      - switch
+      type: string
+    org_devices_count_distinct:
+      default: model
+      description: 'enum: `hostname`, `ip`, `lldp_mgmt_addr`, `lldp_port_id`, `lldp_system_desc`, `lldp_system_name`, `mac`, `model`, `mxedge_id`, `mxtunnel_status`, `site_id`, `version`'
+      enum:
+      - hostname
+      - ip
+      - lldp_mgmt_addr
+      - lldp_port_id
+      - lldp_system_desc
+      - lldp_system_name
+      - mac
+      - model
+      - mxedge_id
+      - mxtunnel_status
+      - site_id
+      - version
+      type: string
+    response_count:
+      additionalProperties: false
+      properties:
+        distinct:
+          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    response_config_history_search_results:
+      items:
+        $ref: '#/components/schemas/response_config_history_search_item'
+      type: array
+      uniqueItems: true
     response_device_config_cmd:
       additionalProperties: false
       properties:
@@ -1051,66 +940,17 @@ components:
       required:
       - cmd
       type: object
-    device_search_radius_stats:
-      additionalProperties:
-        $ref: '#/components/schemas/device_search_radius_stat'
-      description: Property key is the RADIUS server IP Address
-      type: object
-    response_config_history_search_item_wlan:
-      additionalProperties: false
-      properties:
-        auth:
-          type: string
-        bands:
-          $ref: '#/components/schemas/strings'
-        id:
-          $ref: '#/components/schemas/id'
-        ssid:
-          type: string
-        vlan_ids:
-          $ref: '#/components/schemas/strings'
-      required:
-      - auth
-      - id
-      - ssid
-      type: object
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    webhook_device_events_event_ev_type:
-      description: '(optional) event advisory. enum: `notice`, `warn`'
-      enum:
-      - notice
-      - warn
-      type: string
-    response_config_history_search_item_radios:
+    strings:
       items:
-        $ref: '#/components/schemas/response_config_history_search_item_radio'
+        type: string
       type: array
       uniqueItems: true
-    device_type_switch:
-      description: 'Device Type. enum: `switch`'
-      enum:
-      - switch
-      type: string
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    response_org_devices:
-      additionalProperties: false
-      properties:
-        results:
-          $ref: '#/components/schemas/org_devices'
-      required:
-      - results
-      type: object
+    ap_radio_macs:
+      items:
+        $ref: '#/components/schemas/ap_radio_mac'
+      minItems: 1
+      type: array
+      uniqueItems: true
     device_event:
       additionalProperties: false
       properties:
@@ -1187,61 +1027,60 @@ components:
       - timestamp
       - type
       type: object
-    ap_radio_mac:
-      additionalProperties: false
-      examples:
-      - mac: 5c5b350001a0
-        radio_macs:
-        - 5c5b350001a0
-        - 5c5b350001a1
-      properties:
-        mac:
-          examples:
-          - 5c5b350001a0
-          minLength: 1
-          type: string
-        radio_macs:
-          $ref: '#/components/schemas/ap_radio_mac_radio_macs'
-      required:
-      - mac
-      - radio_macs
-      type: object
-    org_devices_count_distinct:
-      default: model
-      description: 'enum: `hostname`, `ip`, `lldp_mgmt_addr`, `lldp_port_id`, `lldp_system_desc`, `lldp_system_name`, `mac`, `model`, `mxedge_id`, `mxtunnel_status`, `site_id`, `version`'
+    device_search_radius_filter_status:
+      description: 'Status of the device search radius filter. enum: `up`, `down`, `unreachable`'
       enum:
-      - hostname
-      - ip
-      - lldp_mgmt_addr
-      - lldp_port_id
-      - lldp_system_desc
-      - lldp_system_name
-      - mac
-      - model
-      - mxedge_id
-      - mxtunnel_status
-      - site_id
-      - version
+      - up
+      - down
+      - unreachable
       type: string
-    response_config_history_search_item_wlans:
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    device_type_gateway:
+      description: 'Device Type. enum: `gateway`'
+      enum:
+      - gateway
+      type: string
+    org_devices:
       items:
-        $ref: '#/components/schemas/response_config_history_search_item_wlan'
+        $ref: '#/components/schemas/org_device'
       type: array
       uniqueItems: true
-    response_config_history_search_results:
+    response_device_search_results_items:
+      oneOf:
+      - $ref: '#/components/schemas/ap_search'
+      - $ref: '#/components/schemas/switch_search'
+      - $ref: '#/components/schemas/gateway_search'
+    response_config_history_search_item_radios:
       items:
-        $ref: '#/components/schemas/response_config_history_search_item'
+        $ref: '#/components/schemas/response_config_history_search_item_radio'
       type: array
       uniqueItems: true
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_config_history_search:
+    org_devices_events_count_distinct:
+      default: model
+      description: 'enum: `ap`, `apfw`, `model`, `org_id`, `site_id`, `text`, `timestamp`, `type`'
+      enum:
+      - ap
+      - apfw
+      - model
+      - org_id
+      - site_id
+      - text
+      - timestamp
+      - type
+      type: string
+    count_org_devices_mxtunnel_status:
+      description: 'enum: `down`, `up`'
+      enum:
+      - down
+      - up
+      type: string
+    response_device_events_search:
       additionalProperties: false
       properties:
         end:
@@ -1251,33 +1090,69 @@ components:
         next:
           type: string
         results:
-          $ref: '#/components/schemas/response_config_history_search_results'
+          $ref: '#/components/schemas/device_events'
         start:
           type: integer
         total:
           type: integer
       required:
-      - end
-      - limit
       - results
       - start
+      - end
+      - limit
       - total
       type: object
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    count_result:
-      additionalProperties:
-        type: string
+    response_http400:
+      additionalProperties: false
       properties:
-        count:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    ap_search_inactive_wired_vlans:
+      items:
+        type: integer
+      type: array
+    ap_radio_mac_radio_macs:
+      examples:
+      - - 5c5b350001a0
+        - 5c5b350001a1
+      items:
+        type: string
+      type: array
+    device_type_with_all:
+      default: ap
+      description: ap, switch, gateway, router, all, default is ap. Supports comma-separated values for multiple types (e.g., type=switch,gateway)
+      type: string
+    device_search_radius_stats:
+      additionalProperties:
+        $ref: '#/components/schemas/device_search_radius_stat'
+      description: Property key is the RADIUS server IP Address
+      type: object
+    response_config_history_search_item_radio:
+      additionalProperties: false
+      properties:
+        band:
+          type: string
+        channel:
           type: integer
       required:
-      - count
+      - band
+      - channel
       type: object
+    ha_cluster_node_enum:
+      description: 'only for HA. enum: `node0`, `node1`'
+      enum:
+      - node0
+      - node1
+      type: string
     gateway_search:
       additionalProperties: false
       properties:
@@ -1340,91 +1215,51 @@ components:
       required:
       - type
       type: object
-    count_org_devices_mxtunnel_status:
-      description: 'enum: `down`, `up`'
-      enum:
-      - down
-      - up
-      type: string
-    response_device_events_search:
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    response_config_history_search_item_wlan:
       additionalProperties: false
       properties:
-        end:
-          type: integer
-        limit:
-          type: integer
-        next:
+        auth:
           type: string
-        results:
-          $ref: '#/components/schemas/device_events'
-        start:
-          type: integer
-        total:
-          type: integer
+        bands:
+          $ref: '#/components/schemas/strings'
+        id:
+          $ref: '#/components/schemas/id'
+        ssid:
+          type: string
+        vlan_ids:
+          $ref: '#/components/schemas/strings'
       required:
-      - results
-      - start
-      - end
-      - limit
-      - total
+      - auth
+      - id
+      - ssid
       type: object
-    response_http400:
+    device_search_radius_stat:
+      additionalProperties: false
+      properties:
+        auth_accepts:
+          description: Number of accepted authentication requests
+          type: integer
+        auth_rejects:
+          description: Number of rejected authentication requests
+          type: integer
+        auth_server_status:
+          $ref: '#/components/schemas/device_search_radius_filter_status'
+        auth_timeouts:
+          description: Number of authentication timeouts
+          type: integer
+      type: object
+    response_http403:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - You do not have permission to perform this action.
           type: string
-      type: object
-    response_config_history_search_item_radio:
-      additionalProperties: false
-      properties:
-        band:
-          type: string
-        channel:
-          type: integer
-      required:
-      - band
-      - channel
-      type: object
-    device_type_default_ap:
-      default: ap
-      description: 'enum: `ap`, `gateway`, `switch`'
-      enum:
-      - ap
-      - gateway
-      - switch
-      type: string
-    last_config_device_type:
-      default: ap
-      description: 'enum: `ap`, `gateway`, `mxedge`, `switch`'
-      enum:
-      - ap
-      - gateway
-      - switch
-      - mxedge
-      type: string
-    response_device_search:
-      additionalProperties: false
-      properties:
-        end:
-          type: integer
-        limit:
-          type: integer
-        next:
-          type: string
-        results:
-          $ref: '#/components/schemas/response_device_search_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - end
-      - limit
-      - results
-      - start
-      - total
       type: object
     switch_search:
       additionalProperties: false
@@ -1482,227 +1317,274 @@ components:
       required:
       - type
       type: object
-    org_devices:
+    ap_search_wlans:
       items:
-        $ref: '#/components/schemas/org_device'
+        $ref: '#/components/schemas/ap_search_wlan'
+      type: array
+    org_devices_last_configs_count_distinct:
+      description: 'enum: `mac`, `name`, `site_id`, `version`'
+      enum:
+      - mac
+      - name
+      - site_id
+      - version
+      type: string
+    response_config_history_search_item_wlans:
+      items:
+        $ref: '#/components/schemas/response_config_history_search_item_wlan'
       type: array
       uniqueItems: true
+    ap_search_wlan:
+      additionalProperties: false
+      properties:
+        id:
+          format: uuid
+          type: string
+        ssid:
+          type: string
+      type: object
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    response_config_history_search:
+      additionalProperties: false
+      properties:
+        end:
+          type: integer
+        limit:
+          type: integer
+        next:
+          type: string
+        results:
+          $ref: '#/components/schemas/response_config_history_search_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    response_org_devices:
+      additionalProperties: false
+      properties:
+        results:
+          $ref: '#/components/schemas/org_devices'
+      required:
+      - results
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    response_org_devices_summary:
+      additionalProperties: false
+      properties:
+        num_aps:
+          readOnly: true
+          type: integer
+        num_gateways:
+          readOnly: true
+          type: integer
+        num_mxedges:
+          readOnly: true
+          type: integer
+        num_switches:
+          readOnly: true
+          type: integer
+        num_unassigned_aps:
+          readOnly: true
+          type: integer
+        num_unassigned_gateways:
+          readOnly: true
+          type: integer
+        num_unassigned_switches:
+          readOnly: true
+          type: integer
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
     search_org_devices_mxtunnel_status:
       description: 'enum: `down`, `up`'
       enum:
       - down
       - up
       type: string
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    response_device_search:
+      additionalProperties: false
+      properties:
+        end:
+          type: integer
+        limit:
+          type: integer
+        next:
+          type: string
+        results:
+          $ref: '#/components/schemas/response_device_search_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    device_events:
+      items:
+        $ref: '#/components/schemas/device_event'
+      type: array
+      uniqueItems: true
     org_id:
       examples:
       - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
       format: uuid
       readOnly: true
       type: string
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
-  responses:
-    HTTP429:
-      content:
-        application/json:
+    org_device:
+      additionalProperties: false
+      properties:
+        mac:
+          type: string
+        name:
+          type: string
+      required:
+      - mac
+      - name
+      type: object
+    ap_radio_mac:
+      additionalProperties: false
+      examples:
+      - mac: 5c5b350001a0
+        radio_macs:
+        - 5c5b350001a0
+        - 5c5b350001a1
+      properties:
+        mac:
           examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    DevicesSearch:
-      content:
-        application/json:
-          examples:
-            Ap:
-              $ref: '#/components/examples/DevicesSearchAp'
-            Gateway:
-              $ref: '#/components/examples/DevicesSearchGateway'
-            Switch:
-              $ref: '#/components/examples/DevicesSearchSwitch'
-          schema:
-            $ref: '#/components/schemas/response_device_search'
-        application/vnd.api+json:
-          examples:
-            Ap:
-              $ref: '#/components/examples/DevicesSearchAp'
-            Gateway:
-              $ref: '#/components/examples/DevicesSearchGateway'
-            Switch:
-              $ref: '#/components/examples/DevicesSearchSwitch'
-          schema:
-            $ref: '#/components/schemas/response_device_search'
-      description: OK
-    JunosRegisterCmd:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JunosRegisterCmdExample'
-          schema:
-            $ref: '#/components/schemas/response_device_config_cmd'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JunosRegisterCmdExample'
-          schema:
-            $ref: '#/components/schemas/response_device_config_cmd'
-      description: OK
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    ConfigsHistorySearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConfigsHistorySearchExample'
-          schema:
-            $ref: '#/components/schemas/response_config_history_search'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConfigsHistorySearchExample'
-          schema:
-            $ref: '#/components/schemas/response_config_history_search'
-      description: OK
-    OrgDevicesSummary:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgDevicesSummaryExample'
-          schema:
-            $ref: '#/components/schemas/response_org_devices_summary'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgDevicesSummaryExample'
-          schema:
-            $ref: '#/components/schemas/response_org_devices_summary'
-      description: OK
-    DeviceEventsSearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceEventsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_device_events_search'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceEventsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_device_events_search'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    RadioMacs:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/RadioMacsExample'
-          schema:
-            $ref: '#/components/schemas/ap_radio_macs'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/RadioMacsExample'
-          schema:
-            $ref: '#/components/schemas/ap_radio_macs'
-      description: OK
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    OrgDevices:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgDevicesExample'
-          schema:
-            $ref: '#/components/schemas/response_org_devices'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgDevicesExample'
-          schema:
-            $ref: '#/components/schemas/response_org_devices'
-      description: OK
+          - 5c5b350001a0
+          minLength: 1
+          type: string
+        radio_macs:
+          $ref: '#/components/schemas/ap_radio_mac_radio_macs'
+      required:
+      - mac
+      - radio_macs
+      type: object
+    webhook_device_events_event_ev_type:
+      description: '(optional) event advisory. enum: `notice`, `warn`'
+      enum:
+      - notice
+      - warn
+      type: string
   examples:
+    OrgDevicesExample:
+      value:
+        results:
+        - mac: string
+          name: string
+    JunosRegisterCmdExample:
+      value:
+        cmd: 'set system services ssh...
+
+          ...
+
+          set system services outbound-ssh client mist ...'
+    RadioMacsExample:
+      value:
+      - mac: 5c5b35000001
+        radio_macs:
+        - 5c5b35000040
+        - 5c5b35000050
+        - 5c5b35000060
+      - mac: 5c5b45000001
+        radio_macs:
+        - 5c5b45000040
+        - 5c5b45000050
+        - 5c5b45000060
+    OrgDevicesSummaryExample:
+      value:
+        num_aps: 630
+        num_gateways: 6
+        num_mxedges: 1
+        num_switches: 30
+        num_unassigned_aps: 5
+        num_unassigned_gateways: 0
+        num_unassigned_switches: 0
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    DevicesSearchSwitch:
+      value:
+        end: 0
+        limit: 0
+        next: string
+        results:
+        - clustered: false
+          evpn_missing_links: false
+          evpntopo_id: ''
+          ext_ip: 0.0.0.0
+          hostname:
+          - ld-cup-idf-bbb
+          ip: 10.0.0.217
+          last_config_status: success
+          last_hostname: ld-cup-idf-bbb
+          last_trouble_code: '106'
+          last_trouble_timestamp: 1719540
+          mac: 00c78d939c00
+          mist_configured: true
+          model: EX4100-48MP
+          num_members: 1
+          org_id: 6748cfa6-4e12-11e6-9188-0242ac110007
+          role: ''
+          site_id: a8178443-ecb5-461c-b854-f16627619ab3
+          time_drifted: false
+          timestamp: 1733998766.256
+          type: switch
+          uptime: 19287811
+          version: 22.4R3.25
+        start: 0
+        total: 0
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
     DevicesSearchAp:
       value:
         end: 0
@@ -1745,11 +1627,47 @@ components:
             ssid: Live-Demo
         start: 0
         total: 0
-    OrgDevicesExample:
+    HTTP400Example:
       value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    DevicesSearchGateway:
+      value:
+        end: 0
+        limit: 0
+        next: string
         results:
-        - mac: string
-          name: string
+        - clustered: true
+          evpn_missing_links: false
+          evpntopo_id: ''
+          ext_ip: 250.242.0.102
+          hostname:
+          - wan-teleworker
+          - 00ec77599d00
+          - router
+          ip: 250.242.0.102
+          last_config_status: success
+          last_hostname: wan-teleworker
+          mac: 00ec77599d00
+          mist_configured: true
+          model: SSR120
+          node: node1
+          node0_mac: 00ec77599d00
+          node1_mac: 00ec77599d01
+          num_members: 0
+          org_id: 6748cfa6-4e12-11e6-9188-0242ac110007
+          role: ''
+          site_id: a8178443-ecb5-461c-b854-f16627619ab3
+          t128agent_version: 3.8.0-201
+          time_drifted: false
+          timestamp: 1734001399.025
+          type: gateway
+          uptime: 3586951
+          version: 6.2.5-5.r2
+        start: 0
+        total: 0
     ConfigsHistorySearchExample:
       value:
         end: 1531862583
@@ -1793,72 +1711,6 @@ components:
             - '1'
         start: 1531776183
         total: 1
-    DevicesSearchSwitch:
-      value:
-        end: 0
-        limit: 0
-        next: string
-        results:
-        - clustered: false
-          evpn_missing_links: false
-          evpntopo_id: ''
-          ext_ip: 0.0.0.0
-          hostname:
-          - ld-cup-idf-bbb
-          ip: 10.0.0.217
-          last_config_status: success
-          last_hostname: ld-cup-idf-bbb
-          last_trouble_code: '106'
-          last_trouble_timestamp: 1719540
-          mac: 00c78d939c00
-          mist_configured: true
-          model: EX4100-48MP
-          num_members: 1
-          org_id: 6748cfa6-4e12-11e6-9188-0242ac110007
-          role: ''
-          site_id: a8178443-ecb5-461c-b854-f16627619ab3
-          time_drifted: false
-          timestamp: 1733998766.256
-          type: switch
-          uptime: 19287811
-          version: 22.4R3.25
-        start: 0
-        total: 0
-    DevicesSearchGateway:
-      value:
-        end: 0
-        limit: 0
-        next: string
-        results:
-        - clustered: true
-          evpn_missing_links: false
-          evpntopo_id: ''
-          ext_ip: 250.242.0.102
-          hostname:
-          - wan-teleworker
-          - 00ec77599d00
-          - router
-          ip: 250.242.0.102
-          last_config_status: success
-          last_hostname: wan-teleworker
-          mac: 00ec77599d00
-          mist_configured: true
-          model: SSR120
-          node: node1
-          node0_mac: 00ec77599d00
-          node1_mac: 00ec77599d01
-          num_members: 0
-          org_id: 6748cfa6-4e12-11e6-9188-0242ac110007
-          role: ''
-          site_id: a8178443-ecb5-461c-b854-f16627619ab3
-          t128agent_version: 3.8.0-201
-          time_drifted: false
-          timestamp: 1734001399.025
-          type: gateway
-          uptime: 3586951
-          version: 6.2.5-5.r2
-        start: 0
-        total: 0
     DeviceEventsSearchExample:
       value:
         end: 0
@@ -1875,98 +1727,7 @@ components:
           type: CLIENT_DNS_OK
         start: 0
         total: 0
-    JunosRegisterCmdExample:
-      value:
-        cmd: 'set system services ssh...
-
-          ...
-
-          set system services outbound-ssh client mist ...'
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    RadioMacsExample:
-      value:
-      - mac: 5c5b35000001
-        radio_macs:
-        - 5c5b35000040
-        - 5c5b35000050
-        - 5c5b35000060
-      - mac: 5c5b45000001
-        radio_macs:
-        - 5c5b45000040
-        - 5c5b45000050
-        - 5c5b45000060
-    OrgDevicesSummaryExample:
-      value:
-        num_aps: 630
-        num_gateways: 6
-        num_mxedges: 1
-        num_switches: 30
-        num_unassigned_aps: 5
-        num_unassigned_gateways: 0
-        num_unassigned_switches: 0
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
   parameters:
-    partial_filter_ext_ip:
-      description: Partial / full Device external ip. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `1.2.3.*` and `*.2.3.*` match `1.2.3.4`). Suffix-only wildcards (e.g. `*.2.3.4`) are not supported
-      in: query
-      name: ext_ip
-      schema:
-        examples:
-        - 1.2.3.4
-        - 1.2.3.*
-        - '*2.3.*'
-        type: string
-    page:
-      in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
-    partial_filter_lldp_port_id:
-      description: When `type`==`ap`, LLDP port id. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `ge-0/0/*` and `*-0/0/*` match `ge-0/0/30`). Suffix-only wildcards (e.g. `*switch-01`) are not supported
-      in: query
-      name: lldp_port_id
-      schema:
-        type: string
-    partial_filter_lldp_system_desc:
-      description: When `type`==`ap`, LLDP system description. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `Juniper Networks*` and `*Networks*` match `Juniper Networks, Inc.`). Suffix-only wildcards (e.g. `*switch-01`) are not supported
-      in: query
-      name: lldp_system_desc
-      schema:
-        type: string
-    device_type:
-      description: 'Type of device. enum: `ap`, `gateway`, `switch`'
-      in: query
-      name: type
-      schema:
-        $ref: '#/components/schemas/device_type_default_ap'
     partial_filter_mac_device:
       description: Partial / full Device MAC address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `001122*` and `*1122*` match `001122334455`). Suffix-only wildcards (e.g. `*4455`) are not supported
       in: query
@@ -1977,11 +1738,30 @@ components:
         - aabbcc*
         - '*bbcc*'
         type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
       in: query
-      name: start
+      name: search_after
       schema:
+        type: string
+    partial_filter_ext_ip:
+      description: Partial / full Device external ip. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `1.2.3.*` and `*.2.3.*` match `1.2.3.4`). Suffix-only wildcards (e.g. `*.2.3.4`) are not supported
+      in: query
+      name: ext_ip
+      schema:
+        examples:
+        - 1.2.3.4
+        - 1.2.3.*
+        - '*2.3.*'
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
         type: string
     partial_filter_lldp_system_name:
       description: When `type`==`ap`, LLDP system name. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `my-switch*` and `*switch*` match `my-switch-01`). Suffix-only wildcards (e.g. `*switch-01`) are not supported
@@ -1989,28 +1769,17 @@ components:
       name: lldp_system_name
       schema:
         type: string
-    sort:
-      description: On which field the list should be sorted, -prefix represents DESC order
+    device_event_type:
+      description: See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
       in: query
-      name: sort
-      schema:
-        default: timestamp
-        examples:
-        - -site_id
-        type: string
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
+      name: type
       schema:
         type: string
-    ip:
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
       in: query
-      name: ip
+      name: start
       schema:
-        examples:
-        - 192.168.1.1
-        format: ipv4
         type: string
     partial_filter_ip_device:
       description: Partial / full Device IP Address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `10.100.10.*` and `*100.10.*` match `10.100.10.54`). Suffix-only wildcards (e.g. `*.54`) are not supported
@@ -2022,13 +1791,21 @@ components:
         - 10.100.10.*
         - '*100.10.*'
         type: string
-    limit:
-      in: query
-      name: limit
+    org_id:
+      in: path
+      name: org_id
+      required: true
       schema:
-        default: 100
-        minimum: 0
-        type: integer
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    partial_filter_lldp_port_id:
+      description: When `type`==`ap`, LLDP port id. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `ge-0/0/*` and `*-0/0/*` match `ge-0/0/30`). Suffix-only wildcards (e.g. `*switch-01`) are not supported
+      in: query
+      name: lldp_port_id
+      schema:
+        type: string
     partial_filter_hostname_device:
       description: Partial / full Device hostname. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `my-london*` and `*london*` match `my-london-1`). Suffix-only wildcards (e.g. `*london-1`) are not supported
       in: query
@@ -2039,24 +1816,41 @@ components:
         - my-london*
         - '*london*'
         type: string
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    duration:
-      description: Duration like 7d, 2w
+    page:
       in: query
-      name: duration
+      name: page
       schema:
-        default: 1d
-        examples:
-        - 10m
+        default: 1
+        minimum: 1
+        type: integer
+    partial_filter_lldp_system_desc:
+      description: When `type`==`ap`, LLDP system description. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `Juniper Networks*` and `*Networks*` match `Juniper Networks, Inc.`). Suffix-only wildcards (e.g. `*switch-01`) are not supported
+      in: query
+      name: lldp_system_desc
+      schema:
         type: string
+    sort:
+      description: On which field the list should be sorted, -prefix represents DESC order
+      in: query
+      name: sort
+      schema:
+        default: timestamp
+        examples:
+        - -site_id
+        type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    device_type:
+      description: 'Type of device. enum: `ap`, `gateway`, `switch`'
+      in: query
+      name: type
+      schema:
+        $ref: '#/components/schemas/device_type_default_ap'
     partial_filter_model:
       description: Partial / full Device model. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `AP4*` and `*P4*` match `AP43`). Suffix-only wildcards (e.g. `*43`) are not supported
       in: query
@@ -2067,12 +1861,218 @@ components:
         - AP4*
         - '*P4*'
         type: string
-    device_event_type:
-      description: See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
+    ip:
       in: query
-      name: type
+      name: ip
+      schema:
+        examples:
+        - 192.168.1.1
+        format: ipv4
+        type: string
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
       schema:
         type: string
+  responses:
+    RadioMacs:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RadioMacsExample'
+          schema:
+            $ref: '#/components/schemas/ap_radio_macs'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RadioMacsExample'
+          schema:
+            $ref: '#/components/schemas/ap_radio_macs'
+      description: OK
+    ConfigsHistorySearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConfigsHistorySearchExample'
+          schema:
+            $ref: '#/components/schemas/response_config_history_search'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConfigsHistorySearchExample'
+          schema:
+            $ref: '#/components/schemas/response_config_history_search'
+      description: OK
+    OrgDevicesSummary:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgDevicesSummaryExample'
+          schema:
+            $ref: '#/components/schemas/response_org_devices_summary'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgDevicesSummaryExample'
+          schema:
+            $ref: '#/components/schemas/response_org_devices_summary'
+      description: OK
+    JunosRegisterCmd:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JunosRegisterCmdExample'
+          schema:
+            $ref: '#/components/schemas/response_device_config_cmd'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JunosRegisterCmdExample'
+          schema:
+            $ref: '#/components/schemas/response_device_config_cmd'
+      description: OK
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    OrgDevices:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgDevicesExample'
+          schema:
+            $ref: '#/components/schemas/response_org_devices'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgDevicesExample'
+          schema:
+            $ref: '#/components/schemas/response_org_devices'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    DeviceEventsSearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceEventsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_device_events_search'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceEventsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_device_events_search'
+      description: OK
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    DevicesSearch:
+      content:
+        application/json:
+          examples:
+            Ap:
+              $ref: '#/components/examples/DevicesSearchAp'
+            Gateway:
+              $ref: '#/components/examples/DevicesSearchGateway'
+            Switch:
+              $ref: '#/components/examples/DevicesSearchSwitch'
+          schema:
+            $ref: '#/components/schemas/response_device_search'
+        application/vnd.api+json:
+          examples:
+            Ap:
+              $ref: '#/components/examples/DevicesSearchAp'
+            Gateway:
+              $ref: '#/components/examples/DevicesSearchGateway'
+            Switch:
+              $ref: '#/components/examples/DevicesSearchSwitch'
+          schema:
+            $ref: '#/components/schemas/response_device_search'
+      description: OK
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

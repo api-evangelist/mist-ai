@@ -194,120 +194,68 @@ paths:
       tags:
       - Orgs NAC Rules
 components:
-  responses:
-    NacRule:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/nac_rule'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/nac_rule'
-      description: Example response
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    OK:
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    NacRulesArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/NacRulesArrayExample'
-          schema:
-            $ref: '#/components/schemas/nac_rules'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/NacRulesArrayExample'
-          schema:
-            $ref: '#/components/schemas/nac_rules'
-      description: Example response
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
   schemas:
-    response_http400:
+    nac_rule_matching:
+      additionalProperties: false
+      properties:
+        auth_type:
+          $ref: '#/components/schemas/nac_auth_type'
+        family:
+          $ref: '#/components/schemas/nac_rule_matching_family'
+        mfg:
+          $ref: '#/components/schemas/nac_rule_matching_model'
+        model:
+          $ref: '#/components/schemas/nac_rule_matching_mfg'
+        nactags:
+          $ref: '#/components/schemas/nac_rule_matching_nactags'
+        os_type:
+          $ref: '#/components/schemas/nac_rule_matching_os_type'
+        port_types:
+          $ref: '#/components/schemas/nac_rule_matching_port_types'
+        site_ids:
+          $ref: '#/components/schemas/nac_rule_matching_site_ids'
+        sitegroup_ids:
+          $ref: '#/components/schemas/nac_rule_matching_sitegroup_ids'
+        vendor:
+          $ref: '#/components/schemas/nac_rule_matching_vendor'
+      type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    nac_rule_action:
+      description: 'enum: `allow`, `block`'
+      enum:
+      - allow
+      - block
+      examples:
+      - allow
+      type: string
+    nac_auth_type:
+      description: 'enum: `cert`, `device-auth`, `eap-teap`, `eap-tls`, `eap-ttls`, `idp`, `mab`, `eap-peap`'
+      enum:
+      - cert
+      - device-auth
+      - eap-teap
+      - eap-tls
+      - eap-ttls
+      - idp
+      - mab
+      - eap-peap
+      examples:
+      - eap-tls
+      type: string
+    response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    nac_rules:
-      items:
-        $ref: '#/components/schemas/nac_rule'
-      type: array
-    nac_rule_matching_family:
-      description: List of client device families to match. Refer to [List Fingerprint Types]](/#operations/listFingerprintTypes) for allowed family values
-      items:
-        type: string
-      type: array
     nac_rule:
       properties:
         action:
@@ -344,46 +292,11 @@ components:
       - action
       - name
       type: object
-    nac_rule_matching_sitegroup_ids:
-      description: List of sitegroup ids to match
-      examples:
-      - - bb19fc3e-4124-4b57-80d9-c3f6edce47c4
-        - bb19fc3e-6564-4b57-80d9-c3f6edce47c1
+    nac_rule_matching_model:
+      description: List of client device models to match. Refer to [List Fingerprint Types]](/#operations/listFingerprintTypes) for allowed model values
       items:
-        format: uuid
         type: string
       type: array
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    nac_auth_type:
-      description: 'enum: `cert`, `device-auth`, `eap-teap`, `eap-tls`, `eap-ttls`, `idp`, `mab`, `eap-peap`'
-      enum:
-      - cert
-      - device-auth
-      - eap-teap
-      - eap-tls
-      - eap-ttls
-      - idp
-      - mab
-      - eap-peap
-      examples:
-      - eap-tls
-      type: string
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
-    nac_rule_matching_port_type:
-      description: 'enum: `wired`, `wireless`'
-      enum:
-      - wired
-      - wireless
-      type: string
     response_http401:
       additionalProperties: false
       properties:
@@ -392,13 +305,9 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    nac_rule_matching_site_ids:
-      description: List of site ids to match
-      examples:
-      - - bb19fc3e-4124-4b57-80d9-c3f6edce47c4
-        - bb19fc3e-6564-4b57-80d9-c3f6edce47c1
+    nac_rule_matching_mfg:
+      description: List of client device manufacturers to match. Refer to [List Fingerprint Types]](/#operations/listFingerprintTypes) for allowed mfg values
       items:
-        format: uuid
         type: string
       type: array
     nac_rule_matching_nactags:
@@ -408,78 +317,69 @@ components:
       items:
         type: string
       type: array
-    nac_rule_apply_tags:
-      description: All optional, this goes into Access-Accept
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    nac_rules:
+      items:
+        $ref: '#/components/schemas/nac_rule'
+      type: array
+    nac_rule_matching_sitegroup_ids:
+      description: List of sitegroup ids to match
       examples:
-      - - c049dfcd-0c73-5014-1c64-062e9903f1e5
+      - - bb19fc3e-4124-4b57-80d9-c3f6edce47c4
+        - bb19fc3e-6564-4b57-80d9-c3f6edce47c1
       items:
+        format: uuid
         type: string
       type: array
-    nac_rule_matching_mfg:
-      description: List of client device manufacturers to match. Refer to [List Fingerprint Types]](/#operations/listFingerprintTypes) for allowed mfg values
-      items:
-        type: string
-      type: array
-    nac_rule_action:
-      description: 'enum: `allow`, `block`'
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    nac_rule_matching_port_type:
+      description: 'enum: `wired`, `wireless`'
       enum:
-      - allow
-      - block
-      examples:
-      - allow
+      - wired
+      - wireless
       type: string
     modified_time:
       description: When the object has been modified for the last time, in epoch
       format: double
       readOnly: true
       type: number
-    nac_rule_matching_os_type:
-      description: List of client device os types to match. Refer to [List Fingerprint Types]](/#operations/listFingerprintTypes) for allowed os_type values
+    nac_rule_matching_site_ids:
+      description: List of site ids to match
+      examples:
+      - - bb19fc3e-4124-4b57-80d9-c3f6edce47c4
+        - bb19fc3e-6564-4b57-80d9-c3f6edce47c1
       items:
+        format: uuid
         type: string
       type: array
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    nac_rule_guest_auth_state:
-      description: 'Guest portal authorization state. enum: `authorized`, `unknown`'
-      enum:
-      - authorized
-      - unknown
-      examples:
-      - authorized
-      type: string
-    nac_rule_matching:
-      additionalProperties: false
-      properties:
-        auth_type:
-          $ref: '#/components/schemas/nac_auth_type'
-        family:
-          $ref: '#/components/schemas/nac_rule_matching_family'
-        mfg:
-          $ref: '#/components/schemas/nac_rule_matching_model'
-        model:
-          $ref: '#/components/schemas/nac_rule_matching_mfg'
-        nactags:
-          $ref: '#/components/schemas/nac_rule_matching_nactags'
-        os_type:
-          $ref: '#/components/schemas/nac_rule_matching_os_type'
-        port_types:
-          $ref: '#/components/schemas/nac_rule_matching_port_types'
-        site_ids:
-          $ref: '#/components/schemas/nac_rule_matching_site_ids'
-        sitegroup_ids:
-          $ref: '#/components/schemas/nac_rule_matching_sitegroup_ids'
-        vendor:
-          $ref: '#/components/schemas/nac_rule_matching_vendor'
-      type: object
-    nac_rule_matching_model:
-      description: List of client device models to match. Refer to [List Fingerprint Types]](/#operations/listFingerprintTypes) for allowed model values
+    nac_rule_matching_family:
+      description: List of client device families to match. Refer to [List Fingerprint Types]](/#operations/listFingerprintTypes) for allowed family values
       items:
         type: string
       type: array
@@ -490,40 +390,41 @@ components:
         - cisc
         type: string
       type: array
-    org_id:
+    nac_rule_apply_tags:
+      description: All optional, this goes into Access-Accept
       examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
+      - - c049dfcd-0c73-5014-1c64-062e9903f1e5
+      items:
+        type: string
+      type: array
+    nac_rule_matching_os_type:
+      description: List of client device os types to match. Refer to [List Fingerprint Types]](/#operations/listFingerprintTypes) for allowed os_type values
+      items:
+        type: string
+      type: array
     nac_rule_matching_port_types:
       examples:
       - - wired
       items:
         $ref: '#/components/schemas/nac_rule_matching_port_type'
       type: array
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
       readOnly: true
+      type: number
+    nac_rule_guest_auth_state:
+      description: 'Guest portal authorization state. enum: `authorized`, `unknown`'
+      enum:
+      - authorized
+      - unknown
+      examples:
+      - authorized
       type: string
   examples:
-    HTTP429Example:
+    HTTP400Example:
       value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     NacRulesArrayExample:
       value:
       - action: allow
@@ -555,20 +456,112 @@ components:
           - 451f6eca-6276-4993-bfeb-53cbbbba6608
         order: 1
         org_id: a40f5d1f-d889-42e9-94ea-b9b33585fc6b
-    HTTP400Example:
+    HTTP429Example:
       value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+  responses:
+    NacRulesArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/NacRulesArrayExample'
+          schema:
+            $ref: '#/components/schemas/nac_rules'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/NacRulesArrayExample'
+          schema:
+            $ref: '#/components/schemas/nac_rules'
+      description: Example response
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    OK:
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    NacRule:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/nac_rule'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/nac_rule'
+      description: Example response
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
     org_id:
       in: path
       name: org_id
@@ -587,6 +580,13 @@ components:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
     page:
       in: query
       name: page

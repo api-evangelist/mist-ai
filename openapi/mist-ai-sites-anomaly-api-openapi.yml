@@ -127,42 +127,45 @@ paths:
       tags:
       - Sites Anomaly
 components:
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
   schemas:
-    response_http400:
+    response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    anomaly:
-      additionalProperties: false
-      description: Anomaly
-      properties:
-        events:
-          $ref: '#/components/schemas/anomaly_events'
-        since:
-          readOnly: true
-          type: number
-        sle_baseline:
-          readOnly: true
-          type: number
-        sle_deviation:
-          readOnly: true
-          type: number
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-      required:
-      - timestamp
-      - sle_baseline
-      - sle_deviation
-      - events
-      type: object
-    response_http404:
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    anomaly_events:
+      items:
+        readOnly: true
+        type: string
+      readOnly: true
+      type: array
+    response_http401:
       additionalProperties: false
       properties:
-        id:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
           type: string
       type: object
     response_anomaly_search_results:
@@ -170,12 +173,6 @@ components:
         $ref: '#/components/schemas/anomaly'
       type: array
       uniqueItems: true
-    anomaly_events:
-      items:
-        readOnly: true
-        type: string
-      readOnly: true
-      type: array
     response_anomaly_search:
       additionalProperties: false
       properties:
@@ -208,26 +205,28 @@ components:
       - page
       - results
       type: object
-    response_http401:
+    anomaly:
       additionalProperties: false
+      description: Anomaly
       properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
+        events:
+          $ref: '#/components/schemas/anomaly_events'
+        since:
+          readOnly: true
+          type: number
+        sle_baseline:
+          readOnly: true
+          type: number
+        sle_deviation:
+          readOnly: true
+          type: number
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - timestamp
+      - sle_baseline
+      - sle_deviation
+      - events
       type: object
     response_http403:
       additionalProperties: false
@@ -237,70 +236,21 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
   responses:
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    AnomalyMetrics:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_anomaly_search'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_anomaly_search'
-      description: OK
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
     HTTP401:
       content:
         application/json:
@@ -316,20 +266,79 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    AnomalyMetrics:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_anomaly_search'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_anomaly_search'
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
+    client_mac:
+      in: path
+      name: client_mac
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
+        type: string
     device_mac:
       in: path
       name: device_mac
@@ -339,6 +348,13 @@ components:
         - 0000000000ab
         pattern: ^[0-9a-fA-F]{12}$
         type: string
+    metric:
+      description: See [List Insight Metrics](/#operations/listInsightMetrics) for available metrics
+      in: path
+      name: metric
+      required: true
+      schema:
+        type: string
     site_id:
       in: path
       name: site_id
@@ -347,22 +363,6 @@ components:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
-        type: string
-    metric:
-      description: See [List Insight Metrics](/#operations/listInsightMetrics) for available metrics
-      in: path
-      name: metric
-      required: true
-      schema:
-        type: string
-    client_mac:
-      in: path
-      name: client_mac
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
         type: string
   securitySchemes:
     apiToken:

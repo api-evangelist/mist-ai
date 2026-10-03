@@ -404,41 +404,6 @@ paths:
       - Sites Stats - Ports
 components:
   schemas:
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_switch_port_search_results:
-      items:
-        $ref: '#/components/schemas/stats_switch_port'
-      type: array
-    response_count:
-      additionalProperties: false
-      properties:
-        distinct:
-          type: string
-        end:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/count_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
     rx_bytes:
       description: Amount of traffic received since connection
       examples:
@@ -457,101 +422,6 @@ components:
       type:
       - integer
       - 'null'
-    search_org_sw_or_gw_ports_type:
-      default: all
-      description: 'enum: `switch`, `gateway`, `all`'
-      enum:
-      - switch
-      - gateway
-      - all
-      type: string
-    stats_switch_port_poe_mode:
-      description: 'enum: `802.3af`, `802.3at`, `802.3bt`'
-      enum:
-      - 802.3af
-      - 802.3at
-      - 802.3bt
-      type: string
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    tx_bps:
-      description: Rate of transmitting traffic, bits/seconds, last known
-      examples:
-      - 634301
-      format: int64
-      readOnly: true
-      type:
-      - integer
-      - 'null'
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    site_ports_count_distinct:
-      default: mac
-      description: 'enum: `full_duplex`, `mac`, `neighbor_mac`, `neighbor_port_desc`, `neighbor_system_name`, `poe_disabled`, `poe_mode`, `poe_on`, `port_id`, `port_mac`, `speed`, `up`'
-      enum:
-      - full_duplex
-      - mac
-      - neighbor_mac
-      - neighbor_port_desc
-      - neighbor_system_name
-      - poe_disabled
-      - poe_mode
-      - poe_on
-      - port_id
-      - port_mac
-      - speed
-      - up
-      type: string
-    tx_pkts:
-      description: Amount of packets sent since connection
-      examples:
-      - 812204062
-      format: int64
-      readOnly: true
-      type:
-      - integer
-      - 'null'
-    rx_bps:
-      description: Rate of receiving traffic, bits/seconds, last known
-      examples:
-      - 60003
-      format: int64
-      readOnly: true
-      type:
-      - integer
-      - 'null'
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    poe_priority:
-      description: 'PoE priority. enum: `low`, `high`'
-      enum:
-      - low
-      - high
-      type: string
-    port_stp_role:
-      description: 'enum: `alternate`, `backup`, `designated`, `disabled`, `root`, `root-prevented`'
-      enum:
-      - ''
-      - alternate
-      - backup
-      - designated
-      - disabled
-      - root
-      - root-prevented
-      type: string
     port_stp_state:
       description: 'enum: `blocking`, `disabled`, `forwarding`, `learning`, `listening`'
       enum:
@@ -562,6 +432,20 @@ components:
       - learning
       - listening
       type: string
+    tx_pkts:
+      description: Amount of packets sent since connection
+      examples:
+      - 812204062
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
     response_switch_port_search:
       additionalProperties: false
       properties:
@@ -589,6 +473,14 @@ components:
       - limit
       - total
       - results
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
       type: object
     stats_switch_port:
       additionalProperties: false
@@ -795,6 +687,156 @@ components:
       - port_id
       - site_id
       type: object
+    tx_bps:
+      description: Rate of transmitting traffic, bits/seconds, last known
+      examples:
+      - 634301
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    poe_priority:
+      description: 'PoE priority. enum: `low`, `high`'
+      enum:
+      - low
+      - high
+      type: string
+    port_auth_state:
+      description: 'enum: `authenticated`, `authenticating`, `held`, `init`'
+      enum:
+      - ''
+      - authenticated
+      - authenticating
+      - held
+      - init
+      type: string
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    stats_switch_port_poe_mode:
+      description: 'enum: `802.3af`, `802.3at`, `802.3bt`'
+      enum:
+      - 802.3af
+      - 802.3at
+      - 802.3bt
+      type: string
+    rx_bps:
+      description: Rate of receiving traffic, bits/seconds, last known
+      examples:
+      - 60003
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    search_org_sw_or_gw_ports_type:
+      default: all
+      description: 'enum: `switch`, `gateway`, `all`'
+      enum:
+      - switch
+      - gateway
+      - all
+      type: string
+    site_ports_count_distinct:
+      default: mac
+      description: 'enum: `full_duplex`, `mac`, `neighbor_mac`, `neighbor_port_desc`, `neighbor_system_name`, `poe_disabled`, `poe_mode`, `poe_on`, `port_id`, `port_mac`, `speed`, `up`'
+      enum:
+      - full_duplex
+      - mac
+      - neighbor_mac
+      - neighbor_port_desc
+      - neighbor_system_name
+      - poe_disabled
+      - poe_mode
+      - poe_on
+      - port_id
+      - port_mac
+      - speed
+      - up
+      type: string
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    response_count:
+      additionalProperties: false
+      properties:
+        distinct:
+          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    port_stp_role:
+      description: 'enum: `alternate`, `backup`, `designated`, `disabled`, `root`, `root-prevented`'
+      enum:
+      - ''
+      - alternate
+      - backup
+      - designated
+      - disabled
+      - root
+      - root-prevented
+      type: string
     tx_bytes:
       description: Amount of traffic sent since connection
       examples:
@@ -816,159 +858,33 @@ components:
       examples:
       - gateway
       type: string
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    count_result:
-      additionalProperties:
-        type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
-      type: object
-    port_auth_state:
-      description: 'enum: `authenticated`, `authenticating`, `held`, `init`'
-      enum:
-      - ''
-      - authenticated
-      - authenticating
-      - held
-      - init
-      type: string
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-  responses:
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    SwitchPortsSearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SwitchPortsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_switch_port_search'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SwitchPortsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_switch_port_search'
-      description: List of Switch Ports Stats
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
+    response_switch_port_search_results:
+      items:
+        $ref: '#/components/schemas/stats_switch_port'
+      type: array
   examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
     SwitchPortsSearchExample:
       value:
         end: 1513177200
@@ -1019,36 +935,107 @@ components:
           xcvr_part_number: string
         start: 1511967600
         total: 100
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+  responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    SwitchPortsSearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SwitchPortsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_switch_port_search'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SwitchPortsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_switch_port_search'
+      description: List of Switch Ports Stats
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
     sort:
       description: On which field the list should be sorted, -prefix represents DESC order
       in: query
@@ -1058,21 +1045,19 @@ components:
         examples:
         - -site_id
         type: string
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
     search_after:
       description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
       in: query
       name: search_after
       schema:
         type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
     site_id:
       in: path
       name: site_id
@@ -1081,6 +1066,21 @@ components:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
+        type: string
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
         type: string
     end:
       description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")

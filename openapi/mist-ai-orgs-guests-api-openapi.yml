@@ -235,184 +235,11 @@ paths:
       - Orgs Guests
 components:
   schemas:
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_count:
-      additionalProperties: false
-      properties:
-        distinct:
-          type: string
-        end:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/count_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_guest_search:
-      additionalProperties: false
-      properties:
-        end:
-          type: integer
-        limit:
-          type: integer
-        next:
-          type: string
-        results:
-          $ref: '#/components/schemas/response_guest_search_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    guests:
+    response_guest_search_results:
       items:
         $ref: '#/components/schemas/guest'
       type: array
-    count_result:
-      additionalProperties:
-        type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    guest:
-      description: Guest
-      properties:
-        access_code_email:
-          description: If `auth_method`==`email`, the email address where the authorization code has been sent to
-          readOnly: true
-          type: string
-        ap_mac:
-          description: MAC Address of the AP the guest was connected to during the registration process
-          readOnly: true
-          type: string
-        auth_method:
-          description: Type of guest authorization
-          readOnly: true
-          type: string
-        authorized:
-          default: true
-          description: Whether the guest is current authorized
-          type: boolean
-        authorized_expiring_time:
-          description: When the authorization would expire
-          examples:
-          - 1480704955
-          readOnly: true
-          type: number
-        authorized_time:
-          description: When the guest was authorized
-          examples:
-          - 1480704355
-          readOnly: true
-          type: number
-        company:
-          description: Optional, the info provided by user
-          examples:
-          - abc
-          type: string
-        email:
-          description: Optional, the info provided by user
-          examples:
-          - john@abc.com
-          format: email
-          type: string
-        field1:
-          description: Optional, the info provided by user
-          type: string
-        field2:
-          type: string
-        field3:
-          type: string
-        field4:
-          type: string
-        mac:
-          description: MAC Address
-          readOnly: true
-          type: string
-        minutes:
-          default: 1440
-          description: Authorization duration, in minutes. Default is 1440 minutes (1 day), maximum is 259200 (180 days)
-          maximum: 259200
-          minimum: 0
-          type: integer
-        name:
-          description: Optional, the info provided by user
-          examples:
-          - John Smith
-          readOnly: true
-          type: string
-        random_mac:
-          description: If the client is using a randomized MAC Address to connect the SSID
-          readOnly: true
-          type: boolean
-        ssid:
-          description: Name of the SSID
-          examples:
-          - Guest-SSID
-          readOnly: true
-          type: string
-        wlan_id:
-          description: ID of the SSID
-          examples:
-          - 6748cfa6-4e12-11e6-9188-0242ac110007
-          format: uuid
-          readOnly: true
-          type: string
-      type: object
+      uniqueItems: true
     org_guests_count_distinct:
       default: auth_method
       description: 'enum: `auth_method`, `company`, `ssid`'
@@ -421,6 +248,19 @@ components:
       - company
       - ssid
       type: string
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
     guest_org:
       description: Guest
       properties:
@@ -513,11 +353,121 @@ components:
       required:
       - wlan_id
       type: object
-    response_guest_search_results:
-      items:
-        $ref: '#/components/schemas/guest'
-      type: array
-      uniqueItems: true
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_guest_search:
+      additionalProperties: false
+      properties:
+        end:
+          type: integer
+        limit:
+          type: integer
+        next:
+          type: string
+        results:
+          $ref: '#/components/schemas/response_guest_search_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    guest:
+      description: Guest
+      properties:
+        access_code_email:
+          description: If `auth_method`==`email`, the email address where the authorization code has been sent to
+          readOnly: true
+          type: string
+        ap_mac:
+          description: MAC Address of the AP the guest was connected to during the registration process
+          readOnly: true
+          type: string
+        auth_method:
+          description: Type of guest authorization
+          readOnly: true
+          type: string
+        authorized:
+          default: true
+          description: Whether the guest is current authorized
+          type: boolean
+        authorized_expiring_time:
+          description: When the authorization would expire
+          examples:
+          - 1480704955
+          readOnly: true
+          type: number
+        authorized_time:
+          description: When the guest was authorized
+          examples:
+          - 1480704355
+          readOnly: true
+          type: number
+        company:
+          description: Optional, the info provided by user
+          examples:
+          - abc
+          type: string
+        email:
+          description: Optional, the info provided by user
+          examples:
+          - john@abc.com
+          format: email
+          type: string
+        field1:
+          description: Optional, the info provided by user
+          type: string
+        field2:
+          type: string
+        field3:
+          type: string
+        field4:
+          type: string
+        mac:
+          description: MAC Address
+          readOnly: true
+          type: string
+        minutes:
+          default: 1440
+          description: Authorization duration, in minutes. Default is 1440 minutes (1 day), maximum is 259200 (180 days)
+          maximum: 259200
+          minimum: 0
+          type: integer
+        name:
+          description: Optional, the info provided by user
+          examples:
+          - John Smith
+          readOnly: true
+          type: string
+        random_mac:
+          description: If the client is using a randomized MAC Address to connect the SSID
+          readOnly: true
+          type: boolean
+        ssid:
+          description: Name of the SSID
+          examples:
+          - Guest-SSID
+          readOnly: true
+          type: string
+        wlan_id:
+          description: ID of the SSID
+          examples:
+          - 6748cfa6-4e12-11e6-9188-0242ac110007
+          format: uuid
+          readOnly: true
+          type: string
+      type: object
     response_http403:
       additionalProperties: false
       properties:
@@ -526,7 +476,114 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    guests:
+      items:
+        $ref: '#/components/schemas/guest'
+      type: array
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_count:
+      additionalProperties: false
+      properties:
+        distinct:
+          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
   examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    GuestsArrayExample:
+      value:
+      - authorized: true
+        authorized_expiring_time: 0
+        authorized_time: 0
+        company: string
+        email: user@example.com
+        field1: string
+        field2: string
+        field3: string
+        field4: string
+        mac: string
+        minutes: 0
+        name: string
+    GuestExample2:
+      value:
+        authorized: true
+        authorized_expiring_time: 1480704955
+        authorized_time: 1480704355
+        company: abc
+        email: john@abc.com
+        field1: xxx
+        mac: 5684dae9ac8b
+        name: John Smith
+    GuestExample:
+      value:
+        authorized: true
+        authorized_expiring_time: 0
+        authorized_time: 0
+        company: string
+        email: user@example.com
+        field1: string
+        field2: string
+        field3: string
+        field4: string
+        mac: string
+        minutes: 0
+        name: string
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    GuestsArrayExample2:
+      value:
+      - authorized: true
+        authorized_expiring_time: 1480704955
+        authorized_time: 1480704355
+        company: abc
+        email: john@abc.com
+        field1: xxx
+        mac: 5684dae9ac8b
+        name: John Smith
     GuestsSearchExample:
       value:
         end: 1531862583
@@ -553,35 +610,9 @@ components:
           timestamp: 1531782632
         start: 1531776183
         total: 14
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    GuestExample2:
-      value:
-        authorized: true
-        authorized_expiring_time: 1480704955
-        authorized_time: 1480704355
-        company: abc
-        email: john@abc.com
-        field1: xxx
-        mac: 5684dae9ac8b
-        name: John Smith
-    GuestsArrayExample2:
-      value:
-      - authorized: true
-        authorized_expiring_time: 1480704955
-        authorized_time: 1480704355
-        company: abc
-        email: john@abc.com
-        field1: xxx
-        mac: 5684dae9ac8b
-        name: John Smith
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     CountExample:
       value:
         distinct: string
@@ -592,38 +623,22 @@ components:
           property: string
         start: 0
         total: 0
-    GuestExample:
-      value:
-        authorized: true
-        authorized_expiring_time: 0
-        authorized_time: 0
-        company: string
-        email: user@example.com
-        field1: string
-        field2: string
-        field3: string
-        field4: string
-        mac: string
-        minutes: 0
-        name: string
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    GuestsArrayExample:
-      value:
-      - authorized: true
-        authorized_expiring_time: 0
-        authorized_time: 0
-        company: string
-        email: user@example.com
-        field1: string
-        field2: string
-        field3: string
-        field4: string
-        mac: string
-        minutes: 0
-        name: string
   responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -639,49 +654,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    Guest:
+    Count:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/GuestExample'
-            Example2:
-              $ref: '#/components/examples/GuestExample2'
+              $ref: '#/components/examples/CountExample'
           schema:
-            $ref: '#/components/schemas/guest'
+            $ref: '#/components/schemas/response_count'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/GuestExample'
-            Example2:
-              $ref: '#/components/examples/GuestExample2'
+              $ref: '#/components/examples/CountExample'
           schema:
-            $ref: '#/components/schemas/guest'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    GuestsSearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/GuestsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_guest_search'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/GuestsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_guest_search'
-      description: OK
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
     OK:
       description: OK
     HTTP403:
@@ -699,6 +686,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
+    GuestsSearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/GuestsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_guest_search'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/GuestsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_guest_search'
+      description: OK
     HTTP400:
       content:
         application/json:
@@ -714,21 +716,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
     GuestsArray:
       content:
         application/json:
@@ -748,22 +735,62 @@ components:
           schema:
             $ref: '#/components/schemas/guests'
       description: OK
-    HTTP401:
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    Guest:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP401Example'
+              $ref: '#/components/examples/GuestExample'
+            Example2:
+              $ref: '#/components/examples/GuestExample2'
           schema:
-            $ref: '#/components/schemas/response_http401'
+            $ref: '#/components/schemas/guest'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP401Example'
+              $ref: '#/components/examples/GuestExample'
+            Example2:
+              $ref: '#/components/examples/GuestExample2'
           schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
+            $ref: '#/components/schemas/guest'
+      description: OK
   parameters:
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    guest_mac:
+      in: path
+      name: guest_mac
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
+        type: string
+    sort:
+      description: On which field the list should be sorted, -prefix represents DESC order
+      in: query
+      name: sort
+      schema:
+        default: timestamp
+        examples:
+        - -site_id
+        type: string
     limit:
       in: query
       name: limit
@@ -776,24 +803,6 @@ components:
       in: query
       name: start
       schema:
-        type: string
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    sort:
-      description: On which field the list should be sorted, -prefix represents DESC order
-      in: query
-      name: sort
-      schema:
-        default: timestamp
-        examples:
-        - -site_id
         type: string
     duration:
       description: Duration like 7d, 2w
@@ -809,15 +818,6 @@ components:
       in: query
       name: end
       schema:
-        type: string
-    guest_mac:
-      in: path
-      name: guest_mac
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
         type: string
   securitySchemes:
     apiToken:

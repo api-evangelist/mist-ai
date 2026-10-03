@@ -225,16 +225,85 @@ paths:
       tags:
       - Orgs Logs
 components:
+  examples:
+    LogsSearchExample:
+      value:
+        end: 1428954000
+        limit: 100
+        results:
+        - admin_id: 72bfa2bd-e58a-4670-9d20-a1468f7a6f58
+          admin_name: test@mistsys.com
+          id: c6f9347b-b0a4-4a23-b927-fa9249f2ffb2
+          message: TEST AUDIT
+          org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
+          site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
+          timestamp: 1431382121
+        start: 1428939600
+        total: 135
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
   schemas:
-    org_logs_count_distinct:
-      default: admin_name
-      description: 'enum: `admin_id`, `admin_name`, `message`, `site_id`'
-      enum:
-      - admin_id
-      - admin_name
-      - message
-      - site_id
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
       type: string
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
     response_http400:
       additionalProperties: false
       properties:
@@ -242,6 +311,62 @@ components:
           examples:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
+      type: object
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    list_org_logs_sort:
+      description: 'enum: `-timestamp`, `admin_id`, `site_id`, `timestamp`'
+      enum:
+      - -timestamp
+      - admin_id
+      - site_id
+      - timestamp
+      type: string
+    log_events:
+      items:
+        $ref: '#/components/schemas/log_event'
+      type: array
+      uniqueItems: true
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    response_log_search:
+      additionalProperties: false
+      properties:
+        end:
+          type: integer
+        limit:
+          type: integer
+        next:
+          type: string
+        results:
+          $ref: '#/components/schemas/log_events'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - end
+      - limit
+      - results
+      - start
+      - total
       type: object
     response_count:
       additionalProperties: false
@@ -266,52 +391,6 @@ components:
       - start
       - total
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    response_log_search:
-      additionalProperties: false
-      properties:
-        end:
-          type: integer
-        limit:
-          type: integer
-        next:
-          type: string
-        results:
-          $ref: '#/components/schemas/log_events'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    log_events:
-      items:
-        $ref: '#/components/schemas/log_event'
-      type: array
-      uniqueItems: true
-    list_org_logs_sort:
-      description: 'enum: `-timestamp`, `admin_id`, `site_id`, `timestamp`'
-      enum:
-      - -timestamp
-      - admin_id
-      - site_id
-      - timestamp
-      type: string
     log_event:
       additionalProperties: false
       properties:
@@ -372,58 +451,31 @@ components:
       - org_id
       - timestamp
       type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    count_result:
-      additionalProperties:
-        type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
+    org_logs_count_distinct:
+      default: admin_name
+      description: 'enum: `admin_id`, `admin_name`, `message`, `site_id`'
+      enum:
+      - admin_id
+      - admin_name
+      - message
+      - site_id
       type: string
   responses:
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     HTTP429:
       content:
         application/json:
@@ -439,15 +491,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP404:
+    Count:
       content:
         application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
           schema:
-            $ref: '#/components/schemas/response_http404'
+            $ref: '#/components/schemas/response_count'
         application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
           schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
     LogsSearch:
       content:
         application/json:
@@ -493,74 +551,25 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    Count:
+    HTTP404:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
           schema:
-            $ref: '#/components/schemas/response_count'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
           schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    LogsSearchExample:
-      value:
-        end: 1428954000
-        limit: 100
-        results:
-        - admin_id: 72bfa2bd-e58a-4670-9d20-a1468f7a6f58
-          admin_name: test@mistsys.com
-          id: c6f9347b-b0a4-4a23-b927-fa9249f2ffb2
-          message: TEST AUDIT
-          org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
-          site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
-          timestamp: 1431382121
-        start: 1428939600
-        total: 135
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
     limit:
       in: query
       name: limit
@@ -574,15 +583,6 @@ components:
       name: start
       schema:
         type: string
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
     duration:
       description: Duration like 7d, 2w
       in: query
@@ -592,6 +592,12 @@ components:
         examples:
         - 10m
         type: string
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
     page:
       in: query
       name: page
@@ -599,12 +605,6 @@ components:
         default: 1
         minimum: 1
         type: integer
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

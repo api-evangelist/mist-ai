@@ -252,14 +252,154 @@ paths:
       tags:
       - Sites Rogues
 components:
+  examples:
+    InsightRogueClientsExample:
+      value:
+        end: 1428954000
+        limit: 100
+        next: /api/v1/sites/a3eda150-ab3f-11e4-aa18-13e21dd250cc/rogues/clients?start=1498482000&end=1498485600&limit=10&interval=1h
+        results:
+        - annotation: whitelist
+          ap_mac: 5c-5b-35-0e-02-1c
+          avg_rssi: -63.9
+          band: '5'
+          bssid: d8-97-ba-76-b5-aa
+          client_mac: 34-f8-32-13-57-c2
+          num_aps: 2
+        start: 1428939600
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    RogueDetailsExample:
+      value:
+        manufacture: Intel Corporate
+        seen_as_client: true
+    InsightRogueExample:
+      value:
+        end: 1428954000
+        limit: 100
+        next: /api/v1/sites/a3eda150-ab3f-11e4-aa18-13e21dd250cc/rogues?start=1498482000&end=1498485600&limit=10&interval=1h&type=others
+        results:
+        - ap_mac: 5c5b350e021c
+          avg_rssi: -72
+          bssid: d8-97-ba-76-b5-aa
+          channel: '11'
+          num_aps: 4
+          ssid: xfinitywifi
+          times_heard: 8
+        start: 1428939600
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    RogueEventsSearchExample:
+      value:
+        end: 1538074800
+        limit: 10
+        results:
+        - ap: 5c5b350e10030
+          bssid: 38ff363c8c4c
+          channel: 136
+          rssi: -54
+          ssid: MyHomeNetwork
+          timestamp: 1538074612
+        - ap: 5c5b350e10030
+          bssid: 60d02c2394cc
+          channel: 11
+          rssi: -59
+          ssid: Home-Office
+          timestamp: 1538074612
+        start: 1538071200
+        total: 2
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
   schemas:
-    response_http400:
+    response_insight_rogue_client:
+      additionalProperties: false
+      properties:
+        end:
+          type: integer
+        limit:
+          type: integer
+        next:
+          type: string
+        results:
+          $ref: '#/components/schemas/response_insight_rogue_client_results'
+        start:
+          type: integer
+      required:
+      - start
+      - end
+      - limit
+      - results
+      type: object
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
+      type: object
+    response_insight_rogue_results:
+      items:
+        $ref: '#/components/schemas/insight_rogue_ap'
+      type: array
+      uniqueItems: true
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    rogue_type:
+      description: 'enum: `honeypot`, `lan`, `others`, `spoof`'
+      enum:
+      - honeypot
+      - lan
+      - others
+      - spoof
+      type: string
+    response_insight_rogue_client_results:
+      items:
+        $ref: '#/components/schemas/insight_rogue_client'
+      type: array
+      uniqueItems: true
+    rogue_details:
+      additionalProperties: false
+      properties:
+        manufacture:
+          type: string
+        seen_as_client:
+          type: boolean
+      required:
+      - seen_as_client
+      - manufacture
       type: object
     insight_rogue_client:
       additionalProperties: false
@@ -287,6 +427,95 @@ components:
       - avg_rssi
       - annotation
       type: object
+    site_rogue_events_count_distinct:
+      default: bssid
+      description: 'enum: `ap`, `bssid`, `ssid`, `type`'
+      enum:
+      - ap
+      - bssid
+      - ssid
+      - type
+      type: string
+    response_events_rogue_search_results:
+      items:
+        $ref: '#/components/schemas/events_rogue'
+      type: array
+      uniqueItems: true
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_insight_rogue:
+      additionalProperties: false
+      properties:
+        end:
+          type: integer
+        limit:
+          type: integer
+        next:
+          description: Link to next set of results. If more results aren’t present, next is null.
+          type: string
+        results:
+          $ref: '#/components/schemas/response_insight_rogue_results'
+        start:
+          type: integer
+      required:
+      - end
+      - limit
+      - results
+      - start
+      type: object
+    events_rogue:
+      additionalProperties: false
+      description: Rogue events
+      properties:
+        ap:
+          type: string
+        bssid:
+          type: string
+        channel:
+          type: integer
+        rssi:
+          type: integer
+        ssid:
+          type: string
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+      required:
+      - ssid
+      - bssid
+      - timestamp
+      - ap
+      - rssi
+      - channel
+      type: object
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
     response_count:
       additionalProperties: false
       properties:
@@ -304,28 +533,6 @@ components:
           type: integer
       required:
       - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    response_events_rogue_search:
-      additionalProperties: false
-      properties:
-        end:
-          type: integer
-        limit:
-          type: integer
-        next:
-          type: string
-        results:
-          $ref: '#/components/schemas/response_events_rogue_search_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
       - end
       - limit
       - results
@@ -372,70 +579,7 @@ components:
       - channel
       - num_aps
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    response_insight_rogue:
-      additionalProperties: false
-      properties:
-        end:
-          type: integer
-        limit:
-          type: integer
-        next:
-          description: Link to next set of results. If more results aren’t present, next is null.
-          type: string
-        results:
-          $ref: '#/components/schemas/response_insight_rogue_results'
-        start:
-          type: integer
-      required:
-      - end
-      - limit
-      - results
-      - start
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    events_rogue:
-      additionalProperties: false
-      description: Rogue events
-      properties:
-        ap:
-          type: string
-        bssid:
-          type: string
-        channel:
-          type: integer
-        rssi:
-          type: integer
-        ssid:
-          type: string
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-      required:
-      - ssid
-      - bssid
-      - timestamp
-      - ap
-      - rssi
-      - channel
-      type: object
-    response_insight_rogue_client:
+    response_events_rogue_search:
       additionalProperties: false
       properties:
         end:
@@ -445,104 +589,19 @@ components:
         next:
           type: string
         results:
-          $ref: '#/components/schemas/response_insight_rogue_client_results'
+          $ref: '#/components/schemas/response_events_rogue_search_results'
         start:
           type: integer
+        total:
+          type: integer
       required:
-      - start
       - end
       - limit
       - results
-      type: object
-    response_insight_rogue_results:
-      items:
-        $ref: '#/components/schemas/insight_rogue_ap'
-      type: array
-      uniqueItems: true
-    rogue_type:
-      description: 'enum: `honeypot`, `lan`, `others`, `spoof`'
-      enum:
-      - honeypot
-      - lan
-      - others
-      - spoof
-      type: string
-    response_insight_rogue_client_results:
-      items:
-        $ref: '#/components/schemas/insight_rogue_client'
-      type: array
-      uniqueItems: true
-    response_events_rogue_search_results:
-      items:
-        $ref: '#/components/schemas/events_rogue'
-      type: array
-      uniqueItems: true
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    count_result:
-      additionalProperties:
-        type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    site_rogue_events_count_distinct:
-      default: bssid
-      description: 'enum: `ap`, `bssid`, `ssid`, `type`'
-      enum:
-      - ap
-      - bssid
-      - ssid
-      - type
-      type: string
-    rogue_details:
-      additionalProperties: false
-      properties:
-        manufacture:
-          type: string
-        seen_as_client:
-          type: boolean
-      required:
-      - seen_as_client
-      - manufacture
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
+      - start
+      - total
       type: object
   responses:
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     RogueEventsSearch:
       content:
         application/json:
@@ -558,30 +617,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_events_rogue_search'
       description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP403:
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     InsightRogue:
       content:
         application/json:
@@ -597,6 +647,66 @@ components:
           schema:
             $ref: '#/components/schemas/response_insight_rogue'
       description: OK
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
     RogueDetails:
       content:
         application/json:
@@ -627,139 +737,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_insight_rogue_client'
       description: OK
-    HTTP400:
+    HTTP404:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
           schema:
-            $ref: '#/components/schemas/response_http400'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
           schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    InsightRogueExample:
-      value:
-        end: 1428954000
-        limit: 100
-        next: /api/v1/sites/a3eda150-ab3f-11e4-aa18-13e21dd250cc/rogues?start=1498482000&end=1498485600&limit=10&interval=1h&type=others
-        results:
-        - ap_mac: 5c5b350e021c
-          avg_rssi: -72
-          bssid: d8-97-ba-76-b5-aa
-          channel: '11'
-          num_aps: 4
-          ssid: xfinitywifi
-          times_heard: 8
-        start: 1428939600
-    RogueEventsSearchExample:
-      value:
-        end: 1538074800
-        limit: 10
-        results:
-        - ap: 5c5b350e10030
-          bssid: 38ff363c8c4c
-          channel: 136
-          rssi: -54
-          ssid: MyHomeNetwork
-          timestamp: 1538074612
-        - ap: 5c5b350e10030
-          bssid: 60d02c2394cc
-          channel: 11
-          rssi: -59
-          ssid: Home-Office
-          timestamp: 1538074612
-        start: 1538071200
-        total: 2
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    RogueDetailsExample:
-      value:
-        manufacture: Intel Corporate
-        seen_as_client: true
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    InsightRogueClientsExample:
-      value:
-        end: 1428954000
-        limit: 100
-        next: /api/v1/sites/a3eda150-ab3f-11e4-aa18-13e21dd250cc/rogues/clients?start=1498482000&end=1498485600&limit=10&interval=1h
-        results:
-        - annotation: whitelist
-          ap_mac: 5c-5b-35-0e-02-1c
-          avg_rssi: -63.9
-          band: '5'
-          bssid: d8-97-ba-76-b5-aa
-          client_mac: 34-f8-32-13-57-c2
-          num_aps: 2
-        start: 1428939600
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
-    limit:
+    rogue_type:
       in: query
-      name: limit
+      name: type
       schema:
-        default: 100
-        minimum: 0
-        type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
+        $ref: '#/components/schemas/rogue_type'
     sort:
       description: On which field the list should be sorted, -prefix represents DESC order
       in: query
@@ -769,6 +761,19 @@ components:
         examples:
         - -site_id
         type: string
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+      in: query
+      name: search_after
+      schema:
+        type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
     interval:
       description: Aggregation works by giving a time range plus interval (e.g. 1d, 1h, 10m) where aggregation function would be applied to.
       in: query
@@ -776,6 +781,21 @@ components:
       schema:
         examples:
         - 10m
+        type: string
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
         type: string
     duration:
       description: Duration like 7d, 2w
@@ -785,26 +805,6 @@ components:
         default: 1d
         examples:
         - 10m
-        type: string
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
-      schema:
-        type: string
-    rogue_type:
-      in: query
-      name: type
-      schema:
-        $ref: '#/components/schemas/rogue_type'
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
         type: string
     rogue_bssid:
       in: path

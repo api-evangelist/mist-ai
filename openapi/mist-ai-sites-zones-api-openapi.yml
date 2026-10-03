@@ -309,136 +309,6 @@ paths:
       - Sites Zones
 components:
   schemas:
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    zones:
-      items:
-        $ref: '#/components/schemas/zone'
-      type: array
-    response_count:
-      additionalProperties: false
-      properties:
-        distinct:
-          type: string
-        end:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/count_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    rf_client_type:
-      description: 'enum: `asset`, `client`, `sdkclient`'
-      enum:
-      - asset
-      - client
-      - sdkclient
-      type: string
-    response_zone_search:
-      additionalProperties: false
-      properties:
-        end:
-          examples:
-          - 1541705289.769911
-          type: number
-        limit:
-          examples:
-          - 1
-          type: integer
-        next:
-          examples:
-          - /api/v1/sites/67970e46-4e12-11e6-9188-0242ac110007/zones/visits/search?limit=2&end=1541705247.000&scope_id=85fbba9e-4e12-11e6-9188-0242ac110007&user_type=asset&start=1541618889.77
-          type: string
-        results:
-          $ref: '#/components/schemas/response_zone_search_results'
-        start:
-          examples:
-          - 1541618889.769886
-          type: number
-        total:
-          examples:
-          - 5892
-          type: integer
-      type: object
-    response_zone_search_results:
-      items:
-        $ref: '#/components/schemas/response_zone_search_item'
-      type: array
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    zone_scope:
-      default: site
-      description: 'enum: `map`, `rssizone`, `site`, `zone`'
-      enum:
-      - map
-      - rssizone
-      - site
-      - zone
-      type: string
-    zone_vertex:
-      additionalProperties: false
-      properties:
-        x:
-          description: X in pixel
-          format: double
-          type: number
-        y:
-          description: Y in pixel
-          format: double
-          type: number
-      required:
-      - x
-      - y
-      type: object
-      uniqueItems: true
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
-    site_zone_count_distinct:
-      default: scope_id
-      description: 'enum: `scope`, `scope_id`, `user`, `user_type`'
-      enum:
-      - scope
-      - scope_id
-      - user
-      - user_type
-      type: string
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
     zone:
       description: Zone
       properties:
@@ -466,50 +336,109 @@ components:
         vertices:
           $ref: '#/components/schemas/zone_vertices'
       type: object
-    zone_vertices:
-      description: Vertices used to define an area. It’s assumed that the last point connects to the first point and forms an closed area
+    id:
+      description: Unique ID of the object instance in the Mist Organization
       examples:
-      - - x: 732
-          y: 1821
-        - x: 732.5
-          y: 1731
-        - x: 837.5
-          y: 1731.5
-        - x: 839
-          y: 1821
-      items:
-        $ref: '#/components/schemas/zone_vertex'
-      type: array
-    zone_type:
-      description: 'enum: `rssizones`, `zones`'
-      enum:
-      - rssizones
-      - zones
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
       type: string
+    response_zone_search:
+      additionalProperties: false
+      properties:
+        end:
+          examples:
+          - 1541705289.769911
+          type: number
+        limit:
+          examples:
+          - 1
+          type: integer
+        next:
+          examples:
+          - /api/v1/sites/67970e46-4e12-11e6-9188-0242ac110007/zones/visits/search?limit=2&end=1541705247.000&scope_id=85fbba9e-4e12-11e6-9188-0242ac110007&user_type=asset&start=1541618889.77
+          type: string
+        results:
+          $ref: '#/components/schemas/response_zone_search_results'
+        start:
+          examples:
+          - 1541618889.769886
+          type: number
+        total:
+          examples:
+          - 5892
+          type: integer
+      type: object
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    response_zone_search_results:
+      items:
+        $ref: '#/components/schemas/response_zone_search_item'
+      type: array
+    zone_vertex:
+      additionalProperties: false
+      properties:
+        x:
+          description: X in pixel
+          format: double
+          type: number
+        y:
+          description: Y in pixel
+          format: double
+          type: number
+      required:
+      - x
+      - y
+      type: object
+      uniqueItems: true
     timestamp:
       description: Epoch (seconds)
       format: double
       readOnly: true
       type: number
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    count_result:
-      additionalProperties:
-        type: string
+    response_http401:
+      additionalProperties: false
       properties:
-        count:
-          type: integer
-      required:
-      - count
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    site_zone_count_distinct:
+      default: scope_id
+      description: 'enum: `scope`, `scope_id`, `user`, `user_type`'
+      enum:
+      - scope
+      - scope_id
+      - user
+      - user_type
+      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
       type: object
     response_zone_search_item:
       additionalProperties: false
@@ -529,14 +458,89 @@ components:
           - c4b301c81166
           type: string
       type: object
-    response_http429:
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    rf_client_type:
+      description: 'enum: `asset`, `client`, `sdkclient`'
+      enum:
+      - asset
+      - client
+      - sdkclient
+      type: string
+    zone_scope:
+      default: site
+      description: 'enum: `map`, `rssizone`, `site`, `zone`'
+      enum:
+      - map
+      - rssizone
+      - site
+      - zone
+      type: string
+    response_http404:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+        id:
           type: string
       type: object
+    response_count:
+      additionalProperties: false
+      properties:
+        distinct:
+          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    zone_vertices:
+      description: Vertices used to define an area. It’s assumed that the last point connects to the first point and forms an closed area
+      examples:
+      - - x: 732
+          y: 1821
+        - x: 732.5
+          y: 1731
+        - x: 837.5
+          y: 1731.5
+        - x: 839
+          y: 1821
+      items:
+        $ref: '#/components/schemas/zone_vertex'
+      type: array
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    zones:
+      items:
+        $ref: '#/components/schemas/zone'
+      type: array
     visits_scope:
       default: site
       description: 'enum: `map`, `rssizone`, `site`, `zone`'
@@ -546,58 +550,98 @@ components:
       - site
       - zone
       type: string
-    org_id:
+    zone_type:
+      description: 'enum: `rssizones`, `zones`'
+      enum:
+      - rssizones
+      - zones
+      type: string
+    site_id:
       examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
       format: uuid
       readOnly: true
       type: string
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
       readOnly: true
-      type: string
+      type: number
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    ZoneSessionsSearchExample:
+      value:
+        end: 1541705289.769911
+        limit: 1
+        next: /api/v1/sites/67970e46-4e12-11e6-9188-0242ac110007/zones/visits/search?limit=2&end=1541705247.000&scope_id=85fbba9e-4e12-11e6-9188-0242ac110007&user_type=asset&start=1541618889.77
+        results:
+        - enter: 1541705254
+          scope: map
+          timestamp: 1541705254
+          user: c4b301c81166
+        start: 1541618889.769886
+        total: 5892
+    ZoneExample:
+      value:
+        created_time: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        map_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        modified_time: 0
+        name: string
+        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        vertices:
+        - x: 0
+          y: 0
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    ZonesArrayExample:
+      value:
+      - created_time: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        map_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        modified_time: 0
+        name: string
+        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        vertices:
+        - x: 0
+          y: 0
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
   responses:
-    HTTP429:
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP429Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP429Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    Zone:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ZoneExample'
-          schema:
-            $ref: '#/components/schemas/zone'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ZoneExample'
-          schema:
-            $ref: '#/components/schemas/zone'
-      description: OK
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     ZonesArray:
       content:
         application/json:
@@ -613,30 +657,51 @@ components:
           schema:
             $ref: '#/components/schemas/zones'
       description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    ZoneSessionsSearch:
+    HTTP429:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/ZoneSessionsSearchExample'
+              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_zone_search'
+            $ref: '#/components/schemas/response_http429'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/ZoneSessionsSearchExample'
+              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_zone_search'
-      description: Result of Search Zone Sessions
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    Zone:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ZoneExample'
+          schema:
+            $ref: '#/components/schemas/zone'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ZoneExample'
+          schema:
+            $ref: '#/components/schemas/zone'
+      description: OK
     OK:
       description: OK
     HTTP403:
@@ -669,108 +734,39 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    Count:
+    ZoneSessionsSearch:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/CountExample'
+              $ref: '#/components/examples/ZoneSessionsSearchExample'
           schema:
-            $ref: '#/components/schemas/response_count'
+            $ref: '#/components/schemas/response_zone_search'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/CountExample'
+              $ref: '#/components/examples/ZoneSessionsSearchExample'
           schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    HTTP401:
+            $ref: '#/components/schemas/response_zone_search'
+      description: Result of Search Zone Sessions
+    HTTP404:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http401'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    ZoneExample:
-      value:
-        created_time: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        map_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        modified_time: 0
-        name: string
-        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        vertices:
-        - x: 0
-          y: 0
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-    ZoneSessionsSearchExample:
-      value:
-        end: 1541705289.769911
-        limit: 1
-        next: /api/v1/sites/67970e46-4e12-11e6-9188-0242ac110007/zones/visits/search?limit=2&end=1541705247.000&scope_id=85fbba9e-4e12-11e6-9188-0242ac110007&user_type=asset&start=1541618889.77
-        results:
-        - enter: 1541705254
-          scope: map
-          timestamp: 1541705254
-          user: c4b301c81166
-        start: 1541618889.769886
-        total: 5892
-    ZonesArrayExample:
-      value:
-      - created_time: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        map_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        modified_time: 0
-        name: string
-        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        vertices:
-        - x: 0
-          y: 0
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
-    limit:
-      in: query
-      name: limit
+    zone_id:
+      in: path
+      name: zone_id
+      required: true
       schema:
-        default: 100
-        minimum: 0
-        type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
         type: string
     sort:
       description: On which field the list should be sorted, -prefix represents DESC order
@@ -787,19 +783,23 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/zone_type'
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
     search_after:
       description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
       in: query
       name: search_after
+      schema:
+        type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
       schema:
         type: string
     site_id:
@@ -811,14 +811,20 @@ components:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
-    zone_id:
-      in: path
-      name: zone_id
-      required: true
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
       schema:
+        default: 1d
         examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
+        - 10m
+        type: string
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
         type: string
     page:
       in: query
@@ -827,12 +833,6 @@ components:
         default: 1
         minimum: 1
         type: integer
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

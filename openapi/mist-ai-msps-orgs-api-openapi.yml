@@ -294,26 +294,243 @@ paths:
       tags:
       - MSPs Orgs
 components:
+  examples:
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    OrgsSearchExample:
+      value:
+        end: 1614383378.4365287
+        limit: 10
+        next: /api/v1/msps/43e96c5a-6ef6-11e6-9909-9596d1d1534f/orgs/search?end=1760601621&limit=1&search_after=%5B1760599794477%5D&start=1759996821
+        results:
+        - msp_id: d287e62f-0000-0000-0000-f2b9ba0a531f
+          name: Test Org
+          num_aps: 9
+          num_sites: 5
+          num_switches: 1
+          num_unassigned_aps: 1
+          org_id: bb1a8bf6-0000-0000-0000-8053a663cf65
+          sub_ana_required: 9
+          sub_ast_entitled: 5
+          sub_ast_required: 3
+          sub_eng_required: 3
+          sub_ex12_required: 1
+          sub_insufficient: true
+          sub_man_required: 9
+          sub_vna_entitled: 1
+          timestamp: 1614322563.513937
+          trial_enabled: false
+          usage_types:
+          - sub_eng
+        - msp_id: d287e62f-0000-0000-0000-f2b9ba0a531f
+          name: Rogue Test1
+          num_aps: 1
+          num_sites: 1
+          org_id: 0fb81690-0000-0000-0000-9596d1d1534f
+          sub_ana_entitled: 1
+          sub_ana_required: 1
+          sub_insufficient: false
+          sub_man_entitled: 1
+          sub_man_required: 1
+          timestamp: 1614309876.500955
+        start: 1613778578.4365668
+        total: 2
+    OrgExample:
+      value:
+        alarmtemplate_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        allow_mist: true
+        created_time: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        modified_time: 0
+        msp_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        name: string
+        orggroup_ids:
+        - b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        session_expiry: 1440
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    OrgsArrayExample:
+      value:
+      - alarmtemplate_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        allow_mist: true
+        created_time: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        modified_time: 0
+        msp_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        name: string
+        orggroup_ids:
+        - b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        session_expiry: 1440
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+  responses:
+    OrgsArrayStats:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/stats_orgs'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/stats_orgs'
+      description: OK
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    OrgsArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgsArrayExample'
+          schema:
+            $ref: '#/components/schemas/org_list'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgsArrayExample'
+          schema:
+            $ref: '#/components/schemas/org_list'
+      description: OK
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    OK:
+      description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    OrgsSearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_org_search'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_org_search'
+      description: OK
+    Org:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgExample'
+          schema:
+            $ref: '#/components/schemas/org'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgExample'
+          schema:
+            $ref: '#/components/schemas/org'
+      description: Org Infos
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   schemas:
+    response_org_search_results:
+      items:
+        $ref: '#/components/schemas/response_org_search_item'
+      type: array
+      uniqueItems: true
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
     orggroup_ids:
       items:
         format: uuid
         type: string
       type: array
-    response_http400:
+    stats_org_sle:
+      additionalProperties: false
+      properties:
+        path:
+          type: string
+        user_minutes:
+          $ref: '#/components/schemas/stats_org_sle_user_minutes'
+      required:
+      - path
+      type: object
+    response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    msp_org_change_operation:
-      description: 'enum: `assign`, `unassign`'
-      enum:
-      - assign
-      - unassign
-      type: string
     response_org_search:
       additionalProperties: false
       properties:
@@ -340,22 +557,15 @@ components:
       - start
       - total
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    msp_org_change_org_ids:
-      description: List of org_id
-      items:
-        type: string
-      type: array
-    created_time:
-      description: When the object has been created, in epoch
+    timestamp:
+      description: Epoch (seconds)
       format: double
       readOnly: true
       type: number
+    stats_orgs:
+      items:
+        $ref: '#/components/schemas/stats_org'
+      type: array
     response_http401:
       additionalProperties: false
       properties:
@@ -364,183 +574,25 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    msp_id:
-      examples:
-      - b9d42c2e-88ee-41f8-b798-f009ce7fe909
-      format: uuid
-      readOnly: true
-      type: string
-    stats_orgs:
-      items:
-        $ref: '#/components/schemas/stats_org'
-      type: array
-    org:
-      properties:
-        alarmtemplate_id:
-          format: uuid
-          type:
-          - string
-          - 'null'
-        allow_mist:
-          default: true
-          type: boolean
-        created_time:
-          $ref: '#/components/schemas/created_time'
-        id:
-          $ref: '#/components/schemas/id'
-        modified_time:
-          $ref: '#/components/schemas/modified_time'
-        msp_id:
-          $ref: '#/components/schemas/msp_id'
-        msp_logo_url:
-          description: logo uploaded by the MSP with advanced tier, only present if provided
-          examples:
-          - https://example.com/logo/b9d42c2e-88ee-41f8-b798-f009ce7fe909.jpeg
-          format: uri
-          readOnly: true
-          type: string
-        msp_name:
-          description: Name of the msp the org belongs to
-          examples:
-          - MSP
-          readOnly: true
-          type: string
-        name:
-          examples:
-          - Org
-          type: string
-        orggroup_ids:
-          $ref: '#/components/schemas/orggroup_ids'
-        session_expiry:
-          default: 1440
-          format: int32
-          maximum: 20160
-          minimum: 10
-          type: integer
-      required:
-      - name
-      type: object
-    stats_org_sle_user_minutes:
-      additionalProperties: false
-      properties:
-        ok:
-          type: number
-        total:
-          type: number
-      required:
-      - total
-      - ok
-      type: object
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    stats_org_sle:
-      additionalProperties: false
-      properties:
-        path:
-          type: string
-        user_minutes:
-          $ref: '#/components/schemas/stats_org_sle_user_minutes'
-      required:
-      - path
-      type: object
-    response_org_search_results:
-      items:
-        $ref: '#/components/schemas/response_org_search_item'
-      type: array
-      uniqueItems: true
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    stats_org:
-      additionalProperties: false
-      description: Org statistics
-      properties:
-        alarmtemplate_id:
-          format: uuid
-          type: string
-        allow_mist:
-          type: boolean
-        created_time:
-          $ref: '#/components/schemas/created_time'
-        id:
-          $ref: '#/components/schemas/id'
-        modified_time:
-          $ref: '#/components/schemas/modified_time'
-        msp_id:
-          $ref: '#/components/schemas/msp_id'
-        name:
-          type: string
-        num_devices:
-          type: integer
-        num_devices_connected:
-          type: integer
-        num_devices_disconnected:
-          type: integer
-        num_inventory:
-          type: integer
-        num_sites:
-          type: integer
-        orggroup_ids:
-          $ref: '#/components/schemas/stats_org_orggroup_ids'
-        session_expiry:
-          format: int64
-          type: integer
-        sle:
-          $ref: '#/components/schemas/stats_org_sles'
-      required:
-      - orggroup_ids
-      - name
-      - id
-      - msp_id
-      - created_time
-      - modified_time
-      - allow_mist
-      - session_expiry
-      - alarmtemplate_id
-      - num_sites
-      - num_devices
-      - num_inventory
-      - num_devices_connected
-      - num_devices_disconnected
-      - sle
-      type: object
-    org_list:
-      items:
-        $ref: '#/components/schemas/org'
-      type: array
-    msp_org_change:
-      properties:
-        op:
-          $ref: '#/components/schemas/msp_org_change_operation'
-        org_ids:
-          $ref: '#/components/schemas/msp_org_change_org_ids'
-      required:
-      - op
-      - org_ids
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
     stats_org_sles:
       items:
         $ref: '#/components/schemas/stats_org_sle'
       type: array
       uniqueItems: true
-    stats_org_orggroup_ids:
-      items:
-        format: uuid
-        type: string
-      type: array
+    msp_org_change_operation:
+      description: 'enum: `assign`, `unassign`'
+      enum:
+      - assign
+      - unassign
+      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
     response_org_search_item:
       additionalProperties: false
       properties:
@@ -616,24 +668,80 @@ components:
         usage_types:
           $ref: '#/components/schemas/response_org_search_item_usage_types'
       type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    strings:
+    org_list:
       items:
-        type: string
+        $ref: '#/components/schemas/org'
       type: array
-      uniqueItems: true
-    response_http403:
+    response_http400:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - You do not have permission to perform this action.
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
+      type: object
+    stats_org:
+      additionalProperties: false
+      description: Org statistics
+      properties:
+        alarmtemplate_id:
+          format: uuid
+          type: string
+        allow_mist:
+          type: boolean
+        created_time:
+          $ref: '#/components/schemas/created_time'
+        id:
+          $ref: '#/components/schemas/id'
+        modified_time:
+          $ref: '#/components/schemas/modified_time'
+        msp_id:
+          $ref: '#/components/schemas/msp_id'
+        name:
+          type: string
+        num_devices:
+          type: integer
+        num_devices_connected:
+          type: integer
+        num_devices_disconnected:
+          type: integer
+        num_inventory:
+          type: integer
+        num_sites:
+          type: integer
+        orggroup_ids:
+          $ref: '#/components/schemas/stats_org_orggroup_ids'
+        session_expiry:
+          format: int64
+          type: integer
+        sle:
+          $ref: '#/components/schemas/stats_org_sles'
+      required:
+      - orggroup_ids
+      - name
+      - id
+      - msp_id
+      - created_time
+      - modified_time
+      - allow_mist
+      - session_expiry
+      - alarmtemplate_id
+      - num_sites
+      - num_devices
+      - num_inventory
+      - num_devices_connected
+      - num_devices_disconnected
+      - sle
+      type: object
+    msp_org_change:
+      properties:
+        op:
+          $ref: '#/components/schemas/msp_org_change_operation'
+        org_ids:
+          $ref: '#/components/schemas/msp_org_change_org_ids'
+      required:
+      - op
+      - org_ids
       type: object
     response_org_search_item_usage_types:
       description: a list of types that enabled by usage
@@ -641,233 +749,107 @@ components:
         type: string
       readOnly: true
       type: array
-    id:
-      description: Unique ID of the object instance in the Mist Organization
+    stats_org_orggroup_ids:
+      items:
+        format: uuid
+        type: string
+      type: array
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    org_id:
       examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
       format: uuid
       readOnly: true
       type: string
-  responses:
-    HTTP429:
-      content:
-        application/json:
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    msp_org_change_org_ids:
+      description: List of org_id
+      items:
+        type: string
+      type: array
+    stats_org_sle_user_minutes:
+      additionalProperties: false
+      properties:
+        ok:
+          type: number
+        total:
+          type: number
+      required:
+      - total
+      - ok
+      type: object
+    msp_id:
+      examples:
+      - b9d42c2e-88ee-41f8-b798-f009ce7fe909
+      format: uuid
+      readOnly: true
+      type: string
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
+    org:
+      properties:
+        alarmtemplate_id:
+          format: uuid
+          type:
+          - string
+          - 'null'
+        allow_mist:
+          default: true
+          type: boolean
+        created_time:
+          $ref: '#/components/schemas/created_time'
+        id:
+          $ref: '#/components/schemas/id'
+        modified_time:
+          $ref: '#/components/schemas/modified_time'
+        msp_id:
+          $ref: '#/components/schemas/msp_id'
+        msp_logo_url:
+          description: logo uploaded by the MSP with advanced tier, only present if provided
           examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
+          - https://example.com/logo/b9d42c2e-88ee-41f8-b798-f009ce7fe909.jpeg
+          format: uri
+          readOnly: true
+          type: string
+        msp_name:
+          description: Name of the msp the org belongs to
           examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    Org:
-      content:
-        application/json:
+          - MSP
+          readOnly: true
+          type: string
+        name:
           examples:
-            Example:
-              $ref: '#/components/examples/OrgExample'
-          schema:
-            $ref: '#/components/schemas/org'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgExample'
-          schema:
-            $ref: '#/components/schemas/org'
-      description: Org Infos
-    OrgsSearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_org_search'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_org_search'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    OK:
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    OrgsArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgsArrayExample'
-          schema:
-            $ref: '#/components/schemas/org_list'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgsArrayExample'
-          schema:
-            $ref: '#/components/schemas/org_list'
-      description: OK
-    OrgsArrayStats:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/stats_orgs'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/stats_orgs'
-      description: OK
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-  examples:
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    OrgsSearchExample:
-      value:
-        end: 1614383378.4365287
-        limit: 10
-        next: /api/v1/msps/43e96c5a-6ef6-11e6-9909-9596d1d1534f/orgs/search?end=1760601621&limit=1&search_after=%5B1760599794477%5D&start=1759996821
-        results:
-        - msp_id: d287e62f-0000-0000-0000-f2b9ba0a531f
-          name: Test Org
-          num_aps: 9
-          num_sites: 5
-          num_switches: 1
-          num_unassigned_aps: 1
-          org_id: bb1a8bf6-0000-0000-0000-8053a663cf65
-          sub_ana_required: 9
-          sub_ast_entitled: 5
-          sub_ast_required: 3
-          sub_eng_required: 3
-          sub_ex12_required: 1
-          sub_insufficient: true
-          sub_man_required: 9
-          sub_vna_entitled: 1
-          timestamp: 1614322563.513937
-          trial_enabled: false
-          usage_types:
-          - sub_eng
-        - msp_id: d287e62f-0000-0000-0000-f2b9ba0a531f
-          name: Rogue Test1
-          num_aps: 1
-          num_sites: 1
-          org_id: 0fb81690-0000-0000-0000-9596d1d1534f
-          sub_ana_entitled: 1
-          sub_ana_required: 1
-          sub_insufficient: false
-          sub_man_entitled: 1
-          sub_man_required: 1
-          timestamp: 1614309876.500955
-        start: 1613778578.4365668
-        total: 2
-    OrgExample:
-      value:
-        alarmtemplate_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        allow_mist: true
-        created_time: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        modified_time: 0
-        msp_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        name: string
+          - Org
+          type: string
         orggroup_ids:
-        - b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        session_expiry: 1440
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    OrgsArrayExample:
-      value:
-      - alarmtemplate_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        allow_mist: true
-        created_time: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        modified_time: 0
-        msp_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        name: string
-        orggroup_ids:
-        - b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        session_expiry: 1440
+          $ref: '#/components/schemas/orggroup_ids'
+        session_expiry:
+          default: 1440
+          format: int32
+          maximum: 20160
+          minimum: 10
+          type: integer
+      required:
+      - name
+      type: object
   parameters:
-    name:
-      in: query
-      name: name
-      schema:
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
     org_id:
       in: path
       name: org_id
@@ -886,12 +868,6 @@ components:
         examples:
         - -site_id
         type: string
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
-      schema:
-        type: string
     msp_id:
       in: path
       name: msp_id
@@ -901,6 +877,36 @@ components:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+      in: query
+      name: search_after
+      schema:
+        type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    name:
+      in: query
+      name: name
+      schema:
+        type: string
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
     page:
       in: query
       name: page
@@ -908,12 +914,6 @@ components:
         default: 1
         minimum: 1
         type: integer
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."
