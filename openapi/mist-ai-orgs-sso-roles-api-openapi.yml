@@ -210,142 +210,24 @@ paths:
       tags:
       - Orgs SSO Roles
 components:
-  responses:
-    SsoRoleOrg:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SsoRoleOrgExample'
-          schema:
-            $ref: '#/components/schemas/sso_role_org'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SsoRoleOrgExample'
-          schema:
-            $ref: '#/components/schemas/sso_role_org'
-      description: OK
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    OK:
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    SsoRolesOrgArray:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/sso_roles_org'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/sso_roles_org'
-      description: Example response
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    SsoRoleOrgExample:
-      value:
-        created_time: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        modified_time: 0
-        msp_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        name: string
-        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        privileges:
-        - role: admin
-          scope: sitegroup
-          sitegroup_id: 6f4bf402-45f9-2a56-6c8b-7f83d3bc98e9
-        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
   schemas:
-    id:
-      description: Unique ID of the object instance in the Mist Organization
+    msp_id:
       examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      - b9d42c2e-88ee-41f8-b798-f009ce7fe909
       format: uuid
       readOnly: true
       type: string
-    response_http429:
+    admin_privilege_views:
+      description: "Custom roles restrict Org users to specific UI views. This is useful for limiting UI access of Org users. Custom roles restrict Org users to specific UI views. This is useful for limiting UI access of Org users.  \nYou can define custom roles by adding the `views` attribute along with `role` when assigning privileges.  \nBelow are the list of supported UI views. Note that this is UI only feature.  \n\n  | UI View | Required Role | Description |\n  | --- | --- | --- |\n  | `reporting` | `read` | full access to all analytics tools |\n  | `marketing` | `read` | can view analytics and location maps |\n  | `super_observer` | `read` | can view all the organization except the subscription page |\n  | `location` | `write` | can view and manage location maps, can view analytics |\n  | `security` | `write` | can view and manage site labels, policies and security |\n  | `switch_admin` | `helpdesk` | can view and manage Switch ports, can view wired clients |\n  | `mxedge_admin` | `admin` | can view and manage Mist edges and Mist tunnels |\n  | `lobby_admin` | `admin` | full access to Org and Site Pre-shared keys |"
+      items:
+        $ref: '#/components/schemas/admin_privilege_view'
+      type: array
+    response_http401:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          - Authentication credentials were not provided.
           type: string
       type: object
     admin_privilege_view:
@@ -359,69 +241,12 @@ components:
       - super_observer
       - switch_admin
       type: string
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    sso_role_org_privileges:
-      items:
-        $ref: '#/components/schemas/privilege_org'
-      minItems: 1
-      type: array
-      uniqueItems: true
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    privilege_org_scope:
-      description: 'enum: `org`, `site`, `sitegroup`, `orgsites`'
-      enum:
-      - org
-      - site
-      - sitegroup
-      - orgsites
-      type: string
-    admin_privilege_views:
-      description: "Custom roles restrict Org users to specific UI views. This is useful for limiting UI access of Org users. Custom roles restrict Org users to specific UI views. This is useful for limiting UI access of Org users.  \nYou can define custom roles by adding the `views` attribute along with `role` when assigning privileges.  \nBelow are the list of supported UI views. Note that this is UI only feature.  \n\n  | UI View | Required Role | Description |\n  | --- | --- | --- |\n  | `reporting` | `read` | full access to all analytics tools |\n  | `marketing` | `read` | can view analytics and location maps |\n  | `super_observer` | `read` | can view all the organization except the subscription page |\n  | `location` | `write` | can view and manage location maps, can view analytics |\n  | `security` | `write` | can view and manage site labels, policies and security |\n  | `switch_admin` | `helpdesk` | can view and manage Switch ports, can view wired clients |\n  | `mxedge_admin` | `admin` | can view and manage Mist edges and Mist tunnels |\n  | `lobby_admin` | `admin` | full access to Org and Site Pre-shared keys |"
-      items:
-        $ref: '#/components/schemas/admin_privilege_view'
-      type: array
-    privilege_org_role:
-      description: 'access permissions. enum: `admin`, `helpdesk`, `installer`, `read`, `write`'
-      enum:
-      - admin
-      - helpdesk
-      - installer
-      - read
-      - write
-      type: string
     response_http404:
       additionalProperties: false
       properties:
         id:
           type: string
       type: object
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
     sso_role_org:
       description: SSO Role response
       properties:
@@ -449,6 +274,52 @@ components:
       - name
       - privileges
       type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    sso_role_org_privileges:
+      items:
+        $ref: '#/components/schemas/privilege_org'
+      minItems: 1
+      type: array
+      uniqueItems: true
+    privilege_org_scope:
+      description: 'enum: `org`, `site`, `sitegroup`, `orgsites`'
+      enum:
+      - org
+      - site
+      - sitegroup
+      - orgsites
+      type: string
+    sso_roles_org:
+      items:
+        $ref: '#/components/schemas/sso_role_org'
+      type: array
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
     privilege_org:
       additionalProperties: false
       description: Privileges settings
@@ -480,31 +351,29 @@ components:
       - role
       - scope
       type: object
-    msp_id:
-      examples:
-      - b9d42c2e-88ee-41f8-b798-f009ce7fe909
-      format: uuid
-      readOnly: true
+    privilege_org_role:
+      description: 'access permissions. enum: `admin`, `helpdesk`, `installer`, `read`, `write`'
+      enum:
+      - admin
+      - helpdesk
+      - installer
+      - read
+      - write
       type: string
-    sso_roles_org:
-      items:
-        $ref: '#/components/schemas/sso_role_org'
-      type: array
-    created_time:
-      description: When the object has been created, in epoch
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
       format: double
       readOnly: true
       type: number
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
   parameters:
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
     limit:
       in: query
       name: limit
@@ -512,9 +381,9 @@ components:
         default: 100
         minimum: 0
         type: integer
-    ssorole_id:
+    org_id:
       in: path
-      name: ssorole_id
+      name: org_id
       required: true
       schema:
         examples:
@@ -528,6 +397,137 @@ components:
         default: 1
         minimum: 1
         type: integer
+    ssorole_id:
+      in: path
+      name: ssorole_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+  responses:
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    OK:
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    SsoRoleOrg:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SsoRoleOrgExample'
+          schema:
+            $ref: '#/components/schemas/sso_role_org'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SsoRoleOrgExample'
+          schema:
+            $ref: '#/components/schemas/sso_role_org'
+      description: OK
+    SsoRolesOrgArray:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/sso_roles_org'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/sso_roles_org'
+      description: Example response
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    SsoRoleOrgExample:
+      value:
+        created_time: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        modified_time: 0
+        msp_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        name: string
+        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        privileges:
+        - role: admin
+          scope: sitegroup
+          sitegroup_id: 6f4bf402-45f9-2a56-6c8b-7f83d3bc98e9
+        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

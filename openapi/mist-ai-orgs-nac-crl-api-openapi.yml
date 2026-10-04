@@ -132,114 +132,51 @@ paths:
       tags:
       - Orgs NAC CRL
 components:
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-  schemas:
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    org_crl_import_file:
-      additionalProperties: false
-      properties:
-        file:
-          contentMediaType: application/octet-stream
-          description: a PEM or DER formatted CRL file
-          type: string
-        json:
-          description: a JSON string with "name" field for CRL file issuer (optional)
-          type: string
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    nac_crl_files:
-      items:
-        $ref: '#/components/schemas/nac_crl_file'
-      type: array
-    nac_crl_file:
-      additionalProperties: false
-      properties:
-        created_time:
-          $ref: '#/components/schemas/created_time'
-        id:
-          description: Unique ID for the uploaded CRL file, used to reference the file
-          examples:
-          - a1ca26f3-44dd-4833-9a7b-97bbb2ab5230
-          readOnly: true
-          type: string
-        modified_time:
-          $ref: '#/components/schemas/modified_time'
-        name:
-          description: Issuer name for the CRL file
-          examples:
-          - SampleCertificateSigner
-          type: string
-        url:
-          description: URL to download the uploaded CRL file
-          examples:
-          - http://url/to/crl_file
-          type: string
-      type: object
-    response_nac_crl_files:
-      additionalProperties: false
-      properties:
-        results:
-          $ref: '#/components/schemas/nac_crl_files'
-      type: object
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
   responses:
+    NacCrlFilesArray:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_nac_crl_files'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_nac_crl_files'
+      description: Example response
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    OK:
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    NacCrlFile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/nac_crl_file'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/nac_crl_file'
+      description: Example response
     HTTP401:
       content:
         application/json:
@@ -270,41 +207,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    NacCrlFile:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/nac_crl_file'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/nac_crl_file'
-      description: Example response
-    NacCrlFilesArray:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_nac_crl_files'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_nac_crl_files'
-      description: Example response
-    OK:
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
     HTTP400:
       content:
         application/json:
@@ -320,15 +222,113 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+  schemas:
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    nac_crl_file:
+      additionalProperties: false
+      properties:
+        created_time:
+          $ref: '#/components/schemas/created_time'
+        id:
+          description: Unique ID for the uploaded CRL file, used to reference the file
+          examples:
+          - a1ca26f3-44dd-4833-9a7b-97bbb2ab5230
+          readOnly: true
+          type: string
+        modified_time:
+          $ref: '#/components/schemas/modified_time'
+        name:
+          description: Issuer name for the CRL file
+          examples:
+          - SampleCertificateSigner
+          type: string
+        url:
+          description: URL to download the uploaded CRL file
+          examples:
+          - http://url/to/crl_file
+          type: string
+      type: object
+    org_crl_import_file:
+      additionalProperties: false
+      properties:
+        file:
+          contentMediaType: application/octet-stream
+          description: a PEM or DER formatted CRL file
+          type: string
+        json:
+          description: a JSON string with "name" field for CRL file issuer (optional)
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    nac_crl_files:
+      items:
+        $ref: '#/components/schemas/nac_crl_file'
+      type: array
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    response_nac_crl_files:
+      additionalProperties: false
+      properties:
+        results:
+          $ref: '#/components/schemas/nac_crl_files'
+      type: object
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   parameters:
     org_id:
       in: path

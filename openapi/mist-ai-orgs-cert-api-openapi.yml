@@ -176,12 +176,6 @@ paths:
       - Orgs Cert
 components:
   examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    OrgSslProxyCertExample:
-      value:
-        cert: '-----BEGIN CERTIFICATE-----\nMIIowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
     CertificateExample:
       value:
         cert: '-----BEGIN CERTIFICATE-----
@@ -189,30 +183,22 @@ components:
           MIIowDQYJKoZIhvcNAQELBQE
 
           -----END CERTIFICATE-----'
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    OrgSslProxyCertExample:
+      value:
+        cert: '-----BEGIN CERTIFICATE-----\nMIIowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   schemas:
-    days_number:
-      properties:
-        days:
-          default: 30
-          type: integer
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
     response_http401:
       additionalProperties: false
       properties:
@@ -221,20 +207,10 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    org_ssl_proxy_cert:
+    response_http404:
       additionalProperties: false
       properties:
-        cert:
-          examples:
-          - '-----BEGIN CERTIFICATE-----\nMIIowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
-          type: string
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
+        id:
           type: string
       type: object
     response_http400:
@@ -245,10 +221,20 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    response_http404:
+    org_ssl_proxy_cert:
       additionalProperties: false
       properties:
-        id:
+        cert:
+          examples:
+          - '-----BEGIN CERTIFICATE-----\nMIIowDQYJKoZIhvcNAQELBQE\n-----END CERTIFICATE-----'
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     response_certificate:
@@ -264,7 +250,62 @@ components:
       required:
       - cert
       type: object
+    days_number:
+      properties:
+        days:
+          default: 30
+          type: integer
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
   responses:
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    OrgSslProxyCert:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgSslProxyCertExample'
+          schema:
+            $ref: '#/components/schemas/org_ssl_proxy_cert'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgSslProxyCertExample'
+          schema:
+            $ref: '#/components/schemas/org_ssl_proxy_cert'
+      description: Example response
+    OK:
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP401:
       content:
         application/json:
@@ -295,23 +336,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    OK:
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
     HTTP400:
       content:
         application/json:
@@ -342,30 +366,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_certificate'
       description: OK
-    OrgSslProxyCert:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgSslProxyCertExample'
-          schema:
-            $ref: '#/components/schemas/org_ssl_proxy_cert'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgSslProxyCertExample'
-          schema:
-            $ref: '#/components/schemas/org_ssl_proxy_cert'
-      description: Example response
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   parameters:
     org_id:
       in: path

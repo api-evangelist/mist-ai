@@ -160,106 +160,68 @@ paths:
       tags:
       - Sites NAC Fingerprints
 components:
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    FingerprintSearchExample:
-      value:
-        end: 1735678700
-        limit: 10
-        results:
-        - family: Apple
-          mac: d420b080516e
-          mfg: Apple, Inc.
-          model: Unknown
-          org_id: bb2fb165-0931-49c7-a1b8-9b5814326b7d
-          os: iOS 18.1.1
-          os_type: iOS
-          random_mac: true
-          site_id: 441a1214-6928-442a-8e92-e1d34b8ec6a6
-          timestamp: 1735678662.58
-        - family: EX Series Switch
-          mac: d420b080516d
-          mfg: Juniper Networks, Inc.
-          model: ex4100-f-12p
-          org_id: b6bc08f3-60a3-402b-8f0d-caf9132a1e9a
-          os: JUNOS 22.3R1.12
-          os_type: JUNOS
-          random_mac: false
-          site_id: 441a1214-6928-442a-8e92-e1d34b8ec6a6
-          timestamp: 1735669092.932
-        start: 1735678650
-        total: 2
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
+  parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
+    sort_wcid:
+      description: On which field the list should be sorted, -prefix represents DESC order.
+      in: query
+      name: sort
+      schema:
+        default: wxid
+        examples:
+        - -site_id
+        type: string
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+      in: query
+      name: search_after
+      schema:
+        type: string
+    interval:
+      description: Aggregation works by giving a time range plus interval (e.g. 1d, 1h, 10m) where aggregation function would be applied to.
+      in: query
+      name: interval
+      schema:
+        examples:
+        - 10m
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
   schemas:
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    fingerprint:
-      additionalProperties: false
-      properties:
-        family:
-          readOnly: true
-          type: string
-        mac:
-          readOnly: true
-          type: string
-        mfg:
-          readOnly: true
-          type: string
-        model:
-          readOnly: true
-          type: string
-        org_id:
-          $ref: '#/components/schemas/org_id'
-        os:
-          readOnly: true
-          type: string
-        os_type:
-          readOnly: true
-          type: string
-        random_mac:
-          readOnly: true
-          type: boolean
-        site_id:
-          $ref: '#/components/schemas/site_id'
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-      type: object
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
     response_http401:
       additionalProperties: false
       properties:
@@ -268,12 +230,37 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    response_http403:
+    fingerprints_count_distinct:
+      default: family
+      description: 'enum: `family`, `model`, `os`, `os_type`'
+      enum:
+      - family
+      - model
+      - os
+      - os_type
+      type: string
+    fingerprints:
+      items:
+        $ref: '#/components/schemas/fingerprint'
+      type: array
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    nac_access_type:
+      description: 'Type of network access. enum: `wireless`, `wired`, `vty`'
+      enum:
+      - wireless
+      - wired
+      - vty
+      examples:
+      - wireless
+      type: string
+    response_http404:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
+        id:
           type: string
       type: object
     fingerprint_search_result:
@@ -306,15 +293,6 @@ components:
       - total
       - results
       type: object
-    nac_access_type:
-      description: 'Type of network access. enum: `wireless`, `wired`, `vty`'
-      enum:
-      - wireless
-      - wired
-      - vty
-      examples:
-      - wireless
-      type: string
     response_http400:
       additionalProperties: false
       properties:
@@ -332,10 +310,23 @@ components:
       required:
       - count
       type: object
-    response_http404:
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    response_http429:
       additionalProperties: false
       properties:
-        id:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     response_count:
@@ -367,71 +358,46 @@ components:
       format: uuid
       readOnly: true
       type: string
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    fingerprints_count_distinct:
-      default: family
-      description: 'enum: `family`, `model`, `os`, `os_type`'
-      enum:
-      - family
-      - model
-      - os
-      - os_type
-      type: string
-    fingerprints:
-      items:
-        $ref: '#/components/schemas/fingerprint'
-      type: array
+    fingerprint:
+      additionalProperties: false
+      properties:
+        family:
+          readOnly: true
+          type: string
+        mac:
+          readOnly: true
+          type: string
+        mfg:
+          readOnly: true
+          type: string
+        model:
+          readOnly: true
+          type: string
+        org_id:
+          $ref: '#/components/schemas/org_id'
+        os:
+          readOnly: true
+          type: string
+        os_type:
+          readOnly: true
+          type: string
+        random_mac:
+          readOnly: true
+          type: boolean
+        site_id:
+          $ref: '#/components/schemas/site_id'
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    FingerprintSearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/FingerprintSearchExample'
-          schema:
-            $ref: '#/components/schemas/fingerprint_search_result'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/FingerprintSearchExample'
-          schema:
-            $ref: '#/components/schemas/fingerprint_search_result'
-      description: OK
     Count:
       content:
         application/json:
@@ -462,6 +428,60 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
+    FingerprintSearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/FingerprintSearchExample'
+          schema:
+            $ref: '#/components/schemas/fingerprint_search_result'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/FingerprintSearchExample'
+          schema:
+            $ref: '#/components/schemas/fingerprint_search_result'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP400:
       content:
         application/json:
@@ -477,76 +497,56 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-  parameters:
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
-      schema:
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    interval:
-      description: Aggregation works by giving a time range plus interval (e.g. 1d, 1h, 10m) where aggregation function would be applied to.
-      in: query
-      name: interval
-      schema:
-        examples:
-        - 10m
-        type: string
-    sort_wcid:
-      description: On which field the list should be sorted, -prefix represents DESC order.
-      in: query
-      name: sort
-      schema:
-        default: wxid
-        examples:
-        - -site_id
-        type: string
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    FingerprintSearchExample:
+      value:
+        end: 1735678700
+        limit: 10
+        results:
+        - family: Apple
+          mac: d420b080516e
+          mfg: Apple, Inc.
+          model: Unknown
+          org_id: bb2fb165-0931-49c7-a1b8-9b5814326b7d
+          os: iOS 18.1.1
+          os_type: iOS
+          random_mac: true
+          site_id: 441a1214-6928-442a-8e92-e1d34b8ec6a6
+          timestamp: 1735678662.58
+        - family: EX Series Switch
+          mac: d420b080516d
+          mfg: Juniper Networks, Inc.
+          model: ex4100-f-12p
+          org_id: b6bc08f3-60a3-402b-8f0d-caf9132a1e9a
+          os: JUNOS 22.3R1.12
+          os_type: JUNOS
+          random_mac: false
+          site_id: 441a1214-6928-442a-8e92-e1d34b8ec6a6
+          timestamp: 1735669092.932
+        start: 1735678650
+        total: 2
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

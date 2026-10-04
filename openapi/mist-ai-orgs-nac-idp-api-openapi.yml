@@ -195,6 +195,76 @@ paths:
       tags:
       - Orgs NAC IDP
 components:
+  schemas:
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    websocket_session:
+      additionalProperties: false
+      properties:
+        session:
+          examples:
+          - 19e73828-937f-05e6-f709-e29efdb0a82b
+          type: string
+      required:
+      - session
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    username_password:
+      properties:
+        password:
+          format: password
+          type: string
+        username:
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   responses:
     WebsocketSession:
       content:
@@ -205,36 +275,21 @@ components:
           schema:
             $ref: '#/components/schemas/websocket_session'
       description: OK
-    HTTP403:
+    HTTP429:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
+            $ref: '#/components/schemas/response_http429'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP403Example'
+              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP401:
       content:
         application/json:
@@ -259,91 +314,36 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP429:
+    HTTP400:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP429Example'
+              $ref: '#/components/examples/HTTP400Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
+            $ref: '#/components/schemas/response_http400'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP429Example'
+              $ref: '#/components/examples/HTTP400Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-  schemas:
-    websocket_session:
-      additionalProperties: false
-      properties:
-        session:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    HTTP403:
+      content:
+        application/json:
           examples:
-          - 19e73828-937f-05e6-f709-e29efdb0a82b
-          type: string
-      required:
-      - session
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
           examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    username_password:
-      properties:
-        password:
-          format: password
-          type: string
-        username:
-          type: string
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
   parameters:
     org_id:
       in: path

@@ -124,7 +124,12 @@ paths:
       - Orgs SLEs
 components:
   schemas:
-    org_site_sle_wifi:
+    org_site_sle_wan_results:
+      items:
+        $ref: '#/components/schemas/org_site_sle_wan_result'
+      type: array
+      uniqueItems: true
+    org_site_wired_wifi:
       additionalProperties: false
       properties:
         end:
@@ -136,7 +141,7 @@ components:
         page:
           type: integer
         results:
-          $ref: '#/components/schemas/org_site_sle_wifi_results'
+          $ref: '#/components/schemas/org_site_sle_wired_results'
         start:
           type: number
         total:
@@ -150,14 +155,6 @@ components:
       - total
       - results
       type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
     response_http401:
       additionalProperties: false
       properties:
@@ -166,63 +163,24 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    org_site_sle_wan_result:
+    org_site_sle_wired_result:
       additionalProperties: false
       properties:
-        application_health:
-          type: number
-        gateway-health:
-          type: number
         num_clients:
           type: number
-        num_gateways:
+        num_switches:
           type: number
         site_id:
           $ref: '#/components/schemas/site_id'
-        wan-link-health:
+        switch-bandwidth:
+          type: number
+        switch-health:
+          type: number
+        switch-throughput:
           type: number
       required:
       - site_id
-      - gateway-health
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    org_site_sle_type:
-      description: 'enum: `wan`, `wifi`, `wired`'
-      enum:
-      - wan
-      - wifi
-      - wired
-      type: string
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_org_site_sle:
-      oneOf:
-      - $ref: '#/components/schemas/org_site_sle_wifi'
-      - $ref: '#/components/schemas/org_site_wired_wifi'
-      - $ref: '#/components/schemas/org_site_wan_wifi'
-    insight_metrics_results_item:
-      anyOf:
-      - type: number
-      - additionalProperties: true
-        type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
+      - switch-health
       type: object
     org_site_sle_wifi_result:
       additionalProperties: false
@@ -253,37 +211,13 @@ components:
       - site_id
       - ap-availability
       type: object
-    org_site_sle_wan_results:
-      items:
-        $ref: '#/components/schemas/org_site_sle_wan_result'
-      type: array
-      uniqueItems: true
-    org_site_sle_wired_result:
-      additionalProperties: false
-      properties:
-        num_clients:
-          type: number
-        num_switches:
-          type: number
-        site_id:
-          $ref: '#/components/schemas/site_id'
-        switch-bandwidth:
-          type: number
-        switch-health:
-          type: number
-        switch-throughput:
-          type: number
-      required:
-      - site_id
-      - switch-health
-      type: object
     insight_metrics_results:
       description: Results depends on the `metric` - some return numbers (e.g. bytes, ap-count), others return objects
       items:
         $ref: '#/components/schemas/insight_metrics_results_item'
       type: array
       uniqueItems: true
-    org_site_wired_wifi:
+    org_site_sle_wifi:
       additionalProperties: false
       properties:
         end:
@@ -295,7 +229,7 @@ components:
         page:
           type: integer
         results:
-          $ref: '#/components/schemas/org_site_sle_wired_results'
+          $ref: '#/components/schemas/org_site_sle_wifi_results'
         start:
           type: number
         total:
@@ -309,6 +243,25 @@ components:
       - total
       - results
       type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    org_site_sle_wifi_results:
+      items:
+        $ref: '#/components/schemas/org_site_sle_wifi_result'
+      type: array
+      uniqueItems: true
     site_id:
       examples:
       - 441a1214-6928-442a-8e92-e1d34b8ec6a6
@@ -338,11 +291,25 @@ components:
         $ref: '#/components/schemas/org_site_sle_wired_result'
       type: array
       uniqueItems: true
-    org_site_sle_wifi_results:
-      items:
-        $ref: '#/components/schemas/org_site_sle_wifi_result'
-      type: array
-      uniqueItems: true
+    org_site_sle_wan_result:
+      additionalProperties: false
+      properties:
+        application_health:
+          type: number
+        gateway-health:
+          type: number
+        num_clients:
+          type: number
+        num_gateways:
+          type: number
+        site_id:
+          $ref: '#/components/schemas/site_id'
+        wan-link-health:
+          type: number
+      required:
+      - site_id
+      - gateway-health
+      type: object
     org_site_wan_wifi:
       additionalProperties: false
       properties:
@@ -369,66 +336,100 @@ components:
       - total
       - results
       type: object
+    response_org_site_sle:
+      oneOf:
+      - $ref: '#/components/schemas/org_site_sle_wifi'
+      - $ref: '#/components/schemas/org_site_wired_wifi'
+      - $ref: '#/components/schemas/org_site_wan_wifi'
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    insight_metrics_results_item:
+      anyOf:
+      - type: number
+      - additionalProperties: true
+        type: object
+    org_site_sle_type:
+      description: 'enum: `wan`, `wifi`, `wired`'
+      enum:
+      - wan
+      - wifi
+      - wired
+      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+  parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
+    interval:
+      description: Aggregation works by giving a time range plus interval (e.g. 1d, 1h, 10m) where aggregation function would be applied to.
+      in: query
+      name: interval
+      schema:
+        examples:
+        - 10m
+        type: string
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    metric:
+      description: See [List Insight Metrics](/#operations/listInsightMetrics) for available metrics
+      in: path
+      name: metric
+      required: true
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      schema:
+        default: 1
+        minimum: 1
+        type: integer
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
   examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    OrgSiteSleWANSLE:
-      value:
-        end: 1651323600
-        interval: 3600
-        limit: 1
-        page: 2
-        results:
-        - application_health: 0.8250000047942866
-          gateway-health: 1
-          num_clients: 65
-          num_gateways: 1
-          site_id: f5fcbee5-1234-5678-9101-1619ede87879
-          wan-link-health: 0.9988471089272484
-        start: 1651269600
-        total: 4
-    OrgSiteSleWiFiSLE:
-      value:
-        end: 1651323600
-        interval: 3600
-        limit: 1
-        page: 2
-        results:
-        - ap-availability: 1
-          ap-health: 0.6735632316819553
-          capacity: 0.9802900770150502
-          coverage: 0.812181632387686
-          num_aps: 3
-          num_clients: 24
-          roaming: 1
-          site_id: f5fcbee5-1234-5678-9101-1619ede87879
-          successful-connect: 0.9535864983932881
-          throughput: 1
-          time-to-connect: 0.9791666666666666
-        start: 1651269600
-        total: 4
-    OrgSiteSleWiredSLE:
-      value:
-        end: 1651323600
-        interval: 3600
-        limit: 1
-        page: 2
-        results:
-        - num_clients: 6
-          num_switches: 1
-          site_id: f5fcbee5-1234-5678-9101-1619ede87879
-          switch-bandwidth: 0.9669529756744796
-          switch-health: 1
-          switch-throughput: 1
-        start: 1651269600
-        total: 4
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     InsightMetricOrgWorstSitesBySle:
       value:
         end: 1643706000
@@ -484,55 +485,69 @@ components:
           throughput: 0
           time-to-connect: 0.5
         start: 1643670000
+    OrgSiteSleWiFiSLE:
+      value:
+        end: 1651323600
+        interval: 3600
+        limit: 1
+        page: 2
+        results:
+        - ap-availability: 1
+          ap-health: 0.6735632316819553
+          capacity: 0.9802900770150502
+          coverage: 0.812181632387686
+          num_aps: 3
+          num_clients: 24
+          roaming: 1
+          site_id: f5fcbee5-1234-5678-9101-1619ede87879
+          successful-connect: 0.9535864983932881
+          throughput: 1
+          time-to-connect: 0.9791666666666666
+        start: 1651269600
+        total: 4
+    OrgSiteSleWANSLE:
+      value:
+        end: 1651323600
+        interval: 3600
+        limit: 1
+        page: 2
+        results:
+        - application_health: 0.8250000047942866
+          gateway-health: 1
+          num_clients: 65
+          num_gateways: 1
+          site_id: f5fcbee5-1234-5678-9101-1619ede87879
+          wan-link-health: 0.9988471089272484
+        start: 1651269600
+        total: 4
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    OrgSiteSleWiredSLE:
+      value:
+        end: 1651323600
+        interval: 3600
+        limit: 1
+        page: 2
+        results:
+        - num_clients: 6
+          num_switches: 1
+          site_id: f5fcbee5-1234-5678-9101-1619ede87879
+          switch-bandwidth: 0.9669529756744796
+          switch-health: 1
+          switch-throughput: 1
+        start: 1651269600
+        total: 4
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    InsightMetricOrg:
-      content:
-        application/json:
-          examples:
-            Worst Sites By Sle:
-              $ref: '#/components/examples/InsightMetricOrgWorstSitesBySle'
-          schema:
-            $ref: '#/components/schemas/insight_metrics'
-        application/vnd.api+json:
-          examples:
-            Worst Sites By Sle:
-              $ref: '#/components/examples/InsightMetricOrgWorstSitesBySle'
-          schema:
-            $ref: '#/components/schemas/insight_metrics'
-      description: OK
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP403:
       content:
         application/json:
@@ -548,21 +563,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    HTTP400:
+    InsightMetricOrg:
       content:
         application/json:
           examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
+            Worst Sites By Sle:
+              $ref: '#/components/examples/InsightMetricOrgWorstSitesBySle'
           schema:
-            $ref: '#/components/schemas/response_http400'
+            $ref: '#/components/schemas/insight_metrics'
         application/vnd.api+json:
           examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
+            Worst Sites By Sle:
+              $ref: '#/components/examples/InsightMetricOrgWorstSitesBySle'
           schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
+            $ref: '#/components/schemas/insight_metrics'
+      description: OK
     HTTP404:
       content:
         application/json:
@@ -572,6 +587,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     OrgSiteSle:
       content:
         application/json:
@@ -595,66 +625,36 @@ components:
           schema:
             $ref: '#/components/schemas/response_org_site_sle'
       description: Example response
-  parameters:
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    metric:
-      description: See [List Insight Metrics](/#operations/listInsightMetrics) for available metrics
-      in: path
-      name: metric
-      required: true
-      schema:
-        type: string
-    interval:
-      description: Aggregation works by giving a time range plus interval (e.g. 1d, 1h, 10m) where aggregation function would be applied to.
-      in: query
-      name: interval
-      schema:
-        examples:
-        - 10m
-        type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
-    page:
-      in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

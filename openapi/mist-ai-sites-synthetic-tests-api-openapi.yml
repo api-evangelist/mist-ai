@@ -295,64 +295,29 @@ paths:
       tags:
       - Sites Synthetic Tests
 components:
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    SyntheticTestExample:
-      value:
-        id: a42775f6-edc8-69b5-f979-542fa1b43ff9
-        message: Successfully queued synthetic test for the site.
-        status: string
-    SynthetictestSearchExample:
-      value:
-        end: 0
-        limit: 0
-        next: string
-        results:
-        - by: user
-          device_type: gateway
-          failed: false
-          latency: 40
-          mac: aff827549235
-          port_id: ge-0/0/2
-          rx_mbps: 322
-          timestamp: 1706824045.059036
-          tx_mbps: 199
-          type: speedtest
-          vlan_id: 20
-        - by: marvis
-          device_type: gateway
-          failed: true
-          latency: 0
-          mac: 8396cd006c8c
-          port_id: ge-0/0/2
-          reason: interface not ready to perform test
-          rx_mbps: 0
-          timestamp: 1706824045.059036
-          tx_mbps: 0
-          type: speedtest
-          vlan_id: 100
-        start: 0
-        total: 0
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    SynthetictestStatusExample:
-      value:
-        device_type: gateway
-        mac: 5c5b35584a6f
-        port_id: ge-0/0/1.100
-        start_time: 1675718807
-        status: inprogress
-        type: speedtest
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
   schemas:
+    response_synthetictest_search:
+      additionalProperties: false
+      properties:
+        end:
+          type: integer
+        limit:
+          type: integer
+        next:
+          type: string
+        results:
+          $ref: '#/components/schemas/response_synthetictest_search_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
     synthetictest:
       properties:
         email:
@@ -361,13 +326,52 @@ components:
           format: email
           type: string
       type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    device_type:
+      description: 'enum: `ap`, `gateway`, `switch`'
+      enum:
+      - ap
+      - gateway
+      - switch
       type: string
+    synthetictest_protocol:
+      description: 'enum: `ping`, `traceroute`'
+      enum:
+      - ping
+      - traceroute
+      type: string
+    synthetictest_device_protocol:
+      default: ping+traceroute
+      description: 'if `type`==`lan_connectivity`. enum: `ping`, `traceroute`, `ping+traceroute`'
+      enum:
+      - ping
+      - ping+traceroute
+      - traceroute
+      type: string
+    synthetictest_device_vlan_id:
+      description: Required for AP
+      oneOf:
+      - type: string
+      - maximum: 4094
+        minimum: 1
+        type: integer
+    websocket_session:
+      additionalProperties: false
+      properties:
+        session:
+          examples:
+          - 19e73828-937f-05e6-f709-e29efdb0a82b
+          type: string
+      required:
+      - session
+      type: object
     response_synthetictest:
       additionalProperties: false
       properties:
@@ -382,19 +386,34 @@ components:
           - success
           type: string
       type: object
-    device_type:
-      description: 'enum: `ap`, `gateway`, `switch`'
+    response_synthetictest_search_results:
+      items:
+        $ref: '#/components/schemas/synthetictest_info'
+      type: array
+    synthetictest_type:
+      description: 'enum: `arp`, `curl`, `dhcp`, `dhcp6`, `dns`, `lan_connectivity`, `radius`, `speedtest`'
       enum:
-      - ap
-      - gateway
-      - switch
+      - arp
+      - curl
+      - dhcp
+      - dhcp6
+      - dns
+      - lan_connectivity
+      - radius
+      - speedtest
       type: string
-    response_http429:
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_http400:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
     timestamp:
@@ -402,33 +421,6 @@ components:
       format: double
       readOnly: true
       type: number
-    synthetictest_device_vlan_id:
-      description: Required for AP
-      oneOf:
-      - type: string
-      - maximum: 4094
-        minimum: 1
-        type: integer
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    response_synthetictest_search_results:
-      items:
-        $ref: '#/components/schemas/synthetictest_info'
-      type: array
     synthetictest_device:
       properties:
         host:
@@ -511,86 +503,13 @@ components:
       required:
       - type
       type: object
-    response_http400:
+    response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
-      type: object
-    response_synthetictest_search:
-      additionalProperties: false
-      properties:
-        end:
-          type: integer
-        limit:
-          type: integer
-        next:
-          type: string
-        results:
-          $ref: '#/components/schemas/response_synthetictest_search_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    synthetictest_protocol:
-      description: 'enum: `ping`, `traceroute`'
-      enum:
-      - ping
-      - traceroute
-      type: string
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    synthetictest_radius_server:
-      properties:
-        password:
-          description: Specify the password associated with the username
-          format: password
-          type: string
-        profile:
-          default: dot1x
-          description: Specify the access profile associated with the subscriber
-          type: string
-        user:
-          description: Specify the subscriber username to test
-          type: string
-      required:
-      - user
-      - password
-      type: object
-    synthetictest_type:
-      description: 'enum: `arp`, `curl`, `dhcp`, `dhcp6`, `dns`, `lan_connectivity`, `radius`, `speedtest`'
-      enum:
-      - arp
-      - curl
-      - dhcp
-      - dhcp6
-      - dns
-      - lan_connectivity
-      - radius
-      - speedtest
-      type: string
-    websocket_session:
-      additionalProperties: false
-      properties:
-        session:
-          examples:
-          - 19e73828-937f-05e6-f709-e29efdb0a82b
-          type: string
-      required:
-      - session
       type: object
     synthetictest_info:
       additionalProperties: false
@@ -642,15 +561,203 @@ components:
           - 20
           type: integer
       type: object
-    synthetictest_device_protocol:
-      default: ping+traceroute
-      description: 'if `type`==`lan_connectivity`. enum: `ping`, `traceroute`, `ping+traceroute`'
-      enum:
-      - ping
-      - ping+traceroute
-      - traceroute
+    synthetictest_radius_server:
+      properties:
+        password:
+          description: Specify the password associated with the username
+          format: password
+          type: string
+        profile:
+          default: dot1x
+          description: Specify the access profile associated with the subscriber
+          type: string
+        user:
+          description: Specify the subscriber username to test
+          type: string
+      required:
+      - user
+      - password
+      type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
       type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+  parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+      in: query
+      name: search_after
+      schema:
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
+    device_id:
+      in: path
+      name: device_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+  examples:
+    SynthetictestStatusExample:
+      value:
+        device_type: gateway
+        mac: 5c5b35584a6f
+        port_id: ge-0/0/1.100
+        start_time: 1675718807
+        status: inprogress
+        type: speedtest
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    SyntheticTestExample:
+      value:
+        id: a42775f6-edc8-69b5-f979-542fa1b43ff9
+        message: Successfully queued synthetic test for the site.
+        status: string
+    SynthetictestSearchExample:
+      value:
+        end: 0
+        limit: 0
+        next: string
+        results:
+        - by: user
+          device_type: gateway
+          failed: false
+          latency: 40
+          mac: aff827549235
+          port_id: ge-0/0/2
+          rx_mbps: 322
+          timestamp: 1706824045.059036
+          tx_mbps: 199
+          type: speedtest
+          vlan_id: 20
+        - by: marvis
+          device_type: gateway
+          failed: true
+          latency: 0
+          mac: 8396cd006c8c
+          port_id: ge-0/0/2
+          reason: interface not ready to perform test
+          rx_mbps: 0
+          timestamp: 1706824045.059036
+          tx_mbps: 0
+          type: speedtest
+          vlan_id: 100
+        start: 0
+        total: 0
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   responses:
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    SyntheticTest:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SyntheticTestExample'
+          schema:
+            $ref: '#/components/schemas/response_synthetictest'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SyntheticTestExample'
+          schema:
+            $ref: '#/components/schemas/response_synthetictest'
+      description: Synthetic Test Started
+    SynthetictestStatus:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SynthetictestStatusExample'
+          schema:
+            $ref: '#/components/schemas/synthetictest_info'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SynthetictestStatusExample'
+          schema:
+            $ref: '#/components/schemas/synthetictest_info'
+      description: Synthetic Test Status
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP401:
       content:
         application/json:
@@ -666,6 +773,15 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
+    WebsocketSession:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/websocket_session'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/websocket_session'
+      description: OK
     HTTP429:
       content:
         application/json:
@@ -696,36 +812,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_synthetictest_search'
       description: Synthetic Test Search Result
-    SynthetictestStatus:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SynthetictestStatusExample'
-          schema:
-            $ref: '#/components/schemas/synthetictest_info'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SynthetictestStatusExample'
-          schema:
-            $ref: '#/components/schemas/synthetictest_info'
-      description: Synthetic Test Status
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
     HTTP400:
       content:
         application/json:
@@ -741,92 +827,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    SyntheticTest:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SyntheticTestExample'
-          schema:
-            $ref: '#/components/schemas/response_synthetictest'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SyntheticTestExample'
-          schema:
-            $ref: '#/components/schemas/response_synthetictest'
-      description: Synthetic Test Started
-    WebsocketSession:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/websocket_session'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/websocket_session'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-  parameters:
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
-      schema:
-        type: string
-    device_id:
-      in: path
-      name: device_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

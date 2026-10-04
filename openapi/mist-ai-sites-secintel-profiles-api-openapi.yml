@@ -85,34 +85,7 @@ paths:
       tags:
       - Sites SecIntel Profiles
 components:
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    SecIntelProfilesArrayExample:
-      value:
-      - name: secintel-custom
-        profiles:
-        - action: default
-          category: CC
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
   schemas:
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
     response_http401:
       additionalProperties: false
       properties:
@@ -121,25 +94,24 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    secintel_profiles:
-      items:
-        $ref: '#/components/schemas/secintel_profile'
-      type: array
-    response_http403:
-      additionalProperties: false
+    secintel_profile:
       properties:
-        detail:
+        name:
           examples:
-          - You do not have permission to perform this action.
+          - secintel-custom
           type: string
+        profiles:
+          $ref: '#/components/schemas/secintel_profile_profiles'
       type: object
-    secintel_profile_profile:
+    secintel_profile_profiles:
+      items:
+        $ref: '#/components/schemas/secintel_profile_profile'
+      type: array
+    response_http404:
       additionalProperties: false
       properties:
-        action:
-          $ref: '#/components/schemas/secintel_profile_profile_action'
-        category:
-          $ref: '#/components/schemas/secintel_profile_profile_category'
+        id:
+          type: string
       type: object
     response_http400:
       additionalProperties: false
@@ -156,12 +128,6 @@ components:
       - DNS
       - IH
       type: string
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
     secintel_profile_profile_action:
       default: default
       description: 'enum: `default`, `standard`, `strict`'
@@ -170,20 +136,74 @@ components:
       - standard
       - strict
       type: string
-    secintel_profile_profiles:
-      items:
-        $ref: '#/components/schemas/secintel_profile_profile'
-      type: array
-    secintel_profile:
+    response_http429:
+      additionalProperties: false
       properties:
-        name:
+        detail:
           examples:
-          - secintel-custom
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
-        profiles:
-          $ref: '#/components/schemas/secintel_profile_profiles'
+      type: object
+    secintel_profiles:
+      items:
+        $ref: '#/components/schemas/secintel_profile'
+      type: array
+    secintel_profile_profile:
+      additionalProperties: false
+      properties:
+        action:
+          $ref: '#/components/schemas/secintel_profile_profile_action'
+        category:
+          $ref: '#/components/schemas/secintel_profile_profile_category'
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
       type: object
   responses:
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    SecIntelProfilesArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SecIntelProfilesArrayExample'
+          schema:
+            $ref: '#/components/schemas/secintel_profiles'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SecIntelProfilesArrayExample'
+          schema:
+            $ref: '#/components/schemas/secintel_profiles'
+      description: Example response
     HTTP401:
       content:
         application/json:
@@ -214,21 +234,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
     HTTP400:
       content:
         application/json:
@@ -244,30 +249,25 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    SecIntelProfilesArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SecIntelProfilesArrayExample'
-          schema:
-            $ref: '#/components/schemas/secintel_profiles'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SecIntelProfilesArrayExample'
-          schema:
-            $ref: '#/components/schemas/secintel_profiles'
-      description: Example response
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    SecIntelProfilesArrayExample:
+      value:
+      - name: secintel-custom
+        profiles:
+        - action: default
+          category: CC
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   parameters:
     site_id:
       in: path

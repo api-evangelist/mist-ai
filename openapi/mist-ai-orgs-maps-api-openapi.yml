@@ -140,159 +140,26 @@ paths:
       tags:
       - Orgs Maps
 components:
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    MapImportAssignedAndPlaced:
-      value:
-        aps:
-        - action: assigned-placed
-          floorplan_id: 6f4bf402-45f9-2a56-6c8b-7f83d3bc98e9
-          height: 3
-          mac: 5c5b35000001
-          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
-          orientation: 45
-        floorplans:
-        - action: imported
-          id: cbdb7f0b-3be0-4872-88f9-58790b509c23
-          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
-          name: map1
-        site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
-        summary:
-          num_ap_assigned: 1
-          num_inv_assigned: 1
-          num_map_assigned: 1
-    MapImportAssignedNamedAndPlaced:
-      value:
-        aps:
-        - action: assigned-named-placed
-          floorplan_id: 6f4bf402-45f9-2a56-6c8b-7f83d3bc98e9
-          mac: 5c5b35000001
-          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
-          orientation: 45
-        floorplans:
-        - action: imported
-          id: cbdb7f0b-3be0-4872-88f9-58790b509c23
-          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
-          name: map1
-        site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
-        summary:
-          num_ap_assigned: 1
-          num_inv_assigned: 1
-          num_map_assigned: 1
-    MapImportPlaced:
-      value:
-        aps:
-        - action: placed
-          floorplan_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          height: 3
-          mac: 5c5b35000001
-          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
-          orientation: 45
-        floorplans:
-        - action: imported
-          id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
-          name: map1
-        site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
-        summary:
-          num_ap_assigned: 1
-          num_inv_assigned: 1
-          num_map_assigned: 1
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
   schemas:
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    map_import_json:
+    map_site_import_file:
       additionalProperties: false
       properties:
-        import_all_floorplans:
-          default: false
+        auto_deviceprofile_assignment:
+          description: Whether to auto assign device to deviceprofile by name
+          examples:
+          - true
           type: boolean
-        import_height:
-          default: true
-          type: boolean
-        import_orientation:
-          default: true
-          type: boolean
-        vendor_name:
-          $ref: '#/components/schemas/map_import_json_vendor_name'
-      required:
-      - vendor_name
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+        csv:
+          contentMediaType: application/octet-stream
+          description: CSV file for ap name mapping, optional
           type: string
-      type: object
-    response_map_import_ap_action:
-      description: 'enum: `assigned-named-placed`, `assigned-placed`, `ignored`, `named-placed`, `placed`'
-      enum:
-      - assigned-named-placed
-      - assigned-placed
-      - ignored
-      - named-placed
-      - placed
-      type: string
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
+        file:
+          contentMediaType: application/octet-stream
+          description: Ekahau or ibwave file
           type: string
+        json:
+          $ref: '#/components/schemas/map_import_json'
       type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    map_org_import_file_json_vendor_name:
-      description: 'enum: `ekahau`, `ibwave`'
-      enum:
-      - ekahau
-      - ibwave
-      examples:
-      - ekahau
-      type: string
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_map_import_floorplans:
-      items:
-        $ref: '#/components/schemas/response_map_import_floorplan'
-      type: array
-      uniqueItems: true
-    response_map_import_aps:
-      items:
-        $ref: '#/components/schemas/response_map_import_ap'
-      type: array
-      uniqueItems: true
     response_map_import:
       additionalProperties: false
       properties:
@@ -313,116 +180,22 @@ components:
       - floorplans
       - summary
       type: object
-    map_org_import_file:
-      additionalProperties: false
-      properties:
-        auto_deviceprofile_assignment:
-          description: Whether to auto assign device to deviceprofile by name
-          examples:
-          - true
-          type: boolean
-        csv:
-          contentMediaType: application/octet-stream
-          description: CSV file for ap name mapping, optional
-          type: string
-        file:
-          contentMediaType: application/octet-stream
-          description: Ekahau or ibwave file
-          type: string
-        json:
-          $ref: '#/components/schemas/map_org_import_file_json'
-      type: object
-    response_map_import_floorplan:
-      additionalProperties: false
-      properties:
-        action:
-          type: string
-        id:
-          $ref: '#/components/schemas/id'
-        map_id:
-          format: uuid
-          type: string
-        name:
-          type: string
-        reason:
-          type: string
-      required:
-      - id
-      - name
-      - action
-      - map_id
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    map_site_import_file:
-      additionalProperties: false
-      properties:
-        auto_deviceprofile_assignment:
-          description: Whether to auto assign device to deviceprofile by name
-          examples:
-          - true
-          type: boolean
-        csv:
-          contentMediaType: application/octet-stream
-          description: CSV file for ap name mapping, optional
-          type: string
-        file:
-          contentMediaType: application/octet-stream
-          description: Ekahau or ibwave file
-          type: string
-        json:
-          $ref: '#/components/schemas/map_import_json'
-      type: object
-    response_map_import_ap:
-      additionalProperties: false
-      properties:
-        action:
-          $ref: '#/components/schemas/response_map_import_ap_action'
-        floorplan_id:
-          format: uuid
-          type: string
-        height:
-          format: double
-          type: number
-        mac:
-          type: string
-        map_id:
-          format: uuid
-          type: string
-        orientation:
-          type: integer
-        reason:
-          type: string
-      required:
-      - mac
-      - action
-      - map_id
-      - floorplan_id
-      - orientation
-      type: object
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
+    response_map_import_ap_action:
+      description: 'enum: `assigned-named-placed`, `assigned-placed`, `ignored`, `named-placed`, `placed`'
+      enum:
+      - assigned-named-placed
+      - assigned-placed
+      - ignored
+      - named-placed
+      - placed
       type: string
-    response_map_import_summary:
+    response_http401:
       additionalProperties: false
       properties:
-        num_ap_assigned:
-          type: integer
-        num_inv_assigned:
-          type: integer
-        num_map_assigned:
-          type: integer
-      required:
-      - num_ap_assigned
-      - num_map_assigned
-      - num_inv_assigned
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
       type: object
     map_org_import_file_json:
       additionalProperties: false
@@ -451,37 +224,234 @@ components:
       examples:
       - ekahau
       type: string
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    response_map_import_summary:
+      additionalProperties: false
+      properties:
+        num_ap_assigned:
+          type: integer
+        num_inv_assigned:
+          type: integer
+        num_map_assigned:
+          type: integer
+      required:
+      - num_ap_assigned
+      - num_map_assigned
+      - num_inv_assigned
+      type: object
+    map_org_import_file_json_vendor_name:
+      description: 'enum: `ekahau`, `ibwave`'
+      enum:
+      - ekahau
+      - ibwave
+      examples:
+      - ekahau
+      type: string
+    response_map_import_floorplans:
+      items:
+        $ref: '#/components/schemas/response_map_import_floorplan'
+      type: array
+      uniqueItems: true
+    response_map_import_aps:
+      items:
+        $ref: '#/components/schemas/response_map_import_ap'
+      type: array
+      uniqueItems: true
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    map_import_json:
+      additionalProperties: false
+      properties:
+        import_all_floorplans:
+          default: false
+          type: boolean
+        import_height:
+          default: true
+          type: boolean
+        import_orientation:
+          default: true
+          type: boolean
+        vendor_name:
+          $ref: '#/components/schemas/map_import_json_vendor_name'
+      required:
+      - vendor_name
+      type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    response_map_import_ap:
+      additionalProperties: false
+      properties:
+        action:
+          $ref: '#/components/schemas/response_map_import_ap_action'
+        floorplan_id:
+          format: uuid
+          type: string
+        height:
+          format: double
+          type: number
+        mac:
+          type: string
+        map_id:
+          format: uuid
+          type: string
+        orientation:
+          type: integer
+        reason:
+          type: string
+      required:
+      - mac
+      - action
+      - map_id
+      - floorplan_id
+      - orientation
+      type: object
+    response_map_import_floorplan:
+      additionalProperties: false
+      properties:
+        action:
+          type: string
+        id:
+          $ref: '#/components/schemas/id'
+        map_id:
+          format: uuid
+          type: string
+        name:
+          type: string
+        reason:
+          type: string
+      required:
+      - id
+      - name
+      - action
+      - map_id
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    map_org_import_file:
+      additionalProperties: false
+      properties:
+        auto_deviceprofile_assignment:
+          description: Whether to auto assign device to deviceprofile by name
+          examples:
+          - true
+          type: boolean
+        csv:
+          contentMediaType: application/octet-stream
+          description: CSV file for ap name mapping, optional
+          type: string
+        file:
+          contentMediaType: application/octet-stream
+          description: Ekahau or ibwave file
+          type: string
+        json:
+          $ref: '#/components/schemas/map_org_import_file_json'
+      type: object
+  examples:
+    MapImportAssignedAndPlaced:
+      value:
+        aps:
+        - action: assigned-placed
+          floorplan_id: 6f4bf402-45f9-2a56-6c8b-7f83d3bc98e9
+          height: 3
+          mac: 5c5b35000001
+          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
+          orientation: 45
+        floorplans:
+        - action: imported
+          id: cbdb7f0b-3be0-4872-88f9-58790b509c23
+          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
+          name: map1
+        site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
+        summary:
+          num_ap_assigned: 1
+          num_inv_assigned: 1
+          num_map_assigned: 1
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    MapImportPlaced:
+      value:
+        aps:
+        - action: placed
+          floorplan_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          height: 3
+          mac: 5c5b35000001
+          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
+          orientation: 45
+        floorplans:
+        - action: imported
+          id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
+          name: map1
+        site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
+        summary:
+          num_ap_assigned: 1
+          num_inv_assigned: 1
+          num_map_assigned: 1
+    MapImportAssignedNamedAndPlaced:
+      value:
+        aps:
+        - action: assigned-named-placed
+          floorplan_id: 6f4bf402-45f9-2a56-6c8b-7f83d3bc98e9
+          mac: 5c5b35000001
+          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
+          orientation: 45
+        floorplans:
+        - action: imported
+          id: cbdb7f0b-3be0-4872-88f9-58790b509c23
+          map_id: 845a23bf-bed9-e43c-4c86-6fa474be7ae5
+          name: map1
+        site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
+        summary:
+          num_ap_assigned: 1
+          num_inv_assigned: 1
+          num_map_assigned: 1
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP403:
       content:
         application/json:
@@ -497,21 +467,30 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    HTTP400:
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP400Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http400'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP400Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
     MapImport:
       content:
         application/json:
@@ -535,16 +514,43 @@ components:
           schema:
             $ref: '#/components/schemas/response_map_import'
       description: OK
-    HTTP404:
+    HTTP429:
       content:
         application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_http404'
+            $ref: '#/components/schemas/response_http429'
         application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
   parameters:
+    site_name:
+      in: path
+      name: site_name
+      required: true
+      schema:
+        type: string
     org_id:
       in: path
       name: org_id
@@ -553,12 +559,6 @@ components:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
-        type: string
-    site_name:
-      in: path
-      name: site_name
-      required: true
-      schema:
         type: string
   securitySchemes:
     apiToken:

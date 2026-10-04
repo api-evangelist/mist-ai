@@ -200,7 +200,443 @@ paths:
       tags:
       - Orgs Clients - Wired
 components:
+  schemas:
+    wired_client_response_vlan:
+      items:
+        readOnly: true
+        type: integer
+      readOnly: true
+      type: array
+    search_wired_client:
+      additionalProperties: false
+      properties:
+        end:
+          type: number
+        limit:
+          type: integer
+        next:
+          type: string
+        results:
+          $ref: '#/components/schemas/search_wired_client_results'
+        start:
+          type: number
+        total:
+          type: integer
+      required:
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    client_info_source:
+      description: 'source from where the client was learned (lldp, mac). enum: `lldp`, `mac`'
+      enum:
+      - lldp
+      - mac
+      type: string
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    wired_client_dhcp_client_options:
+      items:
+        $ref: '#/components/schemas/dhcp_client_option'
+      type: array
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    wired_client_response_device_mac_port:
+      items:
+        $ref: '#/components/schemas/wired_client_response_device_mac_port_item'
+      readOnly: true
+      type: array
+      uniqueItems: true
+    wired_client_response:
+      additionalProperties: false
+      properties:
+        auth_method:
+          examples:
+          - mac_auth
+          type: string
+        auth_state:
+          examples:
+          - authenticated
+          type: string
+        device_mac:
+          $ref: '#/components/schemas/wired_client_response_device_mac'
+        device_mac_port:
+          $ref: '#/components/schemas/wired_client_response_device_mac_port'
+        dhcp_client_identifier:
+          examples:
+          - MAC address 00155df6d500
+          type: string
+        dhcp_client_options:
+          $ref: '#/components/schemas/wired_client_dhcp_client_options'
+        dhcp_fqdn:
+          examples:
+          - ITS-VMMT0-D1N02.mgthub.local
+          type: string
+        dhcp_hostname:
+          examples:
+          - ITS-VMMT0-D1N02
+          type: string
+        dhcp_request_params:
+          examples:
+          - 1 3 6 15 31 33 43 44 46 47 119 121 249 252
+          type: string
+        dhcp_vendor_class_identifier:
+          examples:
+          - MSFT 5.0
+          type: string
+        ip:
+          $ref: '#/components/schemas/wired_client_response_ip'
+        mac:
+          readOnly: true
+          type: string
+        org_id:
+          $ref: '#/components/schemas/org_id'
+        port_id:
+          $ref: '#/components/schemas/wired_client_response_port_id'
+        site_id:
+          $ref: '#/components/schemas/site_id'
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+        vlan:
+          $ref: '#/components/schemas/wired_client_response_vlan'
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    org_wired_clients_count_distinct:
+      default: mac
+      description: 'enum: `device_mac`, `mac`, `port_id`, `site_id`, `type`, `vlan`'
+      enum:
+      - device_mac
+      - mac
+      - port_id
+      - site_id
+      - type
+      - vlan
+      type: string
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    dhcp_client_option:
+      additionalProperties: false
+      properties:
+        code:
+          examples:
+          - DHO_DHCP_MESSAGE_TYPE(53)
+          type: string
+        data:
+          examples:
+          - DHCPREQUEST
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    response_count:
+      additionalProperties: false
+      properties:
+        distinct:
+          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    search_wired_client_results:
+      items:
+        $ref: '#/components/schemas/wired_client_response'
+      type: array
+      uniqueItems: true
+    wired_client_response_ip:
+      items:
+        readOnly: true
+        type: string
+      readOnly: true
+      type: array
+    wired_client_response_port_id:
+      items:
+        readOnly: true
+        type: string
+      readOnly: true
+      type: array
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    wired_client_response_device_mac_port_item:
+      additionalProperties: false
+      properties:
+        device_mac:
+          minLength: 1
+          type: string
+        ip:
+          readOnly: true
+          type: string
+        port_id:
+          readOnly: true
+          type: string
+        port_parent:
+          type: string
+        start:
+          readOnly: true
+          type: string
+        vlan:
+          readOnly: true
+          type: integer
+        when:
+          readOnly: true
+          type: string
+      readOnly: true
+      type: object
+    wired_client_response_device_mac:
+      description: MAC Address of the switch the client is connected to
+      items:
+        readOnly: true
+        type: string
+      readOnly: true
+      type: array
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+  parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
+    ip:
+      in: query
+      name: ip
+      schema:
+        examples:
+        - 192.168.1.1
+        format: ipv4
+        type: string
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+      in: query
+      name: search_after
+      schema:
+        type: string
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    sort:
+      description: On which field the list should be sorted, -prefix represents DESC order
+      in: query
+      name: sort
+      schema:
+        default: timestamp
+        examples:
+        - -site_id
+        type: string
+    partial_filter_mac_client:
+      description: Partial / full Client MAC Address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported
+      in: query
+      name: mac
+      schema:
+        examples:
+        - aabbccddeeff
+        - aabbcc*
+        - '*bbcc*'
+        type: string
+  responses:
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    WiredClientsSearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/WiredClientsSearchExample'
+          schema:
+            $ref: '#/components/schemas/search_wired_client'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/WiredClientsSearchExample'
+          schema:
+            $ref: '#/components/schemas/search_wired_client'
+      description: OK
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
   examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
@@ -256,448 +692,12 @@ components:
           - 1001
         start: 1648443400.8221116
         total: 1
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
-    HTTP403Example:
+    HTTP429Example:
       value:
-        detail: You do not have permission to perform this action.
-  schemas:
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    search_wired_client:
-      additionalProperties: false
-      properties:
-        end:
-          type: number
-        limit:
-          type: integer
-        next:
-          type: string
-        results:
-          $ref: '#/components/schemas/search_wired_client_results'
-        start:
-          type: number
-        total:
-          type: integer
-      required:
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    wired_client_response_device_mac:
-      description: MAC Address of the switch the client is connected to
-      items:
-        readOnly: true
-        type: string
-      readOnly: true
-      type: array
-    wired_client_response_port_id:
-      items:
-        readOnly: true
-        type: string
-      readOnly: true
-      type: array
-    wired_client_response_vlan:
-      items:
-        readOnly: true
-        type: integer
-      readOnly: true
-      type: array
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    count_result:
-      additionalProperties:
-        type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
-      type: object
-    wired_client_response_ip:
-      items:
-        readOnly: true
-        type: string
-      readOnly: true
-      type: array
-    wired_client_response_device_mac_port_item:
-      additionalProperties: false
-      properties:
-        device_mac:
-          minLength: 1
-          type: string
-        ip:
-          readOnly: true
-          type: string
-        port_id:
-          readOnly: true
-          type: string
-        port_parent:
-          type: string
-        start:
-          readOnly: true
-          type: string
-        vlan:
-          readOnly: true
-          type: integer
-        when:
-          readOnly: true
-          type: string
-      readOnly: true
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    wired_client_response:
-      additionalProperties: false
-      properties:
-        auth_method:
-          examples:
-          - mac_auth
-          type: string
-        auth_state:
-          examples:
-          - authenticated
-          type: string
-        device_mac:
-          $ref: '#/components/schemas/wired_client_response_device_mac'
-        device_mac_port:
-          $ref: '#/components/schemas/wired_client_response_device_mac_port'
-        dhcp_client_identifier:
-          examples:
-          - MAC address 00155df6d500
-          type: string
-        dhcp_client_options:
-          $ref: '#/components/schemas/wired_client_dhcp_client_options'
-        dhcp_fqdn:
-          examples:
-          - ITS-VMMT0-D1N02.mgthub.local
-          type: string
-        dhcp_hostname:
-          examples:
-          - ITS-VMMT0-D1N02
-          type: string
-        dhcp_request_params:
-          examples:
-          - 1 3 6 15 31 33 43 44 46 47 119 121 249 252
-          type: string
-        dhcp_vendor_class_identifier:
-          examples:
-          - MSFT 5.0
-          type: string
-        ip:
-          $ref: '#/components/schemas/wired_client_response_ip'
-        mac:
-          readOnly: true
-          type: string
-        org_id:
-          $ref: '#/components/schemas/org_id'
-        port_id:
-          $ref: '#/components/schemas/wired_client_response_port_id'
-        site_id:
-          $ref: '#/components/schemas/site_id'
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-        vlan:
-          $ref: '#/components/schemas/wired_client_response_vlan'
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    wired_client_dhcp_client_options:
-      items:
-        $ref: '#/components/schemas/dhcp_client_option'
-      type: array
-    org_wired_clients_count_distinct:
-      default: mac
-      description: 'enum: `device_mac`, `mac`, `port_id`, `site_id`, `type`, `vlan`'
-      enum:
-      - device_mac
-      - mac
-      - port_id
-      - site_id
-      - type
-      - vlan
-      type: string
-    response_count:
-      additionalProperties: false
-      properties:
-        distinct:
-          type: string
-        end:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/count_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    client_info_source:
-      description: 'source from where the client was learned (lldp, mac). enum: `lldp`, `mac`'
-      enum:
-      - lldp
-      - mac
-      type: string
-    wired_client_response_device_mac_port:
-      items:
-        $ref: '#/components/schemas/wired_client_response_device_mac_port_item'
-      readOnly: true
-      type: array
-      uniqueItems: true
-    dhcp_client_option:
-      additionalProperties: false
-      properties:
-        code:
-          examples:
-          - DHO_DHCP_MESSAGE_TYPE(53)
-          type: string
-        data:
-          examples:
-          - DHCPREQUEST
-          type: string
-      type: object
-    search_wired_client_results:
-      items:
-        $ref: '#/components/schemas/wired_client_response'
-      type: array
-      uniqueItems: true
-  responses:
-    WiredClientsSearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/WiredClientsSearchExample'
-          schema:
-            $ref: '#/components/schemas/search_wired_client'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/WiredClientsSearchExample'
-          schema:
-            $ref: '#/components/schemas/search_wired_client'
-      description: OK
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-  parameters:
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    sort:
-      description: On which field the list should be sorted, -prefix represents DESC order
-      in: query
-      name: sort
-      schema:
-        default: timestamp
-        examples:
-        - -site_id
-        type: string
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
-      schema:
-        type: string
-    partial_filter_mac_client:
-      description: Partial / full Client MAC Address. Use `prefix*` for prefix search or `*substring*` for contains search (e.g. `aabbcc*` and `*bbcc*` match `aabbccddeeff`). Suffix-only wildcards (e.g. `*bccddeeff`) are not supported
-      in: query
-      name: mac
-      schema:
-        examples:
-        - aabbccddeeff
-        - aabbcc*
-        - '*bbcc*'
-        type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
-    ip:
-      in: query
-      name: ip
-      schema:
-        examples:
-        - 192.168.1.1
-        format: ipv4
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

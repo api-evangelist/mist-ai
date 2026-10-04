@@ -245,209 +245,40 @@ paths:
       tags:
       - Sites WxTunnels
 components:
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    WxtunnelArrayExample:
-      value:
-      - created_time: 0
-        dmvpn:
-          enabled: true
-          holding_time: 0
-          host_routes:
-          - string
-        for_mgmt: true
-        hello_interval: 1
-        hello_retries: 3
-        hostname: string
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        ipsec:
-          enabled: true
-          psk: string123
-        is_static: true
-        modified_time: 0
-        mtu: 1500
-        name: string
-        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        peers:
-        - string
-        router_id: string
-        secret: string
-        sessions:
-        - ap_as_session_id: string
-          comment: string
-          enable_cookie: true
-          ethertype: ethernet
-          local_session_id: 1
-          pseudo_802.1ad_enabled: true
-          remote_id: string
-          remote_session_id: 1
-          use_ap_as_session_ids: true
-        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        udp_port: 0
-        use_udp: true
-    WxtunnelExample:
-      value:
-        created_time: 0
-        dmvpn:
-          enabled: true
-          holding_time: 0
-          host_routes:
-          - string
-        for_mgmt: true
-        hello_interval: 1
-        hello_retries: 3
-        hostname: string
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        ipsec:
-          enabled: true
-          psk: string123
-        is_static: true
-        modified_time: 0
-        mtu: 1500
-        name: string
-        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        peers:
-        - string
-        router_id: string
-        secret: string
-        sessions:
-        - ap_as_session_id: string
-          comment: string
-          enable_cookie: true
-          ethertype: ethernet
-          local_session_id: 1
-          pseudo_802.1ad_enabled: true
-          remote_id: string
-          remote_session_id: 1
-          use_ap_as_session_ids: true
-        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        udp_port: 0
-        use_udp: true
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-  schemas:
-    wxlan_tunnel_dmvpn:
-      additionalProperties: false
-      description: Dynamic Multipoint VPN configurations
-      properties:
-        enabled:
-          default: false
-          description: Whether DMVPN is enabled
-          type: boolean
-        holding_time:
-          description: Optional; the holding time for NHRP ‘registration requests’  and ‘resolution replies’ sent from the Mist AP (in seconds); default 600
-          type: integer
-        host_routes:
-          $ref: '#/components/schemas/wxlan_tunnel_dmvpn_host_routes'
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    wxlan_tunnel_peers:
-      description: List of remote peers’ IP or hostname
-      items:
+  parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    wxtunnel_id:
+      in: path
+      name: wxtunnel_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
         type: string
-      type: array
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    wxlan_tunnel_ipsec:
-      additionalProperties: false
-      description: IPSec-related configurations; requires DMVPN be enabled
-      properties:
-        enabled:
-          default: false
-          description: Whether ipsec is enabled, requires DMVPN be enabled
-          type: boolean
-        psk:
-          description: IPSec pre-shared key
-          type: string
-      required:
-      - psk
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    wxlan_tunnel_sessions:
-      description: Sessions to be established with the tunnel. Has to be >= 1 in order for this tunnel to be useful. For management tunnel, it can only have 1
-      items:
-        $ref: '#/components/schemas/wxlan_tunnel_session'
-      type: array
-      uniqueItems: true
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    wxlan_tunnel_session:
-      additionalProperties: false
-      properties:
-        ap_as_session_id:
-          description: If `use_ap_as_session_ids`==`true`, only apmac is supported right now. This is the name WLAN should use for wxtunnel_remote_id
-          type: string
-        comment:
-          description: Optional, user-specified string for display purpose
-          type: string
-        enable_cookie:
-          type: boolean
-        ethertype:
-          $ref: '#/components/schemas/wxlan_tunnel_session_ethertype'
-        local_session_id:
-          description: 1-2147483647
-          maximum: 2147483647
-          minimum: 1
-          type: integer
-        pseudo_802.1ad_enabled:
-          default: false
-          description: Optional. Enables the pseudo 802.1ad QinQ mode where the AP device drops the outer vlan tag (QinQ). This mode is useful when tunneling Mist AP’s to some aggregation routers.
-          type: boolean
-        remote_id:
-          description: Remote-id of the session, has to be unique in the same tunnel
-          type: string
-        remote_session_id:
-          description: 1-2147483647
-          maximum: 2147483647
-          minimum: 1
-          type: integer
-        use_ap_as_session_ids:
-          default: false
-          description: Whether to use AP (last 4 bytes of MAC currently) as session ids
-          type: boolean
-      type: object
+    page:
+      in: query
+      name: page
+      schema:
+        default: 1
+        minimum: 1
+        type: integer
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+  schemas:
     wxlan_tunnel:
       description: WxLAn Tunnel
       properties:
@@ -519,11 +350,82 @@ components:
       required:
       - name
       type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    wxlan_tunnel_ipsec:
+      additionalProperties: false
+      description: IPSec-related configurations; requires DMVPN be enabled
+      properties:
+        enabled:
+          default: false
+          description: Whether ipsec is enabled, requires DMVPN be enabled
+          type: boolean
+        psk:
+          description: IPSec pre-shared key
+          type: string
+      required:
+      - psk
+      type: object
+    wxlan_tunnel_session:
+      additionalProperties: false
+      properties:
+        ap_as_session_id:
+          description: If `use_ap_as_session_ids`==`true`, only apmac is supported right now. This is the name WLAN should use for wxtunnel_remote_id
+          type: string
+        comment:
+          description: Optional, user-specified string for display purpose
+          type: string
+        enable_cookie:
+          type: boolean
+        ethertype:
+          $ref: '#/components/schemas/wxlan_tunnel_session_ethertype'
+        local_session_id:
+          description: 1-2147483647
+          maximum: 2147483647
+          minimum: 1
+          type: integer
+        pseudo_802.1ad_enabled:
+          default: false
+          description: Optional. Enables the pseudo 802.1ad QinQ mode where the AP device drops the outer vlan tag (QinQ). This mode is useful when tunneling Mist AP’s to some aggregation routers.
+          type: boolean
+        remote_id:
+          description: Remote-id of the session, has to be unique in the same tunnel
+          type: string
+        remote_session_id:
+          description: 1-2147483647
+          maximum: 2147483647
+          minimum: 1
+          type: integer
+        use_ap_as_session_ids:
+          default: false
+          description: Whether to use AP (last 4 bytes of MAC currently) as session ids
+          type: boolean
+      type: object
+    wxlan_tunnel_dmvpn:
+      additionalProperties: false
+      description: Dynamic Multipoint VPN configurations
+      properties:
+        enabled:
+          default: false
+          description: Whether DMVPN is enabled
+          type: boolean
+        holding_time:
+          description: Optional; the holding time for NHRP ‘registration requests’  and ‘resolution replies’ sent from the Mist AP (in seconds); default 600
+          type: integer
+        host_routes:
+          $ref: '#/components/schemas/wxlan_tunnel_dmvpn_host_routes'
+      type: object
+    wxlan_tunnel_session_ethertype:
+      description: 'enum: `ethernet`, `vlan`'
+      enum:
+      - ethernet
+      - vlan
       type: string
     response_http404:
       additionalProperties: false
@@ -531,25 +433,39 @@ components:
         id:
           type: string
       type: object
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    wxlan_tunnel_session_ethertype:
-      description: 'enum: `ethernet`, `vlan`'
-      enum:
-      - ethernet
-      - vlan
-      type: string
+    wxlan_tunnel_dmvpn_host_routes:
+      description: Optional; list of IPv4 DMVPN peer host ip-addresses to which traffic is forwarded
+      items:
+        type: string
+      type: array
+    wxlan_tunnels:
+      items:
+        $ref: '#/components/schemas/wxlan_tunnel'
+      type: array
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
     site_id:
       examples:
       - 441a1214-6928-442a-8e92-e1d34b8ec6a6
       format: uuid
       readOnly: true
       type: string
-    wxlan_tunnel_dmvpn_host_routes:
-      description: Optional; list of IPv4 DMVPN peer host ip-addresses to which traffic is forwarded
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    wxlan_tunnel_peers:
+      description: List of remote peers’ IP or hostname
       items:
         type: string
       type: array
@@ -558,58 +474,39 @@ components:
       format: double
       readOnly: true
       type: number
-    wxlan_tunnels:
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    wxlan_tunnel_sessions:
+      description: Sessions to be established with the tunnel. Has to be >= 1 in order for this tunnel to be useful. For management tunnel, it can only have 1
       items:
-        $ref: '#/components/schemas/wxlan_tunnel'
+        $ref: '#/components/schemas/wxlan_tunnel_session'
       type: array
+      uniqueItems: true
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    Wxtunnel:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/WxtunnelExample'
-          schema:
-            $ref: '#/components/schemas/wxlan_tunnel'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/WxtunnelExample'
-          schema:
-            $ref: '#/components/schemas/wxlan_tunnel'
-      description: OK
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    OK:
-      description: OK
     HTTP403:
       content:
         application/json:
@@ -625,21 +522,32 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    HTTP400:
+    OK:
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    Wxtunnel:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP400Example'
+              $ref: '#/components/examples/WxtunnelExample'
           schema:
-            $ref: '#/components/schemas/response_http400'
+            $ref: '#/components/schemas/wxlan_tunnel'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP400Example'
+              $ref: '#/components/examples/WxtunnelExample'
           schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
+            $ref: '#/components/schemas/wxlan_tunnel'
+      description: OK
     WxtunnelArray:
       content:
         application/json:
@@ -655,48 +563,140 @@ components:
           schema:
             $ref: '#/components/schemas/wxlan_tunnels'
       description: OK
-    HTTP404:
+    HTTP401:
       content:
         application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http404'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-  parameters:
-    wxtunnel_id:
-      in: path
-      name: wxtunnel_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    page:
-      in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+  examples:
+    WxtunnelExample:
+      value:
+        created_time: 0
+        dmvpn:
+          enabled: true
+          holding_time: 0
+          host_routes:
+          - string
+        for_mgmt: true
+        hello_interval: 1
+        hello_retries: 3
+        hostname: string
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        ipsec:
+          enabled: true
+          psk: string123
+        is_static: true
+        modified_time: 0
+        mtu: 1500
+        name: string
+        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        peers:
+        - string
+        router_id: string
+        secret: string
+        sessions:
+        - ap_as_session_id: string
+          comment: string
+          enable_cookie: true
+          ethertype: ethernet
+          local_session_id: 1
+          pseudo_802.1ad_enabled: true
+          remote_id: string
+          remote_session_id: 1
+          use_ap_as_session_ids: true
+        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        udp_port: 0
+        use_udp: true
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    WxtunnelArrayExample:
+      value:
+      - created_time: 0
+        dmvpn:
+          enabled: true
+          holding_time: 0
+          host_routes:
+          - string
+        for_mgmt: true
+        hello_interval: 1
+        hello_retries: 3
+        hostname: string
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        ipsec:
+          enabled: true
+          psk: string123
+        is_static: true
+        modified_time: 0
+        mtu: 1500
+        name: string
+        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        peers:
+        - string
+        router_id: string
+        secret: string
+        sessions:
+        - ap_as_session_id: string
+          comment: string
+          enable_cookie: true
+          ethertype: ethernet
+          local_session_id: 1
+          pseudo_802.1ad_enabled: true
+          remote_id: string
+          remote_session_id: 1
+          use_ap_as_session_ids: true
+        site_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        udp_port: 0
+        use_udp: true
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

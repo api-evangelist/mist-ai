@@ -228,76 +228,30 @@ paths:
       tags:
       - Sites Rfdiags
 components:
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    RfdiagExample:
-      value:
-      - asset_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        asset_name: string
-        client_name: string
-        duration: 0
-        end_time: 0
-        frame_count: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        mac: string
-        map_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        name: string
-        next: string
-        raw_events: string
-        ready: true
-        sdkclient_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        sdkclient_name: string
-        sdkclient_uuid: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        start_time: 0
-        type: sdkclient
-        url: string
-    RfdiagsArrayExample:
-      value:
-      - - asset_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          asset_name: string
-          client_name: string
-          duration: 0
-          end_time: 0
-          frame_count: 0
-          id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          mac: string
-          map_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          name: string
-          next: string
-          raw_events: string
-          ready: true
-          sdkclient_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          sdkclient_name: string
-          sdkclient_uuid: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-          start_time: 0
-          type: sdkclient
-          url: string
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
   schemas:
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    response_http429:
-      additionalProperties: false
+    rf_diag:
+      description: RF Diag
       properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+        duration:
+          default: 180
+          description: recording length in seconds, max is 180. Default value is also 180.
+          maximum: 180
+          type: integer
+        mac:
+          description: If `type`==`client` or `asset`, mac of the device
           type: string
+        name:
+          description: Name of the recording, the name of the sdk client would be a good default choice
+          type: string
+        sdkclient_id:
+          description: If `type`==`sdkclient`, sdkclient_id of this recording
+          format: uuid
+          type: string
+        type:
+          $ref: '#/components/schemas/rf_client_type'
+      required:
+      - name
+      - type
       type: object
     response_http401:
       additionalProperties: false
@@ -313,39 +267,6 @@ components:
         $ref: '#/components/schemas/rf_diag_info_item'
       type: array
       uniqueItems: true
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    rf_client_type:
-      description: 'enum: `asset`, `client`, `sdkclient`'
-      enum:
-      - asset
-      - client
-      - sdkclient
-      type: string
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    rf_diag_info_list:
-      items:
-        $ref: '#/components/schemas/rf_diag_info'
-      type: array
     rf_diag_info_item:
       additionalProperties: false
       properties:
@@ -418,76 +339,109 @@ components:
       - frame_count
       - ready
       type: object
-    rf_diag:
-      description: RF Diag
+    rf_diag_info_list:
+      items:
+        $ref: '#/components/schemas/rf_diag_info'
+      type: array
+    response_http404:
+      additionalProperties: false
       properties:
-        duration:
-          default: 180
-          description: recording length in seconds, max is 180. Default value is also 180.
-          maximum: 180
-          type: integer
-        mac:
-          description: If `type`==`client` or `asset`, mac of the device
+        id:
           type: string
-        name:
-          description: Name of the recording, the name of the sdk client would be a good default choice
-          type: string
-        sdkclient_id:
-          description: If `type`==`sdkclient`, sdkclient_id of this recording
-          format: uuid
-          type: string
-        type:
-          $ref: '#/components/schemas/rf_client_type'
-      required:
-      - name
-      - type
       type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    rf_client_type:
+      description: 'enum: `asset`, `client`, `sdkclient`'
+      enum:
+      - asset
+      - client
+      - sdkclient
+      type: string
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+  parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
+    page:
+      in: query
+      name: page
+      schema:
+        default: 1
+        minimum: 1
+        type: integer
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
+    rfdiag_id:
+      in: path
+      name: rfdiag_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    RfdiagsArray:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/RfdiagsArrayExample'
-          schema:
-            $ref: '#/components/schemas/rf_diag_info_list'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/RfdiagsArrayExample'
-          schema:
-            $ref: '#/components/schemas/rf_diag_info_list'
-      description: OK
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     Rfdiag:
       content:
         application/json:
@@ -503,7 +457,33 @@ components:
           schema:
             $ref: '#/components/schemas/rf_diag_info'
       description: OK
-    OK:
+    File:
+      content:
+        application/json:
+          schema:
+            contentMediaType: application/octet-stream
+            description: File
+            type: string
+        application/vnd.api+json:
+          schema:
+            contentMediaType: application/octet-stream
+            description: File
+            type: string
+      description: OK
+    RfdiagsArray:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RfdiagsArrayExample'
+          schema:
+            $ref: '#/components/schemas/rf_diag_info_list'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RfdiagsArrayExample'
+          schema:
+            $ref: '#/components/schemas/rf_diag_info_list'
       description: OK
     HTTP403:
       content:
@@ -520,6 +500,47 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
+    OK:
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP400:
       content:
         application/json:
@@ -535,82 +556,61 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    File:
-      content:
-        application/json:
-          schema:
-            contentMediaType: application/octet-stream
-            description: File
-            type: string
-        application/vnd.api+json:
-          schema:
-            contentMediaType: application/octet-stream
-            description: File
-            type: string
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-  parameters:
-    rfdiag_id:
-      in: path
-      name: rfdiag_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
-    page:
-      in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    RfdiagsArrayExample:
+      value:
+      - - asset_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          asset_name: string
+          client_name: string
+          duration: 0
+          end_time: 0
+          frame_count: 0
+          id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          mac: string
+          map_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          name: string
+          next: string
+          raw_events: string
+          ready: true
+          sdkclient_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          sdkclient_name: string
+          sdkclient_uuid: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+          start_time: 0
+          type: sdkclient
+          url: string
+    RfdiagExample:
+      value:
+      - asset_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        asset_name: string
+        client_name: string
+        duration: 0
+        end_time: 0
+        frame_count: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        mac: string
+        map_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        name: string
+        next: string
+        raw_events: string
+        ready: true
+        sdkclient_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        sdkclient_name: string
+        sdkclient_uuid: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        start_time: 0
+        type: sdkclient
+        url: string
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

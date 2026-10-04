@@ -209,21 +209,6 @@ paths:
       - Sites WAN Usages
 components:
   parameters:
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
-    sort:
-      description: On which field the list should be sorted, -prefix represents DESC order
-      in: query
-      name: sort
-      schema:
-        default: timestamp
-        examples:
-        - -site_id
-        type: string
     limit:
       in: query
       name: limit
@@ -231,6 +216,21 @@ components:
         default: 100
         minimum: 0
         type: integer
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
     site_id:
       in: path
       name: site_id
@@ -246,44 +246,16 @@ components:
       name: start
       schema:
         type: string
-    duration:
-      description: Duration like 7d, 2w
+    sort:
+      description: On which field the list should be sorted, -prefix represents DESC order
       in: query
-      name: duration
+      name: sort
       schema:
-        default: 1d
+        default: timestamp
         examples:
-        - 10m
+        - -site_id
         type: string
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
   schemas:
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
     search_wan_usage:
       additionalProperties: false
       properties:
@@ -296,14 +268,6 @@ components:
         start:
           type: number
       type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
     response_http401:
       additionalProperties: false
       properties:
@@ -312,14 +276,23 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
+    wan_usages_count_distinct:
+      default: policy
+      description: 'enum: `mac`, `path_type`, `peer_mac`, `peer_port_id`, `policy`, `port_id`, `tenant`'
+      enum:
+      - mac
+      - path_type
+      - peer_mac
+      - peer_port_id
+      - policy
+      - port_id
+      - tenant
+      type: string
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
     wan_usages:
       additionalProperties: false
       properties:
@@ -356,10 +329,12 @@ components:
           - tenant1
           type: string
       type: object
-    search_wan_usage_results:
-      items:
-        $ref: '#/components/schemas/wan_usages'
-      type: array
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
     response_http400:
       additionalProperties: false
       properties:
@@ -377,10 +352,12 @@ components:
       required:
       - count
       type: object
-    response_http404:
+    response_http429:
       additionalProperties: false
       properties:
-        id:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     response_count:
@@ -406,49 +383,19 @@ components:
       - start
       - total
       type: object
-    wan_usages_count_distinct:
-      default: policy
-      description: 'enum: `mac`, `path_type`, `peer_mac`, `peer_port_id`, `policy`, `port_id`, `tenant`'
-      enum:
-      - mac
-      - path_type
-      - peer_mac
-      - peer_port_id
-      - policy
-      - port_id
-      - tenant
-      type: string
+    search_wan_usage_results:
+      items:
+        $ref: '#/components/schemas/wan_usages'
+      type: array
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     Count:
       content:
         application/json:
@@ -479,6 +426,54 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    Wan_Usages:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/search_wan_usage'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/search_wan_usage'
+      description: OK
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP400:
       content:
         application/json:
@@ -494,24 +489,29 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    Wan_Usages:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/search_wan_usage'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/search_wan_usage'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

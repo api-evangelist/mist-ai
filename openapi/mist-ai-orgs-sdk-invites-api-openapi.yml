@@ -298,70 +298,14 @@ paths:
       tags:
       - Orgs SDK Invites
 components:
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    MobileVerifySecretExample:
-      value:
-        name: Macy's
-        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        secret: device-specific-secret
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    SdkinviteExample:
-      value:
-        created_time: 1428954000
-        enabled: true
-        expire_time: 1428954000
-        id: 5034b980-b49e-501c-66e0-9de4c38f18a2
-        name: Macy's
-        quota: -1
-    SdkinvitesArrayExample:
-      value:
-      - created_time: 1428954000
-        enabled: true
-        expire_time: 1428954000
-        id: 5034b980-b49e-501c-66e0-9de4c38f18a2
-        name: Macy's
-        quota: -1
   schemas:
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    response_mobile_verify_secret:
-      additionalProperties: false
+    device_id_string:
       properties:
-        name:
-          type: string
-        org_id:
-          $ref: '#/components/schemas/org_id'
-        secret:
-          format: password
+        device_id:
+          format: uuid
           type: string
       required:
-      - name
-      - org_id
-      - secret
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
+      - device_id
       type: object
     response_http401:
       additionalProperties: false
@@ -371,41 +315,13 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    response_http403:
-      additionalProperties: false
+    email_string:
       properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    device_id_string:
-      properties:
-        device_id:
-          format: uuid
+        email:
+          format: email
           type: string
       required:
-      - device_id
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
+      - email
       type: object
     sdkinvite:
       description: SDK invite
@@ -438,29 +354,19 @@ components:
       required:
       - name
       type: object
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    sdkinvite_list:
-      items:
-        $ref: '#/components/schemas/sdkinvite'
-      type: array
-    email_string:
+    response_http404:
+      additionalProperties: false
       properties:
-        email:
-          format: email
+        id:
           type: string
-      required:
-      - email
       type: object
-    sdk_invite_sms:
+    response_http400:
+      additionalProperties: false
       properties:
-        number:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
-      required:
-      - number
       type: object
     site_id:
       examples:
@@ -468,43 +374,99 @@ components:
       format: uuid
       readOnly: true
       type: string
+    sdk_invite_sms:
+      properties:
+        number:
+          type: string
+      required:
+      - number
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    response_mobile_verify_secret:
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        org_id:
+          $ref: '#/components/schemas/org_id'
+        secret:
+          format: password
+          type: string
+      required:
+      - name
+      - org_id
+      - secret
+      type: object
     created_time:
       description: When the object has been created, in epoch
       format: double
       readOnly: true
       type: number
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    sdkinvite_list:
+      items:
+        $ref: '#/components/schemas/sdkinvite'
+      type: array
   responses:
-    HTTP401:
+    MobileVerifySecret:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP401Example'
+              $ref: '#/components/examples/MobileVerifySecretExample'
           schema:
-            $ref: '#/components/schemas/response_http401'
+            $ref: '#/components/schemas/response_mobile_verify_secret'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP401Example'
+              $ref: '#/components/examples/MobileVerifySecretExample'
           schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
+            $ref: '#/components/schemas/response_mobile_verify_secret'
+      description: OK
+    File:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
+            contentMediaType: application/octet-stream
+            description: File
+            type: string
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    OK:
+            contentMediaType: application/octet-stream
+            description: File
+            type: string
       description: OK
     HTTP403:
       content:
@@ -521,51 +483,17 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    Sdkinvite:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SdkinviteExample'
-          schema:
-            $ref: '#/components/schemas/sdkinvite'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SdkinviteExample'
-          schema:
-            $ref: '#/components/schemas/sdkinvite'
+    OK:
       description: OK
-    MobileVerifySecret:
+    HTTP404:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MobileVerifySecretExample'
           schema:
-            $ref: '#/components/schemas/response_mobile_verify_secret'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MobileVerifySecretExample'
           schema:
-            $ref: '#/components/schemas/response_mobile_verify_secret'
-      description: OK
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     SdkinvitesArray:
       content:
         application/json:
@@ -581,29 +509,73 @@ components:
           schema:
             $ref: '#/components/schemas/sdkinvite_list'
       description: OK
-    File:
+    HTTP401:
       content:
         application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            contentMediaType: application/octet-stream
-            description: File
-            type: string
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            contentMediaType: application/octet-stream
-            description: File
-            type: string
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    Sdkinvite:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SdkinviteExample'
+          schema:
+            $ref: '#/components/schemas/sdkinvite'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SdkinviteExample'
+          schema:
+            $ref: '#/components/schemas/sdkinvite'
       description: OK
-    HTTP404:
+    HTTP429:
       content:
         application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_http404'
+            $ref: '#/components/schemas/response_http429'
         application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
   parameters:
+    secret:
+      in: path
+      name: secret
+      required: true
+      schema:
+        type: string
     org_id:
       in: path
       name: org_id
@@ -612,12 +584,6 @@ components:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
-        type: string
-    secret:
-      in: path
-      name: secret
-      required: true
-      schema:
         type: string
     sdkinvite_id:
       in: path
@@ -628,6 +594,40 @@ components:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
+  examples:
+    MobileVerifySecretExample:
+      value:
+        name: Macy's
+        org_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        secret: device-specific-secret
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    SdkinvitesArrayExample:
+      value:
+      - created_time: 1428954000
+        enabled: true
+        expire_time: 1428954000
+        id: 5034b980-b49e-501c-66e0-9de4c38f18a2
+        name: Macy's
+        quota: -1
+    SdkinviteExample:
+      value:
+        created_time: 1428954000
+        enabled: true
+        expire_time: 1428954000
+        id: 5034b980-b49e-501c-66e0-9de4c38f18a2
+        name: Macy's
+        quota: -1
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

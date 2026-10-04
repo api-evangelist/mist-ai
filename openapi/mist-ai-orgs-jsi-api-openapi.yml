@@ -563,25 +563,431 @@ paths:
       tags:
       - Orgs JSI
 components:
+  responses:
+    JsiDevices:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JsiDevicesExample'
+          schema:
+            $ref: '#/components/schemas/jse_devices'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JsiDevicesExample'
+          schema:
+            $ref: '#/components/schemas/jse_devices'
+      description: OK
+    JsiInventoryError:
+      content:
+        application/json:
+          examples:
+            No Juniper Account Linked:
+              $ref: '#/components/examples/JsiInventoryErrorNoJuniperAccountLinked'
+          schema:
+            $ref: '#/components/schemas/response_detail_string'
+        application/vnd.api+json:
+          examples:
+            No Juniper Account Linked:
+              $ref: '#/components/examples/JsiInventoryErrorNoJuniperAccountLinked'
+          schema:
+            $ref: '#/components/schemas/response_detail_string'
+      description: Bad Request - no Juniper Account Linked
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    JsiSirtSearch:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/jsi_sirt_search'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsi_sirt_search'
+      description: OK
+    JsiSirtCount:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: OK
+    WebsocketSessionWithUrl:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/websocket_session_with_url'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/websocket_session_with_url'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    JsiInventory:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JsiInventoryExample'
+          schema:
+            $ref: '#/components/schemas/js_inventory'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JsiInventoryExample'
+          schema:
+            $ref: '#/components/schemas/js_inventory'
+      description: OK
+    JunosRegisterCmd:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JunosRegisterCmdExample'
+          schema:
+            $ref: '#/components/schemas/response_device_config_cmd'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JunosRegisterCmdExample'
+          schema:
+            $ref: '#/components/schemas/response_device_config_cmd'
+      description: OK
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    JsiInventorySearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JsiInventorySearchExample'
+          schema:
+            $ref: '#/components/schemas/js_inventory_search'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/JsiInventorySearchExample'
+          schema:
+            $ref: '#/components/schemas/js_inventory_search'
+      description: OK
+    JsiPbnSearch:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/jsi_pbn_search'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsi_pbn_search'
+      description: OK
+    JsiPbnCount:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: OK
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+  examples:
+    JsiInventorySearchExample:
+      value:
+        end: 1748023308
+        limit: 1000
+        results:
+        - claimed: true
+          device_name: name1
+          eol_time: 1561507200
+          eos_time: 1672012800
+          has_support: true
+          master: true
+          model: EX2300-24MP
+          org_id: 6e843b41-f953-4af9-80e5-e1a70f65754a
+          serial: XN3123300095
+          sku: EX2300
+          status: connected
+          suggested_version: Latest 21.4R3-Sx
+          type: switch
+          version: 23.4R2-S4.11
+          version_eos_time: 1672012800
+          version_time: 1561507200
+          warranty: Enhanced Hardware Warranty
+          warranty_time: 1672012800
+          warranty_type: Enhanced Hardware Warranty
+        start: 1748019708
+        total: 1
+    JsiInventoryErrorNoJuniperAccountLinked:
+      value:
+        detail: no juniper account linked
+    JunosRegisterCmdExample:
+      value:
+        cmd: 'set system services ssh...
+
+          ...
+
+          set system services outbound-ssh client mist ...'
+    JsiDevicesExample:
+      value:
+      - ext_ip: 73.92.124.103
+        last_seen: 1654636867
+        mac: c15353123096
+        model: EX2300-C-12P
+        serial: DGCOO0015
+    JsiInventoryExample:
+      value:
+      - device_name: name1
+        eol_time: 1561507200
+        eos_time: 1672012800
+        master: true
+        model: EX2300-24MP
+        org_id: 6e843b41-f953-4af9-80e5-e1a70f65754a
+        serial: XN3123300095
+        sku: EX2300
+        status: connected
+        suggested_version: Latest 21.4R3-Sx
+        type: switch
+        version: 23.4R2-S4.11
+        version_eos_time: 1672012800
+        version_time: 1561507200
+        warranty: Enhanced Hardware Warranty
+        warranty_time: 1672012800
+        warranty_type: Enhanced Hardware Warranty
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+  parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+      in: query
+      name: search_after
+      schema:
+        type: string
+    device_mac:
+      in: path
+      name: device_mac
+      required: true
+      schema:
+        examples:
+        - 0000000000ab
+        pattern: ^[0-9a-fA-F]{12}$
+        type: string
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    page:
+      in: query
+      name: page
+      schema:
+        default: 1
+        minimum: 1
+        type: integer
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    sort:
+      description: On which field the list should be sorted, -prefix represents DESC order
+      in: query
+      name: sort
+      schema:
+        default: timestamp
+        examples:
+        - -site_id
+        type: string
   schemas:
-    jse_device:
+    js_inventory:
+      items:
+        $ref: '#/components/schemas/js_inventory_item'
+      type: array
+    response_http401:
       additionalProperties: false
       properties:
-        ext_ip:
-          description: When available
-          type: string
-        last_seen:
-          $ref: '#/components/schemas/last_seen'
-        mac:
-          type: string
-        model:
-          type: string
-        serial:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
           type: string
       type: object
-    jsi_pbn_search:
+    device_type:
+      description: 'enum: `ap`, `gateway`, `switch`'
+      enum:
+      - ap
+      - gateway
+      - switch
+      type: string
+    jse_devices:
+      items:
+        $ref: '#/components/schemas/jse_device'
+      type: array
+    jsi_warranty_type:
+      description: "Warranty type for Juniper Support Insight (JSI) devices. The warranty type\nis used to determine the support level and duration of the warranty for the\ndevice. enum:\n  * WTY00001: Standard Hardware Warranty\n  * WTY00002: Enhanced Hardware Warranty\n  * WTY00003: Dead On Arrival Warranty\n  * WTY00004: Limited Lifetime Warranty\n  * WTY00005: Software Warranty\n  * WTY00006: Limited Lifetime Warranty for WLA\n  * WTY00007: Warranty-JCPO EOL (DOA Not Included)\n  * WTY00008: MIST Enhanced Hardware Warranty\n  * WTY00009: MIST Standard Warranty\n  * WTY00099: Determine Lifetime warranty\n"
+      enum:
+      - Standard Hardware Warranty
+      - Enhanced Hardware Warranty
+      - Dead On Arrival Warranty
+      - Limited Lifetime Warranty
+      - Software Warranty
+      - Limited Lifetime Warranty for WLA
+      - Warranty-JCPO EOL (DOA Not Included)
+      - MIST Enhanced Hardware Warranty
+      - MIST Standard Warranty
+      - Determine Lifetime warranty
+      type: string
+    js_inventory_search:
       additionalProperties: false
-      description: PBN search response
+      properties:
+        end:
+          description: Offset to end at
+          type: integer
+        limit:
+          description: Number of results to return
+          type: integer
+        next:
+          type: string
+        results:
+          $ref: '#/components/schemas/js_inventory'
+        start:
+          description: Offset to start from
+          type: integer
+        total:
+          description: Total number of results
+          type: integer
+      type: object
+    last_seen:
+      description: Last seen timestamp
+      examples:
+      - 1470417522
+      format: double
+      readOnly: true
+      type:
+      - number
+      - 'null'
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    jsi_sirt_search:
+      additionalProperties: false
+      description: SIRT search response
       properties:
         end:
           description: End timestamp
@@ -593,9 +999,9 @@ components:
           description: Next page URL
           type: string
         results:
-          description: List of PBN advisories
+          description: List of SIRT advisories
           items:
-            $ref: '#/components/schemas/jsi_pbn_item'
+            $ref: '#/components/schemas/jsi_sirt_item'
           type: array
         start:
           description: Start timestamp
@@ -619,53 +1025,89 @@ components:
       - session
       - url
       type: object
-    device_type:
-      description: 'enum: `ap`, `gateway`, `switch`'
-      enum:
-      - ap
-      - gateway
-      - switch
-      type: string
-    jsi_pbn_item:
+    response_detail_string:
       additionalProperties: false
-      description: PBN (Problem Bug Notification) advisory item
       properties:
-        bug_type:
-          description: Type of the bug (Day-1, Regression)
+        detail:
           type: string
-        customer_risk:
-          description: Risk level
-          type: string
-        fixed_in:
-          description: Release in which the issue was fixed
-          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
         id:
-          description: ID of the PBN
-          examples:
-          - '1403338'
           type: string
-        introduced_in:
-          description: Release introduced in
+      type: object
+    count_pbn_distinct:
+      enum:
+      - versions
+      - models
+      - customer_risk
+      - bug_type
+      examples:
+      - versions
+      type: string
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    device_status:
+      default: all
+      description: 'enum: `all`, `connected`, `disconnected`'
+      enum:
+      - all
+      - connected
+      - disconnected
+      type: string
+    count_result:
+      additionalProperties:
+        type: string
+      properties:
+        count:
+          type: integer
+      required:
+      - count
+      type: object
+    jsi_sirt_item:
+      additionalProperties: false
+      description: SIRT advisory item
+      properties:
+        cvss_score:
+          description: CVSS score
+          type: number
+        id:
+          description: ID of the SIRT
+          examples:
+          - JSA100053
           type: string
         models:
           description: OS models affected
           items:
             type: string
           type: array
-        product_family:
-          description: Product family affected
+        problem:
+          description: Problem description
           type: string
+        published_date:
+          description: Release date of the SIRT issue
+          type: integer
         release_notes:
-          description: Release notes for this PBN
+          description: Release notes if any
           type: string
-        restoration:
-          description: Restoration steps
+        severity:
+          description: Severity of the issue
+          type: string
+        solution:
+          description: Solution for the security issue
           type: string
         title:
-          description: Title of the issue
+          description: Title of the SIRT
           type: string
         updated_date:
-          description: PBN updated timestamp
+          description: JSA updated timestamp
           type: integer
         versions:
           description: OS versions affected
@@ -673,17 +1115,9 @@ components:
             type: string
           type: array
         workaround:
-          description: Workaround for this issue
-          type: string
-        workaround_provided:
-          description: Any workaround available
+          description: Workaround provided
           type: string
       type: object
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
     response_http429:
       additionalProperties: false
       properties:
@@ -692,36 +1126,52 @@ components:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    last_seen:
-      description: Last seen timestamp
+    count_sirt_distinct:
+      enum:
+      - versions
+      - models
+      - severity
+      - jsa_updated_date
       examples:
-      - 1470417522
-      format: double
-      readOnly: true
-      type:
-      - number
-      - 'null'
-    response_detail_string:
+      - versions
+      type: string
+    jse_device:
       additionalProperties: false
       properties:
-        detail:
+        ext_ip:
+          description: When available
+          type: string
+        last_seen:
+          $ref: '#/components/schemas/last_seen'
+        mac:
+          type: string
+        model:
+          type: string
+        serial:
           type: string
       type: object
-    response_http401:
+    response_count:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
+        distinct:
           type: string
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
       type: object
     js_inventory_item:
       additionalProperties: false
@@ -789,120 +1239,59 @@ components:
         warranty_type:
           $ref: '#/components/schemas/jsi_warranty_type'
       type: object
-    response_http400:
+    jsi_pbn_item:
       additionalProperties: false
+      description: PBN (Problem Bug Notification) advisory item
       properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+        bug_type:
+          description: Type of the bug (Day-1, Regression)
           type: string
-      type: object
-    count_sirt_distinct:
-      enum:
-      - versions
-      - models
-      - severity
-      - jsa_updated_date
-      examples:
-      - versions
-      type: string
-    count_result:
-      additionalProperties:
-        type: string
-      properties:
-        count:
-          type: integer
-      required:
-      - count
-      type: object
-    js_inventory_search:
-      additionalProperties: false
-      properties:
-        end:
-          description: Offset to end at
-          type: integer
-        limit:
-          description: Number of results to return
-          type: integer
-        next:
+        customer_risk:
+          description: Risk level
           type: string
-        results:
-          $ref: '#/components/schemas/js_inventory'
-        start:
-          description: Offset to start from
-          type: integer
-        total:
-          description: Total number of results
-          type: integer
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
+        fixed_in:
+          description: Release in which the issue was fixed
+          type: string
         id:
+          description: ID of the PBN
+          examples:
+          - '1403338'
           type: string
-      type: object
-    response_count:
-      additionalProperties: false
-      properties:
-        distinct:
+        introduced_in:
+          description: Release introduced in
           type: string
-        end:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/count_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    jsi_sirt_search:
-      additionalProperties: false
-      description: SIRT search response
-      properties:
-        end:
-          description: End timestamp
-          type: integer
-        limit:
-          description: Number of results to return
-          type: integer
-        next:
-          description: Next page URL
-          type: string
-        results:
-          description: List of SIRT advisories
+        models:
+          description: OS models affected
           items:
-            $ref: '#/components/schemas/jsi_sirt_item'
+            type: string
           type: array
-        start:
-          description: Start timestamp
+        product_family:
+          description: Product family affected
+          type: string
+        release_notes:
+          description: Release notes for this PBN
+          type: string
+        restoration:
+          description: Restoration steps
+          type: string
+        title:
+          description: Title of the issue
+          type: string
+        updated_date:
+          description: PBN updated timestamp
           type: integer
-        total:
-          description: Total number of results
-          type: integer
+        versions:
+          description: OS versions affected
+          items:
+            type: string
+          type: array
+        workaround:
+          description: Workaround for this issue
+          type: string
+        workaround_provided:
+          description: Any workaround available
+          type: string
       type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    device_status:
-      default: all
-      description: 'enum: `all`, `connected`, `disconnected`'
-      enum:
-      - all
-      - connected
-      - disconnected
-      type: string
     response_device_config_cmd:
       additionalProperties: false
       properties:
@@ -911,76 +1300,12 @@ components:
       required:
       - cmd
       type: object
-    count_pbn_distinct:
-      enum:
-      - versions
-      - models
-      - customer_risk
-      - bug_type
+    org_id:
       examples:
-      - versions
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
       type: string
-    jsi_warranty_type:
-      description: "Warranty type for Juniper Support Insight (JSI) devices. The warranty type\nis used to determine the support level and duration of the warranty for the\ndevice. enum:\n  * WTY00001: Standard Hardware Warranty\n  * WTY00002: Enhanced Hardware Warranty\n  * WTY00003: Dead On Arrival Warranty\n  * WTY00004: Limited Lifetime Warranty\n  * WTY00005: Software Warranty\n  * WTY00006: Limited Lifetime Warranty for WLA\n  * WTY00007: Warranty-JCPO EOL (DOA Not Included)\n  * WTY00008: MIST Enhanced Hardware Warranty\n  * WTY00009: MIST Standard Warranty\n  * WTY00099: Determine Lifetime warranty\n"
-      enum:
-      - Standard Hardware Warranty
-      - Enhanced Hardware Warranty
-      - Dead On Arrival Warranty
-      - Limited Lifetime Warranty
-      - Software Warranty
-      - Limited Lifetime Warranty for WLA
-      - Warranty-JCPO EOL (DOA Not Included)
-      - MIST Enhanced Hardware Warranty
-      - MIST Standard Warranty
-      - Determine Lifetime warranty
-      type: string
-    jsi_sirt_item:
-      additionalProperties: false
-      description: SIRT advisory item
-      properties:
-        cvss_score:
-          description: CVSS score
-          type: number
-        id:
-          description: ID of the SIRT
-          examples:
-          - JSA100053
-          type: string
-        models:
-          description: OS models affected
-          items:
-            type: string
-          type: array
-        problem:
-          description: Problem description
-          type: string
-        published_date:
-          description: Release date of the SIRT issue
-          type: integer
-        release_notes:
-          description: Release notes if any
-          type: string
-        severity:
-          description: Severity of the issue
-          type: string
-        solution:
-          description: Solution for the security issue
-          type: string
-        title:
-          description: Title of the SIRT
-          type: string
-        updated_date:
-          description: JSA updated timestamp
-          type: integer
-        versions:
-          description: OS versions affected
-          items:
-            type: string
-          type: array
-        workaround:
-          description: Workaround provided
-          type: string
-      type: object
     jsi_inventory_count_distinct:
       description: 'enum: `account_id`, `claimed`, `eol_time`, `eos_time`, `has_support`, `version_time`, `model`, `sku`, `status`, `type`, `version`, `warranty_type'
       enum:
@@ -997,364 +1322,39 @@ components:
       - version
       - warranty_type
       type: string
-    js_inventory:
-      items:
-        $ref: '#/components/schemas/js_inventory_item'
-      type: array
-    jse_devices:
-      items:
-        $ref: '#/components/schemas/jse_device'
-      type: array
-  responses:
-    JsiInventorySearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JsiInventorySearchExample'
-          schema:
-            $ref: '#/components/schemas/js_inventory_search'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JsiInventorySearchExample'
-          schema:
-            $ref: '#/components/schemas/js_inventory_search'
-      description: OK
-    JsiPbnSearch:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/jsi_pbn_search'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsi_pbn_search'
-      description: OK
-    JsiInventory:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JsiInventoryExample'
-          schema:
-            $ref: '#/components/schemas/js_inventory'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JsiInventoryExample'
-          schema:
-            $ref: '#/components/schemas/js_inventory'
-      description: OK
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    JsiInventoryError:
-      content:
-        application/json:
-          examples:
-            No Juniper Account Linked:
-              $ref: '#/components/examples/JsiInventoryErrorNoJuniperAccountLinked'
-          schema:
-            $ref: '#/components/schemas/response_detail_string'
-        application/vnd.api+json:
-          examples:
-            No Juniper Account Linked:
-              $ref: '#/components/examples/JsiInventoryErrorNoJuniperAccountLinked'
-          schema:
-            $ref: '#/components/schemas/response_detail_string'
-      description: Bad Request - no Juniper Account Linked
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    WebsocketSessionWithUrl:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/websocket_session_with_url'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/websocket_session_with_url'
-      description: OK
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
-    JsiSirtSearch:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/jsi_sirt_search'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsi_sirt_search'
-      description: OK
-    JsiPbnCount:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: OK
-    JsiSirtCount:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    JsiDevices:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JsiDevicesExample'
-          schema:
-            $ref: '#/components/schemas/jse_devices'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JsiDevicesExample'
-          schema:
-            $ref: '#/components/schemas/jse_devices'
-      description: OK
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    JunosRegisterCmd:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JunosRegisterCmdExample'
-          schema:
-            $ref: '#/components/schemas/response_device_config_cmd'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/JunosRegisterCmdExample'
-          schema:
-            $ref: '#/components/schemas/response_device_config_cmd'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-  examples:
-    JsiInventorySearchExample:
-      value:
-        end: 1748023308
-        limit: 1000
+    jsi_pbn_search:
+      additionalProperties: false
+      description: PBN search response
+      properties:
+        end:
+          description: End timestamp
+          type: integer
+        limit:
+          description: Number of results to return
+          type: integer
+        next:
+          description: Next page URL
+          type: string
         results:
-        - claimed: true
-          device_name: name1
-          eol_time: 1561507200
-          eos_time: 1672012800
-          has_support: true
-          master: true
-          model: EX2300-24MP
-          org_id: 6e843b41-f953-4af9-80e5-e1a70f65754a
-          serial: XN3123300095
-          sku: EX2300
-          status: connected
-          suggested_version: Latest 21.4R3-Sx
-          type: switch
-          version: 23.4R2-S4.11
-          version_eos_time: 1672012800
-          version_time: 1561507200
-          warranty: Enhanced Hardware Warranty
-          warranty_time: 1672012800
-          warranty_type: Enhanced Hardware Warranty
-        start: 1748019708
-        total: 1
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    JunosRegisterCmdExample:
-      value:
-        cmd: 'set system services ssh...
-
-          ...
-
-          set system services outbound-ssh client mist ...'
-    JsiInventoryErrorNoJuniperAccountLinked:
-      value:
-        detail: no juniper account linked
-    JsiDevicesExample:
-      value:
-      - ext_ip: 73.92.124.103
-        last_seen: 1654636867
-        mac: c15353123096
-        model: EX2300-C-12P
-        serial: DGCOO0015
-    JsiInventoryExample:
-      value:
-      - device_name: name1
-        eol_time: 1561507200
-        eos_time: 1672012800
-        master: true
-        model: EX2300-24MP
-        org_id: 6e843b41-f953-4af9-80e5-e1a70f65754a
-        serial: XN3123300095
-        sku: EX2300
-        status: connected
-        suggested_version: Latest 21.4R3-Sx
-        type: switch
-        version: 23.4R2-S4.11
-        version_eos_time: 1672012800
-        version_time: 1561507200
-        warranty: Enhanced Hardware Warranty
-        warranty_time: 1672012800
-        warranty_type: Enhanced Hardware Warranty
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    CountExample:
-      value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
-  parameters:
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    sort:
-      description: On which field the list should be sorted, -prefix represents DESC order
-      in: query
-      name: sort
-      schema:
-        default: timestamp
-        examples:
-        - -site_id
-        type: string
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
-      schema:
-        type: string
-    device_mac:
-      in: path
-      name: device_mac
-      required: true
-      schema:
-        examples:
-        - 0000000000ab
-        pattern: ^[0-9a-fA-F]{12}$
-        type: string
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
-    page:
-      in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
+          description: List of PBN advisories
+          items:
+            $ref: '#/components/schemas/jsi_pbn_item'
+          type: array
+        start:
+          description: Start timestamp
+          type: integer
+        total:
+          description: Total number of results
+          type: integer
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

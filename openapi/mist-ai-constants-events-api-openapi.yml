@@ -200,18 +200,10 @@ paths:
       - Constants Events
 components:
   examples:
-    ConstDeviceEventsExample:
+    ConstClientEventsExample:
       value:
-      - description: AP was assigned to a site
-        display: AP Assigned
-        example:
-          ap: 5c5b35000001
-          audit_id: e9a88814-fa81-5bdc-34b0-84e8735420e5
-          org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
-          site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
-          timestamp: 1552408871
-          type: AP_ASSIGNED
-        key: AP_ASSIGNED
+      - display: 11r Association
+        key: CLIENT_AUTH_ASSOCIATION_11R
     ConstAlarmDefinitionsExample:
       value:
       - display: Device offline
@@ -236,22 +228,12 @@ components:
         key: device_down
         marvis_suggestion_category: string
         severity: warn
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    ConstOtherDeviceEventsExample:
-      value:
-      - display: Connected to NCM
-        example:
-          device_mac: 5c5b351e13b5
-          mac: 0030447771c0
-          org_id: c080ce4d-4e35-4373-bdc4-08df15d257f5
-          site_id: 1df889ad-9111-4c0e-a00b-8a008b83eb68
-          text: Connected to NCM
-          timestamp: 1675827825.765
-          type: CELLULAR_EDGE_CONNECTED_TO_NCM
-          vendor: cradlepoint
-        key: CELLULAR_EDGE_CONNECTED_TO_NCM
     ConstMxEdgeEventsExample:
       value:
       - description: Config change on ME was triggered as a result of change made by user
@@ -292,32 +274,217 @@ components:
         type: NAC_CLIENT_CERT_CHECK_SUCCESS
         username: suriyas@juniper.net
         wcid: b43637b0-f0d9-0a1d-1ec2-73c394a9f679
-    ConstClientEventsExample:
+    ConstOtherDeviceEventsExample:
       value:
-      - display: 11r Association
-        key: CLIENT_AUTH_ASSOCIATION_11R
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+      - display: Connected to NCM
+        example:
+          device_mac: 5c5b351e13b5
+          mac: 0030447771c0
+          org_id: c080ce4d-4e35-4373-bdc4-08df15d257f5
+          site_id: 1df889ad-9111-4c0e-a00b-8a008b83eb68
+          text: Connected to NCM
+          timestamp: 1675827825.765
+          type: CELLULAR_EDGE_CONNECTED_TO_NCM
+          vendor: cradlepoint
+        key: CELLULAR_EDGE_CONNECTED_TO_NCM
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
-    HTTP403Example:
+    ConstDeviceEventsExample:
       value:
-        detail: You do not have permission to perform this action.
+      - description: AP was assigned to a site
+        display: AP Assigned
+        example:
+          ap: 5c5b35000001
+          audit_id: e9a88814-fa81-5bdc-34b0-84e8735420e5
+          org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
+          site_id: 4ac1dcf4-9d8b-7211-65c4-057819f0862b
+          timestamp: 1552408871
+          type: AP_ASSIGNED
+        key: AP_ASSIGNED
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+  responses:
+    ConstMxEdgeEvents:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstMxEdgeEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_events'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstMxEdgeEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_events'
+      description: List of MxEdge Events definitions
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    ConstNacEvents:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstNacEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_nac_events'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstNacEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_nac_events'
+      description: Example response
+    ConstAlarmDefinitions:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstAlarmDefinitionsExample'
+          schema:
+            $ref: '#/components/schemas/const_alarm_definitions'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstAlarmDefinitionsExample'
+          schema:
+            $ref: '#/components/schemas/const_alarm_definitions'
+      description: List of Alarm Definitions
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    ConstClientEvents:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstClientEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_events'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstClientEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_events'
+      description: List of Client Events definitions
+    ConstSystemEvents:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstSystemEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_events'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstSystemEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_events'
+      description: List of System Events definitions
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    ConstOtherDeviceEvents:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstOtherDeviceEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_events'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstOtherDeviceEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_events'
+      description: List of Other Device Events definitions
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    ConstDeviceEvents:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstDeviceEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_events'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/ConstDeviceEventsExample'
+          schema:
+            $ref: '#/components/schemas/const_events'
+      description: List of Device Events Definitions
   schemas:
     const_alarm_definitions:
       items:
         $ref: '#/components/schemas/const_alarm_definition'
       type: array
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
     const_nac_event:
       additionalProperties: false
       properties:
@@ -387,11 +554,6 @@ components:
           format: uuid
           type: string
       type: object
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
     response_http401:
       additionalProperties: false
       properties:
@@ -400,6 +562,49 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
+    const_alarm_definition_fields:
+      description: List of fields available in an alarm details payload (in REST APIs & Webhooks); e.g. `aps`, `switches`, `gateways`, `hostnames`, `ssids`, `bssids`
+      examples:
+      - - aps
+        - hostnames
+      items:
+        type: string
+      type: array
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    const_nac_events:
+      items:
+        $ref: '#/components/schemas/const_nac_event'
+      type: array
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    const_nac_events_cert_san_upn:
+      examples:
+      - - suriyas@juniper.net
+      items:
+        type: string
+      type: array
     const_event:
       additionalProperties: false
       properties:
@@ -418,6 +623,18 @@ components:
       - key
       - display
       type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    const_events:
+      items:
+        $ref: '#/components/schemas/const_event'
+      type: array
     const_alarm_definition:
       additionalProperties: false
       properties:
@@ -470,6 +687,12 @@ components:
       - severity
       - fields
       type: object
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
     response_http403:
       additionalProperties: false
       properties:
@@ -478,229 +701,6 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    const_nac_events:
-      items:
-        $ref: '#/components/schemas/const_nac_event'
-      type: array
-    const_alarm_definition_fields:
-      description: List of fields available in an alarm details payload (in REST APIs & Webhooks); e.g. `aps`, `switches`, `gateways`, `hostnames`, `ssids`, `bssids`
-      examples:
-      - - aps
-        - hostnames
-      items:
-        type: string
-      type: array
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    const_events:
-      items:
-        $ref: '#/components/schemas/const_event'
-      type: array
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    const_nac_events_cert_san_upn:
-      examples:
-      - - suriyas@juniper.net
-      items:
-        type: string
-      type: array
-  responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    ConstMxEdgeEvents:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstMxEdgeEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_events'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstMxEdgeEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_events'
-      description: List of MxEdge Events definitions
-    ConstOtherDeviceEvents:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstOtherDeviceEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_events'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstOtherDeviceEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_events'
-      description: List of Other Device Events definitions
-    ConstClientEvents:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstClientEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_events'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstClientEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_events'
-      description: List of Client Events definitions
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    ConstSystemEvents:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstSystemEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_events'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstSystemEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_events'
-      description: List of System Events definitions
-    ConstAlarmDefinitions:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstAlarmDefinitionsExample'
-          schema:
-            $ref: '#/components/schemas/const_alarm_definitions'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstAlarmDefinitionsExample'
-          schema:
-            $ref: '#/components/schemas/const_alarm_definitions'
-      description: List of Alarm Definitions
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    ConstNacEvents:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstNacEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_nac_events'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstNacEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_nac_events'
-      description: Example response
-    ConstDeviceEvents:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstDeviceEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_events'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/ConstDeviceEventsExample'
-          schema:
-            $ref: '#/components/schemas/const_events'
-      description: List of Device Events Definitions
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

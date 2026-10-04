@@ -120,241 +120,17 @@ paths:
       - Orgs Stats - MxEdges
 components:
   schemas:
-    stats_mxedge_port_stat_sfp:
+    stats_mxedge_tunterm_port_config:
       additionalProperties: false
       properties:
-        codes:
-          type: string
-        mbps:
-          type: integer
-        part_no:
-          type: string
-        serial_no:
-          type: string
-        type:
-          type: integer
-        vendor:
-          type: string
-      type: object
-    rx_bytes:
-      description: Amount of traffic received since connection
-      examples:
-      - 8515104416
-      format: int64
-      readOnly: true
-      type:
-      - integer
-      - 'null'
-    mxedge_mgmt_oob_ip_type6:
-      default: autoconf
-      description: 'enum: `autoconf`, `dhcp`, `disabled`, `static`'
-      enum:
-      - autoconf
-      - dhcp
-      - disabled
-      - static
-      type: string
-    stats_mxedge_ip_stat:
-      additionalProperties: false
-      description: IP stats
-      properties:
-        ip:
-          examples:
-          - 192.168.1.244
-          type: string
-        ip6:
-          examples:
-          - fd4e:c615:b27d:5555::45
-          type: string
-        ips:
-          additionalProperties:
-            type: string
-          description: Property key is the interface name. IPs for each net interface
-          examples:
-          - ens18: 92.168.1.244/24,fd4e:c615:b27d:5555::45/128,fd4e:c615:b27d:5555:20c:29ff:fe44:af25/64,fe80::104c:ffff:fee0:caf8/64
-          type: object
-        macs:
-          additionalProperties:
-            description: MAC addresses for each net interface
-            type: string
-          description: Property key is the interface name. MAC for each net interface
-          examples:
-          - ens18: e4434b217044
-          type: object
-        netmask:
-          examples:
-          - 255.255.255.0
-          type: string
-        netmask6:
-          examples:
-          - /128
-          type: string
-      type: object
-    rx_pkts:
-      description: Amount of packets received since connection
-      examples:
-      - 57770567
-      format: int64
-      readOnly: true
-      type:
-      - integer
-      - 'null'
-    stats_mxedge_lag_stats:
-      additionalProperties:
-        $ref: '#/components/schemas/stats_mxedge_lag_stat'
-      description: Stat for LAG (Link Aggregation Group). Property key is the LAG name
-      examples:
-      - lacp0:
-          active_ports:
-          - port0
-          - port1
-      type: object
-    tx_pkts:
-      description: Amount of packets sent since connection
-      examples:
-      - 812204062
-      format: int64
-      readOnly: true
-      type:
-      - integer
-      - 'null'
-    stats_mxedge_lag_stat:
-      additionalProperties: false
-      properties:
-        active_ports:
-          $ref: '#/components/schemas/stats_mxedge__active_ports'
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    stats_mxedge_tunterm_port_config_upstream_ports:
-      examples:
-      - - '0'
-        - '1'
-      items:
-        type: string
-      type: array
-    last_seen:
-      description: Last seen timestamp
-      examples:
-      - 1470417522
-      format: double
-      readOnly: true
-      type:
-      - number
-      - 'null'
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    fwupdate_stat:
-      additionalProperties: false
-      properties:
-        progress:
-          examples:
-          - 10
-          maximum: 100
-          minimum: 0
-          readOnly: true
-          type:
-          - integer
-          - 'null'
-        status:
-          $ref: '#/components/schemas/fwupdate_stat_status'
-        status_id:
-          examples:
-          - 5
-          readOnly: true
-          type:
-          - integer
-          - 'null'
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-        will_retry:
+        downstream_ports:
+          $ref: '#/components/schemas/stats_mxedge_tunterm_port_config_downstream_ports'
+        separate_upstream_downstream:
           examples:
           - false
-          readOnly: true
-          type:
-          - boolean
-          - 'null'
-      type: object
-    fwupdate_stat_status:
-      description: 'enum: `inprogress`, `failed`, `upgraded`, `success`, `scheduled`, `error`'
-      enum:
-      - inprogress
-      - failed
-      - upgraded
-      - success
-      - scheduled
-      - error
-      readOnly: true
-      type:
-      - string
-      - 'null'
-    for_site:
-      description: 'enum: `any`, `true`, `false`'
-      enum:
-      - any
-      - 'true'
-      - 'false'
-      type: string
-    stats_mxedge_port_stats:
-      additionalProperties:
-        $ref: '#/components/schemas/stats_mxedge_port_stat'
-      examples:
-      - port0:
-          full_duplex: true
-          mac: 9e294e49091d
-          rx_bytes: 646898375700
-          rx_errors: 0
-          rx_pkts: 8784449574
-          speed: 10000
-          state: forwarding
-          tx_bytes: 647200748038
-          tx_errors: 0
-          tx_pkts: 8788647466
-          up: true
-        port1:
-          full_duplex: true
-          mac: a270fe53437e
-          rx_bytes: 647200437652
-          rx_errors: 0
-          rx_pkts: 8788644886
-          speed: 10000
-          state: forwarding
-          tx_bytes: 646898681650
-          tx_errors: 0
-          tx_pkts: 8784452092
-          up: true
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
+          type: boolean
+        upstream_ports:
+          $ref: '#/components/schemas/stats_mxedge_tunterm_port_config_upstream_ports'
       type: object
     stats_mxedge_port_stat_lldp_stats:
       additionalProperties: false
@@ -370,34 +146,6 @@ components:
         system_desc:
           type: string
         system_name:
-          type: string
-      type: object
-    stats_mxedge_service_stats:
-      additionalProperties:
-        $ref: '#/components/schemas/stats_mxedge_service_stat'
-      description: Stat for each services
-      examples:
-      - mxagent:
-          ext_ip: 99.0.86.164
-          last_seen: 1633721215
-          package_state: Installed
-          package_version: 3.1.1037-1
-          running_state: Running
-          uptime: 21240
-        tunterm:
-          ext_ip: 99.0.86.164
-          last_seen: 1633721203
-          package_state: Installed
-          package_version: 0.1.2449+deb10
-          running_state: Running
-          uptime: 76261
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
     cpu_stat:
@@ -436,167 +184,6 @@ components:
           - number
           - 'null'
       type: object
-    mxedge_oob_ip_config:
-      additionalProperties: false
-      description: IPconfiguration of the Mist Edge out-of_band management interface
-      properties:
-        autoconf6:
-          default: true
-          type: boolean
-        dhcp6:
-          default: true
-          type: boolean
-        dns:
-          $ref: '#/components/schemas/mxedge_oob_ip_config_dns'
-        gateway:
-          description: If `type`=`static`
-          examples:
-          - 10.2.1.254
-          type: string
-        gateway6:
-          examples:
-          - 2601:1700:43c0:dc0::1
-          type: string
-        ip:
-          description: If `type`=`static`
-          examples:
-          - 10.2.1.2
-          type: string
-        ip6:
-          examples:
-          - 2601:1700:43c0:dc0:20c:29ff:fea7:93bc
-          type: string
-        netmask:
-          description: If `type`=`static`
-          examples:
-          - 255.255.255.0
-          type: string
-        netmask6:
-          examples:
-          - /64
-          type: string
-        type:
-          $ref: '#/components/schemas/ip_type'
-        type6:
-          $ref: '#/components/schemas/ip_type'
-      type: object
-    stats_mxedge_cpu_stat:
-      additionalProperties: false
-      description: CPU/core stats list
-      properties:
-        cpus:
-          $ref: '#/components/schemas/stats_mxedge_cpu_stat_cpus'
-        idle:
-          description: Percentage of Idle, Idle/(Idle + Busy) since last sampling
-          examples:
-          - 62
-          type: integer
-        interrupt:
-          description: Percentage of Interrupt, (Irq + SoftIrq)/(Idle + Busy) since last sampling
-          examples:
-          - 0
-          type: integer
-        system:
-          description: Percentage of System, System/(Idle + Busy) since last sampling
-          examples:
-          - 17
-          type: integer
-        usage:
-          description: Percentage of load, Busy/(Idle + Busy) since last sampling
-          examples:
-          - 37
-          type: integer
-        user:
-          description: Percentage of User, User/(Idle + Busy) since last sampling
-          examples:
-          - 19
-          type: integer
-      type: object
-    stats_mxedge_tunterm_port_config:
-      additionalProperties: false
-      properties:
-        downstream_ports:
-          $ref: '#/components/schemas/stats_mxedge_tunterm_port_config_downstream_ports'
-        separate_upstream_downstream:
-          examples:
-          - false
-          type: boolean
-        upstream_ports:
-          $ref: '#/components/schemas/stats_mxedge_tunterm_port_config_upstream_ports'
-      type: object
-    stats_mxedge_port_stat_lacp:
-      additionalProperties: false
-      properties:
-        mux_state:
-          type: string
-        rx_lacpdu:
-          type: integer
-        rx_state:
-          type: string
-        tx_lacpdu:
-          type: integer
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    stats_mxedge_tunterm_port_config_downstream_ports:
-      examples:
-      - - '0'
-        - '1'
-      items:
-        type: string
-      type: array
-    stats_mxedge_service_stat:
-      additionalProperties: false
-      properties:
-        ext_ip:
-          description: External IP from ep-terminator’s point of view. valid only for service having its own cloud connection
-          type: string
-        last_seen:
-          description: Timestamp when the last stats is seen (cloud unix time, in second). valid only for service having its own stats or whole system (last among last_seen of all services)
-          type: number
-        package_state:
-          description: Package/service installation state.
-          type: string
-        package_version:
-          description: Package/service installation state.
-          type: string
-        running_state:
-          description: Service running state.
-          type: string
-        uptime:
-          description: Service uptime.
-          type: integer
-      type: object
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    mxedge_oob_ip_config_dns:
-      default:
-      - 8.8.8.8
-      - 8.8.4.4
-      - 2001:4860:4860::8888
-      - 2001:4860:4860::8844
-      description: IPv4 ignored if `type`!=`static`, IPv6 ignored if `type6`!=`static`
-      examples:
-      - - 8.8.8.8
-        - 4.4.4.4
-        - 2001:4860:4860::8888
-        - 2001:4860:4860::8844
-      items:
-        type: string
-      type: array
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
     stats_mxedge_cpu_stat_cpus:
       additionalProperties:
         $ref: '#/components/schemas/cpu_stat'
@@ -626,133 +213,40 @@ components:
           usage: 97
           user: 46
       type: object
-    stats_mxedge_port_stat:
+    stats_mxedge_lag_stat:
       additionalProperties: false
       properties:
-        full_duplex:
-          type: boolean
-        lacp:
-          $ref: '#/components/schemas/stats_mxedge_port_stat_lacp'
-        lldp_stats:
-          $ref: '#/components/schemas/stats_mxedge_port_stat_lldp_stats'
-        mac:
-          type: string
-        rx_bytes:
-          $ref: '#/components/schemas/rx_bytes'
-        rx_errors:
-          type: integer
-        rx_pkts:
-          $ref: '#/components/schemas/rx_pkts'
-        sfp:
-          $ref: '#/components/schemas/stats_mxedge_port_stat_sfp'
-        speed:
-          type: integer
-        state:
-          type: string
-        tx_bytes:
-          $ref: '#/components/schemas/tx_bytes'
-        tx_errors:
-          type: integer
-        tx_pkts:
-          $ref: '#/components/schemas/tx_pkts'
-        up:
-          type: boolean
+        active_ports:
+          $ref: '#/components/schemas/stats_mxedge__active_ports'
       type: object
-    stats_mxedge_memory_stat:
-      additionalProperties: false
-      description: Memory usage
-      properties:
-        active:
-          description: The amount of memory, in kilobytes, that has been used more recently and is usually not reclaimed unless absolutely necessary.
-          examples:
-          - 394936320
-          type: integer
-        available:
-          description: An estimate of how much memory is available for starting new applications, without swapping.
-          examples:
-          - 4699291648
-          type: integer
-        buffers:
-          description: The amount, in kilobytes, of temporary storage for raw disk blocks.
-          examples:
-          - 107646976
-          type: integer
-        cached:
-          description: The amount of physical RAM, in kilobytes, used as cache memory.
-          examples:
-          - 478060544
-          type: integer
-        free:
-          description: The amount of physical RAM, in kilobytes, left unused by the system
-          examples:
-          - 4330659840
-          type: integer
-        inactive:
-          description: The amount of memory, in kilobytes, that has been used less recently and is more eligible to be reclaimed for other purposes.
-          examples:
-          - 211980288
-          type: integer
-        swap_cached:
-          description: The amount of memory, in kilobytes, that has once been moved into swap, then back into the main memory, but still also remains in the swapfile.
-          examples:
-          - 0
-          type: integer
-        swap_free:
-          description: The total amount of swap free, in kilobytes.
-          examples:
-          - 1022357504
-          type: integer
-        swap_total:
-          description: The total amount of swap available, in kilobytes.
-          examples:
-          - 1022357504
-          type: integer
-        total:
-          description: Total amount of usable RAM, in kilobytes, which is physical RAM minus a number of reserved bits and the kernel binary code
-          examples:
-          - 8365957120
-          type: integer
-        usage:
-          examples:
-          - 48
-          type: integer
-      type: object
-    cpu_stat_load_avg:
-      description: Load averages for the last 1, 5, and 15 minutes
-      items:
-        type: number
-      type: array
-    stats_mxedge_tunterm_stat:
-      additionalProperties: false
-      properties:
-        monitoring_failed:
-          examples:
-          - false
-          type: boolean
-      type: object
-    stats_mxedges:
-      items:
-        $ref: '#/components/schemas/stats_mxedge'
-      type: array
-    site_id:
+    stats_mxedge_service_stats:
+      additionalProperties:
+        $ref: '#/components/schemas/stats_mxedge_service_stat'
+      description: Stat for each services
       examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    mxedge_mgmt_oob_ip_type:
-      default: dhcp
-      description: 'enum: `dhcp`, `disabled`, `static`'
-      enum:
-      - dhcp
-      - disabled
-      - static
-      type: string
-    stats_mxedge__active_ports:
-      description: List of ports active on the LAG defined by the LACP
-      items:
-        type: string
-      type: array
+      - mxagent:
+          ext_ip: 99.0.86.164
+          last_seen: 1633721215
+          package_state: Installed
+          package_version: 3.1.1037-1
+          running_state: Running
+          uptime: 21240
+        tunterm:
+          ext_ip: 99.0.86.164
+          last_seen: 1633721203
+          package_state: Installed
+          package_version: 0.1.2449+deb10
+          running_state: Running
+          uptime: 76261
+      type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
     stats_mxedge:
       additionalProperties: false
       properties:
@@ -858,6 +352,154 @@ components:
           - KVM
           type: string
       type: object
+    mxedge_mgmt_oob_ip_type:
+      default: dhcp
+      description: 'enum: `dhcp`, `disabled`, `static`'
+      enum:
+      - dhcp
+      - disabled
+      - static
+      type: string
+    mxedge_oob_ip_config:
+      additionalProperties: false
+      description: IPconfiguration of the Mist Edge out-of_band management interface
+      properties:
+        autoconf6:
+          default: true
+          type: boolean
+        dhcp6:
+          default: true
+          type: boolean
+        dns:
+          $ref: '#/components/schemas/mxedge_oob_ip_config_dns'
+        gateway:
+          description: If `type`=`static`
+          examples:
+          - 10.2.1.254
+          type: string
+        gateway6:
+          examples:
+          - 2601:1700:43c0:dc0::1
+          type: string
+        ip:
+          description: If `type`=`static`
+          examples:
+          - 10.2.1.2
+          type: string
+        ip6:
+          examples:
+          - 2601:1700:43c0:dc0:20c:29ff:fea7:93bc
+          type: string
+        netmask:
+          description: If `type`=`static`
+          examples:
+          - 255.255.255.0
+          type: string
+        netmask6:
+          examples:
+          - /64
+          type: string
+        type:
+          $ref: '#/components/schemas/ip_type'
+        type6:
+          $ref: '#/components/schemas/ip_type'
+      type: object
+    stats_mxedge_cpu_stat:
+      additionalProperties: false
+      description: CPU/core stats list
+      properties:
+        cpus:
+          $ref: '#/components/schemas/stats_mxedge_cpu_stat_cpus'
+        idle:
+          description: Percentage of Idle, Idle/(Idle + Busy) since last sampling
+          examples:
+          - 62
+          type: integer
+        interrupt:
+          description: Percentage of Interrupt, (Irq + SoftIrq)/(Idle + Busy) since last sampling
+          examples:
+          - 0
+          type: integer
+        system:
+          description: Percentage of System, System/(Idle + Busy) since last sampling
+          examples:
+          - 17
+          type: integer
+        usage:
+          description: Percentage of load, Busy/(Idle + Busy) since last sampling
+          examples:
+          - 37
+          type: integer
+        user:
+          description: Percentage of User, User/(Idle + Busy) since last sampling
+          examples:
+          - 19
+          type: integer
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    last_seen:
+      description: Last seen timestamp
+      examples:
+      - 1470417522
+      format: double
+      readOnly: true
+      type:
+      - number
+      - 'null'
+    stats_mxedge_tunterm_port_config_upstream_ports:
+      examples:
+      - - '0'
+        - '1'
+      items:
+        type: string
+      type: array
+    for_site:
+      description: 'enum: `any`, `true`, `false`'
+      enum:
+      - any
+      - 'true'
+      - 'false'
+      type: string
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
+    stats_mxedge_lag_stats:
+      additionalProperties:
+        $ref: '#/components/schemas/stats_mxedge_lag_stat'
+      description: Stat for LAG (Link Aggregation Group). Property key is the LAG name
+      examples:
+      - lacp0:
+          active_ports:
+          - port0
+          - port1
+      type: object
+    rx_pkts:
+      description: Amount of packets received since connection
+      examples:
+      - 57770567
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    mxedge_mgmt_oob_ip_type6:
+      default: autoconf
+      description: 'enum: `autoconf`, `dhcp`, `disabled`, `static`'
+      enum:
+      - autoconf
+      - dhcp
+      - disabled
+      - static
+      type: string
     stats_mxedge_oob_ip_stat:
       additionalProperties: false
       properties:
@@ -880,6 +522,192 @@ components:
         type8:
           $ref: '#/components/schemas/mxedge_mgmt_oob_ip_type6'
       type: object
+    stats_mxedge_services:
+      examples:
+      - - tunterm
+      items:
+        type: string
+      type: array
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    stats_mxedge_port_stats:
+      additionalProperties:
+        $ref: '#/components/schemas/stats_mxedge_port_stat'
+      examples:
+      - port0:
+          full_duplex: true
+          mac: 9e294e49091d
+          rx_bytes: 646898375700
+          rx_errors: 0
+          rx_pkts: 8784449574
+          speed: 10000
+          state: forwarding
+          tx_bytes: 647200748038
+          tx_errors: 0
+          tx_pkts: 8788647466
+          up: true
+        port1:
+          full_duplex: true
+          mac: a270fe53437e
+          rx_bytes: 647200437652
+          rx_errors: 0
+          rx_pkts: 8788644886
+          speed: 10000
+          state: forwarding
+          tx_bytes: 646898681650
+          tx_errors: 0
+          tx_pkts: 8784452092
+          up: true
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    fwupdate_stat:
+      additionalProperties: false
+      properties:
+        progress:
+          examples:
+          - 10
+          maximum: 100
+          minimum: 0
+          readOnly: true
+          type:
+          - integer
+          - 'null'
+        status:
+          $ref: '#/components/schemas/fwupdate_stat_status'
+        status_id:
+          examples:
+          - 5
+          readOnly: true
+          type:
+          - integer
+          - 'null'
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+        will_retry:
+          examples:
+          - false
+          readOnly: true
+          type:
+          - boolean
+          - 'null'
+      type: object
+    stats_mxedge_tunterm_port_config_downstream_ports:
+      examples:
+      - - '0'
+        - '1'
+      items:
+        type: string
+      type: array
+    stats_mxedge_ip_stat:
+      additionalProperties: false
+      description: IP stats
+      properties:
+        ip:
+          examples:
+          - 192.168.1.244
+          type: string
+        ip6:
+          examples:
+          - fd4e:c615:b27d:5555::45
+          type: string
+        ips:
+          additionalProperties:
+            type: string
+          description: Property key is the interface name. IPs for each net interface
+          examples:
+          - ens18: 92.168.1.244/24,fd4e:c615:b27d:5555::45/128,fd4e:c615:b27d:5555:20c:29ff:fe44:af25/64,fe80::104c:ffff:fee0:caf8/64
+          type: object
+        macs:
+          additionalProperties:
+            description: MAC addresses for each net interface
+            type: string
+          description: Property key is the interface name. MAC for each net interface
+          examples:
+          - ens18: e4434b217044
+          type: object
+        netmask:
+          examples:
+          - 255.255.255.0
+          type: string
+        netmask6:
+          examples:
+          - /128
+          type: string
+      type: object
+    stats_mxedge_port_stat_sfp:
+      additionalProperties: false
+      properties:
+        codes:
+          type: string
+        mbps:
+          type: integer
+        part_no:
+          type: string
+        serial_no:
+          type: string
+        type:
+          type: integer
+        vendor:
+          type: string
+      type: object
+    stats_mxedges:
+      items:
+        $ref: '#/components/schemas/stats_mxedge'
+      type: array
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    stats_mxedge_port_stat:
+      additionalProperties: false
+      properties:
+        full_duplex:
+          type: boolean
+        lacp:
+          $ref: '#/components/schemas/stats_mxedge_port_stat_lacp'
+        lldp_stats:
+          $ref: '#/components/schemas/stats_mxedge_port_stat_lldp_stats'
+        mac:
+          type: string
+        rx_bytes:
+          $ref: '#/components/schemas/rx_bytes'
+        rx_errors:
+          type: integer
+        rx_pkts:
+          $ref: '#/components/schemas/rx_pkts'
+        sfp:
+          $ref: '#/components/schemas/stats_mxedge_port_stat_sfp'
+        speed:
+          type: integer
+        state:
+          type: string
+        tx_bytes:
+          $ref: '#/components/schemas/tx_bytes'
+        tx_errors:
+          type: integer
+        tx_pkts:
+          $ref: '#/components/schemas/tx_pkts'
+        up:
+          type: boolean
+      type: object
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
     stats_mxedge_inactive_vlan_strs:
       additionalProperties: false
       description: Inactive wired/L2TP VLANs. Entries can be individual VLANs or ranges.
@@ -898,20 +726,88 @@ components:
             type: string
           type: array
       type: object
-    tx_bytes:
-      description: Amount of traffic sent since connection
+    rx_bytes:
+      description: Amount of traffic received since connection
       examples:
-      - 211217389682
+      - 8515104416
       format: int64
       readOnly: true
       type:
       - integer
       - 'null'
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
+    cpu_stat_load_avg:
+      description: Load averages for the last 1, 5, and 15 minutes
+      items:
+        type: number
+      type: array
+    stats_mxedge_memory_stat:
+      additionalProperties: false
+      description: Memory usage
+      properties:
+        active:
+          description: The amount of memory, in kilobytes, that has been used more recently and is usually not reclaimed unless absolutely necessary.
+          examples:
+          - 394936320
+          type: integer
+        available:
+          description: An estimate of how much memory is available for starting new applications, without swapping.
+          examples:
+          - 4699291648
+          type: integer
+        buffers:
+          description: The amount, in kilobytes, of temporary storage for raw disk blocks.
+          examples:
+          - 107646976
+          type: integer
+        cached:
+          description: The amount of physical RAM, in kilobytes, used as cache memory.
+          examples:
+          - 478060544
+          type: integer
+        free:
+          description: The amount of physical RAM, in kilobytes, left unused by the system
+          examples:
+          - 4330659840
+          type: integer
+        inactive:
+          description: The amount of memory, in kilobytes, that has been used less recently and is more eligible to be reclaimed for other purposes.
+          examples:
+          - 211980288
+          type: integer
+        swap_cached:
+          description: The amount of memory, in kilobytes, that has once been moved into swap, then back into the main memory, but still also remains in the swapfile.
+          examples:
+          - 0
+          type: integer
+        swap_free:
+          description: The total amount of swap free, in kilobytes.
+          examples:
+          - 1022357504
+          type: integer
+        swap_total:
+          description: The total amount of swap available, in kilobytes.
+          examples:
+          - 1022357504
+          type: integer
+        total:
+          description: Total amount of usable RAM, in kilobytes, which is physical RAM minus a number of reserved bits and the kernel binary code
+          examples:
+          - 8365957120
+          type: integer
+        usage:
+          examples:
+          - 48
+          type: integer
+      type: object
+    tx_pkts:
+      description: Amount of packets sent since connection
+      examples:
+      - 812204062
+      format: int64
       readOnly: true
-      type: number
+      type:
+      - integer
+      - 'null'
     ip_type:
       default: dhcp
       description: 'enum: `dhcp`, `static`'
@@ -921,6 +817,22 @@ components:
       examples:
       - static
       type: string
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    stats_mxedge_tunterm_stat:
+      additionalProperties: false
+      properties:
+        monitoring_failed:
+          examples:
+          - false
+          type: boolean
+      type: object
     stats_mxedge_tunterm_ip_config:
       additionalProperties: false
       properties:
@@ -937,26 +849,118 @@ components:
           - 255.255.255.0
           type: string
       type: object
-    stats_mxedge_services:
+    stats_mxedge_service_stat:
+      additionalProperties: false
+      properties:
+        ext_ip:
+          description: External IP from ep-terminator’s point of view. valid only for service having its own cloud connection
+          type: string
+        last_seen:
+          description: Timestamp when the last stats is seen (cloud unix time, in second). valid only for service having its own stats or whole system (last among last_seen of all services)
+          type: number
+        package_state:
+          description: Package/service installation state.
+          type: string
+        package_version:
+          description: Package/service installation state.
+          type: string
+        running_state:
+          description: Service running state.
+          type: string
+        uptime:
+          description: Service uptime.
+          type: integer
+      type: object
+    tx_bytes:
+      description: Amount of traffic sent since connection
       examples:
-      - - tunterm
+      - 211217389682
+      format: int64
+      readOnly: true
+      type:
+      - integer
+      - 'null'
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    stats_mxedge_port_stat_lacp:
+      additionalProperties: false
+      properties:
+        mux_state:
+          type: string
+        rx_lacpdu:
+          type: integer
+        rx_state:
+          type: string
+        tx_lacpdu:
+          type: integer
+      type: object
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    stats_mxedge__active_ports:
+      description: List of ports active on the LAG defined by the LACP
       items:
         type: string
       type: array
-    strings:
+    fwupdate_stat_status:
+      description: 'enum: `inprogress`, `failed`, `upgraded`, `success`, `scheduled`, `error`'
+      enum:
+      - inprogress
+      - failed
+      - upgraded
+      - success
+      - scheduled
+      - error
+      readOnly: true
+      type:
+      - string
+      - 'null'
+    mxedge_oob_ip_config_dns:
+      default:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 2001:4860:4860::8888
+      - 2001:4860:4860::8844
+      description: IPv4 ignored if `type`!=`static`, IPv6 ignored if `type6`!=`static`
+      examples:
+      - - 8.8.8.8
+        - 4.4.4.4
+        - 2001:4860:4860::8888
+        - 2001:4860:4860::8844
       items:
         type: string
       type: array
-      uniqueItems: true
   parameters:
-    mxedge_id:
-      in: path
-      name: mxedge_id
-      required: true
+    limit:
+      in: query
+      name: limit
       schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
+        default: 100
+        minimum: 0
+        type: integer
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
         type: string
     org_id:
       in: path
@@ -967,18 +971,21 @@ components:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
-    limit:
+    page:
       in: query
-      name: limit
+      name: page
       schema:
-        default: 100
-        minimum: 0
+        default: 1
+        minimum: 1
         type: integer
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
+    mxedge_id:
+      in: path
+      name: mxedge_id
+      required: true
       schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
         type: string
     duration:
       description: Duration like 7d, 2w
@@ -989,23 +996,212 @@ components:
         examples:
         - 10m
         type: string
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
       in: query
-      name: end
+      name: start
       schema:
         type: string
-    page:
-      in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
+  responses:
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    MxedgeStats:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxedgeStatsExample'
+          schema:
+            $ref: '#/components/schemas/stats_mxedge'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxedgeStatsExample'
+          schema:
+            $ref: '#/components/schemas/stats_mxedge'
+      description: MxEdge Stats
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    MxedgesArrayStats:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxedgesArrayStatsExample'
+          schema:
+            $ref: '#/components/schemas/stats_mxedges'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/MxedgesArrayStatsExample'
+          schema:
+            $ref: '#/components/schemas/stats_mxedges'
+      description: OK
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
   examples:
+    MxedgesArrayStatsExample:
+      value:
+      - cpu_stat:
+          cpus:
+            property1:
+              idle: 0
+              interrupt: 0
+              system: 0
+              usage: 0
+              user: 0
+            property2:
+              idle: 0
+              interrupt: 0
+              system: 0
+              usage: 0
+              user: 0
+          idle: 0
+          interrupt: 0
+          system: 0
+          usage: 0
+          user: 0
+        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        ip_stat:
+          ip: string
+          ips:
+            property1: string
+            property2: string
+        lag_stat:
+          property1:
+            active_ports:
+            - string
+          property2:
+            active_ports:
+            - string
+        last_seen: 0
+        magic: string
+        memory_stat:
+          active: 0
+          available: 0
+          buffers: 0
+          cached: 0
+          free: 0
+          inactive: 0
+          swap_cached: 0
+          swap_free: 0
+          swap_total: 0
+          total: 0
+          usage: 0
+        model: string
+        mxagent_registered: true
+        mxcluster_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
+        name: string
+        num_tunnels: 0
+        port_stat:
+          property1:
+            full_duplex: true
+            lldp_stats:
+              mgmt_addr: string
+              port_desc: string
+              port_id: string
+              system_desc: string
+              system_name: string
+            rx_bytes: 0
+            rx_errors: 0
+            rx_pkts: 0
+            speed: 0
+            tx_bytes: 0
+            tx_pkts: 0
+            up: true
+          property2:
+            full_duplex: true
+            lldp_stats:
+              mgmt_addr: string
+              port_desc: string
+              port_id: string
+              system_desc: string
+              system_name: string
+            rx_bytes: 0
+            rx_errors: 0
+            rx_pkts: 0
+            speed: 0
+            tx_bytes: 0
+            tx_pkts: 0
+            up: true
+        status: string
+        tunterm_registered: true
+        tunterm_stat:
+          monitoring_failed: true
+        uptime: 0
+        virtualization_type: string
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
     MxedgeStatsExample:
       value:
         cpu_stat:
@@ -1148,205 +1344,9 @@ components:
           monitoring_failed: false
         uptime: 76281
         virtualization_type: KVM
-    MxedgesArrayStatsExample:
-      value:
-      - cpu_stat:
-          cpus:
-            property1:
-              idle: 0
-              interrupt: 0
-              system: 0
-              usage: 0
-              user: 0
-            property2:
-              idle: 0
-              interrupt: 0
-              system: 0
-              usage: 0
-              user: 0
-          idle: 0
-          interrupt: 0
-          system: 0
-          usage: 0
-          user: 0
-        id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        ip_stat:
-          ip: string
-          ips:
-            property1: string
-            property2: string
-        lag_stat:
-          property1:
-            active_ports:
-            - string
-          property2:
-            active_ports:
-            - string
-        last_seen: 0
-        magic: string
-        memory_stat:
-          active: 0
-          available: 0
-          buffers: 0
-          cached: 0
-          free: 0
-          inactive: 0
-          swap_cached: 0
-          swap_free: 0
-          swap_total: 0
-          total: 0
-          usage: 0
-        model: string
-        mxagent_registered: true
-        mxcluster_id: b069b358-4c97-5319-1f8c-7c5ca64d6ab1
-        name: string
-        num_tunnels: 0
-        port_stat:
-          property1:
-            full_duplex: true
-            lldp_stats:
-              mgmt_addr: string
-              port_desc: string
-              port_id: string
-              system_desc: string
-              system_name: string
-            rx_bytes: 0
-            rx_errors: 0
-            rx_pkts: 0
-            speed: 0
-            tx_bytes: 0
-            tx_pkts: 0
-            up: true
-          property2:
-            full_duplex: true
-            lldp_stats:
-              mgmt_addr: string
-              port_desc: string
-              port_id: string
-              system_desc: string
-              system_name: string
-            rx_bytes: 0
-            rx_errors: 0
-            rx_pkts: 0
-            speed: 0
-            tx_bytes: 0
-            tx_pkts: 0
-            up: true
-        status: string
-        tunterm_registered: true
-        tunterm_stat:
-          monitoring_failed: true
-        uptime: 0
-        virtualization_type: string
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-  responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    MxedgesArrayStats:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxedgesArrayStatsExample'
-          schema:
-            $ref: '#/components/schemas/stats_mxedges'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxedgesArrayStatsExample'
-          schema:
-            $ref: '#/components/schemas/stats_mxedges'
-      description: OK
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
-    MxedgeStats:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxedgeStatsExample'
-          schema:
-            $ref: '#/components/schemas/stats_mxedge'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/MxedgeStatsExample'
-          schema:
-            $ref: '#/components/schemas/stats_mxedge'
-      description: MxEdge Stats
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

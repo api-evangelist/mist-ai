@@ -85,22 +85,87 @@ paths:
       tags:
       - Sites RF Templates
 components:
+  examples:
+    RftemplatesArrayExample:
+      value:
+      - ant_gain_24: 0
+        ant_gain_5: 0
+        band_24:
+          allow_rrm_disable: true
+          ant_gain: 0
+          bandwidth: 20
+          channels:
+          - 1
+          - 6
+          - 11
+          disabled: false
+          power_max: 11
+          power_min: 3
+          preamble: short
+        band_24_usage: auto
+        band_5:
+          allow_rrm_disable: false
+          ant_gain: 0
+          bandwidth: 80
+          channels:
+          - 36
+          - 40
+          - 44
+          - 48
+          - 52
+          - 56
+          - 60
+          - 64
+          - 100
+          - 104
+          - 149
+          - 153
+          - 157
+          - 161
+          disabled: false
+          power_max: 16
+          power_min: 9
+          preamble: short
+        country_code: FR
+        created_time: 1594743723
+        id: b3f20330-f76a-49f1-bc65-0d8727140b1d
+        model_specific: {}
+        modified_time: 1613582192
+        name: Lab
+        org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   schemas:
-    radio_band_24_usage:
-      description: 'enum: `24`, `5`, `6`, `auto`'
+    dot11_bandwidth6:
+      default: 80
+      description: 'channel width for the 6GHz band. enum: `0`(disabled, response only), `20`, `40`, `80`, `160`'
       enum:
-      - '24'
-      - '5'
-      - '6'
-      - auto
-      type: string
-    id:
-      description: Unique ID of the object instance in the Mist Organization
+      - 0
+      - 20
+      - 40
+      - 80
+      - 160
       examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
+      - 80
+      type: integer
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
     rf_template:
       description: RF Template
       properties:
@@ -148,110 +213,45 @@ components:
       required:
       - name
       type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    rftemplate_radio_band5:
-      additionalProperties: false
-      description: Radio Band AP settings
-      properties:
-        allow_rrm_disable:
-          default: false
-          type: boolean
-        ant_gain:
-          default: 0
-          maximum: 10
-          minimum: 0
-          type:
-          - integer
-          - 'null'
-        antenna_mode:
-          $ref: '#/components/schemas/radio_band_antenna_mode'
-        bandwidth:
-          $ref: '#/components/schemas/dot11_bandwidth5'
-        channels:
-          $ref: '#/components/schemas/radio_band_channels'
-        disabled:
-          default: false
-          description: Whether to disable the radio
-          type: boolean
-        power:
-          default: null
-          description: 'Tx power of the radio. For Devices, 0 means auto. -1 / -2 / -3 / …: treated as 0 / -1 / -2 / …'
-          examples:
-          - 6
-          maximum: 25
-          minimum: 5
-          type:
-          - integer
-          - 'null'
-        power_max:
-          default: 17
-          description: When power=0, max tx power to use, HW-specific values will be used if not set
-          maximum: 17
-          minimum: 5
-          type:
-          - integer
-          - 'null'
-        power_min:
-          default: 8
-          description: When power=0, min tx power to use, HW-specific values will be used if not set
-          maximum: 17
-          minimum: 5
-          type:
-          - integer
-          - 'null'
-        preamble:
-          $ref: '#/components/schemas/radio_band_preamble'
-      type: object
-    rf_template_model_specific_property:
-      additionalProperties: false
-      properties:
-        ant_gain_24:
-          default: 0
-          type: integer
-        ant_gain_5:
-          default: 0
-          type: integer
-        ant_gain_6:
-          default: 0
-          type: integer
-        band_24:
-          $ref: '#/components/schemas/rftemplate_radio_band24'
-        band_24_usage:
-          $ref: '#/components/schemas/radio_band_24_usage'
-        band_5:
-          $ref: '#/components/schemas/rftemplate_radio_band5'
-        band_5_on_24_radio:
-          $ref: '#/components/schemas/rftemplate_radio_band5'
-        band_6:
-          $ref: '#/components/schemas/rftemplate_radio_band6'
-      type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    radio_band_antenna_mode:
-      default: default
-      description: 'enum: `1x1`, `2x2`, `3x3`, `4x4`, `default`'
+    radio_band_preamble:
+      default: short
+      description: 'enum: `auto`, `long`, `short`'
       enum:
-      - 1x1
-      - 2x2
-      - 3x3
-      - 4x4
-      - default
-      examples:
-      - default
+      - auto
+      - long
+      - short
       type: string
+    radio_band_24_usage:
+      description: 'enum: `24`, `5`, `6`, `auto`'
+      enum:
+      - '24'
+      - '5'
+      - '6'
+      - auto
+      type: string
+    rf_templates:
+      items:
+        $ref: '#/components/schemas/rf_template'
+      type: array
+    dot11_bandwidth5:
+      default: 40
+      description: 'channel width for the 5GHz band. enum: `0`(disabled, response only), `20`, `40`, `80`'
+      enum:
+      - 0
+      - 20
+      - 40
+      - 80
+      examples:
+      - 40
+      type: integer
+    radio_band_channels:
+      default: []
+      description: For RFTemplates. List of channels, null or empty array means auto
+      items:
+        type: integer
+      type:
+      - array
+      - 'null'
     rftemplate_radio_band24:
       additionalProperties: false
       description: Radio Band AP settings
@@ -305,14 +305,61 @@ components:
         preamble:
           $ref: '#/components/schemas/radio_band_preamble'
       type: object
-    radio_band_channels:
-      default: []
-      description: For RFTemplates. List of channels, null or empty array means auto
-      items:
-        type: integer
-      type:
-      - array
-      - 'null'
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    rf_template_model_specific_property:
+      additionalProperties: false
+      properties:
+        ant_gain_24:
+          default: 0
+          type: integer
+        ant_gain_5:
+          default: 0
+          type: integer
+        ant_gain_6:
+          default: 0
+          type: integer
+        band_24:
+          $ref: '#/components/schemas/rftemplate_radio_band24'
+        band_24_usage:
+          $ref: '#/components/schemas/radio_band_24_usage'
+        band_5:
+          $ref: '#/components/schemas/rftemplate_radio_band5'
+        band_5_on_24_radio:
+          $ref: '#/components/schemas/rftemplate_radio_band5'
+        band_6:
+          $ref: '#/components/schemas/rftemplate_radio_band6'
+      type: object
+    dot11_bandwidth24:
+      default: 20
+      description: 'channel width for the 2.4GHz band. enum: `0`(disabled, response only), `20`, `40`'
+      enum:
+      - 0
+      - 20
+      - 40
+      examples:
+      - 20
+      type: integer
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
     rftemplate_radio_band6:
       additionalProperties: false
       description: Radio Band AP settings
@@ -370,6 +417,94 @@ components:
           description: For 6GHz Only, standard-power operation, AFC (Automatic Frequency Coordination) will be performed, and we'll fall back to Low Power Indoor if AFC failed
           type: boolean
       type: object
+    radio_band_antenna_mode:
+      default: default
+      description: 'enum: `1x1`, `2x2`, `3x3`, `4x4`, `default`'
+      enum:
+      - 1x1
+      - 2x2
+      - 3x3
+      - 4x4
+      - default
+      examples:
+      - default
+      type: string
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    rftemplate_radio_band5:
+      additionalProperties: false
+      description: Radio Band AP settings
+      properties:
+        allow_rrm_disable:
+          default: false
+          type: boolean
+        ant_gain:
+          default: 0
+          maximum: 10
+          minimum: 0
+          type:
+          - integer
+          - 'null'
+        antenna_mode:
+          $ref: '#/components/schemas/radio_band_antenna_mode'
+        bandwidth:
+          $ref: '#/components/schemas/dot11_bandwidth5'
+        channels:
+          $ref: '#/components/schemas/radio_band_channels'
+        disabled:
+          default: false
+          description: Whether to disable the radio
+          type: boolean
+        power:
+          default: null
+          description: 'Tx power of the radio. For Devices, 0 means auto. -1 / -2 / -3 / …: treated as 0 / -1 / -2 / …'
+          examples:
+          - 6
+          maximum: 25
+          minimum: 5
+          type:
+          - integer
+          - 'null'
+        power_max:
+          default: 17
+          description: When power=0, max tx power to use, HW-specific values will be used if not set
+          maximum: 17
+          minimum: 5
+          type:
+          - integer
+          - 'null'
+        power_min:
+          default: 8
+          description: When power=0, min tx power to use, HW-specific values will be used if not set
+          maximum: 17
+          minimum: 5
+          type:
+          - integer
+          - 'null'
+        preamble:
+          $ref: '#/components/schemas/radio_band_preamble'
+      type: object
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
     response_http403:
       additionalProperties: false
       properties:
@@ -378,97 +513,31 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
-    dot11_bandwidth6:
-      default: 80
-      description: 'channel width for the 6GHz band. enum: `0`(disabled, response only), `20`, `40`, `80`, `160`'
-      enum:
-      - 0
-      - 20
-      - 40
-      - 80
-      - 160
-      examples:
-      - 80
-      type: integer
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    dot11_bandwidth5:
-      default: 40
-      description: 'channel width for the 5GHz band. enum: `0`(disabled, response only), `20`, `40`, `80`'
-      enum:
-      - 0
-      - 20
-      - 40
-      - 80
-      examples:
-      - 40
-      type: integer
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    dot11_bandwidth24:
-      default: 20
-      description: 'channel width for the 2.4GHz band. enum: `0`(disabled, response only), `20`, `40`'
-      enum:
-      - 0
-      - 20
-      - 40
-      examples:
-      - 20
-      type: integer
-    radio_band_preamble:
-      default: short
-      description: 'enum: `auto`, `long`, `short`'
-      enum:
-      - auto
-      - long
-      - short
-      type: string
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
-    rf_templates:
-      items:
-        $ref: '#/components/schemas/rf_template'
-      type: array
   responses:
-    RftemplatesArray:
+    HTTP403:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/RftemplatesArrayExample'
+              $ref: '#/components/examples/HTTP403Example'
           schema:
-            $ref: '#/components/schemas/rf_templates'
+            $ref: '#/components/schemas/response_http403'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/RftemplatesArrayExample'
+              $ref: '#/components/examples/HTTP403Example'
           schema:
-            $ref: '#/components/schemas/rf_templates'
-      description: OK
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP401:
       content:
         application/json:
@@ -499,21 +568,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
     HTTP400:
       content:
         application/json:
@@ -529,75 +583,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-    HTTP404:
+    RftemplatesArray:
       content:
         application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RftemplatesArrayExample'
           schema:
-            $ref: '#/components/schemas/response_http404'
+            $ref: '#/components/schemas/rf_templates'
         application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/RftemplatesArrayExample'
           schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-  examples:
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    RftemplatesArrayExample:
-      value:
-      - ant_gain_24: 0
-        ant_gain_5: 0
-        band_24:
-          allow_rrm_disable: true
-          ant_gain: 0
-          bandwidth: 20
-          channels:
-          - 1
-          - 6
-          - 11
-          disabled: false
-          power_max: 11
-          power_min: 3
-          preamble: short
-        band_24_usage: auto
-        band_5:
-          allow_rrm_disable: false
-          ant_gain: 0
-          bandwidth: 80
-          channels:
-          - 36
-          - 40
-          - 44
-          - 48
-          - 52
-          - 56
-          - 60
-          - 64
-          - 100
-          - 104
-          - 149
-          - 153
-          - 157
-          - 161
-          disabled: false
-          power_max: 16
-          power_min: 9
-          preamble: short
-        country_code: FR
-        created_time: 1594743723
-        id: b3f20330-f76a-49f1-bc65-0d8727140b1d
-        model_specific: {}
-        modified_time: 1613582192
-        name: Lab
-        org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
+            $ref: '#/components/schemas/rf_templates'
+      description: OK
   parameters:
     site_id:
       in: path

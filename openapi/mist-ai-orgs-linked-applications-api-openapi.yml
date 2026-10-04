@@ -179,54 +179,50 @@ paths:
       tags:
       - Orgs Linked Applications
 components:
+  parameters:
+    account_id:
+      in: path
+      name: account_id
+      required: true
+      schema:
+        examples:
+        - iojzXIJWEuiD73ZvydOfg
+        type: string
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   examples:
+    OauthAppLinkPrisma:
+      value:
+        accounts:
+        - account_id: 80364a28-7ccc-4746-b110-ecf3dfd3a359
+          auto_probe_subnet: 11.0.0.0/8
+          cloud_name: api.sase.paloaltonetworks.com
+          enable_probe: true
+          region: americas
+          regions:
+            us-west-1:
+              aggregate_region: us-southwest
+              allocated_bandwidth: 50
+              name: US West
+          service_account_name: Corp SA
+          service_connections:
+          - MCD_LAB_SC_1: null
+            region: us-west-1
+          tsg_id: '189953456'
+        linked: true
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    OauthAppLinkJamf:
-      value:
-        accounts:
-        - error: OAuth token refresh failed, please re-link your account
-          instance_url: junipertest.jamfcloud.com
-          last_status: failed
-          last_sync: 1665465339000
-          linked_by: Testname1
-          name: Test Company1 Ltd
-          smartgroup_name: CompliantGroup1
-        linked: true
-    OauthAppLinkZDX:
-      value:
-        accounts:
-        - account_id: 80364a28-7ccc-4746-b110-ecf3dfd3a359
-          cloud_name: zdxcloud.net
-          key_id: K35vrZcK3JvrZc
-          webhook_url: https://webhook.url/xxx
-          zdx_org_id: '123456'
-        linked: true
-    OauthAppLinkMobicontrol:
-      value:
-        accounts:
-        - account_id: 7f80cd00-40b1-49e5-b2cb-9386d89af0d6
-          client_id: 3e408b13255844149f2830e8609fe8f3
-          instance_url: https://a0020372.mobicontrol.cloud
-          last_status: success
-          last_sync: 1665465339000
-          linked_by: User1
-          linked_timestamp: 1702284364
-          name: Company1 Ltd.
-        - account_id: 80364a28-7ccc-4746-b110-ecf3dfd3a359
-          client_id: e81cfb1980454b4bb6109c74136ca528
-          error: Get token failed, please re-link MobiControl account
-          instance_url: https://a0032314.mobicontrol.cloud
-          last_status: failed
-          last_sync: 1234567890123
-          linked_by: User2
-          linked_timestamp: 1702284364
-          name: Company2 Ltd.
-        linked: true
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     OauthAppLinkZoom:
       value:
         accounts:
@@ -254,6 +250,66 @@ components:
           max_daily_api_requests: 3500
         authorization_url: https://zoom.us/oauth/authorize?response_type=code&client_id=YDyajBmJREjwkyb3TPAbA&redirect_uri=https%3A%2F%2Fapi.local%2Fapi%2Fv1%2Forg%2Fb4e16c72-d50e-4c03-a952-a3217e231e2c%2Foauth2%2Fapp%2Fzoom%2Fcallback&state=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NDk3NjE0MDQsImZvcndhcmQiOiJodHRwczovL2NsaWVudGZvcndhcmR1cmwuY29tIn0.RIE4XTU5kpF4nKIy7_enJ0PpOCyTTp6DLm9PZsdncpI
         linked: true
+    OauthAppLinkJamf:
+      value:
+        accounts:
+        - error: OAuth token refresh failed, please re-link your account
+          instance_url: junipertest.jamfcloud.com
+          last_status: failed
+          last_sync: 1665465339000
+          linked_by: Testname1
+          name: Test Company1 Ltd
+          smartgroup_name: CompliantGroup1
+        linked: true
+    OauthAppLinkMobicontrol:
+      value:
+        accounts:
+        - account_id: 7f80cd00-40b1-49e5-b2cb-9386d89af0d6
+          client_id: 3e408b13255844149f2830e8609fe8f3
+          instance_url: https://a0020372.mobicontrol.cloud
+          last_status: success
+          last_sync: 1665465339000
+          linked_by: User1
+          linked_timestamp: 1702284364
+          name: Company1 Ltd.
+        - account_id: 80364a28-7ccc-4746-b110-ecf3dfd3a359
+          client_id: e81cfb1980454b4bb6109c74136ca528
+          error: Get token failed, please re-link MobiControl account
+          instance_url: https://a0032314.mobicontrol.cloud
+          last_status: failed
+          last_sync: 1234567890123
+          linked_by: User2
+          linked_timestamp: 1702284364
+          name: Company2 Ltd.
+        linked: true
+    OauthAppLinkZDX:
+      value:
+        accounts:
+        - account_id: 80364a28-7ccc-4746-b110-ecf3dfd3a359
+          cloud_name: zdxcloud.net
+          key_id: K35vrZcK3JvrZc
+          webhook_url: https://webhook.url/xxx
+          zdx_org_id: '123456'
+        linked: true
+    OauthAppLinkSentinelOne:
+      value:
+        accounts:
+        - account_id: 00fd8b39-cf92-4b43-a2ff-a461b48e7059
+          instance_url: usea1-015.sentinelone.net
+          last_status: success
+          last_sync: 1234567891
+          linked_by: user1@test.com
+          linked_timestamp: 1234567891
+          name: company1
+        - account_id: 00fd8b39-cf92-4b43-a2ff-a461b48e7060
+          error: Get token failed, please re-link SentinelOne account
+          instance_url: usea1-017.sentinelone.net
+          last_status: failed
+          last_sync: 1234567800
+          linked_by: user2@test.com
+          linked_timestamp: 1234567891
+          name: company2
+        linked: true
     OauthAppLinkCrowdstrike:
       value:
         accounts:
@@ -271,28 +327,9 @@ components:
           linked_timestamp: 1728275689.284758
           name: Test Company2 Ltd
         linked: true
-    HTTP429Example:
+    HTTP401Example:
       value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    OauthAppLinkPrisma:
-      value:
-        accounts:
-        - account_id: 80364a28-7ccc-4746-b110-ecf3dfd3a359
-          auto_probe_subnet: 11.0.0.0/8
-          cloud_name: api.sase.paloaltonetworks.com
-          enable_probe: true
-          region: americas
-          regions:
-            us-west-1:
-              aggregate_region: us-southwest
-              allocated_bandwidth: 50
-              name: US West
-          service_account_name: Corp SA
-          service_connections:
-          - MCD_LAB_SC_1: null
-            region: us-west-1
-          tsg_id: '189953456'
-        linked: true
+        detail: Authentication credentials were not provided.
     OauthAppLinkVmware:
       value:
         accounts:
@@ -322,82 +359,51 @@ components:
           webhook_url: https://websync.nac-staging.mistsys.com/v1/S_41b2525af1d8dcbe9005/f43ea4c48f22/vmware/mdm
           webhook_username: username_1234
         linked: true
-    OauthAppLinkSentinelOne:
+    HTTP429Example:
       value:
-        accounts:
-        - account_id: 00fd8b39-cf92-4b43-a2ff-a461b48e7059
-          instance_url: usea1-015.sentinelone.net
-          last_status: success
-          last_sync: 1234567891
-          linked_by: user1@test.com
-          linked_timestamp: 1234567891
-          name: company1
-        - account_id: 00fd8b39-cf92-4b43-a2ff-a461b48e7060
-          error: Get token failed, please re-link SentinelOne account
-          instance_url: usea1-017.sentinelone.net
-          last_status: failed
-          last_sync: 1234567800
-          linked_by: user2@test.com
-          linked_timestamp: 1234567891
-          name: company2
-        linked: true
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   schemas:
-    account_zdx_config:
+    account_prisma_config:
       additionalProperties: false
-      description: OAuth linked ZDX apps account details
+      description: OAuth linked CrowdStrike apps account details
       properties:
-        cloud_name:
-          default: zdxcloud.net
-          description: ZDX cloud name. Refer https://help.zscaler.com/zdx/getting-started-zdx-api for ZDX cloud name
-          type: string
-        key_id:
-          description: Customer account API key ID
+        auto_probe_subnet:
+          description: Required If `enable_probe`==`true`. This field will accept an IPv4 cidr and an IP address will be picked from this range to be used as tunnel probe source ip address and as well as BGP neighbour IP address. The subnet should be big enough for num_devices * num_tunnel * 2
           examples:
-          - K35vrZcK3JvrZc
+          - 11.0.0.0/8
           type: string
-        key_secret:
-          description: Customer account API key Secret
-          examples:
-          - K35vrZcK3JvrZcjjswpp2eii1oo100
+        client_id:
+          description: Customer account api client ID
           type: string
-        zdx_org_id:
-          description: ZDX organization id
-          examples:
-          - '123456'
+        client_secret:
+          description: Customer account api client Secret
+          type: string
+        enable_probe:
+          default: false
+          description: To enable/disable tunnel probe
+          type: boolean
+        tsg_id:
+          description: Prisma Tenant Service Group id
           type: string
       required:
-      - key_id
-      - key_secret
-      - zdx_org_id
+      - tsg_id
+      - client_id
+      - client_secret
       type: object
-    account_oauth_info_account_service_connection:
-      additionalProperties: false
-      properties:
-        region:
-          description: Region of the service connection
-          examples:
-          - us-southwest
-          type: string
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    oauth_account_errors:
-      examples:
-      - - OAuth token refresh failed, please re-link your account
-        - API daily rate limit reached for your account
-      items:
-        type: string
-      readOnly: true
-      type: array
+    oauth_app_name:
+      description: 'enum: `crowdstrike`, `intune`, `jamf`, `mobicontrol`, `prisma`, `sentinelone`, `teams`, `vmware`, `zdx`, `zoom`'
+      enum:
+      - crowdstrike
+      - intune
+      - jamf
+      - mobicontrol
+      - prisma
+      - sentinelone
+      - teams
+      - vmware
+      - zdx
+      - zoom
+      type: string
     response_http401:
       additionalProperties: false
       properties:
@@ -405,43 +411,6 @@ components:
           examples:
           - Authentication credentials were not provided.
           type: string
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    account_vmware_config:
-      additionalProperties: false
-      properties:
-        client_id:
-          description: Customer account Client ID
-          type: string
-        client_secret:
-          description: Customer account Client Secret
-          type: string
-        instance_url:
-          description: Customer account VMware instance URL
-          type: string
-        webhook_enabled:
-          description: Enables or disables the webhook integration
-          type: boolean
-      required:
-      - instance_url
-      - client_secret
-      - client_id
-      - webhook_enabled
       type: object
     account_sentinelone_config:
       additionalProperties: false
@@ -457,20 +426,59 @@ components:
       - instance_url
       - api_token
       type: object
-    account_oauth_info:
+    account_oauth_config:
+      description: OAuth linked apps (zoom/teams/intune) account details
+      properties:
+        account_id:
+          description: Linked app(zoom/teams/intune) account id
+          examples:
+          - iojzXIJWEuiD73ZvydOfg
+          type: string
+        discard_guest_info:
+          description: Optional, for Zoom/Teams. Whether to redact identifying information for call participants that are not part of the Zoom/Teams account identified by `account_id`
+          type: boolean
+        max_daily_api_requests:
+          description: Zoom daily api request quota, https://developers.zoom.us/docs/api/rest/rate-limits/
+          examples:
+          - 5000
+          type: integer
+      required:
+      - account_id
+      type: object
+    account_mobicontrol_config:
       additionalProperties: false
       properties:
-        accounts:
-          $ref: '#/components/schemas/account_oauth_info_accounts'
-        authorization_url:
-          readOnly: true
+        client_id:
+          description: Customer account Client ID
           type: string
-        linked:
-          readOnly: true
-          type: boolean
+        client_secret:
+          description: Customer account Client Secret
+          type: string
+        instance_url:
+          description: Customer account MobiControl instance URL
+          type: string
+        password:
+          description: Customer account password instance URL
+          format: password
+          type: string
+        username:
+          description: Customer account username
+          type: string
       required:
-      - linked
-      - accounts
+      - instance_url
+      - client_secret
+      - client_id
+      - username
+      - password
+      type: object
+    account_oauth_info_account_service_connection:
+      additionalProperties: false
+      properties:
+        region:
+          description: Region of the service connection
+          examples:
+          - us-southwest
+          type: string
       type: object
     response_http404:
       additionalProperties: false
@@ -478,15 +486,28 @@ components:
         id:
           type: string
       type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
     account_oauth_info_accounts:
       description: List of linked account details
       items:
         $ref: '#/components/schemas/account_oauth_info_account'
       type: array
-    account_oauth_info_account_service_connections:
-      additionalProperties:
-        $ref: '#/components/schemas/account_oauth_info_account_service_connection'
-      description: For Prisma accounts only, property key is the service connection name
+    account_oauth_add:
+      oneOf:
+      - $ref: '#/components/schemas/account_jamf_config'
+      - $ref: '#/components/schemas/account_vmware_config'
+      - $ref: '#/components/schemas/account_mobicontrol_config'
+      - $ref: '#/components/schemas/account_zdx_config'
+      - $ref: '#/components/schemas/account_crowdstrike_config'
+      - $ref: '#/components/schemas/account_prisma_config'
+      - $ref: '#/components/schemas/account_sentinelone_config'
     account_oauth_info_account:
       additionalProperties: false
       description: OAuth linked apps account info
@@ -659,92 +680,14 @@ components:
           - '123456'
           type: string
       type: object
-    account_oauth_config:
-      description: OAuth linked apps (zoom/teams/intune) account details
-      properties:
-        account_id:
-          description: Linked app(zoom/teams/intune) account id
-          examples:
-          - iojzXIJWEuiD73ZvydOfg
-          type: string
-        discard_guest_info:
-          description: Optional, for Zoom/Teams. Whether to redact identifying information for call participants that are not part of the Zoom/Teams account identified by `account_id`
-          type: boolean
-        max_daily_api_requests:
-          description: Zoom daily api request quota, https://developers.zoom.us/docs/api/rest/rate-limits/
-          examples:
-          - 5000
-          type: integer
-      required:
-      - account_id
-      type: object
-    account_mobicontrol_config:
-      additionalProperties: false
-      properties:
-        client_id:
-          description: Customer account Client ID
-          type: string
-        client_secret:
-          description: Customer account Client Secret
-          type: string
-        instance_url:
-          description: Customer account MobiControl instance URL
-          type: string
-        password:
-          description: Customer account password instance URL
-          format: password
-          type: string
-        username:
-          description: Customer account username
-          type: string
-      required:
-      - instance_url
-      - client_secret
-      - client_id
-      - username
-      - password
-      type: object
-    account_prisma_config:
-      additionalProperties: false
-      description: OAuth linked CrowdStrike apps account details
-      properties:
-        auto_probe_subnet:
-          description: Required If `enable_probe`==`true`. This field will accept an IPv4 cidr and an IP address will be picked from this range to be used as tunnel probe source ip address and as well as BGP neighbour IP address. The subnet should be big enough for num_devices * num_tunnel * 2
-          examples:
-          - 11.0.0.0/8
-          type: string
-        client_id:
-          description: Customer account api client ID
-          type: string
-        client_secret:
-          description: Customer account api client Secret
-          type: string
-        enable_probe:
-          default: false
-          description: To enable/disable tunnel probe
-          type: boolean
-        tsg_id:
-          description: Prisma Tenant Service Group id
-          type: string
-      required:
-      - tsg_id
-      - client_id
-      - client_secret
-      type: object
-    account_oauth_info_account_regions:
-      additionalProperties:
-        $ref: '#/components/schemas/account_oauth_info_account_region'
-      description: For Prisma accounts only, property key is the region name. Regions with allocated bandwidth
-      type: object
-    account_oauth_add:
-      oneOf:
-      - $ref: '#/components/schemas/account_jamf_config'
-      - $ref: '#/components/schemas/account_vmware_config'
-      - $ref: '#/components/schemas/account_mobicontrol_config'
-      - $ref: '#/components/schemas/account_zdx_config'
-      - $ref: '#/components/schemas/account_crowdstrike_config'
-      - $ref: '#/components/schemas/account_prisma_config'
-      - $ref: '#/components/schemas/account_sentinelone_config'
+    oauth_account_errors:
+      examples:
+      - - OAuth token refresh failed, please re-link your account
+        - API daily rate limit reached for your account
+      items:
+        type: string
+      readOnly: true
+      type: array
     account_jamf_config:
       additionalProperties: false
       description: OAuth linked Jamf apps account details
@@ -771,6 +714,14 @@ components:
       - client_secret
       - smartgroup_name
       type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
     account_oauth_info_account_region:
       additionalProperties: false
       properties:
@@ -791,6 +742,87 @@ components:
           - US West
           type: string
       type: object
+    account_zdx_config:
+      additionalProperties: false
+      description: OAuth linked ZDX apps account details
+      properties:
+        cloud_name:
+          default: zdxcloud.net
+          description: ZDX cloud name. Refer https://help.zscaler.com/zdx/getting-started-zdx-api for ZDX cloud name
+          type: string
+        key_id:
+          description: Customer account API key ID
+          examples:
+          - K35vrZcK3JvrZc
+          type: string
+        key_secret:
+          description: Customer account API key Secret
+          examples:
+          - K35vrZcK3JvrZcjjswpp2eii1oo100
+          type: string
+        zdx_org_id:
+          description: ZDX organization id
+          examples:
+          - '123456'
+          type: string
+      required:
+      - key_id
+      - key_secret
+      - zdx_org_id
+      type: object
+    account_oauth_info_account_service_connections:
+      additionalProperties:
+        $ref: '#/components/schemas/account_oauth_info_account_service_connection'
+      description: For Prisma accounts only, property key is the service connection name
+    account_oauth_info_account_regions:
+      additionalProperties:
+        $ref: '#/components/schemas/account_oauth_info_account_region'
+      description: For Prisma accounts only, property key is the region name. Regions with allocated bandwidth
+      type: object
+    account_vmware_config:
+      additionalProperties: false
+      properties:
+        client_id:
+          description: Customer account Client ID
+          type: string
+        client_secret:
+          description: Customer account Client Secret
+          type: string
+        instance_url:
+          description: Customer account VMware instance URL
+          type: string
+        webhook_enabled:
+          description: Enables or disables the webhook integration
+          type: boolean
+      required:
+      - instance_url
+      - client_secret
+      - client_id
+      - webhook_enabled
+      type: object
+    account_oauth_info:
+      additionalProperties: false
+      properties:
+        accounts:
+          $ref: '#/components/schemas/account_oauth_info_accounts'
+        authorization_url:
+          readOnly: true
+          type: string
+        linked:
+          readOnly: true
+          type: boolean
+      required:
+      - linked
+      - accounts
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
     account_crowdstrike_config:
       additionalProperties: false
       description: OAuth linked CrowdStrike apps account details
@@ -809,83 +841,7 @@ components:
       - client_id
       - client_secret
       type: object
-    oauth_app_name:
-      description: 'enum: `crowdstrike`, `intune`, `jamf`, `mobicontrol`, `prisma`, `sentinelone`, `teams`, `vmware`, `zdx`, `zoom`'
-      enum:
-      - crowdstrike
-      - intune
-      - jamf
-      - mobicontrol
-      - prisma
-      - sentinelone
-      - teams
-      - vmware
-      - zdx
-      - zoom
-      type: string
   responses:
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    OK:
-      description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
     OauthAppLink:
       content:
         application/json:
@@ -929,6 +885,23 @@ components:
           schema:
             $ref: '#/components/schemas/account_oauth_info'
       description: OK
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    OK:
+      description: OK
     HTTP404:
       content:
         application/json:
@@ -938,24 +911,51 @@ components:
           schema:
             $ref: '#/components/schemas/response_http404'
       description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-  parameters:
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    account_id:
-      in: path
-      name: account_id
-      required: true
-      schema:
-        examples:
-        - iojzXIJWEuiD73ZvydOfg
-        type: string
+    HTTP401:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP401Example'
+          schema:
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."
