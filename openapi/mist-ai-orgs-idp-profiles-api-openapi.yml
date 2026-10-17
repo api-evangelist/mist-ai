@@ -200,49 +200,66 @@ paths:
       tags:
       - Orgs IDP Profiles
 components:
-  parameters:
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    idpprofile_id:
-      in: path
-      name: idpprofile_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    page:
-      in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    IdpProfileArrayIdpprofiles:
+      value:
+      - base_profile: strict
+        created_time: 0
+        id: 874ca978-d736-4d4b-bc90-a49a29eec133
+        modified_time: 0
+        name: relaxed
+        overwrites:
+        - action: alert
+          matching:
+            attack_name:
+            - HTTP:INVALID:HDR-FIELD
+            dst_subnet:
+            - 63.1.2.0/24
+            severity:
+            - major
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    IdpProfileIdpprofile:
+      value:
+        base_profile: strict
+        created_time: 0
+        id: 874ca978-d736-4d4b-bc90-a49a29eec133
+        modified_time: 0
+        name: relaxed
+        overwrites:
+        - action: alert
+          matching:
+            attack_name:
+            - HTTP:INVALID:HDR-FIELD
+            dst_subnet:
+            - 63.1.2.0/24
+            severity:
+            - major
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
   schemas:
-    idp_profile_matching_severity_value:
-      description: 'enum: `critical`, `info`, `major`, `minor`'
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
+      type: string
+    idp_profile_base_profile:
+      description: 'enum: `critical`, `standard`, `strict`'
       enum:
       - critical
-      - info
-      - major
-      - minor
+      - standard
+      - strict
       examples:
-      - major
+      - strict
       type: string
     response_http401:
       additionalProperties: false
@@ -262,44 +279,31 @@ components:
       examples:
       - alert
       type: string
-    idp_profile_overwrites:
-      items:
-        $ref: '#/components/schemas/idp_profile_overwrite'
-      type: array
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
     idp_profile_matching_dst_subnet:
       items:
         examples:
         - 63.1.2.0/24
         type: string
       type: array
-    idp_profiles:
+    idp_profile_matching_severity:
       items:
-        $ref: '#/components/schemas/idp_profile'
+        $ref: '#/components/schemas/idp_profile_matching_severity_value'
       type: array
-    idp_profile_overwrite:
+    response_http403:
       additionalProperties: false
       properties:
-        action:
-          $ref: '#/components/schemas/idp_profile_action'
-        matching:
-          $ref: '#/components/schemas/idp_profile_matching'
-        name:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
           type: string
       type: object
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
     idp_profile:
       properties:
         base_profile:
@@ -319,6 +323,28 @@ components:
         overwrites:
           $ref: '#/components/schemas/idp_profile_overwrites'
       type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    idp_profile_overwrites:
+      items:
+        $ref: '#/components/schemas/idp_profile_overwrite'
+      type: array
+    idp_profile_matching_severity_value:
+      description: 'enum: `critical`, `info`, `major`, `minor`'
+      enum:
+      - critical
+      - info
+      - major
+      - minor
+      examples:
+      - major
+      type: string
     response_http429:
       additionalProperties: false
       properties:
@@ -327,19 +353,6 @@ components:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    idp_profile_matching_severity:
-      items:
-        $ref: '#/components/schemas/idp_profile_matching_severity_value'
-      type: array
-    idp_profile_base_profile:
-      description: 'enum: `critical`, `standard`, `strict`'
-      enum:
-      - critical
-      - standard
-      - strict
-      examples:
-      - strict
-      type: string
     idp_profile_matching:
       additionalProperties: false
       properties:
@@ -350,43 +363,42 @@ components:
         severity:
           $ref: '#/components/schemas/idp_profile_matching_severity'
       type: object
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
     idp_profile_matching_attack_name:
       items:
         examples:
         - HTTP:INVALID:HDR-FIELD
         type: string
       type: array
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    idp_profiles:
+      items:
+        $ref: '#/components/schemas/idp_profile'
+      type: array
     modified_time:
       description: When the object has been modified for the last time, in epoch
       format: double
       readOnly: true
       type: number
-    response_http403:
+    idp_profile_overwrite:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
+        action:
+          $ref: '#/components/schemas/idp_profile_action'
+        matching:
+          $ref: '#/components/schemas/idp_profile_matching'
+        name:
           type: string
       type: object
+    created_time:
+      description: When the object has been created, in epoch
+      format: double
+      readOnly: true
+      type: number
   responses:
     HTTP403:
       content:
@@ -403,47 +415,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    OK:
-      description: OK
-    IdpProfileArray:
-      content:
-        application/json:
-          examples:
-            Idpprofiles:
-              $ref: '#/components/examples/IdpProfileArrayIdpprofiles'
-          schema:
-            $ref: '#/components/schemas/idp_profiles'
-        application/vnd.api+json:
-          examples:
-            Idpprofiles:
-              $ref: '#/components/examples/IdpProfileArrayIdpprofiles'
-          schema:
-            $ref: '#/components/schemas/idp_profiles'
-      description: Example response
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    IdpProfile:
-      content:
-        application/json:
-          examples:
-            Idpprofile:
-              $ref: '#/components/examples/IdpProfileIdpprofile'
-          schema:
-            $ref: '#/components/schemas/idp_profile'
-        application/vnd.api+json:
-          examples:
-            Idpprofile:
-              $ref: '#/components/examples/IdpProfileIdpprofile'
-          schema:
-            $ref: '#/components/schemas/idp_profile'
-      description: Example response
     HTTP401:
       content:
         application/json:
@@ -474,6 +445,45 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    IdpProfileArray:
+      content:
+        application/json:
+          examples:
+            Idpprofiles:
+              $ref: '#/components/examples/IdpProfileArrayIdpprofiles'
+          schema:
+            $ref: '#/components/schemas/idp_profiles'
+        application/vnd.api+json:
+          examples:
+            Idpprofiles:
+              $ref: '#/components/examples/IdpProfileArrayIdpprofiles'
+          schema:
+            $ref: '#/components/schemas/idp_profiles'
+      description: Example response
+    IdpProfile:
+      content:
+        application/json:
+          examples:
+            Idpprofile:
+              $ref: '#/components/examples/IdpProfileIdpprofile'
+          schema:
+            $ref: '#/components/schemas/idp_profile'
+        application/vnd.api+json:
+          examples:
+            Idpprofile:
+              $ref: '#/components/examples/IdpProfileIdpprofile'
+          schema:
+            $ref: '#/components/schemas/idp_profile'
+      description: Example response
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP400:
       content:
         application/json:
@@ -489,51 +499,41 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-  examples:
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    IdpProfileArrayIdpprofiles:
-      value:
-      - base_profile: strict
-        created_time: 0
-        id: 874ca978-d736-4d4b-bc90-a49a29eec133
-        modified_time: 0
-        name: relaxed
-        overwrites:
-        - action: alert
-          matching:
-            attack_name:
-            - HTTP:INVALID:HDR-FIELD
-            dst_subnet:
-            - 63.1.2.0/24
-            severity:
-            - major
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    IdpProfileIdpprofile:
-      value:
-        base_profile: strict
-        created_time: 0
-        id: 874ca978-d736-4d4b-bc90-a49a29eec133
-        modified_time: 0
-        name: relaxed
-        overwrites:
-        - action: alert
-          matching:
-            attack_name:
-            - HTTP:INVALID:HDR-FIELD
-            dst_subnet:
-            - 63.1.2.0/24
-            severity:
-            - major
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    OK:
+      description: OK
+  parameters:
+    idpprofile_id:
+      in: path
+      name: idpprofile_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    page:
+      in: query
+      name: page
+      schema:
+        default: 1
+        minimum: 1
+        type: integer
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

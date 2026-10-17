@@ -83,39 +83,30 @@ paths:
       - Sites JSE
 components:
   examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
     JseInfoExample:
       value:
         cloud_name: devcentral.juniperclouds.net
         org_names:
         - Mist-Sys
         - Mist-Eng
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
   schemas:
-    account_jse_info:
-      additionalProperties: false
-      properties:
-        cloud_name:
-          examples:
-          - devcentral.juniperclouds.net
-          type: string
-        org_names:
-          $ref: '#/components/schemas/strings'
-        username:
-          examples:
-          - john@abc.com
-          type: string
-      type: object
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
     response_http401:
       additionalProperties: false
       properties:
@@ -124,15 +115,12 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
-    response_http404:
+    response_http403:
       additionalProperties: false
       properties:
-        id:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
           type: string
       type: object
     response_http400:
@@ -151,12 +139,24 @@ components:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    response_http403:
+    account_jse_info:
       additionalProperties: false
       properties:
-        detail:
+        cloud_name:
           examples:
-          - You do not have permission to perform this action.
+          - devcentral.juniperclouds.net
+          type: string
+        org_names:
+          $ref: '#/components/schemas/strings'
+        username:
+          examples:
+          - john@abc.com
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
           type: string
       type: object
   responses:
@@ -175,15 +175,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP401:
       content:
         application/json:
@@ -199,6 +190,15 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP429:
       content:
         application/json:

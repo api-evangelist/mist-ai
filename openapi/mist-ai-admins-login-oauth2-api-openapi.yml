@@ -145,22 +145,22 @@ paths:
       - Admins Login - OAuth2
 components:
   examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
     LoginOauthUrlExample:
       value:
         authorization_url: https://accounts.google.com/o/oauth2/v2/auth?.....
         client_id: 173131512-mpbnju32.apps.googleusercontent.com
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
     HTTP400Example:
       value:
         detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   schemas:
     response_http401:
       additionalProperties: false
@@ -168,35 +168,6 @@ components:
         detail:
           examples:
           - Authentication credentials were not provided.
-          type: string
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    code_string:
-      properties:
-        code:
-          type: string
-      required:
-      - code
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     response_login_oauth_url:
@@ -210,12 +181,41 @@ components:
       - client_id
       - authorization_url
       type: object
+    code_string:
+      properties:
+        code:
+          type: string
+      required:
+      - code
+      type: object
     response_http403:
       additionalProperties: false
       properties:
         detail:
           examples:
           - You do not have permission to perform this action.
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
           type: string
       type: object
   responses:
@@ -234,32 +234,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    OK:
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    LoginOauthUrl:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/LoginOauthUrlExample'
-          schema:
-            $ref: '#/components/schemas/response_login_oauth_url'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/LoginOauthUrlExample'
-          schema:
-            $ref: '#/components/schemas/response_login_oauth_url'
-      description: OK
     HTTP401:
       content:
         application/json:
@@ -275,6 +249,32 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
+    LoginOauthUrl:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/LoginOauthUrlExample'
+          schema:
+            $ref: '#/components/schemas/response_login_oauth_url'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/LoginOauthUrlExample'
+          schema:
+            $ref: '#/components/schemas/response_login_oauth_url'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    OK:
+      description: OK
     HTTP429:
       content:
         application/json:

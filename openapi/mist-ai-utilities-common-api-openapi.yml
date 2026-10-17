@@ -1169,35 +1169,36 @@ paths:
       - Utilities Common
 components:
   schemas:
-    utils_bounce_port:
-      properties:
-        ports:
-          $ref: '#/components/schemas/utils_bounce_port_ports'
-      type: object
-    utils_show_bgp_summary:
-      properties:
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-      type: object
-    response_http401:
+    websocket_session:
       additionalProperties: false
       properties:
-        detail:
+        session:
           examples:
-          - Authentication credentials were not provided.
+          - 19e73828-937f-05e6-f709-e29efdb0a82b
           type: string
+      required:
+      - session
       type: object
-    utils_traceroute_protocol:
-      default: udp
-      description: 'enum: `icmp` (Only supported by AP/MxEdge), `udp`'
-      enum:
-      - icmp
-      - udp
-      type: string
-    ha_cluster_node:
+    utils_release_dhcp_leases:
+      description: "Note: \n  * valid combinations for Junos: \n    * `port_id` \n    * `macs` + `network`\n  * valid combinations for SSR: \n    * `port_id` \n    * `macs` + `network`\n    * `port_id` + `network`\n    * `network`\n  * if network or port_id is specified and macs is empty, it means all clients under network or port_id"
       properties:
+        macs:
+          $ref: '#/components/schemas/utils_release_dhcp_leases_macs'
+        network:
+          description: The network for the leases IPs to be released
+          examples:
+          - guest
+          type: string
         node:
           $ref: '#/components/schemas/ha_cluster_node_enum'
+        port_id:
+          description: The network interface on which to release the current DHCP release
+          examples:
+          - ge-0/0/1.10
+          minLength: 1
+          type: string
+      required:
+      - port_id
       type: object
     utils_show_dhcp_leases:
       properties:
@@ -1211,35 +1212,31 @@ components:
       required:
       - network
       type: object
-    utils_send_support_logs_info:
-      default: full
-      description: "Optional, enum: \n    * `code-dumps`: Upload all core dump files, if any found. Uploads for all members of VC on switches.\n    * `full`: Upload 1 file with output of `request support information`, 1 file that concatenates all `/var/log/outbound-ssh.log*` files, all core dump files, the 5 most recent `/var/log/messages*` files, and Mist agent logs\n    * `messages`: Upload 1 to 10 `/var/log/messages*` files\n    * `outbound-ssh`: Upload 1 file that concatenates all `/var/log/outbound-ssh.log*` files\n    * `process`: Upload 1 file with output of show `system processes extensive``\n    * `var-logs`: Upload all non-empty files in the `/var/log/` directory"
-      enum:
-      - code-dumps
-      - full
-      - messages
-      - outbound-ssh
-      - process
-      - var-logs
-      type: string
-    root_password_string:
-      additionalProperties: false
+    clear_policy_hit_count:
       properties:
-        root_password:
-          format: password
-          minLength: 1
+        policy_name:
           type: string
       required:
-      - root_password
+      - policy_name
       type: object
-    utils_release_dhcp_leases_macs:
-      description: A list of client macs to be released
-      examples:
-      - - 90ec77aabbcc
-        - 90ec77aabbdd
+    utils_show_bgp_summary:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+      type: object
+    strings:
       items:
         type: string
       type: array
+      uniqueItems: true
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
     utils_traceroute:
       properties:
         host:
@@ -1269,50 +1266,12 @@ components:
           description: For SRX, optional, the source to initiate traceroute from. by default, master VRF/RI is assumed
           type: string
       type: object
-    ha_cluster_node_enum:
-      description: 'only for HA. enum: `node0`, `node1`'
+    utils_devices_restart_node:
+      description: 'only for SRX/SSR: if node is not present, both nodes are restarted. For other devices: node should not be present'
       enum:
       - node0
       - node1
       type: string
-    websocket_session:
-      additionalProperties: false
-      properties:
-        session:
-          examples:
-          - 19e73828-937f-05e6-f709-e29efdb0a82b
-          type: string
-      required:
-      - session
-      type: object
-    utils_monitor_traffic:
-      properties:
-        port:
-          description: Port name, if no port input is provided then all ports will be monitored
-          examples:
-          - ge-0/0/1
-          type: string
-      type: object
-    websocket_session_with_url:
-      additionalProperties: false
-      properties:
-        session:
-          examples:
-          - 19e73828-937f-05e6-f709-e29efdb0a82b
-          type: string
-        url:
-          examples:
-          - wss://api-ws.mist.com/ssh?jwt=xxxx
-          type: string
-      required:
-      - session
-      - url
-      type: object
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
     utils_show_forwarding_table:
       properties:
         node:
@@ -1353,59 +1312,13 @@ components:
           - guest
           type: string
       type: object
-    locate_switch:
-      properties:
-        duration:
-          default: 5
-          description: Minutes the leds should keep flashing
-          maximum: 120
-          minimum: 1
-          type: integer
-        mac:
-          description: For virtual chassis, the MAC of the member
-          examples:
-          - f01c2d4ff760
-          type: string
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    utils_send_support_logs:
-      properties:
-        info:
-          $ref: '#/components/schemas/utils_send_support_logs_info'
-        node:
-          description: 'optional: for SSR, if node is not present, both nodes support files are uploaded'
-          type: string
-        num_messages_files:
-          default: 1
-          description: 'optional: number of most recent messages files to upload.'
-          maximum: 10
-          minimum: 1
-          type: integer
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    utils_bounce_port_ports:
-      description: List of ports to bounce
-      items:
-        type: string
-      type: array
-    shell_node:
-      properties:
-        node:
-          $ref: '#/components/schemas/ha_cluster_node_enum'
-      type: object
-    utils_show_evpn_database:
+    ha_cluster_node_enum:
+      description: 'only for HA. enum: `node0`, `node1`'
+      enum:
+      - node0
+      - node1
+      type: string
+    utils_show_dot1x:
       properties:
         duration:
           default: 0
@@ -1419,30 +1332,60 @@ components:
           maximum: 10
           minimum: 0
           type: integer
-        mac:
-          description: Client mac filter
-          examples:
-          - f8c1165c6400
-          type: string
         port_id:
-          description: Interface name
+          description: Device Port ID
           examples:
           - ge-0/0/0.0
           type: string
       type: object
+    utils_mac_table:
+      properties:
+        mac_address:
+          examples:
+          - f8c1165c6400
+          type: string
+        port_id:
+          examples:
+          - ge-0/0/0.0
+          type: string
+        vlan_id:
+          examples:
+          - ge-0/0/0.0
+          type: string
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    utils_bounce_port_ports:
+      description: List of ports to bounce
+      items:
+        type: string
+      type: array
+    utils_monitor_traffic:
+      properties:
+        port:
+          description: Port name, if no port input is provided then all ports will be monitored
+          examples:
+          - ge-0/0/1
+          type: string
+      type: object
+    utils_traceroute_protocol:
+      default: udp
+      description: 'enum: `icmp` (Only supported by AP/MxEdge), `udp`'
+      enum:
+      - icmp
+      - udp
+      type: string
     utils_devices_restart_multi_device_ids:
       items:
         format: uuid
         type: string
       type: array
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
     utils_ping:
       properties:
         count:
@@ -1473,46 +1416,47 @@ components:
       required:
       - host
       type: object
-    response_device_config_cli:
+    response_http400:
       additionalProperties: false
       properties:
-        cli:
-          $ref: '#/components/schemas/strings'
-      required:
-      - cli
-      type: object
-    utils_devices_restart:
-      properties:
-        member:
-          description: Optional for VC member
-          maximum: 9
-          minimum: 0
-          type: integer
-        node:
-          $ref: '#/components/schemas/utils_devices_restart_node'
-      type: object
-    utils_release_dhcp_leases:
-      description: "Note: \n  * valid combinations for Junos: \n    * `port_id` \n    * `macs` + `network`\n  * valid combinations for SSR: \n    * `port_id` \n    * `macs` + `network`\n    * `port_id` + `network`\n    * `network`\n  * if network or port_id is specified and macs is empty, it means all clients under network or port_id"
-      properties:
-        macs:
-          $ref: '#/components/schemas/utils_release_dhcp_leases_macs'
-        network:
-          description: The network for the leases IPs to be released
+        detail:
           examples:
-          - guest
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
+      type: object
+    locate_switch:
+      properties:
+        duration:
+          default: 5
+          description: Minutes the leds should keep flashing
+          maximum: 120
+          minimum: 1
+          type: integer
+        mac:
+          description: For virtual chassis, the MAC of the member
+          examples:
+          - f01c2d4ff760
+          type: string
+      type: object
+    utils_bounce_port:
+      properties:
+        ports:
+          $ref: '#/components/schemas/utils_bounce_port_ports'
+      type: object
+    shell_node:
+      properties:
         node:
           $ref: '#/components/schemas/ha_cluster_node_enum'
-        port_id:
-          description: The network interface on which to release the current DHCP release
-          examples:
-          - ge-0/0/1.10
-          minLength: 1
-          type: string
-      required:
-      - port_id
       type: object
-    utils_show_dot1x:
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    utils_show_evpn_database:
       properties:
         duration:
           default: 0
@@ -1526,12 +1470,67 @@ components:
           maximum: 10
           minimum: 0
           type: integer
+        mac:
+          description: Client mac filter
+          examples:
+          - f8c1165c6400
+          type: string
         port_id:
-          description: Device Port ID
+          description: Interface name
           examples:
           - ge-0/0/0.0
           type: string
       type: object
+    websocket_session_with_url:
+      additionalProperties: false
+      properties:
+        session:
+          examples:
+          - 19e73828-937f-05e6-f709-e29efdb0a82b
+          type: string
+        url:
+          examples:
+          - wss://api-ws.mist.com/ssh?jwt=xxxx
+          type: string
+      required:
+      - session
+      - url
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    root_password_string:
+      additionalProperties: false
+      properties:
+        root_password:
+          format: password
+          minLength: 1
+          type: string
+      required:
+      - root_password
+      type: object
+    utils_release_dhcp_leases_macs:
+      description: A list of client macs to be released
+      examples:
+      - - 90ec77aabbcc
+        - 90ec77aabbdd
+      items:
+        type: string
+      type: array
+    utils_send_support_logs_info:
+      default: full
+      description: "Optional, enum: \n    * `code-dumps`: Upload all core dump files, if any found. Uploads for all members of VC on switches.\n    * `full`: Upload 1 file with output of `request support information`, 1 file that concatenates all `/var/log/outbound-ssh.log*` files, all core dump files, the 5 most recent `/var/log/messages*` files, and Mist agent logs\n    * `messages`: Upload 1 to 10 `/var/log/messages*` files\n    * `outbound-ssh`: Upload 1 file that concatenates all `/var/log/outbound-ssh.log*` files\n    * `process`: Upload 1 file with output of show `system processes extensive``\n    * `var-logs`: Upload all non-empty files in the `/var/log/` directory"
+      enum:
+      - code-dumps
+      - full
+      - messages
+      - outbound-ssh
+      - process
+      - var-logs
+      type: string
     utils_devices_restart_multi:
       properties:
         device_ids:
@@ -1542,59 +1541,79 @@ components:
       required:
       - device_ids
       type: object
-    clear_policy_hit_count:
+    utils_send_support_logs:
       properties:
-        policy_name:
+        info:
+          $ref: '#/components/schemas/utils_send_support_logs_info'
+        node:
+          description: 'optional: for SSR, if node is not present, both nodes support files are uploaded'
           type: string
-      required:
-      - policy_name
+        num_messages_files:
+          default: 1
+          description: 'optional: number of most recent messages files to upload.'
+          maximum: 10
+          minimum: 1
+          type: integer
       type: object
-    utils_devices_restart_node:
-      description: 'only for SRX/SSR: if node is not present, both nodes are restarted. For other devices: node should not be present'
-      enum:
-      - node0
-      - node1
-      type: string
-    utils_mac_table:
+    utils_devices_restart:
       properties:
-        mac_address:
-          examples:
-          - f8c1165c6400
-          type: string
-        port_id:
-          examples:
-          - ge-0/0/0.0
-          type: string
-        vlan_id:
-          examples:
-          - ge-0/0/0.0
-          type: string
+        member:
+          description: Optional for VC member
+          maximum: 9
+          minimum: 0
+          type: integer
+        node:
+          $ref: '#/components/schemas/utils_devices_restart_node'
       type: object
-    response_http403:
+    ha_cluster_node:
+      properties:
+        node:
+          $ref: '#/components/schemas/ha_cluster_node_enum'
+      type: object
+    response_device_config_cli:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
+        cli:
+          $ref: '#/components/schemas/strings'
+      required:
+      - cli
       type: object
   examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
     DeviceConfigCmdExample:
       value:
         cli:
         - set system hostname corp-a135
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+  parameters:
+    device_id:
+      in: path
+      name: device_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   responses:
     HTTP403:
       content:
@@ -1611,41 +1630,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    OK:
-      description: OK
-    WebsocketSessionWithUrl:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/websocket_session_with_url'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/websocket_session_with_url'
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    DeviceConfigCmd:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceConfigCmdExample'
-          schema:
-            $ref: '#/components/schemas/response_device_config_cli'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceConfigCmdExample'
-          schema:
-            $ref: '#/components/schemas/response_device_config_cli'
-      description: OK
     HTTP401:
       content:
         application/json:
@@ -1669,6 +1653,26 @@ components:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/websocket_session'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    WebsocketSessionWithUrl:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/websocket_session_with_url'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/websocket_session_with_url'
+      description: OK
+    OK:
       description: OK
     HTTP429:
       content:
@@ -1700,25 +1704,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-  parameters:
-    device_id:
-      in: path
-      name: device_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
+    DeviceConfigCmd:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceConfigCmdExample'
+          schema:
+            $ref: '#/components/schemas/response_device_config_cli'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceConfigCmdExample'
+          schema:
+            $ref: '#/components/schemas/response_device_config_cli'
+      description: OK
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

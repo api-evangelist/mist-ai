@@ -205,15 +205,71 @@ paths:
       tags:
       - Orgs UI Settings
 components:
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    OrgUiSettingsArrayExample:
+      value:
+      - created_time: 1749083436
+        description: AP related stats
+        for_site: false
+        id: 9a702097-0dd3-48af-909b-2be4ff94d139
+        isCustomDataboard: true
+        modified_time: 1749083436
+        name: AP Stats
+        org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
+        purpose: marvisdashboard
+        site_id: 00000000-0000-0000-0000-000000000000
+        tiles:
+        - description: User typed tile descr
+          id: 3eef7c83-3d33-417a-a729-4772d4a1013a
+          isAutoTitle: true
+          name: List top 10 APs by bandwidth
+          nl_query: List top 10 APs by bandwidth
+          position:
+            col: 1
+            colSpan: 2
+            row: 1
+            rowSpan: 1
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    OrgUiSettingsExample:
+      value:
+        created_time: 1749083436
+        description: AP related stats
+        for_site: false
+        id: 9a702097-0dd3-48af-909b-2be4ff94d139
+        isCustomDataboard: true
+        modified_time: 1749083436
+        name: AP Stats
+        org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
+        purpose: marvisdashboard
+        site_id: 00000000-0000-0000-0000-000000000000
+        tiles:
+        - description: User typed tile descr
+          id: 3eef7c83-3d33-417a-a729-4772d4a1013a
+          isAutoTitle: true
+          name: List top 10 APs by bandwidth
+          nl_query: List top 10 APs by bandwidth
+          position:
+            col: 1
+            colSpan: 2
+            row: 1
+            rowSpan: 1
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
   schemas:
-    org_ui_settings_list:
-      items:
-        $ref: '#/components/schemas/org_ui_settings'
-      type: array
-    org_ui_settings_purpose:
-      description: 'enum: `marvisdashboard`'
-      enum:
-      - marvisdashboard
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
       type: string
     response_http401:
       additionalProperties: false
@@ -222,6 +278,32 @@ components:
           examples:
           - Authentication credentials were not provided.
           type: string
+      type: object
+    org_ui_settings_tile:
+      additionalProperties: false
+      properties:
+        description:
+          description: Description of the tile
+          examples:
+          - This tile shows the top 10 APs by bandwidth
+          type: string
+        id:
+          $ref: '#/components/schemas/id'
+        isAutoTitle:
+          description: Whether the tile title is auto generated or not
+          type: boolean
+        name:
+          description: Name of the tile
+          examples:
+          - Top 10 APs by Bandwidth
+          type: string
+        nl_query:
+          description: Natural Language query for the tile
+          examples:
+          - List top 10 APs by bandwidth
+          type: string
+        position:
+          $ref: '#/components/schemas/org_ui_settings_tile_position'
       type: object
     org_ui_settings_tile_position:
       additionalProperties: false
@@ -251,38 +333,19 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    org_ui_settings_tile:
-      additionalProperties: false
-      properties:
-        description:
-          description: Description of the tile
-          examples:
-          - This tile shows the top 10 APs by bandwidth
-          type: string
-        id:
-          $ref: '#/components/schemas/id'
-        isAutoTitle:
-          description: Whether the tile title is auto generated or not
-          type: boolean
-        name:
-          description: Name of the tile
-          examples:
-          - Top 10 APs by Bandwidth
-          type: string
-        nl_query:
-          description: Natural Language query for the tile
-          examples:
-          - List top 10 APs by bandwidth
-          type: string
-        position:
-          $ref: '#/components/schemas/org_ui_settings_tile_position'
-      type: object
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
     response_http400:
       additionalProperties: false
       properties:
@@ -291,12 +354,15 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
+    org_ui_settings_tiles:
+      description: List of tiles in the databoard
+      items:
+        $ref: '#/components/schemas/org_ui_settings_tile'
+      type: array
+    org_ui_settings_list:
+      items:
+        $ref: '#/components/schemas/org_ui_settings'
+      type: array
     response_http429:
       additionalProperties: false
       properties:
@@ -305,11 +371,17 @@ components:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
-    created_time:
-      description: When the object has been created, in epoch
-      format: double
-      readOnly: true
-      type: number
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    org_ui_settings_purpose:
+      description: 'enum: `marvisdashboard`'
+      enum:
+      - marvisdashboard
+      type: string
     org_ui_settings:
       properties:
         created_time:
@@ -344,26 +416,13 @@ components:
         tiles:
           $ref: '#/components/schemas/org_ui_settings_tiles'
       type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    org_ui_settings_tiles:
-      description: List of tiles in the databoard
-      items:
-        $ref: '#/components/schemas/org_ui_settings_tile'
-      type: array
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
     modified_time:
       description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    created_time:
+      description: When the object has been created, in epoch
       format: double
       readOnly: true
       type: number
@@ -383,32 +442,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    OK:
-      description: OK
-    OrgUiSettings:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgUiSettingsExample'
-          schema:
-            $ref: '#/components/schemas/org_ui_settings'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/OrgUiSettingsExample'
-          schema:
-            $ref: '#/components/schemas/org_ui_settings'
-      description: Example response
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP401:
       content:
         application/json:
@@ -424,36 +457,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
-    HTTP429:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
-          schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP400:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP400Example'
-          schema:
-            $ref: '#/components/schemas/response_http400'
-      description: Bad Syntax
     OrgUiSettingsArray:
       content:
         application/json:
@@ -469,78 +472,75 @@ components:
           schema:
             $ref: '#/components/schemas/org_ui_settings_list'
       description: List of Org UI Setting
-  examples:
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    OrgUiSettingsExample:
-      value:
-        created_time: 1749083436
-        description: AP related stats
-        for_site: false
-        id: 9a702097-0dd3-48af-909b-2be4ff94d139
-        isCustomDataboard: true
-        modified_time: 1749083436
-        name: AP Stats
-        org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
-        purpose: marvisdashboard
-        site_id: 00000000-0000-0000-0000-000000000000
-        tiles:
-        - description: User typed tile descr
-          id: 3eef7c83-3d33-417a-a729-4772d4a1013a
-          isAutoTitle: true
-          name: List top 10 APs by bandwidth
-          nl_query: List top 10 APs by bandwidth
-          position:
-            col: 1
-            colSpan: 2
-            row: 1
-            rowSpan: 1
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    OrgUiSettingsArrayExample:
-      value:
-      - created_time: 1749083436
-        description: AP related stats
-        for_site: false
-        id: 9a702097-0dd3-48af-909b-2be4ff94d139
-        isCustomDataboard: true
-        modified_time: 1749083436
-        name: AP Stats
-        org_id: 2818e386-8dec-2562-9ede-5b8a0fbbdc71
-        purpose: marvisdashboard
-        site_id: 00000000-0000-0000-0000-000000000000
-        tiles:
-        - description: User typed tile descr
-          id: 3eef7c83-3d33-417a-a729-4772d4a1013a
-          isAutoTitle: true
-          name: List top 10 APs by bandwidth
-          nl_query: List top 10 APs by bandwidth
-          position:
-            col: 1
-            colSpan: 2
-            row: 1
-            rowSpan: 1
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    HTTP400:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP400Example'
+          schema:
+            $ref: '#/components/schemas/response_http400'
+      description: Bad Syntax
+    OrgUiSettings:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgUiSettingsExample'
+          schema:
+            $ref: '#/components/schemas/org_ui_settings'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/OrgUiSettingsExample'
+          schema:
+            $ref: '#/components/schemas/org_ui_settings'
+      description: Example response
+    OK:
+      description: OK
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   parameters:
-    org_id:
+    uisetting_id:
       in: path
-      name: org_id
+      name: uisetting_id
       required: true
       schema:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
-    uisetting_id:
+    org_id:
       in: path
-      name: uisetting_id
+      name: org_id
       required: true
       schema:
         examples:

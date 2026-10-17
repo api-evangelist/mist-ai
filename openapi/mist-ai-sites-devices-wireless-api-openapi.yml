@@ -217,21 +217,183 @@ paths:
       tags:
       - Sites Devices - Wireless
 components:
-  schemas:
-    device_iot_config:
-      additionalProperties:
-        type: integer
-      description: Property key is the IoT port name (e.g. "A1"), value is the output state (0 or 1).
-      examples:
-      - A1: 1
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    DeviceIotExample:
+      value:
+        A1: 1
         DO: 0
-      type: object
-    ap_channel_band6_channel:
-      items:
-        examples:
-        - 1
-        type: integer
-      type: array
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    ZigbeeJoinExample:
+      value:
+        session_id: 19e73828-937f-05e6-f709-e29efdb0a82b
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    DeviceRadioChannelsExample:
+      value:
+        band24_40mhz_allowed: false
+        band24_channels:
+          '20':
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          '40':
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+        band24_enabled: true
+        band5_channels:
+          '20':
+          - 36
+          - 40
+          - 44
+          - 48
+          - 52
+          - 56
+          - 60
+          - 64
+          - 100
+          - 104
+          - 108
+          - 112
+          - 116
+          - 120
+          - 124
+          - 128
+          - 132
+          - 136
+          - 140
+          - 144
+          - 149
+          - 153
+          - 157
+          - 161
+          - 165
+          '40':
+          - 36
+          - 40
+          - 44
+          - 48
+          - 52
+          - 56
+          - 60
+          - 64
+          - 100
+          - 104
+          - 108
+          - 112
+          - 116
+          - 120
+          - 124
+          - 128
+          - 132
+          - 136
+          - 140
+          - 144
+          - 149
+          - 153
+          - 157
+          - 161
+          '80':
+          - 36
+          - 40
+          - 44
+          - 48
+          - 52
+          - 56
+          - 60
+          - 64
+          - 100
+          - 104
+          - 108
+          - 112
+          - 116
+          - 120
+          - 124
+          - 128
+          - 132
+          - 136
+          - 140
+          - 144
+          - 149
+          - 153
+          - 157
+          - 161
+          dfs:
+          - 52
+          - 56
+          - 60
+          - 64
+          - 100
+          - 104
+          - 108
+          - 112
+          - 116
+          - 120
+          - 124
+          - 128
+          - 132
+          - 136
+          - 140
+          - 144
+          outdoor:
+          - 36
+          - 40
+          - 44
+          - 48
+          - 52
+          - 56
+          - 60
+          - 64
+          - 100
+          - 104
+          - 108
+          - 112
+          - 116
+          - 120
+          - 124
+          - 128
+          - 132
+          - 136
+          - 140
+          - 144
+          - 149
+          - 153
+          - 157
+          - 161
+          - 165
+        band5_enabled: true
+        certified: true
+        code: 840
+        dfs_ok: true
+        key: US
+        name: United States
+        uses: US_FCC
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+  schemas:
     response_http401:
       additionalProperties: false
       properties:
@@ -239,131 +401,6 @@ components:
           examples:
           - Authentication credentials were not provided.
           type: string
-      type: object
-    ap_channel_band5_channels:
-      additionalProperties:
-        $ref: '#/components/schemas/ap_channel_band5_channel'
-      description: Property key is the channel width
-      examples:
-      - '20':
-        - 36
-        - 40
-        - 44
-        - 48
-        - 52
-        - 56
-        - 60
-        - 64
-        - 100
-        - 104
-        - 108
-        - 112
-        - 116
-        - 120
-        - 124
-        - 128
-        - 132
-        - 136
-        - 140
-        - 144
-        - 149
-        - 153
-        - 157
-        - 161
-        - 165
-        '40':
-        - 36
-        - 40
-        - 44
-        - 48
-        - 52
-        - 56
-        - 60
-        - 64
-        - 100
-        - 104
-        - 108
-        - 112
-        - 116
-        - 120
-        - 124
-        - 128
-        - 132
-        - 136
-        - 140
-        - 144
-        - 149
-        - 153
-        - 157
-        - 161
-        '80':
-        - 36
-        - 40
-        - 44
-        - 48
-        - 52
-        - 56
-        - 60
-        - 64
-        - 100
-        - 104
-        - 108
-        - 112
-        - 116
-        - 120
-        - 124
-        - 128
-        - 132
-        - 136
-        - 140
-        - 144
-        - 149
-        - 153
-        - 157
-        - 161
-        dfs:
-        - 52
-        - 56
-        - 60
-        - 64
-        - 100
-        - 104
-        - 108
-        - 112
-        - 116
-        - 120
-        - 124
-        - 128
-        - 132
-        - 136
-        - 140
-        - 144
-        outdoor:
-        - 36
-        - 40
-        - 44
-        - 48
-        - 52
-        - 56
-        - 60
-        - 64
-        - 100
-        - 104
-        - 108
-        - 112
-        - 116
-        - 120
-        - 124
-        - 128
-        - 132
-        - 136
-        - 140
-        - 144
-        - 149
-        - 153
-        - 157
-        - 161
-        - 165
       type: object
     zigbee_join_response:
       additionalProperties: false
@@ -373,6 +410,42 @@ components:
           examples:
           - 19e73828-937f-05e6-f709-e29efdb0a82b
           format: uuid
+          type: string
+      type: object
+    ap_channel_band6_channel:
+      items:
+        examples:
+        - 1
+        type: integer
+      type: array
+    ap_channel_band24_channel:
+      items:
+        examples:
+        - 1
+        type: integer
+      type: array
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    device_iot_config:
+      additionalProperties:
+        type: integer
+      description: Property key is the IoT port name (e.g. "A1"), value is the output state (0 or 1).
+      examples:
+      - A1: 1
+        DO: 0
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
     ap_channel_band6_channels:
@@ -630,51 +703,13 @@ components:
         - 213
         - 229
       type: object
-    ap_channel_band24_channels:
-      additionalProperties:
-        $ref: '#/components/schemas/ap_channel_band24_channel'
-      description: Property key is the channel width
-      examples:
-      - '20':
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-        - 7
-        - 8
-        - 9
-        - 10
-        - 11
-        '40':
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-        - 7
-        - 8
-        - 9
-        - 10
-        - 11
-      type: object
-    response_http404:
+    response_http429:
       additionalProperties: false
       properties:
-        id:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
-      type: object
-    utils_zigbee_join:
-      additionalProperties: false
-      properties:
-        duration:
-          default: 600
-          description: Duration in seconds for which new Zigbee end device joins are permitted. Range is 30–3600
-          maximum: 3600
-          minimum: 30
-          type: integer
       type: object
     response_device_radio_channels:
       additionalProperties: false
@@ -718,13 +753,146 @@ components:
       - name
       - uses
       type: object
-    response_http400:
+    response_http404:
       additionalProperties: false
       properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+        id:
           type: string
+      type: object
+    ap_channel_band5_channels:
+      additionalProperties:
+        $ref: '#/components/schemas/ap_channel_band5_channel'
+      description: Property key is the channel width
+      examples:
+      - '20':
+        - 36
+        - 40
+        - 44
+        - 48
+        - 52
+        - 56
+        - 60
+        - 64
+        - 100
+        - 104
+        - 108
+        - 112
+        - 116
+        - 120
+        - 124
+        - 128
+        - 132
+        - 136
+        - 140
+        - 144
+        - 149
+        - 153
+        - 157
+        - 161
+        - 165
+        '40':
+        - 36
+        - 40
+        - 44
+        - 48
+        - 52
+        - 56
+        - 60
+        - 64
+        - 100
+        - 104
+        - 108
+        - 112
+        - 116
+        - 120
+        - 124
+        - 128
+        - 132
+        - 136
+        - 140
+        - 144
+        - 149
+        - 153
+        - 157
+        - 161
+        '80':
+        - 36
+        - 40
+        - 44
+        - 48
+        - 52
+        - 56
+        - 60
+        - 64
+        - 100
+        - 104
+        - 108
+        - 112
+        - 116
+        - 120
+        - 124
+        - 128
+        - 132
+        - 136
+        - 140
+        - 144
+        - 149
+        - 153
+        - 157
+        - 161
+        dfs:
+        - 52
+        - 56
+        - 60
+        - 64
+        - 100
+        - 104
+        - 108
+        - 112
+        - 116
+        - 120
+        - 124
+        - 128
+        - 132
+        - 136
+        - 140
+        - 144
+        outdoor:
+        - 36
+        - 40
+        - 44
+        - 48
+        - 52
+        - 56
+        - 60
+        - 64
+        - 100
+        - 104
+        - 108
+        - 112
+        - 116
+        - 120
+        - 124
+        - 128
+        - 132
+        - 136
+        - 140
+        - 144
+        - 149
+        - 153
+        - 157
+        - 161
+        - 165
+      type: object
+    utils_zigbee_join:
+      additionalProperties: false
+      properties:
+        duration:
+          default: 600
+          description: Duration in seconds for which new Zigbee end device joins are permitted. Range is 30–3600
+          maximum: 3600
+          minimum: 30
+          type: integer
       type: object
     ap_channel_band5_channel:
       items:
@@ -732,59 +900,56 @@ components:
         - 36
         type: integer
       type: array
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    ap_channel_band24_channel:
-      items:
-        examples:
+    ap_channel_band24_channels:
+      additionalProperties:
+        $ref: '#/components/schemas/ap_channel_band24_channel'
+      description: Property key is the channel width
+      examples:
+      - '20':
         - 1
-        type: integer
-      type: array
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        '40':
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
       type: object
+  parameters:
+    device_id:
+      in: path
+      name: device_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   responses:
-    DeviceRadioChannels:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceRadioChannelsExample'
-          schema:
-            $ref: '#/components/schemas/response_device_radio_channels'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceRadioChannelsExample'
-          schema:
-            $ref: '#/components/schemas/response_device_radio_channels'
-      description: OK
-    DeviceIot:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceIotExample'
-          schema:
-            $ref: '#/components/schemas/device_iot_config'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceIotExample'
-          schema:
-            $ref: '#/components/schemas/device_iot_config'
-      description: OK
     HTTP403:
       content:
         application/json:
@@ -800,15 +965,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP401:
       content:
         application/json:
@@ -824,6 +980,30 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    DeviceIot:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceIotExample'
+          schema:
+            $ref: '#/components/schemas/device_iot_config'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceIotExample'
+          schema:
+            $ref: '#/components/schemas/device_iot_config'
+      description: OK
     ZigbeeJoin:
       content:
         application/json:
@@ -869,201 +1049,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-  examples:
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    DeviceRadioChannelsExample:
-      value:
-        band24_40mhz_allowed: false
-        band24_channels:
-          '20':
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          - 8
-          - 9
-          - 10
-          - 11
-          '40':
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          - 8
-          - 9
-          - 10
-          - 11
-        band24_enabled: true
-        band5_channels:
-          '20':
-          - 36
-          - 40
-          - 44
-          - 48
-          - 52
-          - 56
-          - 60
-          - 64
-          - 100
-          - 104
-          - 108
-          - 112
-          - 116
-          - 120
-          - 124
-          - 128
-          - 132
-          - 136
-          - 140
-          - 144
-          - 149
-          - 153
-          - 157
-          - 161
-          - 165
-          '40':
-          - 36
-          - 40
-          - 44
-          - 48
-          - 52
-          - 56
-          - 60
-          - 64
-          - 100
-          - 104
-          - 108
-          - 112
-          - 116
-          - 120
-          - 124
-          - 128
-          - 132
-          - 136
-          - 140
-          - 144
-          - 149
-          - 153
-          - 157
-          - 161
-          '80':
-          - 36
-          - 40
-          - 44
-          - 48
-          - 52
-          - 56
-          - 60
-          - 64
-          - 100
-          - 104
-          - 108
-          - 112
-          - 116
-          - 120
-          - 124
-          - 128
-          - 132
-          - 136
-          - 140
-          - 144
-          - 149
-          - 153
-          - 157
-          - 161
-          dfs:
-          - 52
-          - 56
-          - 60
-          - 64
-          - 100
-          - 104
-          - 108
-          - 112
-          - 116
-          - 120
-          - 124
-          - 128
-          - 132
-          - 136
-          - 140
-          - 144
-          outdoor:
-          - 36
-          - 40
-          - 44
-          - 48
-          - 52
-          - 56
-          - 60
-          - 64
-          - 100
-          - 104
-          - 108
-          - 112
-          - 116
-          - 120
-          - 124
-          - 128
-          - 132
-          - 136
-          - 140
-          - 144
-          - 149
-          - 153
-          - 157
-          - 161
-          - 165
-        band5_enabled: true
-        certified: true
-        code: 840
-        dfs_ok: true
-        key: US
-        name: United States
-        uses: US_FCC
-    DeviceIotExample:
-      value:
-        A1: 1
-        DO: 0
-    ZigbeeJoinExample:
-      value:
-        session_id: 19e73828-937f-05e6-f709-e29efdb0a82b
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-  parameters:
-    device_id:
-      in: path
-      name: device_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
+    DeviceRadioChannels:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceRadioChannelsExample'
+          schema:
+            $ref: '#/components/schemas/response_device_radio_channels'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceRadioChannelsExample'
+          schema:
+            $ref: '#/components/schemas/response_device_radio_channels'
+      description: OK
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

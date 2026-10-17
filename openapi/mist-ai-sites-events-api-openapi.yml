@@ -157,66 +157,20 @@ paths:
       tags:
       - Sites Events
 components:
-  parameters:
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    end:
-      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
-      in: query
-      name: end
-      schema:
-        type: string
-    search_after:
-      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
-      in: query
-      name: search_after
-      schema:
-        type: string
-    duration:
-      description: Duration like 7d, 2w
-      in: query
-      name: duration
-      schema:
-        default: 1d
-        examples:
-        - 10m
-        type: string
-    system_event_type:
-      description: See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
-      in: query
-      name: type
-      schema:
-        type: string
-    site_id:
-      in: path
-      name: site_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    start:
-      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
-      in: query
-      name: start
-      schema:
-        type: string
-    sort:
-      description: On which field the list should be sorted, -prefix represents DESC order
-      in: query
-      name: sort
-      schema:
-        default: timestamp
-        examples:
-        - -site_id
-        type: string
   examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    CountExample:
+      value:
+        distinct: string
+        end: 0
+        limit: 0
+        results:
+        - count: 0
+          property: string
+        start: 0
+        total: 0
     EventsFastroamExample:
       value:
         end: 1501023379
@@ -231,15 +185,6 @@ components:
           subtype: CLIENT_AUTHENTICATED_11R
           timestamp: 1501000002283782
         start: 1500940800
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     DeviceEventsSearchExample:
       value:
         end: 0
@@ -256,65 +201,27 @@ components:
           type: CLIENT_DNS_OK
         start: 0
         total: 0
-    CountExample:
+    HTTP429Example:
       value:
-        distinct: string
-        end: 0
-        limit: 0
-        results:
-        - count: 0
-          property: string
-        start: 0
-        total: 0
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
   schemas:
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    device_type:
-      description: 'enum: `ap`, `gateway`, `switch`'
-      enum:
-      - ap
-      - gateway
-      - switch
+    timestamp:
+      description: Epoch (seconds)
+      format: double
+      readOnly: true
+      type: number
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
       type: string
-    site_system_events_count_distinct:
-      default: type
-      description: 'enum: `type`'
-      enum:
-      - type
-      type: string
-    count_results:
-      items:
-        $ref: '#/components/schemas/count_result'
-      type: array
-      uniqueItems: true
-    response_events_fastroam_results:
-      items:
-        $ref: '#/components/schemas/event_fastroam'
-      type: array
-      uniqueItems: true
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
     count_result:
       additionalProperties:
         type: string
@@ -324,6 +231,178 @@ components:
       required:
       - count
       type: object
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    event_fastroam_type:
+      description: 'enum: `fail`, `none`, `pingpong`, `poor`, `slow`, `success`'
+      enum:
+      - fail
+      - none
+      - pingpong
+      - poor
+      - slow
+      - success
+      type: string
+    count_results:
+      items:
+        $ref: '#/components/schemas/count_result'
+      type: array
+      uniqueItems: true
+    device_events:
+      items:
+        $ref: '#/components/schemas/device_event'
+      type: array
+      uniqueItems: true
+    site_system_events_count_distinct:
+      default: type
+      description: 'enum: `type`'
+      enum:
+      - type
+      type: string
+    device_type:
+      description: 'enum: `ap`, `gateway`, `switch`'
+      enum:
+      - ap
+      - gateway
+      - switch
+      type: string
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    response_count:
+      additionalProperties: false
+      properties:
+        distinct:
+          type: string
+        end:
+          type: integer
+        limit:
+          type: integer
+        results:
+          $ref: '#/components/schemas/count_results'
+        start:
+          type: integer
+        total:
+          type: integer
+      required:
+      - distinct
+      - end
+      - limit
+      - results
+      - start
+      - total
+      type: object
+    site_id:
+      examples:
+      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
+      format: uuid
+      readOnly: true
+      type: string
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_events_fastroam_results:
+      items:
+        $ref: '#/components/schemas/event_fastroam'
+      type: array
+      uniqueItems: true
+    event_fastroam:
+      additionalProperties: false
+      properties:
+        ap_mac:
+          type: string
+        client_mac:
+          type: string
+        fromap:
+          type: string
+        latency:
+          type: number
+        ssid:
+          type: string
+        subtype:
+          type: string
+        timestamp:
+          $ref: '#/components/schemas/timestamp'
+        type:
+          $ref: '#/components/schemas/event_fastroam_type'
+      required:
+      - latency
+      - ssid
+      - timestamp
+      - ap_mac
+      - fromap
+      - client_mac
+      type: object
+    webhook_device_events_event_ev_type:
+      description: '(optional) event advisory. enum: `notice`, `warn`'
+      enum:
+      - notice
+      - warn
+      type: string
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    response_events_fastroam:
+      additionalProperties: false
+      properties:
+        end:
+          type: integer
+        limit:
+          type: integer
+        next:
+          description: Link to query next set of results. value is null if no next page exists.
+          type: string
+        results:
+          $ref: '#/components/schemas/response_events_fastroam_results'
+        start:
+          type: integer
+      required:
+      - start
+      - end
+      - limit
+      - results
+      type: object
+    fast_roam_result:
+      description: 'enum: `fail`, `none`, `success`'
+      enum:
+      - fail
+      - none
+      - success
+      type: string
     device_event:
       additionalProperties: false
       properties:
@@ -400,144 +479,6 @@ components:
       - timestamp
       - type
       type: object
-    site_id:
-      examples:
-      - 441a1214-6928-442a-8e92-e1d34b8ec6a6
-      format: uuid
-      readOnly: true
-      type: string
-    timestamp:
-      description: Epoch (seconds)
-      format: double
-      readOnly: true
-      type: number
-    webhook_device_events_event_ev_type:
-      description: '(optional) event advisory. enum: `notice`, `warn`'
-      enum:
-      - notice
-      - warn
-      type: string
-    fast_roam_result:
-      description: 'enum: `fail`, `none`, `success`'
-      enum:
-      - fail
-      - none
-      - success
-      type: string
-    event_fastroam:
-      additionalProperties: false
-      properties:
-        ap_mac:
-          type: string
-        client_mac:
-          type: string
-        fromap:
-          type: string
-        latency:
-          type: number
-        ssid:
-          type: string
-        subtype:
-          type: string
-        timestamp:
-          $ref: '#/components/schemas/timestamp'
-        type:
-          $ref: '#/components/schemas/event_fastroam_type'
-      required:
-      - latency
-      - ssid
-      - timestamp
-      - ap_mac
-      - fromap
-      - client_mac
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    event_fastroam_type:
-      description: 'enum: `fail`, `none`, `pingpong`, `poor`, `slow`, `success`'
-      enum:
-      - fail
-      - none
-      - pingpong
-      - poor
-      - slow
-      - success
-      type: string
-    response_count:
-      additionalProperties: false
-      properties:
-        distinct:
-          type: string
-        end:
-          type: integer
-        limit:
-          type: integer
-        results:
-          $ref: '#/components/schemas/count_results'
-        start:
-          type: integer
-        total:
-          type: integer
-      required:
-      - distinct
-      - end
-      - limit
-      - results
-      - start
-      - total
-      type: object
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
-      type: string
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    response_events_fastroam:
-      additionalProperties: false
-      properties:
-        end:
-          type: integer
-        limit:
-          type: integer
-        next:
-          description: Link to query next set of results. value is null if no next page exists.
-          type: string
-        results:
-          $ref: '#/components/schemas/response_events_fastroam_results'
-        start:
-          type: integer
-      required:
-      - start
-      - end
-      - limit
-      - results
-      type: object
-    device_events:
-      items:
-        $ref: '#/components/schemas/device_event'
-      type: array
-      uniqueItems: true
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
     response_device_events_search:
       additionalProperties: false
       properties:
@@ -561,21 +502,6 @@ components:
       - total
       type: object
   responses:
-    Count:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/CountExample'
-          schema:
-            $ref: '#/components/schemas/response_count'
-      description: Result of Count
     HTTP403:
       content:
         application/json:
@@ -591,30 +517,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    DeviceEventsSearch:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceEventsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_device_events_search'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/DeviceEventsSearchExample'
-          schema:
-            $ref: '#/components/schemas/response_device_events_search'
-      description: OK
     HTTP401:
       content:
         application/json:
@@ -630,6 +532,45 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
+    Count:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/CountExample'
+          schema:
+            $ref: '#/components/schemas/response_count'
+      description: Result of Count
+    DeviceEventsSearch:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceEventsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_device_events_search'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/DeviceEventsSearchExample'
+          schema:
+            $ref: '#/components/schemas/response_device_events_search'
+      description: OK
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     EventsFastroam:
       content:
         application/json:
@@ -675,6 +616,65 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
+  parameters:
+    end:
+      description: End time (epoch timestamp in seconds, or relative string like "-1d", "-2h", "now")
+      in: query
+      name: end
+      schema:
+        type: string
+    duration:
+      description: Duration like 7d, 2w
+      in: query
+      name: duration
+      schema:
+        default: 1d
+        examples:
+        - 10m
+        type: string
+    site_id:
+      in: path
+      name: site_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    start:
+      description: Start time (epoch timestamp in seconds, or relative string like "-1d", "-1w")
+      in: query
+      name: start
+      schema:
+        type: string
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    search_after:
+      description: Pagination cursor for retrieving subsequent pages of results. This value is automatically populated by Mist in the `next` URL from the previous response and should not be manually constructed.
+      in: query
+      name: search_after
+      schema:
+        type: string
+    sort:
+      description: On which field the list should be sorted, -prefix represents DESC order
+      in: query
+      name: sort
+      schema:
+        default: timestamp
+        examples:
+        - -site_id
+        type: string
+    system_event_type:
+      description: See [List Device Events Definitions](/#operations/listDeviceEventsDefinitions)
+      in: query
+      name: type
+      schema:
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

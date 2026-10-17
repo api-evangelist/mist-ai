@@ -86,44 +86,43 @@ paths:
       tags:
       - Sites Service Policies
 components:
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+    ServicePoliciesArrayExample:
+      value:
+      - action: allow
+        created_time: 0
+        id: string
+        modified_time: 0
+        name: string
+        org_id: string
+        services:
+        - string
+        tenants:
+        - string
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
   schemas:
-    ssl_proxy_ciphers_category:
-      default: strong
-      description: 'enum: `medium`, `strong`, `weak`'
-      enum:
-      - medium
-      - strong
-      - weak
+    org_id:
+      examples:
+      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
+      format: uuid
+      readOnly: true
       type: string
-    service_policy_ewf:
+    strings:
       items:
-        $ref: '#/components/schemas/service_policy_ewf_rule'
+        type: string
       type: array
-    service_policy_secintel_profile:
-      default: default
-      description: 'enum: `default`, `standard`, `strict`'
-      enum:
-      - default
-      - standard
-      - strict
-      type: string
-    org_service_policies:
-      items:
-        $ref: '#/components/schemas/org_service_policy'
-      type: array
-    service_policy_secintel:
-      additionalProperties: false
-      description: SRX only
-      properties:
-        enabled:
-          default: false
-          type: boolean
-        profile:
-          $ref: '#/components/schemas/service_policy_secintel_profile'
-        secintelprofile_id:
-          description: org-level secintel Profile can be used, this takes precedence over 'profile'
-          type: string
-      type: object
+      uniqueItems: true
     response_http401:
       additionalProperties: false
       properties:
@@ -132,16 +131,6 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    modified_time:
-      description: When the object has been modified for the last time, in epoch
-      format: double
-      readOnly: true
-      type: number
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
     service_policy_aamw:
       additionalProperties: false
       description: SRX only
@@ -156,11 +145,13 @@ components:
         profile:
           $ref: '#/components/schemas/service_policy_aamw_profile'
       type: object
-    response_http404:
+    service_policy_appqoe:
       additionalProperties: false
+      description: SRX only
       properties:
-        id:
-          type: string
+        enabled:
+          default: false
+          type: boolean
       type: object
     service_policy_antivirus:
       additionalProperties: false
@@ -177,6 +168,25 @@ components:
           description: Default / noftp / httponly / or keys from av_profiles
           type: string
       type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    service_policy_ewf:
+      items:
+        $ref: '#/components/schemas/service_policy_ewf_rule'
+      type: array
+    id:
+      description: Unique ID of the object instance in the Mist Organization
+      examples:
+      - 53f10664-3ce8-4c27-b382-0ef66432349f
+      format: uuid
+      readOnly: true
+      type: string
     org_service_policy:
       properties:
         aamw:
@@ -216,16 +226,6 @@ components:
         tenants:
           $ref: '#/components/schemas/strings'
       type: object
-    service_policy_ssl_proxy:
-      additionalProperties: false
-      description: For SRX-only
-      properties:
-        ciphers_category:
-          $ref: '#/components/schemas/ssl_proxy_ciphers_category'
-        enabled:
-          default: false
-          type: boolean
-      type: object
     response_http400:
       additionalProperties: false
       properties:
@@ -233,53 +233,6 @@ components:
           examples:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
-      type: object
-    service_policy_ewf_rule_profile:
-      default: strict
-      description: 'enum: `critical`, `standard`, `strict`'
-      enum:
-      - critical
-      - standard
-      - strict
-      type: string
-    service_policy_aamw_profile:
-      default: standard
-      description: 'enum: `docsonly`, `executables`, `standard`'
-      enum:
-      - docsonly
-      - executables
-      - standard
-      type: string
-    service_policy_appqoe:
-      additionalProperties: false
-      description: SRX only
-      properties:
-        enabled:
-          default: false
-          type: boolean
-      type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    service_policy_ewf_rule:
-      additionalProperties: false
-      properties:
-        alert_only:
-          type: boolean
-        block_message:
-          examples:
-          - Access to this URL Category has been blocked
-          type: string
-        enabled:
-          default: false
-          type: boolean
-        profile:
-          $ref: '#/components/schemas/service_policy_ewf_rule_profile'
       type: object
     idp_config:
       additionalProperties: false
@@ -300,37 +253,109 @@ components:
           description: 'enum: `Custom`, `strict` (default), `standard` or keys from idp_profiles'
           type: string
       type: object
+    service_policy_secintel_profile:
+      default: default
+      description: 'enum: `default`, `standard`, `strict`'
+      enum:
+      - default
+      - standard
+      - strict
+      type: string
+    service_policy_ssl_proxy:
+      additionalProperties: false
+      description: For SRX-only
+      properties:
+        ciphers_category:
+          $ref: '#/components/schemas/ssl_proxy_ciphers_category'
+        enabled:
+          default: false
+          type: boolean
+      type: object
+    service_policy_ewf_rule_profile:
+      default: strict
+      description: 'enum: `critical`, `standard`, `strict`'
+      enum:
+      - critical
+      - standard
+      - strict
+      type: string
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    org_service_policies:
+      items:
+        $ref: '#/components/schemas/org_service_policy'
+      type: array
     allow_deny:
       description: 'enum: `allow`, `deny`'
       enum:
       - allow
       - deny
       type: string
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
+    service_policy_secintel:
+      additionalProperties: false
+      description: SRX only
+      properties:
+        enabled:
+          default: false
+          type: boolean
+        profile:
+          $ref: '#/components/schemas/service_policy_secintel_profile'
+        secintelprofile_id:
+          description: org-level secintel Profile can be used, this takes precedence over 'profile'
+          type: string
+      type: object
+    modified_time:
+      description: When the object has been modified for the last time, in epoch
+      format: double
+      readOnly: true
+      type: number
+    ssl_proxy_ciphers_category:
+      default: strong
+      description: 'enum: `medium`, `strong`, `weak`'
+      enum:
+      - medium
+      - strong
+      - weak
+      type: string
     created_time:
       description: When the object has been created, in epoch
       format: double
       readOnly: true
       type: number
-    id:
-      description: Unique ID of the object instance in the Mist Organization
-      examples:
-      - 53f10664-3ce8-4c27-b382-0ef66432349f
-      format: uuid
-      readOnly: true
+    service_policy_aamw_profile:
+      default: standard
+      description: 'enum: `docsonly`, `executables`, `standard`'
+      enum:
+      - docsonly
+      - executables
+      - standard
       type: string
-    org_id:
-      examples:
-      - a97c1b22-a4e9-411e-9bfd-d8695a0f9e61
-      format: uuid
-      readOnly: true
-      type: string
-    response_http403:
+    service_policy_ewf_rule:
       additionalProperties: false
       properties:
-        detail:
+        alert_only:
+          type: boolean
+        block_message:
           examples:
-          - You do not have permission to perform this action.
+          - Access to this URL Category has been blocked
           type: string
+        enabled:
+          default: false
+          type: boolean
+        profile:
+          $ref: '#/components/schemas/service_policy_ewf_rule_profile'
       type: object
   responses:
     HTTP403:
@@ -348,30 +373,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
-    HTTP401:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP401Example'
-          schema:
-            $ref: '#/components/schemas/response_http401'
-      description: Unauthorized
     ServicePoliciesArray:
       content:
         application/json:
@@ -387,21 +388,30 @@ components:
           schema:
             $ref: '#/components/schemas/org_service_policies'
       description: Example response
-    HTTP429:
+    HTTP401:
       content:
         application/json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP429Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
+            $ref: '#/components/schemas/response_http401'
         application/vnd.api+json:
           examples:
             Example:
-              $ref: '#/components/examples/HTTP429Example'
+              $ref: '#/components/examples/HTTP401Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+            $ref: '#/components/schemas/response_http401'
+      description: Unauthorized
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP400:
       content:
         application/json:
@@ -417,31 +427,21 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-  examples:
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    ServicePoliciesArrayExample:
-      value:
-      - action: allow
-        created_time: 0
-        id: string
-        modified_time: 0
-        name: string
-        org_id: string
-        services:
-        - string
-        tenants:
-        - string
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   parameters:
     site_id:
       in: path

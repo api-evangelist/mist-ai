@@ -135,6 +135,10 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
+    response_auto_zone_zones:
+      items:
+        $ref: '#/components/schemas/response_auto_zone_zone'
+      type: array
     response_auto_zone_zone_vertex:
       additionalProperties: false
       properties:
@@ -147,15 +151,14 @@ components:
           - 42
           type: integer
       type: object
-    response_auto_zone_zone_vertices:
-      description: A list of of points comprising the zones map location in pixels
-      items:
-        $ref: '#/components/schemas/response_auto_zone_zone_vertex'
-      type: array
-    response_auto_zone_zones:
-      items:
-        $ref: '#/components/schemas/response_auto_zone_zone'
-      type: array
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
     response_auto_zone:
       additionalProperties: false
       properties:
@@ -163,12 +166,6 @@ components:
           $ref: '#/components/schemas/response_auto_zone_status'
         zones:
           $ref: '#/components/schemas/response_auto_zone_zones'
-      type: object
-    response_http404:
-      additionalProperties: false
-      properties:
-        id:
-          type: string
       type: object
     response_http400:
       additionalProperties: false
@@ -178,12 +175,23 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
+    response_auto_zone_zone_vertices:
+      description: A list of of points comprising the zones map location in pixels
+      items:
+        $ref: '#/components/schemas/response_auto_zone_zone_vertex'
+      type: array
     response_http429:
       additionalProperties: false
       properties:
         detail:
           examples:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
           type: string
       type: object
     response_auto_zone_zone:
@@ -198,14 +206,43 @@ components:
         vertices:
           $ref: '#/components/schemas/response_auto_zone_zone_vertices'
       type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    AutoZoneStatusExample:
+      value:
+        status: awaiting_review
+        zones:
+        - name: zone1
+          vertices:
+          - x: 0
+            y: 0
+          - x: 0
+            y: 10
+          - x: 10
+            y: 10
+          - x: 10
+            y: 0
+        - name: zone2
+          vertices:
+          - x: 0
+            y: 0
+          - x: 0
+            y: 20
+          - x: 20
+            y: 20
+          - x: 20
+            y: 0
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
   responses:
     HTTP403:
       content:
@@ -237,17 +274,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_auto_zone'
       description: Status of Auto-Zone request
-    OK:
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP401:
       content:
         application/json:
@@ -263,6 +289,17 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    OK:
+      description: OK
     HTTP429:
       content:
         application/json:
@@ -293,56 +330,19 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-  examples:
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    AutoZoneStatusExample:
-      value:
-        status: awaiting_review
-        zones:
-        - name: zone1
-          vertices:
-          - x: 0
-            y: 0
-          - x: 0
-            y: 10
-          - x: 10
-            y: 10
-          - x: 10
-            y: 0
-        - name: zone2
-          vertices:
-          - x: 0
-            y: 0
-          - x: 0
-            y: 20
-          - x: 20
-            y: 20
-          - x: 20
-            y: 0
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   parameters:
-    site_id:
+    map_id:
       in: path
-      name: site_id
+      name: map_id
       required: true
       schema:
         examples:
         - 000000ab-00ab-00ab-00ab-0000000000ab
         format: uuid
         type: string
-    map_id:
+    site_id:
       in: path
-      name: map_id
+      name: site_id
       required: true
       schema:
         examples:

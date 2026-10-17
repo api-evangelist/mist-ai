@@ -131,7 +131,33 @@ paths:
       tags:
       - Sites Devices - WAN Cluster
 components:
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    GatewayClusterGatewayCluster:
+      value:
+        nodes:
+        - mac: aff827549235
+        - mac: 8396cd006c8c
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
   schemas:
+    gateway_cluster_nodes:
+      description: When replacing a node, either mac has to remain the same as existing cluster
+      items:
+        $ref: '#/components/schemas/gateway_cluster_node'
+      maxItems: 2
+      minItems: 1
+      type: array
+      uniqueItems: true
     response_http401:
       additionalProperties: false
       properties:
@@ -149,10 +175,12 @@ components:
       required:
       - mac
       type: object
-    response_http404:
+    response_http403:
       additionalProperties: false
       properties:
-        id:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
           type: string
       type: object
     response_http400:
@@ -163,14 +191,6 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    gateway_cluster_nodes:
-      description: When replacing a node, either mac has to remain the same as existing cluster
-      items:
-        $ref: '#/components/schemas/gateway_cluster_node'
-      maxItems: 2
-      minItems: 1
-      type: array
-      uniqueItems: true
     response_http429:
       additionalProperties: false
       properties:
@@ -179,20 +199,18 @@ components:
           - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
     gateway_cluster:
       properties:
         nodes:
           $ref: '#/components/schemas/gateway_cluster_nodes'
       required:
       - nodes
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
       type: object
   responses:
     HTTP403:
@@ -210,17 +228,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    OK:
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP401:
       content:
         application/json:
@@ -236,21 +243,15 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
-    HTTP429:
+    HTTP404:
       content:
         application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
+            $ref: '#/components/schemas/response_http404'
         application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP429Example'
           schema:
-            $ref: '#/components/schemas/response_http429'
-      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     GatewayCluster:
       content:
         application/json:
@@ -266,6 +267,23 @@ components:
           schema:
             $ref: '#/components/schemas/gateway_cluster'
       description: Ok
+    OK:
+      description: OK
+    HTTP429:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP429Example'
+          schema:
+            $ref: '#/components/schemas/response_http429'
+      description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
     HTTP400:
       content:
         application/json:
@@ -281,24 +299,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-  examples:
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    GatewayClusterGatewayCluster:
-      value:
-        nodes:
-        - mac: aff827549235
-        - mac: 8396cd006c8c
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
   parameters:
     device_id:
       in: path

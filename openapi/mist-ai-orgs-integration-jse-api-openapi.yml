@@ -162,25 +162,62 @@ paths:
       - Orgs Integration JSE
 components:
   examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
     JseInfoExample:
       value:
         cloud_name: devcentral.juniperclouds.net
         org_names:
         - Mist-Sys
         - Mist-Eng
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
   schemas:
+    strings:
+      items:
+        type: string
+      type: array
+      uniqueItems: true
+    response_http401:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Authentication credentials were not provided.
+          type: string
+      type: object
+    response_http403:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
+          type: string
+      type: object
+    response_http400:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
+          type: string
+      type: object
+    response_http429:
+      additionalProperties: false
+      properties:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+          type: string
+      type: object
     account_jse_info:
       additionalProperties: false
       properties:
@@ -195,31 +232,10 @@ components:
           - john@abc.com
           type: string
       type: object
-    response_http401:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Authentication credentials were not provided.
-          type: string
-      type: object
-    strings:
-      items:
-        type: string
-      type: array
-      uniqueItems: true
     response_http404:
       additionalProperties: false
       properties:
         id:
-          type: string
-      type: object
-    response_http400:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
     account_jse_config:
@@ -241,22 +257,6 @@ components:
       - username
       - password
       type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
-    response_http403:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - You do not have permission to perform this action.
-          type: string
-      type: object
   responses:
     HTTP403:
       content:
@@ -273,26 +273,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    AccountJseInfo:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/account_jse_info'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/account_jse_info'
-      description: OK
-    OK:
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP401:
       content:
         application/json:
@@ -308,6 +288,26 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    AccountJseInfo:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/account_jse_info'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/account_jse_info'
+      description: OK
+    OK:
+      description: OK
     HTTP429:
       content:
         application/json:

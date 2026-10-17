@@ -188,39 +188,31 @@ paths:
       tags:
       - Orgs SecIntel Profiles
 components:
-  parameters:
-    limit:
-      in: query
-      name: limit
-      schema:
-        default: 100
-        minimum: 0
-        type: integer
-    org_id:
-      in: path
-      name: org_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
-    page:
-      in: query
-      name: page
-      schema:
-        default: 1
-        minimum: 1
-        type: integer
-    secintelprofile_id:
-      in: path
-      name: secintelprofile_id
-      required: true
-      schema:
-        examples:
-        - 000000ab-00ab-00ab-00ab-0000000000ab
-        format: uuid
-        type: string
+  examples:
+    HTTP403Example:
+      value:
+        detail: You do not have permission to perform this action.
+    SecIntelProfilesArrayExample:
+      value:
+      - name: secintel-custom
+        profiles:
+        - action: default
+          category: CC
+    HTTP429Example:
+      value:
+        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    SecIntelProfileExample:
+      value:
+        name: secintel-custom
+        profiles:
+        - action: default
+          category: CC
+    HTTP401Example:
+      value:
+        detail: Authentication credentials were not provided.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
   schemas:
     response_http401:
       additionalProperties: false
@@ -230,23 +222,31 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    secintel_profile:
-      properties:
-        name:
-          examples:
-          - secintel-custom
-          type: string
-        profiles:
-          $ref: '#/components/schemas/secintel_profile_profiles'
-      type: object
+    secintel_profile_profile_action:
+      default: default
+      description: 'enum: `default`, `standard`, `strict`'
+      enum:
+      - default
+      - standard
+      - strict
+      type: string
+    secintel_profile_profile_category:
+      description: 'enum: `CC`, `IH` (Infected Host), `DNS`'
+      enum:
+      - CC
+      - DNS
+      - IH
+      type: string
     secintel_profile_profiles:
       items:
         $ref: '#/components/schemas/secintel_profile_profile'
       type: array
-    response_http404:
+    response_http403:
       additionalProperties: false
       properties:
-        id:
+        detail:
+          examples:
+          - You do not have permission to perform this action.
           type: string
       type: object
     response_http400:
@@ -257,21 +257,6 @@ components:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
           type: string
       type: object
-    secintel_profile_profile_category:
-      description: 'enum: `CC`, `IH` (Infected Host), `DNS`'
-      enum:
-      - CC
-      - DNS
-      - IH
-      type: string
-    secintel_profile_profile_action:
-      default: default
-      description: 'enum: `default`, `standard`, `strict`'
-      enum:
-      - default
-      - standard
-      - strict
-      type: string
     response_http429:
       additionalProperties: false
       properties:
@@ -284,6 +269,12 @@ components:
       items:
         $ref: '#/components/schemas/secintel_profile'
       type: array
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
     secintel_profile_profile:
       additionalProperties: false
       properties:
@@ -292,13 +283,14 @@ components:
         category:
           $ref: '#/components/schemas/secintel_profile_profile_category'
       type: object
-    response_http403:
-      additionalProperties: false
+    secintel_profile:
       properties:
-        detail:
+        name:
           examples:
-          - You do not have permission to perform this action.
+          - secintel-custom
           type: string
+        profiles:
+          $ref: '#/components/schemas/secintel_profile_profiles'
       type: object
   responses:
     HTTP403:
@@ -316,17 +308,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http403'
       description: Permission Denied
-    OK:
-      description: OK
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     SecIntelProfilesArray:
       content:
         application/json:
@@ -341,21 +322,6 @@ components:
               $ref: '#/components/examples/SecIntelProfilesArrayExample'
           schema:
             $ref: '#/components/schemas/secintel_profiles'
-      description: Example response
-    SecIntelProfile:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SecIntelProfileExample'
-          schema:
-            $ref: '#/components/schemas/secintel_profile'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/SecIntelProfileExample'
-          schema:
-            $ref: '#/components/schemas/secintel_profile'
       description: Example response
     HTTP401:
       content:
@@ -372,6 +338,32 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
+    SecIntelProfile:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SecIntelProfileExample'
+          schema:
+            $ref: '#/components/schemas/secintel_profile'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/SecIntelProfileExample'
+          schema:
+            $ref: '#/components/schemas/secintel_profile'
+      description: Example response
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
+    OK:
+      description: OK
     HTTP429:
       content:
         application/json:
@@ -402,31 +394,39 @@ components:
           schema:
             $ref: '#/components/schemas/response_http400'
       description: Bad Syntax
-  examples:
-    HTTP403Example:
-      value:
-        detail: You do not have permission to perform this action.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-    SecIntelProfilesArrayExample:
-      value:
-      - name: secintel-custom
-        profiles:
-        - action: default
-          category: CC
-    SecIntelProfileExample:
-      value:
-        name: secintel-custom
-        profiles:
-        - action: default
-          category: CC
-    HTTP401Example:
-      value:
-        detail: Authentication credentials were not provided.
-    HTTP429Example:
-      value:
-        detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+  parameters:
+    limit:
+      in: query
+      name: limit
+      schema:
+        default: 100
+        minimum: 0
+        type: integer
+    secintelprofile_id:
+      in: path
+      name: secintelprofile_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
+    page:
+      in: query
+      name: page
+      schema:
+        default: 1
+        minimum: 1
+        type: integer
+    org_id:
+      in: path
+      name: org_id
+      required: true
+      schema:
+        examples:
+        - 000000ab-00ab-00ab-00ab-0000000000ab
+        format: uuid
+        type: string
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."

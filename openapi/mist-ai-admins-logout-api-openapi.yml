@@ -78,19 +78,25 @@ paths:
       - Admins Logout
 components:
   schemas:
+    response_logout:
+      additionalProperties: false
+      properties:
+        forward_url:
+          description: If configured in SSO as custom_logout_url
+          type: string
+      type: object
+    response_http404:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+      type: object
     response_http400:
       additionalProperties: false
       properties:
         detail:
           examples:
           - 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
-          type: string
-      type: object
-    response_logout:
-      additionalProperties: false
-      properties:
-        forward_url:
-          description: If configured in SSO as custom_logout_url
           type: string
       type: object
     response_http401:
@@ -101,10 +107,12 @@ components:
           - Authentication credentials were not provided.
           type: string
       type: object
-    response_http404:
+    response_http429:
       additionalProperties: false
       properties:
-        id:
+        detail:
+          examples:
+          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
           type: string
       type: object
     response_http403:
@@ -115,27 +123,19 @@ components:
           - You do not have permission to perform this action.
           type: string
       type: object
-    response_http429:
-      additionalProperties: false
-      properties:
-        detail:
-          examples:
-          - Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
-          type: string
-      type: object
   examples:
     HTTP403Example:
       value:
         detail: You do not have permission to perform this action.
+    HTTP400Example:
+      value:
+        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     LogoutExample:
       value:
         forward_url: https://my.sso/custom_logout_url
     HTTP401Example:
       value:
         detail: Authentication credentials were not provided.
-    HTTP400Example:
-      value:
-        detail: 'JSON parse error - Expecting value: line 5 column 8 (char 56)'
     HTTP429Example:
       value:
         detail: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
@@ -155,6 +155,30 @@ components:
           schema:
             $ref: '#/components/schemas/response_http429'
       description: Too Many Request. The API Token used for the request reached the 5000 API Calls per hour threshold
+    HTTP403:
+      content:
+        application/json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+        application/vnd.api+json:
+          examples:
+            Example:
+              $ref: '#/components/examples/HTTP403Example'
+          schema:
+            $ref: '#/components/schemas/response_http403'
+      description: Permission Denied
+    HTTP404:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/response_http404'
+      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP401:
       content:
         application/json:
@@ -170,15 +194,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_http401'
       description: Unauthorized
-    HTTP404:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/response_http404'
-      description: Not found. The API endpoint doesn’t exist or resource doesn’ t exist
     HTTP400:
       content:
         application/json:
@@ -209,21 +224,6 @@ components:
           schema:
             $ref: '#/components/schemas/response_logout'
       description: OK
-    HTTP403:
-      content:
-        application/json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-        application/vnd.api+json:
-          examples:
-            Example:
-              $ref: '#/components/examples/HTTP403Example'
-          schema:
-            $ref: '#/components/schemas/response_http403'
-      description: Permission Denied
   securitySchemes:
     apiToken:
       description: "Like many other API providers, it’s also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with equal or less privileges.\n\n**Format**:\n  API Token value format is `Token {apitoken}`\n\n**Notes**:\n* an API token generated for a specific admin has the same privilege as the user\n* an API token will be automatically removed if not used for > 90 days\n* SSO admins cannot generate these API tokens. Refer Org level API tokens which can have privileges of a specific Org/Site for more information."
