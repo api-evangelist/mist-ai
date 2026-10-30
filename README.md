@@ -1,4 +1,4 @@
-# Juniper Mist AI (mist-ai)
+# Juniper Mist AI
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,160 +66,341 @@
 
 Juniper Mist AI is the AI-driven enterprise networking platform that powers Juniper Networks' AI-Native Networking portfolio. Acquired by Juniper Networks in 2019, Mist pioneered cloud-native, microservices Wi-Fi and extended its AIOps approach across Wired Assurance (EX/QFX switches), WAN Assurance (SSR/SRX gateways), and Access Assurance (cloud NAC). The platform is anchored by Marvis — a conversational virtual network assistant — and the Mist Cloud API, an OpenAPI 3.1 surface of 736 paths and 2832 schemas served across 13 regional clouds (Global, EMEA, APAC, Federal). Real-time event flow ships over WebSocket subscriptions and outbound Webhooks; infrastructure-as-code is supported by an official Terraform provider; and indoor location is delivered through Virtual BLE with native iOS and Android SDKs.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/mist-ai/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/mist-ai/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · AIOps · Networking · Wi-Fi · Wireless LAN · WAN · SD-WAN · Wired · LAN · Access Points · Switches · Router
 
-## Scope
+## Juniper Mist AI on APIs.io
 
-- **Position:** Consuming
-- **Access:** 3rd-Party
+Everything profiled for Juniper Mist AI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/mist-ai/](https://apis.io/providers/mist-ai/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (212)
 
-- AI
-- AIOps
-- Artificial Intelligence
-- Networking
-- Wi-Fi
-- Wireless LAN
-- WAN
-- SD-WAN
-- Wired
-- LAN
-- Access Points
-- Switches
-- Routers
-- Marvis
-- NAC
-- Access Assurance
-- Location Services
-- Bluetooth LE
-- Indoor Location
-- Cloud Networking
-- Microservices
-- Enterprise Networking
-- AI Native Networking
+- [Juniper Mist WebSocket Streaming API](https://apis.io/apis/mist-ai/juniper-mist-websocket-streaming/) — Mist exposes a WebSocket channel for real-time event subscriptions including device events, location updates, presence, RSSI, stats, and Marvis events.…
+- [Juniper Mist Webhooks API](https://apis.io/apis/mist-ai/juniper-mist-webhooks/) — Mist Webhooks deliver outbound HTTP POST notifications for events at the Organization or Site scope. Supported topics include audits, alarms, device events,…
+- [Juniper Mist AI Admins API](https://apis.io/apis/mist-ai/mist-ai-admins-api/) — Admin API calls can be used to create, manage or authenticate Mist administrators. To register administrators into an existing MSP account or Organization,…
+- [Juniper Mist AI Admins Login API](https://apis.io/apis/mist-ai/mist-ai-admins-login-api/) — Login Endpoints when using Login/Password authentication, with or without 2FA. If the Login/Password authentication is successful, Mist will add a…
+- [Juniper Mist AI Admins Login - OAuth2 API](https://apis.io/apis/mist-ai/mist-ai-admins-login-oauth2-api/) — A Mist account can be linked to OAuth2 providers: 1. First, login with your Mist account 2. Obtain the Authorization URL for Linking with [Get Oauth 2…
+- [Juniper Mist AI Admins Logout API](https://apis.io/apis/mist-ai/mist-ai-admins-logout-api/) — Logout Endpoints when using Login/Password authentication, with or without 2FA.
+- [Juniper Mist AI Admins Lookup API](https://apis.io/apis/mist-ai/mist-ai-admins-lookup-api/) — Admin Lookup API Call is mainly used by Web UIs to know if a user must be redirected to an SSO URL for login.
+- [Juniper Mist AI Admins Recover Password API](https://apis.io/apis/mist-ai/mist-ai-admins-recover-password-api/) — Endpoints used to trigger a password recovery and validate the token sent by email.
+- [Juniper Mist AI Constants Definitions API](https://apis.io/apis/mist-ai/mist-ai-constants-definitions-api/) — API Calls to retrieve constant values that can be used in different parts of the configuration
+- [Juniper Mist AI Constants Events API](https://apis.io/apis/mist-ai/mist-ai-constants-events-api/) — API Calls to retrieve the definitions of the Mist events. These definitions are providing example of the Webhook payloads
+- [Juniper Mist AI Constants Models API](https://apis.io/apis/mist-ai/mist-ai-constants-models-api/) — API Calls to retrieve the list of Hardware Models and their features
+- [Juniper Mist AI Installer API](https://apis.io/apis/mist-ai/mist-ai-installer-api/) — In a typical enterprise, a separate group of people, Installers, are responsible for install new devices. May it be a new installation (e.g. new stores), a…
+- [Juniper Mist AI MSPs Admins API](https://apis.io/apis/mist-ai/mist-ai-msps-admins-api/) — An MSP Admin refers to a user who has access to the Juniper Mist managed service provider (MSP) portal and is responsible for managing and administering the…
+- [Juniper Mist AI MSPs API](https://apis.io/apis/mist-ai/mist-ai-msps-api/) — MSP (Managed Service Provider) contains multiple Organizations.
+- [Juniper Mist AI MSPs Inventory API](https://apis.io/apis/mist-ai/mist-ai-msps-inventory-api/) — API Calls to locate a device across all the Organizations attached to the MSP account.
+- [Juniper Mist AI MSPs Licenses API](https://apis.io/apis/mist-ai/mist-ai-msps-licenses-api/) — Licenses are a type of service or access that customers can purchase for various features or services offered by a company. Subscriptions can have different…
+- [Juniper Mist AI MSPs Logo API](https://apis.io/apis/mist-ai/mist-ai-msps-logo-api/) — Manage the Mist portal logo at the MSP level. This logo will be displayed instead of the Juniper Mist Logo for all the Organizations attached to this MSP…
+- [Juniper Mist AI MSPs Logs API](https://apis.io/apis/mist-ai/mist-ai-msps-logs-api/) — Audit Logs are records of activities initiated by users, providing a history of actions such as accessing, creating, updating, or deleting resources or…
+- [Juniper Mist AI MSPs Marvis API](https://apis.io/apis/mist-ai/mist-ai-msps-marvis-api/) — Marvis is an AI-driven, interactive virtual network assistant that streamlines network operations, simplifies troubleshooting, and provides an enhanced user…
+- [Juniper Mist AI MSPs Org Groups API](https://apis.io/apis/mist-ai/mist-ai-msps-org-groups-api/) — Org Groups a way to group Organizations together based on certain criteria. They can be used for easier management and organization of multiple…
+- [Juniper Mist AI MSPs Orgs API](https://apis.io/apis/mist-ai/mist-ai-msps-orgs-api/) — An organization usually represents a customer - which has inventories, licenses. An Organization can contain multiple sites. A site usually represents a…
+- [Juniper Mist AI MSPs SLEs API](https://apis.io/apis/mist-ai/mist-ai-msps-sles-api/) — SLEs, or Service-Level Expectations, are metrics used to monitor and report on the user experience of a Wireless, Wired or Wan network. They are generated…
+- [Juniper Mist AI MSPs SSO API](https://apis.io/apis/mist-ai/mist-ai-msps-sso-api/) — MSP SSO, or Single Sign-On, is a method of authentication that allows users to securely log in to multiple applications and websites with a single set of…
+- [Juniper Mist AI MSPs SSO Roles API](https://apis.io/apis/mist-ai/mist-ai-msps-sso-roles-api/) — MSP SSO roles refer to the different functions assigned to users within a Single Sign-On (SSO) system. These roles determine the tasks and actions that…
+- [Juniper Mist AI MSPs Tickets API](https://apis.io/apis/mist-ai/mist-ai-msps-tickets-api/) — Support tickets are a means for users to seek assistance and resolve issues they encounter with a product or service. They allow users to communicate their…
+- [Juniper Mist AI Orgs Admins API](https://apis.io/apis/mist-ai/mist-ai-orgs-admins-api/) — An org admin, or organization administrator, is a user with administrative privileges within a specific organization. They have the authority to manage and…
+- [Juniper Mist AI Orgs Advanced Anti Malware Profiles API](https://apis.io/apis/mist-ai/mist-ai-orgs-advanced-anti-malware-profiles-api/) — The "Advanced Anti-Malware" feature in Sky ATP is a comprehensive security solution that leverages multiple techniques to detect and prevent malware…
+- [Juniper Mist AI Orgs Alarm Templates API](https://apis.io/apis/mist-ai/mist-ai-orgs-alarm-templates-api/) — An Alarm Template is a set of Alarm Rules that could be applied to one or more sites (while each site can only pick one Alarm Template), or to the whole…
+- [Juniper Mist AI Orgs Alarms API](https://apis.io/apis/mist-ai/mist-ai-orgs-alarms-api/) — Alarms are triggered based on certain events. Alarms could be configured using an Alarm Template.
+- [Juniper Mist AI Orgs Antivirus Profiles API](https://apis.io/apis/mist-ai/mist-ai-orgs-antivirus-profiles-api/) — Antivirus profiles are used to define the content to scan for any malware and the action to be taken when malware is detected. These profiles can be…
+- [Juniper Mist AI Orgs AP Templates API](https://apis.io/apis/mist-ai/mist-ai-orgs-ap-templates-api/) — AP Templates are defining Wi-Fi and AP settings that can be assigned to Access Points based on different types of rules. AP Templates must be assigned to…
+- [Juniper Mist AI Orgs API](https://apis.io/apis/mist-ai/mist-ai-orgs-api/) — An organization usually represents a customer - which has inventories, licenses. An Organization can contain multiple sites. A site usually represents a…
+- [Juniper Mist AI Orgs API Tokens API](https://apis.io/apis/mist-ai/mist-ai-orgs-api-tokens-api/) — Org API token is a unique identifier used by an application to authenticate and access a service's API. These tokens are used to authenticate requests made…
+- [Juniper Mist AI Orgs Asset Filters API](https://apis.io/apis/mist-ai/mist-ai-orgs-asset-filters-api/) — An Asset Filter is a feature that allows users to define specific criteria or conditions to filter and display only certain assets based on their attributes…
+- [Juniper Mist AI Orgs Assets API](https://apis.io/apis/mist-ai/mist-ai-orgs-assets-api/) — An Asset refers to any equipment or item that is being tracked and monitored using Bluetooth Low Energy (BLE) beacon tags. This requires the Asset…
+- [Juniper Mist AI Orgs Cert API](https://apis.io/apis/mist-ai/mist-ai-orgs-cert-api/) — API Calls to manage Organization Certificates. The certificates can be used bu Access Assurance, during the SSO/SAML Authentication, ...
+- [Juniper Mist AI Orgs Clients - Marvis API](https://apis.io/apis/mist-ai/mist-ai-orgs-clients-marvis-api/) — Marvis Invites can be generated for (and belongs to) an Org. They can be generated by an Admin of an Org and can be revoked at anytime. Marvis Clients are…
+- [Juniper Mist AI Orgs Clients - NAC API](https://apis.io/apis/mist-ai/mist-ai-orgs-clients-nac-api/) — NAC Clients are devices connected to the network and authenticated by Juniper Mist Access Assurance.
+- [Juniper Mist AI Orgs Clients - SDK API](https://apis.io/apis/mist-ai/mist-ai-orgs-clients-sdk-api/) — SDK Clients are devices that have installed an application using the Mist Software Development Kit (SDK). These clients can provide specific data and…
+- [Juniper Mist AI Orgs Clients - Wan API](https://apis.io/apis/mist-ai/mist-ai-orgs-clients-wan-api/) — WAN Clients are devices connected to a Juniper SRX or SSX gateway monitor or managed by Mist
+- [Juniper Mist AI Orgs Clients - Wired API](https://apis.io/apis/mist-ai/mist-ai-orgs-clients-wired-api/) — Wired Clients are Wired devices connected to a Juniper switch monitored or managed by Mist.
+- [Juniper Mist AI Orgs Clients - Wireless API](https://apis.io/apis/mist-ai/mist-ai-orgs-clients-wireless-api/) — Wireless Clients are Wi-Fi devices connected to a Juniper Mist Access Point.
+- [Juniper Mist AI Orgs CRL API](https://apis.io/apis/mist-ai/mist-ai-orgs-crl-api/) — CRLs, or Certificate Revocation Lists, are time-stamped lists that identify digital certificates that have been invalidated before their expiration date.…
+- [Juniper Mist AI Orgs Device Profiles API](https://apis.io/apis/mist-ai/mist-ai-orgs-device-profiles-api/) — While Templates / RF Templates / Network Templates / Gateway Templates provides powerful ways to control how a Device\'s configuration is derived for a…
+- [Juniper Mist AI Orgs Devices - AOS API](https://apis.io/apis/mist-ai/mist-ai-orgs-devices-aos-api/) — API Calls specific to AOS (Aruba Operating System) devices
+- [Juniper Mist AI Orgs Devices API](https://apis.io/apis/mist-ai/mist-ai-orgs-devices-api/) — Devices are any Network device managed or monitored by Juniper Mist. It can be * Wireless Access Points * Juniper Switch (EX, QFX) * Juniper WAN Gateway…
+- [Juniper Mist AI Orgs Devices - Others API](https://apis.io/apis/mist-ai/mist-ai-orgs-devices-others-api/) — API Call for 3rd party devices
+- [Juniper Mist AI Orgs Devices - SSR API](https://apis.io/apis/mist-ai/mist-ai-orgs-devices-ssr-api/) — API Calls specific to SSR devices
+- [Juniper Mist AI Orgs Events API](https://apis.io/apis/mist-ai/mist-ai-orgs-events-api/) — Orgs Events are all the system level changes at the org level
+- [Juniper Mist AI Orgs EVPN Topologies API](https://apis.io/apis/mist-ai/mist-ai-orgs-evpn-topologies-api/) — EVPN allows an alternative but more efficient LAN architecture utilizing VxLAN / MP-BGP - separating control plane (MAC / IP Learning) from forwarding…
+- [Juniper Mist AI Orgs Gateway Templates API](https://apis.io/apis/mist-ai/mist-ai-orgs-gateway-templates-api/) — Gateway Template is applied to a site for gateway(s) in a site. When Templates are not used, Site Setting holds settings for multiple device types and they…
+- [Juniper Mist AI Orgs Guests API](https://apis.io/apis/mist-ai/mist-ai-orgs-guests-api/) — Guests are users who are accessing the wi-fi network as a temporary or non-permanent visitor.
+- [Juniper Mist AI Orgs IDP Profiles API](https://apis.io/apis/mist-ai/mist-ai-orgs-idp-profiles-api/) — An IDP profile is a set of predefined rules and actions that determine how the Intrusion Detection and Prevention (IDP) system handles network traffic. It…
+- [Juniper Mist AI Orgs Integration Cradlepoint API](https://apis.io/apis/mist-ai/mist-ai-orgs-integration-cradlepoint-api/) — The integration between Mist and Cradlepoint allows users to utilize Cradlepoint 5G cellular adapters with Juniper's wired, wireless, and SD-WAN solutions…
+- [Juniper Mist AI Orgs Integration JSE API](https://apis.io/apis/mist-ai/mist-ai-orgs-integration-jse-api/) — JSE stands for Juniper Secure Edge and it is a feature within the Mist UI that allows customers to configure Secure Cloud Connectors. With JSE, users can…
+- [Juniper Mist AI Orgs Integration Juniper API](https://apis.io/apis/mist-ai/mist-ai-orgs-integration-juniper-api/) — The Juniper Integration can be used to synchronize Juniper Support Insights (JSI) information.
+- [Juniper Mist AI Orgs Integration SkyATP API](https://apis.io/apis/mist-ai/mist-ai-orgs-integration-skyatp-api/) — Sky Advanced Threat Prevention (Sky ATP) is a cloud-based security designed to detect and mitigate advanced threats in real-time, ensuring the security and…
+- [Juniper Mist AI Orgs Integration Zscaler API](https://apis.io/apis/mist-ai/mist-ai-orgs-integration-zscaler-api/) — In Zscaler UI: 1. add Partner Integration at https://admin.zscalerbeta.net/#administration/partner-integration 2. Add Partner Administrator Role at…
+- [Juniper Mist AI Orgs Inventory API](https://apis.io/apis/mist-ai/mist-ai-orgs-inventory-api/) — The Org Inventory allows administrators to view and manage all devices registered (claimed) to the Organization.
+- [Juniper Mist AI Orgs JSI API](https://apis.io/apis/mist-ai/mist-ai-orgs-jsi-api/) — Juniper Support Insight is a free service provided to all Mist customers. You can adopt your devices via a few lines CLI commands. Allowing you to * get…
+- [Juniper Mist AI Orgs Licenses API](https://apis.io/apis/mist-ai/mist-ai-orgs-licenses-api/) — Licenses are a type of service or access that customers can purchase for various features or services offered by a company. Subscriptions can have different…
+- [Juniper Mist AI Orgs Linked Applications API](https://apis.io/apis/mist-ai/mist-ai-orgs-linked-applications-api/) — Linked Application are Third party applications linked to the Mist Organization. This is usually using OAuth2.0 or API integrations for a Cloud-to-Cloud…
+- [Juniper Mist AI Orgs Logs API](https://apis.io/apis/mist-ai/mist-ai-orgs-logs-api/) — Audit Logs are records of activities initiated by users, providing a history of actions such as accessing, creating, updating, or deleting resources or…
+- [Juniper Mist AI Orgs Maps API](https://apis.io/apis/mist-ai/mist-ai-orgs-maps-api/) — These API Calls to import Site Maps at the Org level
+- [Juniper Mist AI Orgs Marvis API](https://apis.io/apis/mist-ai/mist-ai-orgs-marvis-api/) — Marvis is an AI-driven, interactive virtual network assistant that streamlines network operations, simplifies troubleshooting, and provides an enhanced user…
+- [Juniper Mist AI Orgs Marvis Invites API](https://apis.io/apis/mist-ai/mist-ai-orgs-marvis-invites-api/) — Marvis Clients are devices that have the Marvis Android Client installed on them and are connected to a Juniper Mist AP. They provide detailed data and…
+- [Juniper Mist AI Orgs MxClusters API](https://apis.io/apis/mist-ai/mist-ai-orgs-mxclusters-api/) — A Mist Edge Cluster (MxCluster) is a group of Juniper Mist Edge devices that are configured to work together in order to provide high availability and load…
+- [Juniper Mist AI Orgs MxEdges API](https://apis.io/apis/mist-ai/mist-ai-orgs-mxedges-api/) — A Mist Edge (MxEdge) is a physical or virtual appliance that is deployed in a network to provide centralized data path for user traffic or as a RADIUS…
+- [Juniper Mist AI Orgs MxTunnels API](https://apis.io/apis/mist-ai/mist-ai-orgs-mxtunnels-api/) — A Mist Tunnel (MxTunnel) is a configuration object that allows for the tunneling of user VLANs from the Access Points (APs) to a central point on the…
+- [Juniper Mist AI Orgs NAC CRL API](https://apis.io/apis/mist-ai/mist-ai-orgs-nac-crl-api/) — By default, Mist is automatically retrieving the PKI CRL by using the CRL Distribution Point provided by Certification Authority. In case this information…
+- [Juniper Mist AI Orgs NAC IDP API](https://apis.io/apis/mist-ai/mist-ai-orgs-nac-idp-api/) — The NAC IDP allows users to integrate with various Identity Providers (IDPs) to enhance authentication and access control. Admins can configure identity…
+- [Juniper Mist AI Orgs NAC Portals API](https://apis.io/apis/mist-ai/mist-ai-orgs-nac-portals-api/) — NAC Portals are for onboard Wireless and Wired client with 802.1X The NAC Portal is a web-based interface that allows users to authenticate and gain access…
+- [Juniper Mist AI Orgs NAC Rules API](https://apis.io/apis/mist-ai/mist-ai-orgs-nac-rules-api/) — The NAC Rules (or Auth Policies) are a set of rules that devices and users must fulfill in order to gain access to the network and use network resources.…
+- [Juniper Mist AI Orgs NAC Tags API](https://apis.io/apis/mist-ai/mist-ai-orgs-nac-tags-api/) — NAC Tags are the building blocks to compose nacrules. They can either appear in the "matching" / "not_matching" sections of a nacrule, in which case they…
+- [Juniper Mist AI Orgs Network Templates API](https://apis.io/apis/mist-ai/mist-ai-orgs-network-templates-api/) — A Network Template is a configuration template that allows for the consistent and standardized configuration of switches across an organization's network…
+- [Juniper Mist AI Orgs Networks API](https://apis.io/apis/mist-ai/mist-ai-orgs-networks-api/) — A Network refers to a group or segment of users that are defined for use across the entire organization.
+- [Juniper Mist AI Orgs Premium Analytics API](https://apis.io/apis/mist-ai/mist-ai-orgs-premium-analytics-api/) — Premium Analytics is an advanced, cloud-based analytics service offered by Juniper Mist. It provides end-to-end network observability and allows users to…
+- [Juniper Mist AI Orgs Psk Portals API](https://apis.io/apis/mist-ai/mist-ai-orgs-psk-portals-api/) — PSK Self-Service Portals are for 1. **Wi-Fi users** who want to connect to a WLAN with personal PSK, they're told to connect to a URL where they can login…
+- [Juniper Mist AI Orgs Psks API](https://apis.io/apis/mist-ai/mist-ai-orgs-psks-api/) — A multi PSK (Pre-Shared Key) is a feature that allows the use of multiple PSKs for securing network connections. It provides a simple and comprehensive way…
+- [Juniper Mist AI Orgs Reports API](https://apis.io/apis/mist-ai/mist-ai-orgs-reports-api/) — API Calls to manage organization-level reports, such as E911 AP BSSID report exports.
+- [Juniper Mist AI Orgs RF Templates API](https://apis.io/apis/mist-ai/mist-ai-orgs-rf-templates-api/) — Rf Templates are a feature in Juniper Mist wireless assurance that allow for uniform radio configurations to be applied across all sites in an organization.…
+- [Juniper Mist AI Orgs SCEP API](https://apis.io/apis/mist-ai/mist-ai-orgs-scep-api/) — The Orgs SCEP API from Juniper Mist AI — 3 operation(s) for orgs scep.
+- [Juniper Mist AI Orgs SDK Invites API](https://apis.io/apis/mist-ai/mist-ai-orgs-sdk-invites-api/) — SDK Invites can be generated for (and belongs to) an Org. They can be generated by an Admin of an Org and can be revoked at anytime.
+- [Juniper Mist AI Orgs SDK Templates API](https://apis.io/apis/mist-ai/mist-ai-orgs-sdk-templates-api/) — The Orgs SDK Templates API from Juniper Mist AI — 2 operation(s) for orgs sdk templates.
+- [Juniper Mist AI Orgs SecIntel Profiles API](https://apis.io/apis/mist-ai/mist-ai-orgs-secintel-profiles-api/) — Sky ATP Secintel Profile
+- [Juniper Mist AI Orgs Security Policies API](https://apis.io/apis/mist-ai/mist-ai-orgs-security-policies-api/) — Security Policy is designed to audit / catch discrepancies between "what's intended to be running" versus "what's actually running" in a network. Many big…
+- [Juniper Mist AI Orgs Service Policies API](https://apis.io/apis/mist-ai/mist-ai-orgs-service-policies-api/) — Services Policies are a security policy that defines who can access applications, they are used to control access to applications and ensure proper traffic…
+- [Juniper Mist AI Orgs Services API](https://apis.io/apis/mist-ai/mist-ai-orgs-services-api/) — A Service refers to the applications that network users will connect to. These applications represent traffic destinations and are essential for defining…
+- [Juniper Mist AI Orgs Setting API](https://apis.io/apis/mist-ai/mist-ai-orgs-setting-api/) — API Calls to manage the Mist Organization Settings
+- [Juniper Mist AI Orgs Site Templates API](https://apis.io/apis/mist-ai/mist-ai-orgs-site-templates-api/) — Site templates are pre-configured sets of attributes and settings that can be applied to one or more sites in a Mist Organization. These templates allow for…
+- [Juniper Mist AI Orgs Sitegroups API](https://apis.io/apis/mist-ai/mist-ai-orgs-sitegroups-api/) — Site groups are a group of sites under the same Org. It's many-to-many mapping to sites
+- [Juniper Mist AI Orgs Sites API](https://apis.io/apis/mist-ai/mist-ai-orgs-sites-api/) — API Calls to Create or Get the Organization Sites. Use the [Site…
+- [Juniper Mist AI Orgs SLEs API](https://apis.io/apis/mist-ai/mist-ai-orgs-sles-api/) — Org SLEs, or Service-Level Expectations, are metrics used to monitor and report on the user experience of a Wireless, Wired or Wan network. They are…
+- [Juniper Mist AI Orgs SSO API](https://apis.io/apis/mist-ai/mist-ai-orgs-sso-api/) — Org SSO, or Single Sign-On, is a method of authentication that allows users to securely log in to multiple applications and websites with a single set of…
+- [Juniper Mist AI Orgs SSO Roles API](https://apis.io/apis/mist-ai/mist-ai-orgs-sso-roles-api/) — SSO roles refer to the different functions assigned to users within a Single Sign-On (SSO) system. These roles determine the tasks and actions that users…
+- [Juniper Mist AI Orgs Stats API](https://apis.io/apis/mist-ai/mist-ai-orgs-stats-api/) — API Calls to retrieve statistics about the Mist Org and related items
+- [Juniper Mist AI Orgs Stats - Assets API](https://apis.io/apis/mist-ai/mist-ai-orgs-stats-assets-api/) — API Calls to retrieve statistics about the Assets at the Org level
+- [Juniper Mist AI Orgs Stats - BGP Peers API](https://apis.io/apis/mist-ai/mist-ai-orgs-stats-bgp-peers-api/) — API Calls to retrieve statistics about the BGP Peers (WAN Assurance)
+- [Juniper Mist AI Orgs Stats - Devices API](https://apis.io/apis/mist-ai/mist-ai-orgs-stats-devices-api/) — API Calls to retrieve statistics about the Mist Managed and Monitored Devices at the Org level By default, the API call only returns a subset of the…
+- [Juniper Mist AI Orgs Stats - MxEdges API](https://apis.io/apis/mist-ai/mist-ai-orgs-stats-mxedges-api/) — API Calls to retrieve statistics about the Mist Edges at the Org level
+- [Juniper Mist AI Orgs Stats - Ospf API](https://apis.io/apis/mist-ai/mist-ai-orgs-stats-ospf-api/) — API Calls to retrieve statistics about OSPF peers at the Org level
+- [Juniper Mist AI Orgs Stats - Other Devices API](https://apis.io/apis/mist-ai/mist-ai-orgs-stats-other-devices-api/) — API Calls to retrieve statistics about the Other/3rd party devices at the Org level
+- [Juniper Mist AI Orgs Stats - Ports API](https://apis.io/apis/mist-ai/mist-ai-orgs-stats-ports-api/) — API Calls to retrieve statistics about the Wired Ports at the Org level
+- [Juniper Mist AI Orgs Stats - Sites API](https://apis.io/apis/mist-ai/mist-ai-orgs-stats-sites-api/) — API Calls to retrieve statistics about the Organization Sites
+- [Juniper Mist AI Orgs Stats - Tunnels API](https://apis.io/apis/mist-ai/mist-ai-orgs-stats-tunnels-api/) — API Calls to retrieve statistics about the Mist Tunnels at the Org level
+- [Juniper Mist AI Orgs Stats - VPN Peers API](https://apis.io/apis/mist-ai/mist-ai-orgs-stats-vpn-peers-api/) — API Calls to retrieve statistics about the VPN Peers (WAN Assurance)
+- [Juniper Mist AI Orgs Tickets API](https://apis.io/apis/mist-ai/mist-ai-orgs-tickets-api/) — Support tickets are a means for users to seek assistance and resolve issues they encounter with a product or service. They allow users to communicate their…
+- [Juniper Mist AI Orgs UI Settings API](https://apis.io/apis/mist-ai/mist-ai-orgs-ui-settings-api/) — The Org UI Settings are used to configure the MArvis dashboards
+- [Juniper Mist AI Orgs User MACs API](https://apis.io/apis/mist-ai/mist-ai-orgs-user-macs-api/) — NAC User MACs (Endpoints) provide a database of endpoints identified by their MAC addresses. They can be used assign each endpoint with various attributes,…
+- [Juniper Mist AI Orgs Vars API](https://apis.io/apis/mist-ai/mist-ai-orgs-vars-api/) — Vars endpoints are used to retrieve the list of Site Variables across all the Sites.
+- [Juniper Mist AI Orgs VPNs API](https://apis.io/apis/mist-ai/mist-ai-orgs-vpns-api/) — VPNs endpoints are used to create the WAN Assurance Overlay configuration between a Hub and one or multiple WAN Edge Gateways. When configuring the Hub and…
+- [Juniper Mist AI Orgs Webhooks API](https://apis.io/apis/mist-ai/mist-ai-orgs-webhooks-api/) — An Org Webhook is a configuration that allows real-time events and data from the Org to be pushed to a provided url. It enables the collection of…
+- [Juniper Mist AI Orgs WLAN Templates API](https://apis.io/apis/mist-ai/mist-ai-orgs-wlan-templates-api/) — A WLAN template is a collection of WLAN policies, Tunneling Policies, and WxLAN policies. It is used for creating and managing WLAN configurations at an…
+- [Juniper Mist AI Orgs Wlans API](https://apis.io/apis/mist-ai/mist-ai-orgs-wlans-api/) — An Org Wlan is a wireless local area network that is configured at the Org level and applied to a WLAN template. It allows for the creation and management…
+- [Juniper Mist AI Orgs WxRules API](https://apis.io/apis/mist-ai/mist-ai-orgs-wxrules-api/) — ORg WxRules are a set of rules, restrictions, and settings that can be applied to WLANs within a specific WLAN Template. These policies determine how the…
+- [Juniper Mist AI Orgs WxTags API](https://apis.io/apis/mist-ai/mist-ai-orgs-wxtags-api/) — Wxtags are tags or groups that can be created and used within the Org. They are used to classify users and resources and can be applied to Access Points,…
+- [Juniper Mist AI Orgs WxTunnels API](https://apis.io/apis/mist-ai/mist-ai-orgs-wxtunnels-api/) — A WxLan Tunnel (WxTunnel) are used to create a secure connection between Juniper Mist Access Points and third-party VPN concentrators using protocols such…
+- [Juniper Mist AI Self Account API](https://apis.io/apis/mist-ai/mist-ai-self-account-api/) — API calls related to the currently connected user account.
+- [Juniper Mist AI Self Alarms API](https://apis.io/apis/mist-ai/mist-ai-self-alarms-api/) — API calls related to the alarm subscriptions for the currently connected user account.
+- [Juniper Mist AI Self API Token API](https://apis.io/apis/mist-ai/mist-ai-self-api-token-api/) — Like many other API providers, it's also possible to generate API Tokens to be used (in HTTP Header) for authentication. An API token ties to a Admin with…
+- [Juniper Mist AI Self Audit Logs API](https://apis.io/apis/mist-ai/mist-ai-self-audit-logs-api/) — API calls related to the audit logs subscriptions for the currently connected user account.
+- [Juniper Mist AI Self MFA API](https://apis.io/apis/mist-ai/mist-ai-self-mfa-api/) — API calls related to Two Factor Authentication for the currently connected user account.
+- [Juniper Mist AI Self OAuth2 API](https://apis.io/apis/mist-ai/mist-ai-self-oauth2-api/) — A Mist account can be linked to OAuth2 providers: 1. First, login with your Mist account 2. Obtain the Authorization URL for Linking 3. Obtain the…
+- [Juniper Mist AI Sites Advanced Anti Malware Profiles API](https://apis.io/apis/mist-ai/mist-ai-sites-advanced-anti-malware-profiles-api/) — The API Endpoints for the Advanced Anti Malware Profiles at the site level can be used to get the site derived profiles, meaning the org level configuration…
+- [Juniper Mist AI Sites Alarms API](https://apis.io/apis/mist-ai/mist-ai-sites-alarms-api/) — Alarms are triggered based on certain events. Alarms could be configured using an [Orgs Alarm Template]($h/Orgs%20Alarm%20Templates/_overview).
+- [Juniper Mist AI Sites Anomaly API](https://apis.io/apis/mist-ai/mist-ai-sites-anomaly-api/) — The Sites Anomaly API from Juniper Mist AI — 3 operation(s) for sites anomaly.
+- [Juniper Mist AI Sites Antivirus Profiles API](https://apis.io/apis/mist-ai/mist-ai-sites-antivirus-profiles-api/) — The API Endpoints for the Antivirus Profiles at the site level can be used to get the site derived profiles, meaning the org level configuration with the…
+- [Juniper Mist AI Sites AP Templates API](https://apis.io/apis/mist-ai/mist-ai-sites-ap-templates-api/) — AP Templates are defining Wi-Fi and AP settings that can be assigned to Access Points based on different types of rules. Site AP Templates are created and…
+- [Juniper Mist AI Sites API](https://apis.io/apis/mist-ai/mist-ai-sites-api/) — A site represents a project, a deployment. For MSP, it can be as small as a coffee shop or a five-star 600-room hotel. A site contains a set of Maps, Wlans,…
+- [Juniper Mist AI Sites Applications API](https://apis.io/apis/mist-ai/mist-ai-sites-applications-api/) — Applications contains a list of applications users are interested in monitoring / routing / policing
+- [Juniper Mist AI Sites Asset Filters API](https://apis.io/apis/mist-ai/mist-ai-sites-asset-filters-api/) — An Asset Filter is a feature that allows users to define specific criteria or conditions to filter and display only certain assets based on their attributes…
+- [Juniper Mist AI Sites Assets API](https://apis.io/apis/mist-ai/mist-ai-sites-assets-api/) — An Asset refers to any equipment or item that is being tracked and monitored using Bluetooth Low Energy (BLE) beacon tags. This requires the Asset…
+- [Juniper Mist AI Sites Auto Map Assignment API](https://apis.io/apis/mist-ai/mist-ai-sites-auto-map-assignment-api/) — Auto Map Assignment allows devices to be automatically assigned to maps based on their location data. These API calls can be used to manage, apply, and…
+- [Juniper Mist AI Sites Beacons API](https://apis.io/apis/mist-ai/mist-ai-sites-beacons-api/) — The Sites Beacons API from Juniper Mist AI — 2 operation(s) for sites beacons.
+- [Juniper Mist AI Sites Clients - NAC API](https://apis.io/apis/mist-ai/mist-ai-sites-clients-nac-api/) — NAC Clients are devices connected to the network and authenticated by Juniper Mist Access Assurance.
+- [Juniper Mist AI Sites Clients - Wan API](https://apis.io/apis/mist-ai/mist-ai-sites-clients-wan-api/) — WAN Clients are devices connected to a Juniper SRX or SSX gateway monitor or managed by Mist
+- [Juniper Mist AI Sites Clients - Wired API](https://apis.io/apis/mist-ai/mist-ai-sites-clients-wired-api/) — Wired Clients are Wired devices connected to a Juniper switch monitored or managed by Mist.
+- [Juniper Mist AI Sites Clients - Wireless API](https://apis.io/apis/mist-ai/mist-ai-sites-clients-wireless-api/) — Wireless Clients are Wi-Fi devices connected to a Juniper Mist Access Point.
+- [Juniper Mist AI Sites Device Profiles API](https://apis.io/apis/mist-ai/mist-ai-sites-device-profiles-api/) — The API Endpoints for the Device Profiles at the site level can be used to get the site derived networks, meaning the org level configuration with the site…
+- [Juniper Mist AI Sites Devices API](https://apis.io/apis/mist-ai/mist-ai-sites-devices-api/) — Mist provides many ways (device_type specific template, site template, device profile, per-device) to configure devices for different kind of scenarios. The…
+- [Juniper Mist AI Sites Devices - Others API](https://apis.io/apis/mist-ai/mist-ai-sites-devices-others-api/) — API Call for 3rd party devices
+- [Juniper Mist AI Sites Devices - WAN Cluster API](https://apis.io/apis/mist-ai/mist-ai-sites-devices-wan-cluster-api/) — API Calls specific to manage (form/delete) the SRX/SSR Clusters
+- [Juniper Mist AI Sites Devices - Wired API](https://apis.io/apis/mist-ai/mist-ai-sites-devices-wired-api/) — API Calls specific to the Juniper Switches managed by Mist
+- [Juniper Mist AI Sites Devices - Wired - Virtual Chassis API](https://apis.io/apis/mist-ai/mist-ai-sites-devices-wired-virtual-chassis-api/) — API Calls specific to the Juniper Switches Virtual Chassis managed by Mist
+- [Juniper Mist AI Sites Devices - Wireless API](https://apis.io/apis/mist-ai/mist-ai-sites-devices-wireless-api/) — API Calls specific to the Mist Access Points
+- [Juniper Mist AI Sites Events API](https://apis.io/apis/mist-ai/mist-ai-sites-events-api/) — Site events are issues or incidents that affect site-assigned access points (aps) and radius, dhcp, and dns servers. They can be investigated and monitored…
+- [Juniper Mist AI Sites EVPN Topologies API](https://apis.io/apis/mist-ai/mist-ai-sites-evpn-topologies-api/) — EVPN allows an alternative but more efficient LAN architecture utilizing VxLAN / MP-BGP - separating control plane (MAC / IP Learning) from forwarding…
+- [Juniper Mist AI Sites Gateway Templates API](https://apis.io/apis/mist-ai/mist-ai-sites-gateway-templates-api/) — The API Endpoints for the Gateway Templates at the site level can be used to get the site derived networks, meaning the org level configuration with the…
+- [Juniper Mist AI Sites Guests API](https://apis.io/apis/mist-ai/mist-ai-sites-guests-api/) — Guests are users who are accessing the wi-fi network as a temporary or non-permanent visitor.
+- [Juniper Mist AI Sites IDP Profiles API](https://apis.io/apis/mist-ai/mist-ai-sites-idp-profiles-api/) — The API Endpoints for the IDP Profiles at the site level can be used to get the site derived profiles, meaning the org level configuration with the site…
+- [Juniper Mist AI Sites Insights API](https://apis.io/apis/mist-ai/mist-ai-sites-insights-api/) — Insights is a feature that provides an overview of network experience across the entire site, access points, or clients. It offers useful information about…
+- [Juniper Mist AI Sites JSE API](https://apis.io/apis/mist-ai/mist-ai-sites-jse-api/) — JSE stands for Juniper Secure Edge and it is a feature within the Mist UI that allows customers to configure Secure Cloud Connectors. With JSE, users can…
+- [Juniper Mist AI Sites Licenses API](https://apis.io/apis/mist-ai/mist-ai-sites-licenses-api/) — The API Endpoints for the Licenses at the site level can be used to get license usages for a specific site.
+- [Juniper Mist AI Sites Location API](https://apis.io/apis/mist-ai/mist-ai-sites-location-api/) — The Location Diagnostics allows users to retrieve and analyze coverage and performance data for mist access points (aps) and devices.
+- [Juniper Mist AI Sites Map Stacks API](https://apis.io/apis/mist-ai/mist-ai-sites-map-stacks-api/) — Map Stacks are a way to group multiple maps together within a site, typically representing different floors or levels in a building. Map Stacks help…
+- [Juniper Mist AI Sites Maps API](https://apis.io/apis/mist-ai/mist-ai-sites-maps-api/) — A Site Map is a visual representation of the layout and structure of a location, such as a building or campus. It includes accurate information about the…
+- [Juniper Mist AI Sites Maps - Auto-placement API](https://apis.io/apis/mist-ai/mist-ai-sites-maps-auto-placement-api/) — ### AP Auto-Placement AP Auto-Placement is a feature in Juniper Mist wireless assurance that automatically determines and sets the positions of Access…
+- [Juniper Mist AI Sites Maps - Auto-Zone API](https://apis.io/apis/mist-ai/mist-ai-sites-maps-auto-zone-api/) — The auto zones service is a map parsing service that uses map image data to suggest spaces to designate as location zones.
+- [Juniper Mist AI Sites MxEdges API](https://apis.io/apis/mist-ai/mist-ai-sites-mxedges-api/) — MxEdges (Mist Edges) at the site level are deployed to tunnel traffic at each site due to network constraints or security concerns. They can be assigned to…
+- [Juniper Mist AI Sites NAC Fingerprints API](https://apis.io/apis/mist-ai/mist-ai-sites-nac-fingerprints-api/) — The NAC IDP allows users to integrate with various Identity Providers (IDPs) to enhance authentication and access control. Admins can configure identity…
+- [Juniper Mist AI Sites Network Templates API](https://apis.io/apis/mist-ai/mist-ai-sites-network-templates-api/) — The API Endpoints for the Network Templates at the site level can be used to get the site derived networks, meaning the org level configuration with the…
+- [Juniper Mist AI Sites Networks API](https://apis.io/apis/mist-ai/mist-ai-sites-networks-api/) — The API Endpoints for the Networks at the site level can be used to get the site derived networks, meaning the org level configuration with the site…
+- [Juniper Mist AI Sites Psks API](https://apis.io/apis/mist-ai/mist-ai-sites-psks-api/) — A multi PSK (Pre-Shared Key) is a feature that allows the use of multiple PSKs for securing network connections. It provides a simple and comprehensive way…
+- [Juniper Mist AI Sites RF Templates API](https://apis.io/apis/mist-ai/mist-ai-sites-rf-templates-api/) — The API Endpoints for the RF Templates at the site level can be used to get the site derived configuration, meaning the org level configuration with the…
+- [Juniper Mist AI Sites Rfdiags API](https://apis.io/apis/mist-ai/mist-ai-sites-rfdiags-api/) — Rf Diags is a feature in Juniper Mist location services that allows users to replay recorded sessions of the RF (radio frequency) environment. It enables…
+- [Juniper Mist AI Sites Rogues API](https://apis.io/apis/mist-ai/mist-ai-sites-rogues-api/) — Rogues are unauthorized wireless access points that are installed on a network without authorization. They can be connected to the LAN via an ethernet…
+- [Juniper Mist AI Sites RRM API](https://apis.io/apis/mist-ai/mist-ai-sites-rrm-api/) — RRM, or Radio Resource Management, is a tool used by large multi-site organizations to efficiently manage their RF spectrum. It involves making decisions on…
+- [Juniper Mist AI Sites RSSI Zones API](https://apis.io/apis/mist-ai/mist-ai-sites-rssi-zones-api/) — RSSI Zones are zones based on the RSSI (Received Signal Strength Indicator, i.e. the power of the signal received by the Access Points from the Wireless…
+- [Juniper Mist AI Sites SecIntel Profiles API](https://apis.io/apis/mist-ai/mist-ai-sites-secintel-profiles-api/) — Sky ATP Secintel Profile
+- [Juniper Mist AI Sites Service Policies API](https://apis.io/apis/mist-ai/mist-ai-sites-service-policies-api/) — The API Endpoints for the Service Policies at the site level can be used to get the site derived configuration, meaning the merge between the site level…
+- [Juniper Mist AI Sites Services API](https://apis.io/apis/mist-ai/mist-ai-sites-services-api/) — A Service represents an a traffic destination or an application that network users connect to. They are associated with users and networks and are used in…
+- [Juniper Mist AI Sites Setting API](https://apis.io/apis/mist-ai/mist-ai-sites-setting-api/) — Site settings refer to the configuration and management of of site within a Mist Organization. These settings include access point settings, firmware…
+- [Juniper Mist AI Sites Site Templates API](https://apis.io/apis/mist-ai/mist-ai-sites-site-templates-api/) — The API Endpoints for the Site Templates at the site level can be used to get the site derived configuration, meaning the org level configuration with the…
+- [Juniper Mist AI Sites Skyatp API](https://apis.io/apis/mist-ai/mist-ai-sites-skyatp-api/) — SkyATP is a cloud-based solution that provides advanced threat protection for network security. It allows security analysts to update their defense against…
+- [Juniper Mist AI Sites SLEs API](https://apis.io/apis/mist-ai/mist-ai-sites-sles-api/) — Site SLEs, or Service-Level Expectations, are metrics used to monitor and report on the user experience of a Wireless, Wired or Wan network. They are…
+- [Juniper Mist AI Sites Spectrum Analysis API](https://apis.io/apis/mist-ai/mist-ai-sites-spectrum-analysis-api/) — The Spectrum Analysis feature provides insights into the radio frequency environment, helping to identify interference and optimize wireless network…
+- [Juniper Mist AI Sites Stats API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-api/) — The stats are providing access to raw data about a specific type of entities.
+- [Juniper Mist AI Sites Stats - Apps API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-apps-api/) — API Calls to retrieve the stats of the Applications used on side
+- [Juniper Mist AI Sites Stats - Assets API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-assets-api/) — The Sites Stats - Assets API from Juniper Mist AI — 7 operation(s) for sites stats - assets.
+- [Juniper Mist AI Sites Stats - Beacons API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-beacons-api/) — The Sites Stats - Beacons API from Juniper Mist AI — 1 operation(s) for sites stats - beacons.
+- [Juniper Mist AI Sites Stats - BGP Peers API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-bgp-peers-api/) — API Calls to retrieve BGP Peers statistics of the Site Wen Edge Gateways at the Site level
+- [Juniper Mist AI Sites Stats - Calls API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-calls-api/) — API Calls to retrieve the stats of the calls (Zoom/Teams) detected by Mist
+- [Juniper Mist AI Sites Stats - Clients SDK API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-clients-sdk-api/) — SDK Clients are devices that have installed an application using the Mist Software Development Kit (SDK). These clients can provide specific data and…
+- [Juniper Mist AI Sites Stats - Clients Wireless API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-clients-wireless-api/) — API Calls to retrieve the stats of the wireless clients detected (connected or not connected) on this site.
+- [Juniper Mist AI Sites Stats - Devices API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-devices-api/) — API Calls to retrieve statistics about the Mist Managed and Monitored Devices at the Site level
+- [Juniper Mist AI Sites Stats - Discovered Switches API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-discovered-switches-api/) — API Calls to retrieve statistics about the Discovered Switches at the Site level
+- [Juniper Mist AI Sites Stats - IoT Endpoints API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-iot-endpoints-api/) — API Calls to retrieve IoT Endpoint statistics for the current Site
+- [Juniper Mist AI Sites Stats - MxEdges API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-mxedges-api/) — API Calls to retrieve statistics about the Mist Edges at the Site level
+- [Juniper Mist AI Sites Stats - Ospf API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-ospf-api/) — API Calls to retrieve statistics about OSPF peers at the Site level
+- [Juniper Mist AI Sites Stats - Ports API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-ports-api/) — API Calls to retrieve statistics about the Wired Ports at the Site level
+- [Juniper Mist AI Sites Stats - WxRules API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-wxrules-api/) — API Calls to retrieve WxRules statistics for the current Site
+- [Juniper Mist AI Sites Stats - Zones API](https://apis.io/apis/mist-ai/mist-ai-sites-stats-zones-api/) — API Calls to retrieve Zones statistics for the current Site
+- [Juniper Mist AI Sites Synthetic Tests API](https://apis.io/apis/mist-ai/mist-ai-sites-synthetic-tests-api/) — Synthetic Tests (Marvis Minis) are a feature of Juniper Networks' Mist platform, designed to proactively identify and resolve network issues before they…
+- [Juniper Mist AI Sites UI Settings API](https://apis.io/apis/mist-ai/mist-ai-sites-ui-settings-api/) — The Site UI Settings are used to configure the site Network and Analytics reports
+- [Juniper Mist AI Sites vBeacons API](https://apis.io/apis/mist-ai/mist-ai-sites-vbeacons-api/) — A vBeacon is a virtual beacon that is created and configured on a floorplan and are configured with a name and message It is a Mist patented technology that…
+- [Juniper Mist AI Sites VPNs API](https://apis.io/apis/mist-ai/mist-ai-sites-vpns-api/) — API Calls to retrieve the list of Org VPNs configuration available for the Site
+- [Juniper Mist AI Sites WAN Usages API](https://apis.io/apis/mist-ai/mist-ai-sites-wan-usages-api/) — API Calls to retrieve WAN Assurance statistics about the WAN Usage
+- [Juniper Mist AI Sites Webhooks API](https://apis.io/apis/mist-ai/mist-ai-sites-webhooks-api/) — A Site Webhook is a configuration that allows real-time events and data from a specific site to be pushed to a provided url. It enables the collection of…
+- [Juniper Mist AI Sites Wlans API](https://apis.io/apis/mist-ai/mist-ai-sites-wlans-api/) — A Site Wlan is a wireless local area network that is configured and applied to a specific site within an organization. It allows for the creation and…
+- [Juniper Mist AI Sites WxRules API](https://apis.io/apis/mist-ai/mist-ai-sites-wxrules-api/) — Site WxRules are a set of rules, restrictions, and settings that can be applied to WLANs within a specific site. These policies determine how the devices…
+- [Juniper Mist AI Sites WxTags API](https://apis.io/apis/mist-ai/mist-ai-sites-wxtags-api/) — Wxtags are tags or groups that can be created and used within a specific site. They are used to classify users and resources and can be applied to Access…
+- [Juniper Mist AI Sites WxTunnels API](https://apis.io/apis/mist-ai/mist-ai-sites-wxtunnels-api/) — A WxLan Tunnel (WxTunnel) are used to create a secure connection between Juniper Mist Access Points and third-party VPN concentrators using protocols such…
+- [Juniper Mist AI Sites Zones API](https://apis.io/apis/mist-ai/mist-ai-sites-zones-api/) — A Zone is a custom area defined by a user on a floor plan. Zones can be used for capturing entry and exit events of clients, assets, and sdk clients,…
+- [Juniper Mist AI Utilities Common API](https://apis.io/apis/mist-ai/mist-ai-utilities-common-api/) — API Calls to use Devices Troubleshooting tools. Some API Calls can be used with any type of devices (Access Points, Switches and Gateways), and some others…
+- [Juniper Mist AI Utilities LAN API](https://apis.io/apis/mist-ai/mist-ai-utilities-lan-api/) — API Calls to use Devices Troubleshooting tools specific to Wired Assurance
+- [Juniper Mist AI Utilities Location API](https://apis.io/apis/mist-ai/mist-ai-utilities-location-api/) — API Calls to use Devices Troubleshooting tools specific to Asset Tracking and User Management
+- [Juniper Mist AI Utilities MxEdge API](https://apis.io/apis/mist-ai/mist-ai-utilities-mxedge-api/) — API Calls to use Devices Troubleshooting tools specific to Mx Edges
+- [Juniper Mist AI Utilities PCAPs API](https://apis.io/apis/mist-ai/mist-ai-utilities-pcaps-api/) — API Calls to start, stop or managed Packet Captures at the device level
+- [Juniper Mist AI Utilities Upgrade API](https://apis.io/apis/mist-ai/mist-ai-utilities-upgrade-api/) — API Calls used to manage device upgrades for a single device, at the site level or at the organization level.
+- [Juniper Mist AI Utilities WAN API](https://apis.io/apis/mist-ai/mist-ai-utilities-wan-api/) — API Calls to use Devices Troubleshooting tools specific to WAN Assurance
+- [Juniper Mist AI Utilities Wi-Fi API](https://apis.io/apis/mist-ai/mist-ai-utilities-wi-fi-api/) — API Calls to use Devices Troubleshooting tools specific to Wireless Assurance
+- [Juniper Mist AI Mist API](https://apis.io/apis/mist-ai/mist-ai-mist-api-api/) — The Mist API API from Juniper Mist AI — 0 operation(s) for mist api.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-25T00:00:00.000Z
-- **Modified:** 2026-05-25
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Juniper Mist Cloud API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-The Juniper Mist Cloud API is a comprehensive REST API exposing the entire Mist AI-driven enterprise networking platform — MSPs, Organizations, Sites, Access Points, Switches, SSRs/SRX gateways, WLANs, WxLANs, RFTemplates, NACTags, PSKs, Webhooks, Marvis, SLEs, Alarms, Locations, Maps, Zones, Beacons, Assets, Clients, Guests, Inventory, Licenses, PCAPs, Stats, Insights, RRM, and Constants. 736 paths, 2832 schemas, 209 tag groups. Three authentication schemes (API token, basic auth, CSRF token) and 13 regional cloud endpoints spanning Global, EMEA, APAC. Versioning uses AABB.C.D (year/month/release/patch); current 2604.1.1.
+- [Mist Ai Agentic Access](https://apis.io/agentic-access/mist-ai/mist-ai-agentic-access/)
 
-- **Human URL:** [https://www.juniper.net/documentation/us/en/software/mist/api/http/getting-started/how-to-get-started](https://www.juniper.net/documentation/us/en/software/mist/api/http/getting-started/how-to-get-started)
-- **Base URL:** `https://api.mist.com/api/v1`
+#### Collections (210)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Networking
-- Wi-Fi
-- WAN
-- Wired
-- AIOps
-- Marvis
-- Access Points
-- Switches
-- Organizations
-- Sites
-- MSP
+- [Mist API](https://apis.io/collections/mist-ai/open-mist-ai/)
+- [Mist Admins API](https://apis.io/collections/mist-ai/open-mist-ai-admins-api/)
+- [Mist Admins Admins Login API](https://apis.io/collections/mist-ai/open-mist-ai-admins-login-api/)
+- [Mist Admins Admins Login - OAuth2 API](https://apis.io/collections/mist-ai/open-mist-ai-admins-login-oauth2-api/)
+- [Mist Admins Admins Logout API](https://apis.io/collections/mist-ai/open-mist-ai-admins-logout-api/)
+- [Mist Admins Admins Lookup API](https://apis.io/collections/mist-ai/open-mist-ai-admins-lookup-api/)
+- [Mist Admins Admins Recover Password API](https://apis.io/collections/mist-ai/open-mist-ai-admins-recover-password-api/)
+- [Mist Admins Constants Definitions API](https://apis.io/collections/mist-ai/open-mist-ai-constants-definitions-api/)
+- [Mist Admins Constants Events API](https://apis.io/collections/mist-ai/open-mist-ai-constants-events-api/)
+- [Mist Admins Constants Models API](https://apis.io/collections/mist-ai/open-mist-ai-constants-models-api/)
+- [Mist Admins Installer API](https://apis.io/collections/mist-ai/open-mist-ai-installer-api/)
+- [Mist Admins MSPs Admins API](https://apis.io/collections/mist-ai/open-mist-ai-msps-admins-api/)
+- [Mist Admins MSPs API](https://apis.io/collections/mist-ai/open-mist-ai-msps-api/)
+- [Mist Admins MSPs Inventory API](https://apis.io/collections/mist-ai/open-mist-ai-msps-inventory-api/)
+- [Mist Admins MSPs Licenses API](https://apis.io/collections/mist-ai/open-mist-ai-msps-licenses-api/)
+- [Mist Admins MSPs Logo API](https://apis.io/collections/mist-ai/open-mist-ai-msps-logo-api/)
+- [Mist Admins MSPs Logs API](https://apis.io/collections/mist-ai/open-mist-ai-msps-logs-api/)
+- [Mist Admins MSPs Marvis API](https://apis.io/collections/mist-ai/open-mist-ai-msps-marvis-api/)
+- [Mist Admins MSPs Org Groups API](https://apis.io/collections/mist-ai/open-mist-ai-msps-org-groups-api/)
+- [Mist Admins MSPs Orgs API](https://apis.io/collections/mist-ai/open-mist-ai-msps-orgs-api/)
+- [Mist Admins MSPs SLEs API](https://apis.io/collections/mist-ai/open-mist-ai-msps-sles-api/)
+- [Mist Admins MSPs SSO API](https://apis.io/collections/mist-ai/open-mist-ai-msps-sso-api/)
+- [Mist Admins MSPs SSO Roles API](https://apis.io/collections/mist-ai/open-mist-ai-msps-sso-roles-api/)
+- [Mist Admins MSPs Tickets API](https://apis.io/collections/mist-ai/open-mist-ai-msps-tickets-api/)
+- [Mist Admins Orgs Admins API](https://apis.io/collections/mist-ai/open-mist-ai-orgs-admins-api/)
+- …and 185 more published on APIs.io
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://www.juniper.net/documentation/us/en/software/mist/api/http/getting-started/how-to-get-started)
-- [Documentation](https://www.juniper.net/documentation/us/en/software/mist/api/http/api/)
-- [OpenAPI](openapi/mist-ai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/mist-ai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mist-ai.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Source Code](https://github.com/mistsys/mist_openapi)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Juniper Mist WebSocket Streaming API
+- [Mist Ai Authentication](https://apis.io/security/mist-ai/mist-ai-authentication/)
+- [Mist Ai Domain Security](https://apis.io/security/mist-ai/mist-ai-domain-security/)
 
-Mist exposes a WebSocket channel for real-time event subscriptions including device events, location updates, presence, RSSI, stats, and Marvis events. Clients authenticate with an API token and subscribe to one or more channels scoped to an organization or site. Used to drive live dashboards, location services, and event-driven automation without polling REST.
+## Where to find this API
 
-- **Human URL:** [https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/websockets/getting-started](https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/websockets/getting-started)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Networking
-- WebSocket
-- Streaming
-- Real-Time
-- Telemetry
-
-#### Properties
-
-- [Documentation](https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/websockets/getting-started)
-- [Code Examples](https://github.com/Mist-Automation-Programmability/mist_websocket_examples)
-- [Postman Collection](collections/mist-ai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mist-ai.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Juniper Mist Webhooks API
-
-Mist Webhooks deliver outbound HTTP POST notifications for events at the Organization or Site scope. Supported topics include audits, alarms, device events, client join/disconnect/sessions, Zone enter/exit (location), occupancy, RSSI/SDK clients, and Marvis Actions. Webhooks can be configured per-topic with HTTPS targets and optional secret for signature verification.
-
-- **Human URL:** [https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/webhooks/topics](https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/webhooks/topics)
-
-#### Tags
-
-- Networking
-- Webhooks
-- Events
-- Notifications
-
-#### Properties
-
-- [Documentation](https://www.juniper.net/documentation/us/en/software/mist/api/http/guides/webhooks/topics)
-- [Code Examples](https://github.com/Mist-Automation-Programmability/mist_webhook_monitor)
-- [Code Examples](https://github.com/Mist-Automation-Programmability/mist_webhook_translator)
-- [Code Examples](https://github.com/Mist-Automation-Programmability/mist_lambda_webhook)
-- [Postman Collection](collections/mist-ai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mist-ai.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Portal](https://www.mist.com/)
-- [Portal](https://www.juniper.net/us/en/solutions/ai-driven-enterprise.html)
+- [Website](https://www.juniper.net/)
 - [Documentation](https://www.juniper.net/documentation/product/us/en/mist/)
-- [Documentation](https://www.juniper.net/documentation/us/en/software/mist/api/http/api/)
-- [Getting Started](https://www.juniper.net/documentation/us/en/software/mist/api/http/getting-started/how-to-get-started)
-- [Status Page](https://status.mist.com/)
+- [Getting started](https://www.juniper.net/documentation/us/en/software/mist/api/http/getting-started/how-to-get-started)
 - [Support](https://www.mist.com/support/)
-- [Documentation](https://www.juniper.net/documentation/us/en/software/mist/mist-wireless/index.html)
-- [Documentation](https://www.juniper.net/documentation/us/en/software/mist/mist-wired/index.html)
-- [Documentation](https://www.juniper.net/documentation/us/en/software/mist/mist-wan-assurance/index.html)
-- [Documentation](https://www.juniper.net/documentation/us/en/software/mist/mist-access-assurance/index.html)
-- [Training](https://learningportal.juniper.net/juniper/user_activity_info.aspx?id=11584)
-- [Forum](https://community.juniper.net/communities/community-home?CommunityKey=eef41fa9-dd0c-4eaf-93b6-94f08a0bf09a)
-- [GitHub Organization](https://github.com/mistsys)
-- [GitHub Organization](https://github.com/Mist-Automation-Programmability)
-- [GitHub Organization](https://github.com/Juniper)
-- [Source Code](https://github.com/mistsys/mist_openapi)
-- [SDK](https://github.com/Juniper/terraform-provider-mist)
-- [SDK](https://github.com/Juniper/terraform-mist-modules)
-- [SDK](https://github.com/mistsys/mist-vble-ios-sdk)
-- [SDK](https://github.com/mistsys/mist-vble-android-sdk)
-- [Tool](https://github.com/Mist-Automation-Programmability/mist_browser_extension)
-- [Tool](https://github.com/Mist-Automation-Programmability/mist_psk)
-- [Tool](https://github.com/Mist-Automation-Programmability/mist_switch_operator)
-- [Tool](https://github.com/Mist-Automation-Programmability/mist_switch_converter)
-- [Code Examples](https://github.com/Mist-Automation-Programmability/Mist-API-Cookbook)
-- [Code Examples](https://github.com/Mist-Automation-Programmability/mist_websocket_examples)
-- [Terms of Service](https://www.juniper.net/us/en/legal-notices.html)
-- [Privacy Policy](https://www.juniper.net/us/en/privacy-policy.html)
-- [Blog](https://blogs.juniper.net/category/mist)
-- [LinkedIn](https://www.linkedin.com/showcase/juniper-mist-ai/)
-- [Twitter](https://twitter.com/JuniperNetworks)
-- [YouTube](https://www.youtube.com/c/MistSystemsInc)
 - [Changelog](https://github.com/mistsys/mist_openapi/blob/master/CHANGELOG.md)
-- [Documentation](https://www.juniper.net/documentation/us/en/software/mist/api/http/getting-started/regions)
-- [Features](undefined)
+- [Blog](https://blogs.juniper.net/category/mist)
+- [Terms of service](https://www.juniper.net/us/en/legal-notices.html)
+- [Privacy policy](https://www.juniper.net/us/en/privacy-policy.html)
+- [GitHub](https://github.com/mistsys)
+- [Status](https://status.mist.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** info@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 45.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 58.8 |
+| Contract governance | 0.0 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 66.7 |
+| Access clarity | 21.1 |
+
+**Agent readiness 30.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | verified |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 18.2** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/mist-ai/](https://apis.io/providers/mist-ai/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Juniper Mist AI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/mist-ai/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
